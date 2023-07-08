@@ -1,22 +1,22 @@
 ﻿#include "thprac_launcher_cfg.h"
+#include "..\..\resource.h"
 #include "thprac_gui_locale.h"
-#include "thprac_launcher_main.h"
 #include "thprac_launcher_games.h"
+#include "thprac_launcher_main.h"
 #include "thprac_launcher_utils.h"
 #include "thprac_licence.h"
-#include "thprac_version.h"
 #include "thprac_utils.h"
+#include "thprac_version.h"
 #include "utils/utils.h"
-#include "..\..\resource.h"
+#include <ShlObj.h>
 #include <Windows.h>
+#include <cstdarg>
+#include <format>
 #include <functional>
+#include <stdexcept>
 #include <string>
 #include <vector>
-#include <format>
-#include <cstdarg>
 #include <wininet.h>
-#include <ShlObj.h>
-#include <stdexcept>
 #pragma warning(push)
 #pragma warning(disable : 26819)
 #include <rapidjson/prettywriter.h>
@@ -24,7 +24,6 @@
 #pragma comment(lib, "wininet.lib")
 #include <shlwapi.h>
 #pragma comment(lib, "Shlwapi.lib")
-
 
 EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 
@@ -261,7 +260,8 @@ void LauncherSettingSet(const char* name, float& valueIn)
     JsonAddMember(settingsJson, name, valueIn, gCfgJson.GetAllocator());
     LauncherCfgWrite();
 }
-void LauncherSettingSet(const char* name, const char* valueIn) {
+void LauncherSettingSet(const char* name, const char* valueIn)
+{
     auto& settingsJson = GetCfgSettingsJson();
     if (settingsJson.HasMember(name)) {
         settingsJson.RemoveMember(name);
@@ -296,7 +296,7 @@ bool SetTheme(int themeId, const wchar_t* userThemeName)
 
     std::wstring filename = LauncherGetDataDir() + L"themes\\" + userThemeName;
     rapidjson::Document theme;
-    auto getColor = [&filename, &theme](const char *const colorName) -> ImVec4 {
+    auto getColor = [&filename, &theme](const char* const colorName) -> ImVec4 {
         using std::runtime_error, std::format;
 
         if (!theme.HasMember(colorName))
@@ -330,8 +330,7 @@ bool SetTheme(int themeId, const wchar_t* userThemeName)
             throw std::runtime_error("Invalid JSON (TODO: describe how)");
 
         ImVec4 colors[ImGuiCol_COUNT];
-        #define GET_COLOR(color) \
-            colors[ImGuiCol_ ## color] = getColor(#color);
+#define GET_COLOR(color) colors[ImGuiCol_##color] = getColor(#color);
 
         GET_COLOR(Text);
         GET_COLOR(TextDisabled);
@@ -387,7 +386,7 @@ bool SetTheme(int themeId, const wchar_t* userThemeName)
         GET_COLOR(NavWindowingDimBg);
         GET_COLOR(ModalWindowDimBg);
 
-        #undef GET_COLOR
+#undef GET_COLOR
         ImGuiStyle& style = ImGui::GetStyle();
         memcpy(style.Colors, colors, sizeof(colors));
     } catch (std::runtime_error err) {
@@ -481,8 +480,7 @@ class THCfgCheckboxEx : public THSetting<bool> {
 public:
     THCfgCheckboxEx(const char* _name, bool _value)
         : THSetting(_name, _value)
-    {
-    }
+    { }
     bool Gui(const char* guiTxt, const char* helpTxt = nullptr)
     {
         bool result = false;
@@ -507,8 +505,7 @@ class THCfgCheckbox : public THSetting<bool> {
 public:
     THCfgCheckbox(const char* _name, bool _value)
         : THSetting(_name, _value)
-    {
-    }
+    { }
     void Gui(const char* guiTxt, const char* helpTxt = nullptr)
     {
         if (ImGui::Checkbox(guiTxt, &value)) {
@@ -567,9 +564,7 @@ private:
 class THUpdate {
 private:
     THUpdate()
-    {
-
-    }
+    { }
     SINGLETON(THUpdate);
 
 public:
@@ -676,7 +671,7 @@ public:
 
         auto titleStr = utf8_to_utf16(S(THPRAC_UPDATE_DIALOG_CHECKING));
 #pragma warning(push) // TODO: make this less hacky
-#pragma warning(disable: 28183)
+#pragma warning(disable : 28183)
         SetWindowText(hDialog, titleStr.c_str());
 #pragma warning(pop)
         LONG_PTR style = GetWindowLongPtr(GetDlgItem(hDialog, IDC_PROGRESS1), GWL_STYLE);
@@ -976,7 +971,7 @@ private:
         // ----
 
         RtlGetVersion = (RtlGetVersion_type*)GetProcAddress(hNTDLL, "RtlGetVersion");
-        RTL_OSVERSIONINFOEXW ver_info = { 0 };
+        RTL_OSVERSIONINFOEXW ver_info = {0};
         ver_info.dwOSVersionInfoSize = sizeof(ver_info);
         RtlGetVersion(&ver_info);
 
@@ -1037,7 +1032,8 @@ private:
     }
 
     static DWORD DownloadSingleFile(
-        const wchar_t* url, std::vector<uint8_t>& out, std::function<void(DWORD, DWORD)> progressCallback = [](DWORD, DWORD) {})
+        const wchar_t* url, std::vector<uint8_t>& out, std::function<void(DWORD, DWORD)> progressCallback = [](DWORD, DWORD) {}
+    )
     {
         static HINTERNET hInternet = nullptr;
         DWORD byteRet = sizeof(DWORD);
@@ -1132,14 +1128,13 @@ private:
         WriteFile(localeFileHnd, newFile.data(), newFile.size(), &byteRet, nullptr);
 
         CloseHandle(localeFileHnd);
-        ShellExecuteW(nullptr, nullptr, localFileName.c_str(),
-            (std::wstring(L"--update-launcher-1 ") + exePathCstr).c_str(), tmpPath, SW_SHOW);
+        ShellExecuteW(nullptr, nullptr, localFileName.c_str(), (std::wstring(L"--update-launcher-1 ") + exePathCstr).c_str(), tmpPath, SW_SHOW);
         updObj.mAutoUpdStatus = STATUS_UPD_ABLE_OR_FINISHED;
         return 0;
     }
 
-    GuiThread mUpdateThread { THUpdate::CheckUpdateFunc };
-    GuiThread mAutoUpdateThread { THUpdate::AutoUpdateFunc };
+    GuiThread mUpdateThread{THUpdate::CheckUpdateFunc};
+    GuiThread mAutoUpdateThread{THUpdate::AutoUpdateFunc};
     ChkUpdateStatus mChkUpdStatus = STATUS_RSV;
     ChkUpdateStatus mAutoUpdStatus = STATUS_RSV;
     float mChkUpdHintTime = 0.0f;
@@ -1149,7 +1144,7 @@ private:
     std::string mUpdDirectLink;
     size_t mUpdFileSize = 0;
     float mUpdPercentage = 0.0f;
-    GuiThread mUpdDialogThread { THUpdate::UpdateDialogCtrlFunc };
+    GuiThread mUpdDialogThread{THUpdate::UpdateDialogCtrlFunc};
     HWND mUpdDialogHnd = nullptr;
     bool mInterruptSignal = false;
 };
@@ -1163,7 +1158,6 @@ private:
         for (auto& game : gGameRoll) {
             mThcrapGames[game.type].push_back(game);
         }
-
     }
     SINGLETON(THCfgGui);
 
@@ -1562,17 +1556,16 @@ private:
                 mThcrapAddPromptTime = 2.0f;
                 if (!cfgSize) {
                     mThcrapAddPrompt = S(THPRAC_THCRAP_ADDCFG_NOCFG);
-                    mThcrapAddPromptCol = { 0.8f, 0.0f, 0.0f, 1.0f };
+                    mThcrapAddPromptCol = {0.8f, 0.0f, 0.0f, 1.0f};
                 } else if (!gameSize) {
                     mThcrapAddPrompt = S(THPRAC_THCRAP_ADDCFG_NOGAME);
-                    mThcrapAddPromptCol = { 0.8f, 0.0f, 0.0f, 1.0f };
+                    mThcrapAddPromptCol = {0.8f, 0.0f, 0.0f, 1.0f};
                 } else {
                     mThcrapAddPrompt = S(THPRAC_THCRAP_ADDCFG_SUCCESS);
-                    mThcrapAddPromptCol = { 0.0f, 0.75f, 0.0f, 1.0f };
+                    mThcrapAddPromptCol = {0.0f, 0.75f, 0.0f, 1.0f};
                 }
             }
         }
-
 
         ImGui::EndChild();
     }
@@ -1659,7 +1652,8 @@ private:
         ImGui::EndChild();
     }
 
-    void UpdateThemesList() {
+    void UpdateThemesList()
+    {
         for (const auto& file : userThemes) {
             if (file.utf8)
                 free((void*)file.utf8);
@@ -1671,7 +1665,7 @@ private:
         HANDLE hFind = FindFirstFileW((LauncherGetDataDir() + L"themes\\*.json").c_str(), &find);
         if (hFind != INVALID_HANDLE_VALUE) {
             do {
-                userThemes.push_back({ _strdup(utf16_to_utf8(find.cFileName).c_str()), _wcsdup(find.cFileName) });
+                userThemes.push_back({_strdup(utf16_to_utf8(find.cFileName).c_str()), _wcsdup(find.cFileName)});
             } while (FindNextFileW(hFind, &find));
         }
     }
@@ -1808,25 +1802,25 @@ private:
         ImGui::Text(S(TH_ABOUT_THANKS), "You!");
     }
 
-    THCfgCombo mCfgLanguage { "language", 0, 3 };
-    THCfgCheckbox mCfgAlwaysOpen { "always_open_launcher", false };
-    THCfgCombo mCfgAfterLaunch { "after_launch", 0, 3 };
-    THCfgCheckbox mAutoDefLaunch { "auto_default_launch", false };
-    THCfgCombo mCfgThpracDefault { "apply_thprac_default", 0, 3 };
-    THCfgCombo mCfgFilterDefault { "filter_default", 0, 3 };
-    THCfgCombo mCfgTheme { "theme", 0, 4 };
-    THSetting<bool> mUseRelativePath { "use_relative_path", false };
-    THSetting<std::string> mThcrap { "thcrap", "" };
-    THCfgCheckbox mCfgCheckUpdate { "check_update", true };
+    THCfgCombo mCfgLanguage{"language", 0, 3};
+    THCfgCheckbox mCfgAlwaysOpen{"always_open_launcher", false};
+    THCfgCombo mCfgAfterLaunch{"after_launch", 0, 3};
+    THCfgCheckbox mAutoDefLaunch{"auto_default_launch", false};
+    THCfgCombo mCfgThpracDefault{"apply_thprac_default", 0, 3};
+    THCfgCombo mCfgFilterDefault{"filter_default", 0, 3};
+    THCfgCombo mCfgTheme{"theme", 0, 4};
+    THSetting<bool> mUseRelativePath{"use_relative_path", false};
+    THSetting<std::string> mThcrap{"thcrap", ""};
+    THCfgCheckbox mCfgCheckUpdate{"check_update", true};
 
-    THCfgCheckbox mResizableWindow { "resizable_window", false };
-    THCfgCheckbox mReflectiveLaunch { "reflective_launch", false };
-    THCfgCombo mExistingGameAction { "existing_game_launch_action", 0, 3 };
-    THCfgCheckbox mDontSearchOngoingGame { "dont_search_ongoing_game", false };
-    THCfgCheckbox mAdminRights { "thprac_admin_rights", false };
-    THCfgCombo mCheckUpdateTiming { "check_update_timing", 0, 3 };
-    THCfgCheckbox mUpdateWithoutConfirm { "update_without_confirmation", false };
-    THCfgCombo mFilenameAfterUpdate { "filename_after_update", 0, 3 };
+    THCfgCheckbox mResizableWindow{"resizable_window", false};
+    THCfgCheckbox mReflectiveLaunch{"reflective_launch", false};
+    THCfgCombo mExistingGameAction{"existing_game_launch_action", 0, 3};
+    THCfgCheckbox mDontSearchOngoingGame{"dont_search_ongoing_game", false};
+    THCfgCheckbox mAdminRights{"thprac_admin_rights", false};
+    THCfgCombo mCheckUpdateTiming{"check_update_timing", 0, 3};
+    THCfgCheckbox mUpdateWithoutConfirm{"update_without_confirmation", false};
+    THCfgCombo mFilenameAfterUpdate{"filename_after_update", 0, 3};
     int mOriginalLanguage;
 
     std::string mThcrapHintStr;
@@ -1950,8 +1944,7 @@ bool LauncherPreUpdate(wchar_t* pCmdLine)
             }
 
             CopyFile(exePathCstr, finalPath.c_str(), FALSE);
-            ShellExecuteW(nullptr, nullptr, finalPath.c_str(),
-                (std::wstring(L"--update-launcher-2 ") + exePathCstr).c_str(), finalDir.c_str(), SW_SHOW);
+            ShellExecuteW(nullptr, nullptr, finalPath.c_str(), (std::wstring(L"--update-launcher-2 ") + exePathCstr).c_str(), finalDir.c_str(), SW_SHOW);
 
             return true;
         }

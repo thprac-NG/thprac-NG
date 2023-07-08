@@ -1,10 +1,9 @@
 ﻿#include "thprac_utils.h"
-#include "thprac_licence.h"
-#include "thprac_launcher_main.h"
-#include "thprac_launcher_cfg.h"
-#include <metrohash128.h>
 #include "../3rdParties/d3d8/include/d3d8.h"
-
+#include "thprac_launcher_cfg.h"
+#include "thprac_launcher_main.h"
+#include "thprac_licence.h"
+#include <metrohash128.h>
 
 namespace THPrac {
 
@@ -30,7 +29,8 @@ static void* _str_cvt_buffer(size_t size)
 RAII_CRITICAL_SECTION str_cvt_lock;
 
 typedef int WINAPI MultiByteToWideChar_t(UINT CodePage, DWORD dwFlags, LPCCH lpMultiByteStr, int cbMultiByte, LPWSTR lpWideCharStr, int cchWideChar);
-typedef int WINAPI WideCharToMultiByte_t(UINT CodePage, DWORD dwFlags, LPCWCH lpWideCharStr, int cchWideChar, LPSTR lpMultiByteStr, int cbMultiByte, LPCCH lpDefaultChar, LPBOOL lpUsedDefaultChar);
+typedef int WINAPI
+WideCharToMultiByte_t(UINT CodePage, DWORD dwFlags, LPCWCH lpWideCharStr, int cchWideChar, LPSTR lpMultiByteStr, int cbMultiByte, LPCCH lpDefaultChar, LPBOOL lpUsedDefaultChar);
 
 WideCharToMultiByte_t* _WideCharToMultiByte = ::WideCharToMultiByte;
 MultiByteToWideChar_t* _MultiByteToWideChar = ::MultiByteToWideChar;
@@ -230,9 +230,7 @@ DWORD* g_gameGuiDevice = nullptr;
 DWORD* g_gameGuiHwnd = nullptr;
 HIMC g_gameIMCCtx = 0;
 
-void GameGuiInit(game_gui_impl impl, int device, int hwnd, int wndproc_addr,
-    Gui::ingame_input_gen_t input_gen, int reg1, int reg2, int reg3,
-    int wnd_size_flag, float x, float y)
+void GameGuiInit(game_gui_impl impl, int device, int hwnd, int wndproc_addr, Gui::ingame_input_gen_t input_gen, int reg1, int reg2, int reg3, int wnd_size_flag, float x, float y)
 {
     ingame_mb_init();
     ::ImGui::CreateContext();
@@ -273,7 +271,7 @@ void GameGuiInit(game_gui_impl impl, int device, int hwnd, int wndproc_addr,
     // Display size setup
     auto& io = ::ImGui::GetIO();
     if (wnd_size_flag == -1) {
-        io.DisplaySize = { x, y };
+        io.DisplaySize = {x, y};
         Gui::LocaleCreateFont(io.DisplaySize.x * 0.025f);
     } else if (wnd_size_flag == -2) {
         float dispX, dispY;
@@ -293,14 +291,14 @@ void GameGuiInit(game_gui_impl impl, int device, int hwnd, int wndproc_addr,
         switch (wnd_size_flag) {
         case 2:
         case 5:
-            io.DisplaySize = { 1280.0f, 960.0f };
+            io.DisplaySize = {1280.0f, 960.0f};
             break;
         case 1:
         case 4:
-            io.DisplaySize = { 960.0f, 720.0f };
+            io.DisplaySize = {960.0f, 720.0f};
             break;
         default:
-            io.DisplaySize = { 640.0f, 480.0f };
+            io.DisplaySize = {640.0f, 480.0f};
             break;
         }
         Gui::LocaleCreateFont(io.DisplaySize.x * 0.025f);
@@ -315,20 +313,16 @@ void GameGuiInit(game_gui_impl impl, int device, int hwnd, int wndproc_addr,
             auto captionSize = GetSystemMetrics(SM_CYCAPTION);
             auto longPtr = GetWindowLongW(*(HWND*)hwnd, GWL_STYLE);
             SetWindowLongW(*(HWND*)hwnd, GWL_STYLE, longPtr | WS_SIZEBOX);
-            SetWindowPos(*(HWND*)hwnd, HWND_NOTOPMOST,
-                0, 0, wndRect.right + frameSize, wndRect.bottom + frameSize + captionSize,
-                SWP_NOMOVE | SWP_NOZORDER | SWP_FRAMECHANGED);
+            SetWindowPos(*(HWND*)hwnd, HWND_NOTOPMOST, 0, 0, wndRect.right + frameSize, wndRect.bottom + frameSize + captionSize, SWP_NOMOVE | SWP_NOZORDER | SWP_FRAMECHANGED);
         }
         int theme;
-        if (LauncherSettingGet("theme", theme))
-        {
+        if (LauncherSettingGet("theme", theme)) {
             const char* userThemeName;
             if (LauncherSettingGet("theme_user", userThemeName))
                 SetTheme(theme, utf8_to_utf16(userThemeName).c_str());
             else
                 SetTheme(theme);
-        }
-        else
+        } else
             ImGui::StyleColorsDark();
     } else
         ::ImGui::StyleColorsDark();
@@ -528,7 +522,7 @@ int FPSHelper(adv_opt_ctx& ctx, bool repStatus, bool vpFast, bool vpSlow, FPSHel
 
 bool GameFPSOpt(adv_opt_ctx& ctx, bool replay)
 {
-    static char tmpStr[32] {};
+    static char tmpStr[32]{};
     static int fps = 0;
     static int fpsStatic = 60;
     static int fpsSlowStatic = 0;
@@ -547,8 +541,7 @@ bool GameFPSOpt(adv_opt_ctx& ctx, bool replay)
             ctx.fps_replay_fast = 60;
             fpsFastStatic = 1;
             fpsDebugAcc = ctx.fps_debug_acc;
-        }
-        else if (ctx.fps_status == 2) {
+        } else if (ctx.fps_status == 2) {
             fpsStatic = fps = ctx.fps;
 
             if (fps <= 60)
@@ -650,10 +643,7 @@ bool GameFPSOpt(adv_opt_ctx& ctx, bool replay)
     ImGui::SameLine();
     HelpMarker("Blah");
 
-    if (fpsStatic != fps
-        || fpsSlowStatic != ctx.fps_replay_slow
-        || fpsFastStatic != ctx.fps_replay_fast / 60
-        || fpsDebugAcc != ctx.fps_debug_acc) {
+    if (fpsStatic != fps || fpsSlowStatic != ctx.fps_replay_slow || fpsFastStatic != ctx.fps_replay_fast / 60 || fpsDebugAcc != ctx.fps_debug_acc) {
         ImGui::SameLine();
         if (ImGui::Button(S(TH_ADV_OPT_APPLY))) {
             clickedApply = true;
@@ -832,7 +822,7 @@ bool ReplayLoadParam(const wchar_t* rep_path, std::string& param)
                 while (true) {
                     if (!ReadFile(repFile, &userMagic, 4, &bytesRead, nullptr) || bytesRead != 4 || userMagic != 'RESU')
                         break;
-                    if (!ReadFile(repFile, &userLength, 4, &bytesRead, nullptr)  || bytesRead != 4)
+                    if (!ReadFile(repFile, &userLength, 4, &bytesRead, nullptr) || bytesRead != 4)
                         break;
                     if (!ReadFile(repFile, &userNo, 4, &bytesRead, nullptr) || bytesRead != 4)
                         break;
@@ -933,7 +923,8 @@ namespace THSnapshot {
         if (hFile == INVALID_HANDLE_VALUE)
             return;
 
-        auto header = "\x42\x4d\x36\x10\x0e\x00\x00\x00\x00\x00\x36\x00\x00\x00\x28\x00\x00\x00\x80\x02\x00\x00\xe0\x01\x00\x00\x01\x00\x18\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
+        auto header = "\x42\x4d\x36\x10\x0e\x00\x00\x00\x00\x00\x36\x00\x00\x00\x28\x00\x00\x00\x80\x02\x00\x00\xe0\x01\x00\x00\x01\x00\x18\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+                      "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
         void* bmp = nullptr;
         DWORD bytesRead;
         bmp = GetSnapshotData(d3d8);
@@ -956,7 +947,6 @@ void StageWarpsRender(stage_warps_t& warps, std::vector<unsigned int>& out_warp,
 
     if (out_warp.size() <= level)
         out_warp.resize(level + 1);
-
 
     if (warps.section_param.size() <= out_warp[level]) {
         out_warp[level] = warps.section_param.size() - 1;
@@ -1035,12 +1025,11 @@ void StageWarpsApply(stage_warps_t& warps, std::vector<unsigned int>& in_warp, e
                 uint8_t b[4];
                 i32b(uint32_t a)
                     : i(a)
-                {
-                }
+                { }
             };
 
             i32b ecl_time = jmp.ecl_time;
-            uint8_t instr[] = { 0x0c, 0x00, 0x18, 0x00, 0x00, 0x00, 0xff, 0x2c, 0x00, 0x00, 0x00, 0x00 };
+            uint8_t instr[] = {0x0c, 0x00, 0x18, 0x00, 0x00, 0x00, 0xff, 0x2c, 0x00, 0x00, 0x00, 0x00};
             i32b dest = jmp.dest - jmp.off;
             i32b at_frame = jmp.at_frame;
 
@@ -1088,7 +1077,8 @@ DWORD WINAPI CheckDLLFunction(const wchar_t* path, const char* funcName)
     if (!pSection)
         return 0;
 
-    if (pNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress != 0 && pNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].Size != 0) {
+    if (pNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress != 0
+        && pNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].Size != 0) {
         auto pExportSectionVA = pNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress;
         for (DWORD i = 0; i < pNtHeader->FileHeader.NumberOfSections; i++, pSection++) {
             if (pSection->VirtualAddress <= pExportSectionVA && pSection->VirtualAddress + pSection->SizeOfRawData > pExportSectionVA) {

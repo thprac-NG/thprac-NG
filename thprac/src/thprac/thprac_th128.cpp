@@ -1,6 +1,5 @@
 ﻿#include "thprac_utils.h"
 
-
 namespace THPrac {
 namespace TH128 {
     using std::pair;
@@ -66,9 +65,9 @@ namespace TH128 {
             ReturnJson();
         }
     };
-    THPracParam thPracParam {};
-    bool thLock { false };
-    bool thHardLock { false };
+    THPracParam thPracParam{};
+    bool thLock{false};
+    bool thHardLock{false};
 
     class THGuiPrac : public Gui::GameGuiWnd {
         THGuiPrac() noexcept
@@ -88,8 +87,8 @@ namespace TH128 {
             OnLocaleChange();
         }
         SINGLETON(THGuiPrac);
-    public:
 
+    public:
         __declspec(noinline) void State(int state)
         {
             switch (state) {
@@ -132,8 +131,7 @@ namespace TH128 {
 
     protected:
         virtual void OnPreUpdate() override
-        {
-        }
+        { }
         virtual void OnLocaleChange() override
         {
             SetTitle(S(TH_MENU));
@@ -276,7 +274,7 @@ namespace TH128 {
         }
         void SectionWidget()
         {
-            static char chapterStr[256] {};
+            static char chapterStr[256]{};
             auto realStage = mStageMap[*mStart][*mPath][*mStage];
             auto& chapterCounts = mChapterSetup[realStage];
 
@@ -296,18 +294,14 @@ namespace TH128 {
                 break;
             case 2:
             case 3: // Mid boss & End boss
-                if (mSection(TH_WARP_SELECT[*mWarp],
-                        th_sections_cba[realStage][*mWarp - 2],
-                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
+                if (mSection(TH_WARP_SELECT[*mWarp], th_sections_cba[realStage][*mWarp - 2], th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
                     *mPhase = 0;
                 if (SectionHasDlg(th_sections_cba[*mStage][*mWarp - 2][*mSection]))
                     mDlg();
                 break;
             case 4:
             case 5: // Non-spell & Spellcard
-                if (mSection(TH_WARP_SELECT[*mWarp],
-                        th_sections_cbt[realStage][*mWarp - 4],
-                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
+                if (mSection(TH_WARP_SELECT[*mWarp], th_sections_cbt[realStage][*mWarp - 4], th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
                     *mPhase = 0;
                 if (SectionHasDlg(th_sections_cbt[*mStage][*mWarp - 4][*mSection]))
                     mDlg();
@@ -317,43 +311,69 @@ namespace TH128 {
             }
         }
 
-        static constexpr uint8_t mStageMap[4][2][3] {
-            { { 0, 1, 2 }, { 0, 3, 4 } },
-            { { 5, 6, 7 }, { 5, 8, 9 } },
-            { { 10, 11, 12 }, { 10, 13, 14 } },
-            { { 15, 15, 15 }, { 15, 15, 15 } },
+        static constexpr uint8_t mStageMap[4][2][3]{
+            {{0, 1, 2},    {0, 3, 4}   },
+            {{5, 6, 7},    {5, 8, 9}   },
+            {{10, 11, 12}, {10, 13, 14}},
+            {{15, 15, 15}, {15, 15, 15}},
         };
 
         int mModePrv = 0;
-        Gui::GuiCombo mMode { TH_MODE, TH128_MODE_SELECT };
+        Gui::GuiCombo mMode{TH_MODE, TH128_MODE_SELECT};
 
     public:
-        Gui::GuiCombo mStart { TH128_START, TH128_START_SELECT };
-        Gui::GuiCombo mPath { TH128_PATH };
+        Gui::GuiCombo mStart{TH128_START, TH128_START_SELECT};
+        Gui::GuiCombo mPath{TH128_PATH};
 
     protected:
-        Gui::GuiCombo mStage { TH_STAGE, TH128_STAGE_SELECT };
-        Gui::GuiCombo mWarp { TH_WARP, TH_WARP_SELECT };
-        Gui::GuiCombo mSection { TH_MODE };
-        Gui::GuiCombo mPhase { TH_PHASE };
-        Gui::GuiCheckBox mDlg { TH_DLG };
+        Gui::GuiCombo mStage{TH_STAGE, TH128_STAGE_SELECT};
+        Gui::GuiCombo mWarp{TH_WARP, TH_WARP_SELECT};
+        Gui::GuiCombo mSection{TH_MODE};
+        Gui::GuiCombo mPhase{TH_PHASE};
+        Gui::GuiCheckBox mDlg{TH_DLG};
 
-        Gui::GuiSlider<int, ImGuiDataType_S32> mChapter { TH_CHAPTER, 0, 0 };
-        Gui::GuiDrag<int64_t, ImGuiDataType_S64> mScore { TH_SCORE, 0, 9999999990, 10, 100000000 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mLife { TH128_MOTIVATION, 0, 100000, 100, 10000 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mBomb { TH128_PERFECT_FREEZE, 0, 30000, 100, 10000 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mPower { TH128_ICE_POWER, 0, 10000, 100, 1000 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mArea { TH128_ICE_AREA, 0, 3000, 10, 1000 };
+        Gui::GuiSlider<int, ImGuiDataType_S32> mChapter{TH_CHAPTER, 0, 0};
+        Gui::GuiDrag<int64_t, ImGuiDataType_S64> mScore{TH_SCORE, 0, 9999999990, 10, 100000000};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mLife{TH128_MOTIVATION, 0, 100000, 100, 10000};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mBomb{TH128_PERFECT_FREEZE, 0, 30000, 100, 10000};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mPower{TH128_ICE_POWER, 0, 10000, 100, 1000};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mArea{TH128_ICE_AREA, 0, 3000, 10, 1000};
 
-        Gui::GuiNavFocus mNavFocus { TH128_START, TH_MODE, TH128_PATH, TH_STAGE, TH_WARP,
-            TH_MID_STAGE, TH_END_STAGE, TH_NONSPELL, TH_SPELL, TH_PHASE, TH_CHAPTER,
-            TH_SCORE, TH128_MOTIVATION, TH128_PERFECT_FREEZE, TH128_ICE_POWER, TH128_ICE_AREA };
+        Gui::GuiNavFocus mNavFocus{
+            TH128_START,
+            TH_MODE,
+            TH128_PATH,
+            TH_STAGE,
+            TH_WARP,
+            TH_MID_STAGE,
+            TH_END_STAGE,
+            TH_NONSPELL,
+            TH_SPELL,
+            TH_PHASE,
+            TH_CHAPTER,
+            TH_SCORE,
+            TH128_MOTIVATION,
+            TH128_PERFECT_FREEZE,
+            TH128_ICE_POWER,
+            TH128_ICE_AREA};
 
-        int mChapterSetup[16][2] {
-            { 5, 2 }, { 5, 4 }, { 4, 3 }, { 4, 3 }, { 5, 4 },
-            { 5, 2 }, { 5, 3 }, { 4, 3 }, { 4, 3 }, { 5, 3 },
-            { 4, 2 }, { 5, 3 }, { 5, 4 }, { 5, 4 }, { 5, 3 },
-            { 5, 5 },
+        int mChapterSetup[16][2]{
+            {5, 2},
+            {5, 4},
+            {4, 3},
+            {4, 3},
+            {5, 4},
+            {5, 2},
+            {5, 3},
+            {4, 3},
+            {4, 3},
+            {5, 3},
+            {4, 2},
+            {5, 3},
+            {5, 4},
+            {5, 4},
+            {5, 3},
+            {5, 5},
         };
 
         int mDiffculty = 0;
@@ -366,8 +386,8 @@ namespace TH128 {
             mAppdataPath = appdata;
         }
         SINGLETON(THGuiRep);
-    public:
 
+    public:
         void CheckReplay()
         {
             uint32_t index = GetMemContent(0x4b8a9c, 0x5a2c);
@@ -420,12 +440,14 @@ namespace TH128 {
             SetPos(10.0f, 10.0f);
             SetSize(0.0f, 0.0f);
             SetWndFlag(
-                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0);
+                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
+                | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0
+            );
             OnLocaleChange();
         }
         SINGLETON(THOverlay);
-    public:
 
+    public:
     protected:
         virtual void OnLocaleChange() override
         {
@@ -478,27 +500,28 @@ namespace TH128 {
             }
         }
 
-        Gui::GuiHotKey mMenu { "ModMenuToggle", "BACKSPACE", VK_BACK };
-        Gui::GuiHotKey mMuteki { TH_MUTEKI, "F1", VK_F1, {
-            new HookCtx(0x43D0D5, "\x01", 1),
-            new HookCtx(0x43B7FA, "\xeb", 1),
-            new HookCtx(0x43d11b, "\x83\xc4\x10\x90\x90", 5),
-            new HookCtx(0x432735, "\xe9\x9f\x00\x00\x00\x90", 6) } };
-        Gui::GuiHotKey mInfLives { TH_INFLIVES, "F2", VK_F2, {
-            new HookCtx(0x43CDD9, "\x00\x00\x00\x00", 4) } };
-        Gui::GuiHotKey mInfBombs { TH_INFBOMBS, "F3", VK_F3, {
-            new HookCtx(0x43B7D7, "\x00\x00\x00\x00", 4),
-            new HookCtx(0x43B90D, "\x00\x00\x00\x00", 4) } };
-        Gui::GuiHotKey mInfPower { TH_INFPOWER, "F4", VK_F4, {
-            new HookCtx(0x41F429, "\x00", 1) } };
-        Gui::GuiHotKey mTimeLock { TH_TIMELOCK, "F5", VK_F5, {
-            new HookCtx(0x417307, "\x90", 1) } };
-        Gui::GuiHotKey mAutoBomb { TH_AUTOBOMB, "F6", VK_F6, {
-            new HookCtx(0x43B8E8, "\xc6", 1),
-            new HookCtx(0x43B8F1, "\x00", 1) } };
+        Gui::GuiHotKey mMenu{"ModMenuToggle", "BACKSPACE", VK_BACK};
+        Gui::GuiHotKey mMuteki{
+            TH_MUTEKI,
+            "F1",
+            VK_F1,
+            {new HookCtx(0x43D0D5, "\x01", 1),
+              new HookCtx(0x43B7FA, "\xeb", 1),
+              new HookCtx(0x43d11b, "\x83\xc4\x10\x90\x90", 5),
+              new HookCtx(0x432735, "\xe9\x9f\x00\x00\x00\x90", 6)}
+        };
+        Gui::GuiHotKey mInfLives{TH_INFLIVES, "F2", VK_F2, {new HookCtx(0x43CDD9, "\x00\x00\x00\x00", 4)}};
+        Gui::GuiHotKey mInfBombs{
+            TH_INFBOMBS, "F3", VK_F3, {new HookCtx(0x43B7D7, "\x00\x00\x00\x00", 4), new HookCtx(0x43B90D, "\x00\x00\x00\x00", 4)}
+        };
+        Gui::GuiHotKey mInfPower{TH_INFPOWER, "F4", VK_F4, {new HookCtx(0x41F429, "\x00", 1)}};
+        Gui::GuiHotKey mTimeLock{TH_TIMELOCK, "F5", VK_F5, {new HookCtx(0x417307, "\x90", 1)}};
+        Gui::GuiHotKey mAutoBomb{
+            TH_AUTOBOMB, "F6", VK_F6, {new HookCtx(0x43B8E8, "\xc6", 1), new HookCtx(0x43B8F1, "\x00", 1)}
+        };
 
     public:
-        Gui::GuiHotKey mElBgm { TH_EL_BGM, "F7", VK_F7 };
+        Gui::GuiHotKey mElBgm{TH_EL_BGM, "F7", VK_F7};
     };
 
     class THAdvOptWnd : public Gui::PPGuiWnd {
@@ -536,11 +559,9 @@ namespace TH128 {
             }
         }
         void GameplayInit()
-        {
-        }
+        { }
         void GameplaySet()
-        {
-        }
+        { }
 
         THAdvOptWnd() noexcept
         {
@@ -549,10 +570,7 @@ namespace TH128 {
             SetStyle(ImGuiStyleVar_WindowRounding, 0.0f);
             SetStyle(ImGuiStyleVar_WindowBorderSize, 0.0f);
 
-            InitUpdFunc([&]() { ContentUpdate(); },
-                [&]() { LocaleUpdate(); },
-                [&]() {},
-                []() {});
+            InitUpdFunc([&]() { ContentUpdate(); }, [&]() { LocaleUpdate(); }, [&]() {}, []() {});
 
             OnLocaleChange();
             FpsInit();
@@ -638,9 +656,7 @@ namespace TH128 {
         ecl.SetPos(pos);
         if (dlg)
             ecl << 0 << 0x001401a2 << 0x01ff0000 << 0 << 0 << 0 << 0x001001a3 << 0x00ff0000 << 0;
-        ecl << 0 << 0x00300101 << 0x06ff0000 << 0
-            << 8 << 'ssoB' << 0
-            << 0xc3100000 << 0xc1800000 << 0x28 << 0x3e8 << 1;
+        ecl << 0 << 0x00300101 << 0x06ff0000 << 0 << 8 << 'ssoB' << 0 << 0xc3100000 << 0xc1800000 << 0x28 << 0x3e8 << 1;
         ecl << 0 << 0x001001a4 << 0x00ff0000 << 0;
         ecl << 0 << 0x001401a2 << 0x01ff0000 << 0 << 1;
         ecl << 0 << 0x001001a3 << 0x00ff0000 << 0;
@@ -653,17 +669,11 @@ namespace TH128 {
 
         if (dlg)
             ecl << 0 << 0x001401a2 << 0x01ff0000 << 0 << 0 << 0 << 0x001001a3 << 0x00ff0000 << 0;
-        ecl << 0 << 0x00300101 << 0x06ff0000 << 0
-            << 8 << 'ssoB' << 0x41
-            << 0xC3100000 << 0xC2000000 << 0x28 << 0x3e8 << 1;
+        ecl << 0 << 0x00300101 << 0x06ff0000 << 0 << 8 << 'ssoB' << 0x41 << 0xC3100000 << 0xC2000000 << 0x28 << 0x3e8 << 1;
         if (dlg)
             ecl << 1 << 0x001001a3 << 0x00ff0000 << 0;
-        ecl << 1 << 0x00300101 << 0x06ff0000 << 0
-            << 8 << 'ssoB' << 0x42
-            << 0xC3400000 << 0xC2000000 << 0x28 << 0x3e8 << 1;
-        ecl << 1 << 0x00300101 << 0x06ff0000 << 0
-            << 8 << 'ssoB' << 0x43
-            << 0x43400000 << 0xC2000000 << 0x28 << 0x3e8 << 1;
+        ecl << 1 << 0x00300101 << 0x06ff0000 << 0 << 8 << 'ssoB' << 0x42 << 0xC3400000 << 0xC2000000 << 0x28 << 0x3e8 << 1;
+        ecl << 1 << 0x00300101 << 0x06ff0000 << 0 << 8 << 'ssoB' << 0x43 << 0x43400000 << 0xC2000000 << 0x28 << 0x3e8 << 1;
 
         ecl << 1 << 0x001001a4 << 0x00ff0000 << 0;
         ecl << 61 << 0x001401a2 << 0x01ff0000 << 0 << 1;
@@ -672,57 +682,43 @@ namespace TH128 {
     }
     void ECLMBoss(ECLHelper& ecl, uint8_t ordinal, unsigned int pos_414_cmd_1, unsigned int pos_414_cmd_2 = 0)
     {
-        ecl << pair(pos_414_cmd_1, (int16_t)0x0)
-            << pair(pos_414_cmd_1 + 0x34, 60)
-            << pair(pos_414_cmd_1 + 0x60, (int16_t)0x19f)
-            << pair(pos_414_cmd_1 + 0x70, 60)
+        ecl << pair(pos_414_cmd_1, (int16_t)0x0) << pair(pos_414_cmd_1 + 0x34, 60) << pair(pos_414_cmd_1 + 0x60, (int16_t)0x19f) << pair(pos_414_cmd_1 + 0x70, 60)
             << pair(pos_414_cmd_1 + 0xa9, (uint8_t)(0x30 + ordinal));
         if (pos_414_cmd_2)
             ecl << pair(pos_414_cmd_2, (int16_t)0x0);
     }
-    void ECLBossCard(ECLHelper& ecl, unsigned int pos_11, unsigned int ordinal, unsigned int health,
-        float health_mark = 0.0f)
+    void ECLBossCard(ECLHelper& ecl, unsigned int pos_11, unsigned int ordinal, unsigned int health, float health_mark = 0.0f)
     {
         ecl.SetPos(pos_11);
         ecl << 0 << 0x0014019b << 0x01ff0000 << 0 << health;
         if (health_mark) {
-            ecl << 0 << 0x001c01ab << 0x03ff0000 << 0
-                << 0 << health_mark << 0xffffa080;
+            ecl << 0 << 0x001c01ab << 0x03ff0000 << 0 << 0 << health_mark << 0xffffa080;
         }
-        ecl << 0 << 0x001c000b << 0x01ff0000 << 0
-            << 0xC << 'ssoB' << 'draC';
+        ecl << 0 << 0x001c000b << 0x01ff0000 << 0 << 0xC << 'ssoB' << 'draC';
         if (ordinal == 10)
             ecl << 0x00003031;
         else
             ecl << ordinal + 0x30;
     }
-    void ECL3BossCard(ECLHelper& ecl, unsigned int pos_boss1a, unsigned int pos_boss1b, unsigned int pos_boss1c,
-        uint8_t ordinal, unsigned int health)
+    void ECL3BossCard(ECLHelper& ecl, unsigned int pos_boss1a, unsigned int pos_boss1b, unsigned int pos_boss1c, uint8_t ordinal, unsigned int health)
     {
         ecl.SetPos(pos_boss1a);
         ecl << 0 << 0x0014019b << 0x01ff0000 << 0 << health;
-        ecl << 0 << 0x001c000b << 0x01ff0000 << 0
-            << 0xC << 'ssoB' << 'draC' << (uint8_t)(ordinal + 0x30) << (uint8_t)0x0;
+        ecl << 0 << 0x001c000b << 0x01ff0000 << 0 << 0xC << 'ssoB' << 'draC' << (uint8_t)(ordinal + 0x30) << (uint8_t)0x0;
 
         ecl.SetPos(pos_boss1b);
-        ecl << 0 << 0x001c000b << 0x01ff0000 << 0
-            << 0xC << 'ssoB' << 'draC' << (uint8_t)(ordinal + 0x30) << 'B' << (uint8_t)0x0;
+        ecl << 0 << 0x001c000b << 0x01ff0000 << 0 << 0xC << 'ssoB' << 'draC' << (uint8_t)(ordinal + 0x30) << 'B' << (uint8_t)0x0;
 
         ecl.SetPos(pos_boss1c);
-        ecl << 0 << 0x001c000b << 0x01ff0000 << 0
-            << 0xC << 'ssoB' << 'draC' << (uint8_t)(ordinal + 0x30) << 'C' << (uint8_t)0x0;
+        ecl << 0 << 0x001c000b << 0x01ff0000 << 0 << 0xC << 'ssoB' << 'draC' << (uint8_t)(ordinal + 0x30) << 'C' << (uint8_t)0x0;
     }
     void ECLST3MBossCard(ECLHelper& ecl, unsigned int pos_414_cmd, unsigned int health)
     {
         // 0x2b50
-        ecl << pair(pos_414_cmd - 0x1c, (int16_t)0x0)
-            << pair(pos_414_cmd, (int16_t)0x0)
-            << pair(pos_414_cmd + 0x4c, (int16_t)0x19f)
-            << pair(pos_414_cmd + 0x6c, 60);
+        ecl << pair(pos_414_cmd - 0x1c, (int16_t)0x0) << pair(pos_414_cmd, (int16_t)0x0) << pair(pos_414_cmd + 0x4c, (int16_t)0x19f) << pair(pos_414_cmd + 0x6c, 60);
         ecl.SetPos(pos_414_cmd + 0xfc);
         ecl << 0 << 0x0014019b << 0x01ff0000 << 0 << health;
-        ecl << 0 << 0x001c000b << 0x01ff0000 << 0
-            << 0xC << "MBossCard1" << (char)'\0';
+        ecl << 0 << 0x001c000b << 0x01ff0000 << 0 << 0xC << "MBossCard1" << (char)'\0';
     }
     __declspec(noinline) void THStageWarp(ECLHelper& ecl, int stage, int portion)
     {
@@ -1842,15 +1838,15 @@ namespace TH128 {
             ECLST3MBossCard(ecl, 0x2b50, 1900);
             break;
         case THPrac::TH128::TH128_C23_BOSS1:
-            ECL3Boss(ecl, 0x7c20,  thPracParam.dlg);
+            ECL3Boss(ecl, 0x7c20, thPracParam.dlg);
             break;
         case THPrac::TH128::TH128_C23_BOSS2:
-            ECL3Boss(ecl, 0x7c20,  false);
+            ECL3Boss(ecl, 0x7c20, false);
             ecl.SetFile(2);
             ECL3BossCard(ecl, 0x4f4, 0x10fc, 0x18ec, 1, 2000);
             break;
         case THPrac::TH128::TH128_C23_BOSS3:
-            ECL3Boss(ecl, 0x7c20,  false);
+            ECL3Boss(ecl, 0x7c20, false);
             ecl.SetFile(2);
             ecl << pair{0x6d6c, (int8_t)0x32};
             ecl << pair{0x6f24, (int8_t)0x32};
@@ -1860,7 +1856,7 @@ namespace TH128 {
             ecl << pair{0x7050, (int16_t)0};
             break;
         case THPrac::TH128::TH128_C23_BOSS4:
-            ECL3Boss(ecl, 0x7c20,  false);
+            ECL3Boss(ecl, 0x7c20, false);
             ecl.SetFile(2);
             ECL3BossCard(ecl, 0x4f4, 0x10fc, 0x18ec, 2, 2000);
             break;
@@ -1872,24 +1868,24 @@ namespace TH128 {
             ecl << pair{0x70dc, (int8_t)0x33};
             break;
         case THPrac::TH128::TH128_C23_BOSS6:
-            ECL3Boss(ecl, 0x7c20,  false);
+            ECL3Boss(ecl, 0x7c20, false);
             ecl.SetFile(2);
             ECL3BossCard(ecl, 0x4f4, 0x10fc, 0x18ec, 3, 3000);
             break;
         case THPrac::TH128::TH128_C23_BOSS7:
-            ECL3Boss(ecl, 0x7c20,  false);
+            ECL3Boss(ecl, 0x7c20, false);
             ecl.SetFile(2);
             ecl << pair{0x6d6c, (int8_t)0x34};
             ecl << pair{0x6f24, (int8_t)0x34};
             ecl << pair{0x70dc, (int8_t)0x34};
             break;
         case THPrac::TH128::TH128_C23_BOSS8:
-            ECL3Boss(ecl, 0x7c20,  false);
+            ECL3Boss(ecl, 0x7c20, false);
             ecl.SetFile(2);
             ECL3BossCard(ecl, 0x4f4, 0x10fc, 0x18ec, 4, 1500);
             break;
         case THPrac::TH128::TH128_C23_BOSS9:
-            ECL3Boss(ecl, 0x7c20,  false);
+            ECL3Boss(ecl, 0x7c20, false);
             ecl.SetFile(2);
             ECL3BossCard(ecl, 0x4f4, 0x10fc, 0x18ec, 5, 6000);
             break;
@@ -1900,16 +1896,14 @@ namespace TH128 {
             ECLJump(ecl, 0x0d7b8, 0x1b8);
             ecl << pair{0x4975, (int8_t)0x32};
             ecl << pair{0x6f20, (int16_t)0x0};
-            ecl << pair{0x4900, 60} << pair{0x4938, 60}
-                << pair{0xa51c, 60} << pair{0xa554, 60};
+            ecl << pair{0x4900, 60} << pair{0x4938, 60} << pair{0xa51c, 60} << pair{0xa554, 60};
             break;
         case THPrac::TH128::TH128_EX_MID3:
             ECLJump(ecl, 0x0d7b8, 0x1b8);
             ecl << pair{0x4975, (int8_t)0x33};
             ecl << pair{0xa4d9, (int8_t)0x33};
             ecl << pair{0x8de4, (int16_t)0x0};
-            ecl << pair{0x4900, 60} << pair{0x4938, 60}
-                << pair{0xa51c, 60} << pair{0xa554, 60};
+            ecl << pair{0x4900, 60} << pair{0x4938, 60} << pair{0xa51c, 60} << pair{0xa554, 60};
             break;
         case THPrac::TH128::TH128_EX_END_NS1:
             ECLBoss(ecl, 0x0d7b8, thPracParam.dlg);
@@ -2083,11 +2077,9 @@ namespace TH128 {
         is_practice = (*((int32_t*)0x4b4d50) & 0x1);
         if (retn_addr == 0x434a69 && (call_addr == 0x424828 || call_addr == 0x42483c)) {
             thLock = true;
-            result = ElBgmTest<0x434935, 0x4268c7, 0x437003, 0x4371e8, 0x426bdd>(
-                el_switch, is_practice, 0x434935, 2, 2, call_addr);
+            result = ElBgmTest<0x434935, 0x4268c7, 0x437003, 0x4371e8, 0x426bdd>(el_switch, is_practice, 0x434935, 2, 2, call_addr);
         } else {
-            result = ElBgmTest<0x434935, 0x4268c7, 0x437003, 0x4371e8, 0x426bdd>(
-                el_switch, is_practice, retn_addr, bgm_cmd, bgm_id, call_addr);
+            result = ElBgmTest<0x434935, 0x4268c7, 0x437003, 0x4371e8, 0x426bdd>(el_switch, is_practice, retn_addr, bgm_cmd, bgm_id, call_addr);
         }
 
         if (result) {
@@ -2300,9 +2292,7 @@ namespace TH128 {
     static __declspec(noinline) void THGuiCreate()
     {
         // Init
-        GameGuiInit(IMPL_WIN32_DX9, 0x4d2e70, 0x4d3970, 0x454420,
-            Gui::INGAGME_INPUT_GEN2, 0x4db004, 0x4db000, 0,
-            -1);
+        GameGuiInit(IMPL_WIN32_DX9, 0x4d2e70, 0x4d3970, 0x454420, Gui::INGAGME_INPUT_GEN2, 0x4db004, 0x4db000, 0, -1);
 
         // Gui components creation
         THGuiPrac::singleton();

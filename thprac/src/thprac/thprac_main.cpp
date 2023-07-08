@@ -1,9 +1,9 @@
 ﻿#include "thprac_main.h"
 #include "thprac_games.h"
 #include "thprac_gui_locale.h"
-#include "thprac_launcher_wnd.h"
-#include "thprac_launcher_games.h"
 #include "thprac_launcher_cfg.h"
+#include "thprac_launcher_games.h"
+#include "thprac_launcher_wnd.h"
 #include "thprac_load_exe.h"
 #include "thprac_utils.h"
 #include <Windows.h>
@@ -15,7 +15,6 @@
 
 #pragma comment(lib, "psapi.lib")
 
- 
 namespace THPrac {
 enum thprac_prompt_t {
     PR_FAILED,
@@ -41,7 +40,8 @@ bool CheckMutex(const char* mutex_name)
 
 bool CheckIfAnyGame()
 {
-    if (CheckMutex("Touhou Koumakyou App") || CheckMutex("Touhou YouYouMu App") || CheckMutex("Touhou 08 App") || CheckMutex("Touhou 10 App") || CheckMutex("Touhou 11 App") || CheckMutex("Touhou 12 App") || CheckMutex("th17 App") || CheckMutex("th18 App") || CheckMutex("th185 App"))
+    if (CheckMutex("Touhou Koumakyou App") || CheckMutex("Touhou YouYouMu App") || CheckMutex("Touhou 08 App") || CheckMutex("Touhou 10 App") || CheckMutex("Touhou 11 App")
+        || CheckMutex("Touhou 12 App") || CheckMutex("th17 App") || CheckMutex("th18 App") || CheckMutex("th185 App"))
         return true;
     return false;
 }
@@ -106,7 +106,7 @@ bool PromptUser(thprac_prompt_t info, THGameSig* gameSig = nullptr)
 THGameSig* CheckOngoingGame(PROCESSENTRY32W& proc)
 {
     // Eliminate impossible process
-    if ( wcscmp(L"東方紅魔郷.exe", proc.szExeFile) && wcscmp(L"alcostg.exe", proc.szExeFile)) {
+    if (wcscmp(L"東方紅魔郷.exe", proc.szExeFile) && wcscmp(L"alcostg.exe", proc.szExeFile)) {
         if (proc.szExeFile[0] != L't' || proc.szExeFile[1] != L'h')
             return nullptr;
         if (proc.szExeFile[2] < L'0' || proc.szExeFile[2] > L'9')
@@ -128,10 +128,11 @@ THGameSig* CheckOngoingGame(PROCESSENTRY32W& proc)
 
     // Open the related process
     auto hProc = OpenProcess(
-        //PROCESS_SUSPEND_RESUME |
+        // PROCESS_SUSPEND_RESUME |
         PROCESS_QUERY_INFORMATION | PROCESS_CREATE_THREAD | PROCESS_VM_OPERATION | PROCESS_VM_READ | PROCESS_VM_WRITE,
         FALSE,
-        proc.th32ProcessID);
+        proc.th32ProcessID
+    );
     if (!hProc)
         return nullptr;
 
@@ -193,10 +194,11 @@ bool ApplyTHPracToProc(PROCESSENTRY32W& proc)
 {
     // Open the related process
     auto hProc = OpenProcess(
-        //PROCESS_SUSPEND_RESUME |
+        // PROCESS_SUSPEND_RESUME |
         PROCESS_QUERY_INFORMATION | PROCESS_CREATE_THREAD | PROCESS_VM_OPERATION | PROCESS_VM_READ | PROCESS_VM_WRITE,
         FALSE,
-        proc.th32ProcessID);
+        proc.th32ProcessID
+    );
     if (!hProc)
         return false;
 

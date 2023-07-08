@@ -1,9 +1,9 @@
 ﻿#pragma once
-#include <imgui.h>
-#include <vector>
 #include <functional>
+#include <imgui.h>
 #include <initializer_list>
 #include <utility>
+#include <vector>
 #define NOMINMAX
 #include <Windows.h>
 
@@ -38,7 +38,8 @@ namespace Gui {
             mLocale = (locale_t)-1;
         }
 
-        static constexpr ImGuiWindowFlags STYLE_DEFAULT = ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBringToFrontOnFocus | 0;
+        static constexpr ImGuiWindowFlags STYLE_DEFAULT =
+            ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBringToFrontOnFocus | 0;
 
         void Update();
 
@@ -58,9 +59,10 @@ namespace Gui {
         void SetItemSpacing(float x, float y);
         void SetItemSpacingRel(float x_prop, float y_prop);
         void SetAutoSpacing(bool toggle);
-        void AutoSize(ImVec2 size,
-            const char* content_1 = nullptr, const char* content_2 = nullptr, const char* label_1 = nullptr, const char* label_2 = nullptr,
-            float widiget_counts = 0.0f, ImVec2 size_max = { -1.0f, -1.0f }, ImVec2 size_min = { -1.0f, -1.0f });
+        void AutoSize(
+            ImVec2 size, const char* content_1 = nullptr, const char* content_2 = nullptr, const char* label_1 = nullptr, const char* label_2 = nullptr,
+            float widiget_counts = 0.0f, ImVec2 size_max = {-1.0f, -1.0f}, ImVec2 size_min = {-1.0f, -1.0f}
+        );
         void AutoSize(float x, float y, const char* content = nullptr, const char* label = nullptr, float widigit_counts = 0.0f, float max_y = 0.0f);
         void AutoPos(float x, float y);
         void AutoItemWidth(const char* label);
@@ -76,10 +78,10 @@ namespace Gui {
     protected:
         std::vector<StyleValue>::iterator GetStyleIt(ImGuiStyleVar style);
 
-        virtual void OnLocaleChange() {};
-        virtual void OnContentUpdate() {};
-        virtual void OnPreUpdate() {};
-        virtual void OnPostUpdate() {};
+        virtual void OnLocaleChange(){};
+        virtual void OnContentUpdate(){};
+        virtual void OnPreUpdate(){};
+        virtual void OnPostUpdate(){};
 
         int mStatus = 0;
         std::vector<StyleValue> mStyle;
@@ -103,10 +105,8 @@ namespace Gui {
     class PPGuiWnd : public GameGuiWnd {
     protected:
         void InitUpdFunc(
-            std::function<void(void)>&& contentUpdFunc,
-            std::function<void(void)>&& localeUpdFunc,
-            std::function<void(void)>&& preUpdFunc,
-            std::function<void(void)>&& postUpdFunc)
+            std::function<void(void)>&& contentUpdFunc, std::function<void(void)>&& localeUpdFunc, std::function<void(void)>&& preUpdFunc, std::function<void(void)>&& postUpdFunc
+        )
         {
             mContentUpdFuncTmp = mContentUpdFunc = contentUpdFunc;
             mLocaleUpdFuncTmp = mLocaleUpdFunc = localeUpdFunc;
@@ -180,8 +180,7 @@ namespace Gui {
         T mStepX = 1;
 
     public:
-        GuiSlider(const char* label, const T&& minimum, const T&& maximum,
-            T step_min = 1, T step_max = 1, T step_x = 10)
+        GuiSlider(const char* label, const T&& minimum, const T&& maximum, T step_min = 1, T step_max = 1, T step_x = 10)
             : mLabel(const_cast<char*>(label))
             , mValueMin(minimum)
             , mValueMax(maximum)
@@ -189,11 +188,9 @@ namespace Gui {
             , mStepMin(step_min)
             , mStepMax(step_max)
             , mStepX(step_x)
-        {
-        }
+        { }
 
-        GuiSlider(th_glossary_t label_ref, const T&& minimum, const T&& maximum,
-            T step_min = 1, T step_max = 1, T step_x = 10)
+        GuiSlider(th_glossary_t label_ref, const T&& minimum, const T&& maximum, T step_min = 1, T step_max = 1, T step_x = 10)
             : mLabelRef(label_ref)
             , mValueMin(minimum)
             , mValueMax(maximum)
@@ -201,8 +198,7 @@ namespace Gui {
             , mStepMin(step_min)
             , mStepMax(step_max)
             , mStepX(step_x)
-        {
-        }
+        { }
 
         inline void SetValue(const T&& value)
         {
@@ -308,8 +304,7 @@ namespace Gui {
         T mStepX = 1;
 
     public:
-        GuiDrag(const char* label, const T&& minimum, const T&& maximum,
-            T step_min = 1, T step_max = 1, T step_x = 10)
+        GuiDrag(const char* label, const T&& minimum, const T&& maximum, T step_min = 1, T step_max = 1, T step_x = 10)
             : mLabel(const_cast<char*>(label))
             , mValueMin(minimum)
             , mValueMax(maximum)
@@ -317,11 +312,9 @@ namespace Gui {
             , mStepMin(step_min)
             , mStepMax(step_max)
             , mStepX(step_x)
-        {
-        }
+        { }
 
-        GuiDrag(th_glossary_t label_ref, const T&& minimum, const T&& maximum,
-            T step_min = 1, T step_max = 1, T step_x = 10)
+        GuiDrag(th_glossary_t label_ref, const T&& minimum, const T&& maximum, T step_min = 1, T step_max = 1, T step_x = 10)
             : mLabelRef(label_ref)
             , mValueMin(minimum)
             , mValueMax(maximum)
@@ -329,8 +322,7 @@ namespace Gui {
             , mStepMin(step_min)
             , mStepMax(step_max)
             , mStepX(step_x)
-        {
-        }
+        { }
 
         inline void SetValue(const T&& value)
         {
@@ -416,13 +408,11 @@ namespace Gui {
         GuiCombo(const char* label, const th_glossary_t* selector = nullptr)
             : mLabel(const_cast<char*>(label))
             , mSelector(selector)
-        {
-        }
+        { }
         GuiCombo(th_glossary_t label_ref, const th_glossary_t* selector = nullptr)
             : mLabelRef(label_ref)
             , mSelector(selector)
-        {
-        }
+        { }
 
         inline void SetLabel(th_glossary_t ref)
         {
@@ -440,7 +430,8 @@ namespace Gui {
             return mCurrent;
         }
         bool operator()(int skip);
-        bool operator()() {
+        bool operator()()
+        {
             return (*this)(-1);
         }
         template <typename T>
@@ -503,7 +494,8 @@ namespace Gui {
                     return;
                 mCurrent += nav;
                 if (mCurrent < 0) {
-                    for (;selector[++mCurrent];);
+                    for (; selector[++mCurrent];)
+                        ;
                     mCurrent--;
                 } else if (selector[mCurrent] == 0) {
                     mCurrent = 0;
@@ -522,16 +514,14 @@ namespace Gui {
 
     public:
         GuiButton(th_glossary_t label_ref, float width, float height)
-            : mSize { width, height }
+            : mSize{width, height}
             , mLabelRef(label_ref)
-        {
-        }
+        { }
 
         GuiButton(const char* label, float width, float height)
-            : mSize { width, height }
+            : mSize{width, height}
             , mLabel(const_cast<char*>(label))
-        {
-        }
+        { }
 
         inline void SetSize(float width, float height)
         {
@@ -561,13 +551,11 @@ namespace Gui {
     public:
         GuiCheckBox(th_glossary_t label_ref)
             : mLabelRef(label_ref)
-        {
-        }
+        { }
 
         GuiCheckBox(const char* label)
             : mLabel(const_cast<char*>(label))
-        {
-        }
+        { }
 
         inline void SetLabel(th_glossary_t ref)
         {
@@ -601,6 +589,7 @@ namespace Gui {
 
     protected:
         bool OnWidgetUpdate();
+
     public:
         GuiHotKey(th_glossary_t text_ref, const char* key_text, int vkey, std::initializer_list<HookCtx*> hooks = {})
             : mTextRef(text_ref)
@@ -624,9 +613,7 @@ namespace Gui {
             }
         }
 
-        GuiHotKey(th_glossary_t text_ref, const char* key_text, int vkey,
-            float x_offset_1, float x_offset_2, bool use_rel_offset,
-            std::initializer_list<HookCtx*> hooks = {})
+        GuiHotKey(th_glossary_t text_ref, const char* key_text, int vkey, float x_offset_1, float x_offset_2, bool use_rel_offset, std::initializer_list<HookCtx*> hooks = {})
             : mTextRef(text_ref)
             , mKeyText(key_text)
             , mKey(vkey)

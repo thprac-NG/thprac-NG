@@ -2,14 +2,14 @@
 
 #define NOMINMAX
 
-#include "thprac_version.h"
 #include "thprac_gui_components.h"
 #include "thprac_gui_impl_dx8.h"
 #include "thprac_gui_impl_dx9.h"
 #include "thprac_gui_impl_win32.h"
+#include "thprac_gui_locale.h"
 #include "thprac_hook.h"
 #include "thprac_locale_def.h"
-#include "thprac_gui_locale.h"
+#include "thprac_version.h"
 
 #include <Windows.h>
 #include <cstdint>
@@ -94,7 +94,8 @@ struct RAII_CRITICAL_SECTION {
         DeleteCriticalSection(&cs);
     }
 
-    CRITICAL_SECTION* operator*() {
+    CRITICAL_SECTION* operator*()
+    {
         return &cs;
     }
 };
@@ -103,8 +104,14 @@ struct RAII_CRITICAL_SECTION {
 std::string utf16_to_mb(const wchar_t* utf16, UINT encoding);
 std::wstring mb_to_utf16(const char* utf8, UINT encoding);
 
-inline std::string utf16_to_utf8(const wchar_t* utf16) { return utf16_to_mb(utf16, CP_UTF8); }
-inline std::wstring utf8_to_utf16(const char* utf8) { return mb_to_utf16(utf8, CP_UTF8); }
+inline std::string utf16_to_utf8(const wchar_t* utf16)
+{
+    return utf16_to_mb(utf16, CP_UTF8);
+}
+inline std::wstring utf8_to_utf16(const char* utf8)
+{
+    return mb_to_utf16(utf8, CP_UTF8);
+}
 #pragma endregion
 
 #pragma region Path
@@ -127,9 +134,10 @@ enum game_gui_impl {
     IMPL_WIN32_DX9
 };
 
-void GameGuiInit(game_gui_impl impl, int device, int hwnd, int wndproc_addr,
-    Gui::ingame_input_gen_t input_gen, int reg1, int reg2, int reg3 = 0,
-    int wnd_size_flag = -1, float x = 640.0f, float y = 480.0f);
+void GameGuiInit(
+    game_gui_impl impl, int device, int hwnd, int wndproc_addr, Gui::ingame_input_gen_t input_gen, int reg1, int reg2, int reg3 = 0, int wnd_size_flag = -1, float x = 640.0f,
+    float y = 480.0f
+);
 void GameGuiBegin(game_gui_impl impl, bool game_nav = true);
 void GameGuiEnd(bool draw_cursor = false);
 void GameGuiRender(game_gui_impl impl);
@@ -230,17 +238,11 @@ void AboutOpt(const char* thanks_text = nullptr);
 
 #pragma region Game BGM
 
-template <
-    uintptr_t play_addr,
-    uintptr_t stop_addr,
-    uintptr_t pause_addr,
-    uintptr_t resume_addr,
-    uintptr_t caller_addr>
-static bool ElBgmTest(bool hotkey_status, bool practice_status,
-    uintptr_t retn_addr, int32_t bgm_cmd, int32_t bgm_param, uintptr_t caller)
+template <uintptr_t play_addr, uintptr_t stop_addr, uintptr_t pause_addr, uintptr_t resume_addr, uintptr_t caller_addr>
+static bool ElBgmTest(bool hotkey_status, bool practice_status, uintptr_t retn_addr, int32_t bgm_cmd, int32_t bgm_param, uintptr_t caller)
 {
-    static bool mElStatus { false };
-    static int mLockBgmId { -1 };
+    static bool mElStatus{false};
+    static int mLockBgmId{-1};
 
     bool hotkey = hotkey_status;
     bool is_practice = practice_status;
@@ -294,18 +296,11 @@ static bool ElBgmTest(bool hotkey_status, bool practice_status,
     return mElStatus;
 }
 
-template <
-    uintptr_t play_addr,
-    uintptr_t play_addr_2,
-    uintptr_t stop_addr,
-    uintptr_t pause_addr,
-    uintptr_t resume_addr,
-    uintptr_t caller_addr>
-static bool ElBgmTestTemp(bool hotkey_status, bool practice_status,
-    uintptr_t retn_addr, int32_t bgm_cmd, int32_t bgm_param, uintptr_t caller)
+template <uintptr_t play_addr, uintptr_t play_addr_2, uintptr_t stop_addr, uintptr_t pause_addr, uintptr_t resume_addr, uintptr_t caller_addr>
+static bool ElBgmTestTemp(bool hotkey_status, bool practice_status, uintptr_t retn_addr, int32_t bgm_cmd, int32_t bgm_param, uintptr_t caller)
 {
-    static bool mElStatus { false };
-    static int mLockBgmId { -1 };
+    static bool mElStatus{false};
+    static int mLockBgmId{-1};
 
     bool hotkey = hotkey_status;
     bool is_practice = practice_status;
@@ -465,7 +460,7 @@ public:
         return *this;
     }
     template <>
-    VFile& operator<<<const char*>(const char* data)
+    VFile& operator<< <const char*>(const char* data)
     {
         Write(data);
         return *this;
@@ -496,21 +491,25 @@ void* VFSOriginal(const char* file_name, int32_t* file_size, int32_t is_file);
 #pragma region Memory Helper
 
 template <typename R = size_t>
-inline R GetMemContent(uintptr_t addr) {
+inline R GetMemContent(uintptr_t addr)
+{
     return *(R*)addr;
 }
 template <typename R = size_t, typename... OffsetArgs>
-inline R GetMemContent(uintptr_t addr, size_t offset, OffsetArgs... remaining_offsets) {
-    return GetMemContent<R>(((uintptr_t)*(R*)addr) + offset, remaining_offsets...);
+inline R GetMemContent(uintptr_t addr, size_t offset, OffsetArgs... remaining_offsets)
+{
+    return GetMemContent<R>(((uintptr_t) * (R*)addr) + offset, remaining_offsets...);
 }
 
 template <typename R = uintptr_t>
-inline R GetMemAddr(uintptr_t addr) {
+inline R GetMemAddr(uintptr_t addr)
+{
     return (R)addr;
 }
 template <typename R = uintptr_t, typename... OffsetArgs>
-inline R GetMemAddr(uintptr_t addr, size_t offset, OffsetArgs... remaining_offsets) {
-    return GetMemAddr<R>(((uintptr_t)*(R*)addr) + offset, remaining_offsets...);
+inline R GetMemAddr(uintptr_t addr, size_t offset, OffsetArgs... remaining_offsets)
+{
+    return GetMemAddr<R>(((uintptr_t) * (R*)addr) + offset, remaining_offsets...);
 }
 
 #pragma endregion

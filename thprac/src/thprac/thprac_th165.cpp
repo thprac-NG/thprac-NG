@@ -1,6 +1,5 @@
 ﻿#include "thprac_utils.h"
 
-
 namespace THPrac {
 namespace TH165 {
     class THOverlay : public Gui::GameGuiWnd {
@@ -11,10 +10,13 @@ namespace TH165 {
             SetPos(10.0f, 10.0f);
             SetSize(0.0f, 0.0f);
             SetWndFlag(
-                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0);
+                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
+                | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0
+            );
             OnLocaleChange();
         }
         SINGLETON(THOverlay);
+
     protected:
         virtual void OnLocaleChange() override
         {
@@ -60,17 +62,15 @@ namespace TH165 {
             }
         }
 
-        Gui::GuiHotKey mMenu { "ModMenuToggle", "BACKSPACE", VK_BACK };
-        Gui::GuiHotKey mMuteki { TH_MUTEKI, "F1", VK_F1, {
-            new HookCtx(0x446a80, "\x01", 1) } };
-        Gui::GuiHotKey mInfCharge { TH_INFCHARGE, "F2", VK_F2, {
-            new HookCtx(0x44c5f8, "\x90\x90", 2) } };
+        Gui::GuiHotKey mMenu{"ModMenuToggle", "BACKSPACE", VK_BACK};
+        Gui::GuiHotKey mMuteki{TH_MUTEKI, "F1", VK_F1, {new HookCtx(0x446a80, "\x01", 1)}};
+        Gui::GuiHotKey mInfCharge{TH_INFCHARGE, "F2", VK_F2, {new HookCtx(0x44c5f8, "\x90\x90", 2)}};
+
     private:
-        Gui::GuiHotKey mTimeLock { TH_TIMELOCK, "F3", VK_F3, {
-            new HookCtx(0x419a78, "\xeb\x63", 2) } };
+        Gui::GuiHotKey mTimeLock{TH_TIMELOCK, "F3", VK_F3, {new HookCtx(0x419a78, "\xeb\x63", 2)}};
 
     public:
-        Gui::GuiHotKey mElBgm { TH_EL_BGM, "F7", VK_F7 };
+        Gui::GuiHotKey mElBgm{TH_EL_BGM, "F7", VK_F7};
     };
 
     class THAdvOptWnd : public Gui::GameGuiWnd {
@@ -95,11 +95,9 @@ namespace TH165 {
             }
         }
         void GameplayInit()
-        {
-        }
+        { }
         void GameplaySet()
-        {
-        }
+        { }
 
     public:
         THAdvOptWnd() noexcept
@@ -225,9 +223,7 @@ namespace TH165 {
     static __declspec(noinline) void THGuiCreate()
     {
         // Init
-        GameGuiInit(IMPL_WIN32_DX9, 0x4b3b18, 0x507b70, 0x460950,
-            Gui::INGAGME_INPUT_GEN2, 0x4b0ffc, 0x4b0ff8, 0,
-            (*((int32_t*)0x509bac) >> 2) & 0xf);
+        GameGuiInit(IMPL_WIN32_DX9, 0x4b3b18, 0x507b70, 0x460950, Gui::INGAGME_INPUT_GEN2, 0x4b0ffc, 0x4b0ff8, 0, (*((int32_t*)0x509bac) >> 2) & 0xf);
 
         // Gui components creation
         THOverlay::singleton();

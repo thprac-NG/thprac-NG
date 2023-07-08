@@ -2,18 +2,18 @@
 
 #define NOMINMAX
 
+#include "thprac_gui_locale.h"
 #include "thprac_launcher_cfg.h"
 #include "thprac_utils.h"
-#include "thprac_gui_locale.h"
 
 #include "..\MinHook\src\buffer.h"
 #include "..\MinHook\src\trampoline.h"
 #include <MinHook.h>
 
 #include <Windows.h>
+#include <algorithm>
 #include <cstdint>
 #include <vector>
-#include <algorithm>
 #pragma warning(disable : 4091)
 #include <DbgHelp.h>
 #pragma warning(default : 4091)

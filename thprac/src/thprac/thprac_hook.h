@@ -13,15 +13,13 @@ public:
     HookCtx(uintptr_t target, CallbackFunc* inject)
         : mTarget((void*)target)
         , mDetour(inject)
-    {
-    }
+    { }
     HookCtx(uintptr_t target, const char* patch, size_t size)
         : mTarget((void*)target)
         , mPatch(patch)
         , mPatchSize(size)
         , mIsPatch(true)
-    {
-    }
+    { }
     HookCtx(std::vector<HookCtx*>& vec, uintptr_t target, CallbackFunc* inject)
         : mTarget((void*)target)
         , mDetour(inject)
@@ -65,6 +63,7 @@ class EHookSingleton {
     EHookSingleton& operator=(EHookSingleton&) = delete;
     EHookSingleton(EHookSingleton&&) = delete;
     EHookSingleton& operator=(EHookSingleton&&) = delete;
+
 public:
     __declspec(noinline) static auto& GetHook()
     {
@@ -123,7 +122,6 @@ public:
             DisableAllHooks();
     }
 
-
 protected:
     std::vector<HookCtx*> mHooks;
 };
@@ -136,24 +134,21 @@ enum CallType {
     Vectorcall
 };
 template <uintptr_t addr, CallType type, typename R = void, typename... Args>
-static inline R asm_call(Args... args) {
+static inline R asm_call(Args... args)
+{
     if constexpr (type == Cdecl) {
         auto* func = (R(__cdecl*)(Args...))addr;
         return func(args...);
-    }
-    else if constexpr (type == Stdcall) {
+    } else if constexpr (type == Stdcall) {
         auto* func = (R(__stdcall*)(Args...))addr;
         return func(args...);
-    }
-    else if constexpr (type == Fastcall) {
+    } else if constexpr (type == Fastcall) {
         auto* func = (R(__fastcall*)(Args...))addr;
         return func(args...);
-    }
-    else if constexpr (type == Vectorcall) {
+    } else if constexpr (type == Vectorcall) {
         auto* func = (R(__vectorcall*)(Args...))addr;
         return func(args...);
-    }
-    else if constexpr (type == Thiscall) {
+    } else if constexpr (type == Thiscall) {
         auto* func = (R(__thiscall*)(Args...))addr;
         return func(args...);
     }
@@ -172,33 +167,33 @@ static DWORD PopHelper32(CONTEXT* pCtx)
     return ret;
 }
 
-#define EHOOK_G1(name, target) \
+#define EHOOK_G1(name, target)                                        \
     __declspec(noinline) void __stdcall __vehf_##name(PCONTEXT pCtx); \
-    typedef EHookSingleton <target, __vehf_##name> name; \
+    typedef EHookSingleton<target, __vehf_##name> name;               \
     __declspec(noinline) void __stdcall __vehf_##name(PCONTEXT pCtx)
 
-#define EHOOK_ST(name, target)                                \
-    HookCtx name { target, __vehf_##name }; \
+#define EHOOK_ST(name, target)           \
+    HookCtx name{target, __vehf_##name}; \
     static __declspec(noinline) void __stdcall __vehf_##name(PCONTEXT pCtx)
 
-#define EHOOK_DY(name, target)                                \
-    HookCtx name { mHooks, target, __vehf_##name }; \
+#define EHOOK_DY(name, target)                   \
+    HookCtx name{mHooks, target, __vehf_##name}; \
     static __declspec(noinline) void __stdcall __vehf_##name(PCONTEXT pCtx)
 
 #define PATCH_S1(name, target, patch, size)           \
     static constexpr char __s1patch_##name[] = patch; \
     typedef PatchSingleton<target, __s1patch_##name, size> name;
 
-#define PATCH_ST(name, target, patch, size) \
-    HookCtx name { target, patch, size };
+#define PATCH_ST(name, target, patch, size) HookCtx name{target, patch, size};
 
-#define PATCH_DY(name, target, patch, size) \
-    HookCtx name { mHooks, target, patch, size };
+#define PATCH_DY(name, target, patch, size) HookCtx name{mHooks, target, patch, size};
 
 #define HOOKSET_DEFINE(name)           \
     struct name : public HookSetBase { \
         name() = default;              \
         SINGLETON(name);
 
-#define HOOKSET_ENDDEF() };
+#define HOOKSET_ENDDEF() \
+    }                    \
+    ;
 }

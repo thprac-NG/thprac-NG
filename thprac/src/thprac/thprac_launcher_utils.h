@@ -19,12 +19,11 @@
 
 #define NOMINMAX
 #include <Windows.h>
+#include <ctime>
+#include <functional>
 #include <imgui.h>
 #include <string>
-#include <functional>
 #include <vector>
-#include <ctime>
-#include <imgui.h>
 #pragma warning(disable : 4091)
 #include <Shlobj.h>
 #pragma warning(default : 4091)
@@ -73,7 +72,7 @@ public:
         if (mThreadHnd != INVALID_HANDLE_VALUE) {
             if (IsActive()) {
 #pragma warning(push)
-#pragma warning(disable: 6258)
+#pragma warning(disable : 6258)
                 TerminateThread(mThreadHnd, 0);
 #pragma warning(pop)
             }
@@ -375,7 +374,9 @@ static bool GuiButtonYesNo(const char* buttonText1 = "OK", const char* buttonTex
     return false;
 }
 
-static bool GuiButtonAndModalYesNo(const char* buttonText, const char* modalTitle, const char* modalText, float buttonSize = 6.0f, const char* buttonText1 = "OK", const char* buttonText2 = "Cancel")
+static bool GuiButtonAndModalYesNo(
+    const char* buttonText, const char* modalTitle, const char* modalText, float buttonSize = 6.0f, const char* buttonText1 = "OK", const char* buttonText2 = "Cancel"
+)
 {
     bool result = false;
 
