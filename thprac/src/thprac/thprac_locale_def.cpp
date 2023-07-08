@@ -2,6 +2,7 @@
 // If you want to edit this file, edit thprac_games_def.json
 // Then, use the thprac devtools to regenerate this file
 // https://github.com/touhouworldcup/thprac_utils/
+// clang-format off
 
 #include "thprac_locale_def.h"
 
