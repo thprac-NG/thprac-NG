@@ -9,6 +9,7 @@
 namespace THPrac {
 namespace Gui {
 #pragma region Japanese Glyph Range
+// clang-format off
 static const short offsetsFrom0x4E00[] =
 {
 	-1,0,1,3,0,0,0,0,1,0,1,0,2,1,1,0,4,2,4,3,2,4,5,0,1,0,6,0,0,2,2,1,0,0,6,0,0,0,3,0,0,17,1,10,1,1,3,1,0,1,0,1,2,0,1,0,2,0,1,0,1,2,0,1,
@@ -114,6 +115,7 @@ static ImWchar baseUnicodeRanges[] =
 };
 #pragma endregion
 
+    // clang-format on
     locale_t __glocale_current = LOCALE_EN_US;
     bool __glocale_merge = false;
     unsigned int __glocale_disabled = 0;
@@ -228,10 +230,12 @@ static ImWchar baseUnicodeRanges[] =
 
         // Check code page bitfields
         // For complete list of bitfields: https://msdn.microsoft.com/library/windows/desktop/dd317754(v=vs.85).aspx
+        // clang-format off
         static std::uint8_t codePageBitfields[] = {
             0, 1, // Latin,
             17, // Japanese
         };
+        // clang-format on
 
         for (auto bitToCheck : codePageBitfields) {
             DWORD mask = 1 << (bitToCheck & 32);
@@ -242,6 +246,7 @@ static ImWchar baseUnicodeRanges[] =
 
         // Check unicode subset bitfields
         // For complete list of bitfields: https://msdn.microsoft.com/library/windows/desktop/dd374090(v=vs.85).aspx
+        // clang-format off
         static std::uint8_t unicodeSubsetBitfields[] = {
             0, 1, // Basic Latin + Latin Supplement
             48, 49, 50, // Punctuations, Hiragana, Katakana
@@ -249,6 +254,7 @@ static ImWchar baseUnicodeRanges[] =
             37, // Arrows
             59, // CJK Unified Ideographs
         };
+        // clang-format on
 
         for (auto bitToCheck : unicodeSubsetBitfields) {
             DWORD mask = 1 << (bitToCheck % 32);
@@ -286,10 +292,12 @@ static ImWchar baseUnicodeRanges[] =
 
         // Check code page bitfields
         // For complete list of bitfields: https://msdn.microsoft.com/library/windows/desktop/dd317754(v=vs.85).aspx
+        // clang-format off
         static std::uint8_t codePageBitfields[] = {
             0, 1, // Latin,
             18, // SChinese
         };
+        // clang-format on
 
         for (auto bitToCheck : codePageBitfields) {
             DWORD mask = 1 << (bitToCheck & 32);
@@ -300,6 +308,7 @@ static ImWchar baseUnicodeRanges[] =
 
         // Check unicode subset bitfields
         // For complete list of bitfields: https://msdn.microsoft.com/library/windows/desktop/dd374090(v=vs.85).aspx
+        // clang-format off
         static std::uint8_t unicodeSubsetBitfields[] = {
             0, 1, // Basic Latin + Latin Supplement
             //31,
@@ -307,6 +316,7 @@ static ImWchar baseUnicodeRanges[] =
             //68, // Half-width characters
             59, // CJK Unified Ideographs
         };
+        // clang-format on
 
         for (auto bitToCheck : unicodeSubsetBitfields) {
             DWORD mask = 1 << (bitToCheck % 32);

@@ -894,6 +894,7 @@ namespace TH10 {
     }
     __declspec(noinline) void THStageWarp(ECLHelper& ecl, int stage, int portion)
     {
+        // clang-format off
         StdStatus st4_c2 {
             208, 0xffffffff, 0x43f00000, 0x44610000, // Fog Color
             208, 0x0, 0x42c80000, 0xc3e10000, // Cam Pos
@@ -929,6 +930,7 @@ namespace TH10 {
             247, 0x0, 0x43f10000, 0xc3e10000, // Cam Pos
             247, 0x0, 0xc3960000, 0x43a50000, // Cam Dir
         };
+        // clang-format on
         auto st4_boss_timeskip = [&](uint32_t stdTime) {
             ecl << pair(0x14aa4, 8600 - stdTime) << pair(0x14ab4, 8600 - stdTime) << pair(0x14ae4, 8600 - stdTime)
                 << pair(0x14af8, 8601 - stdTime) << pair(0x14b08, 8601 - stdTime) << pair(0x14b18, 8601 - stdTime)
