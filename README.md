@@ -9,6 +9,6 @@
 
 ## Some extra to-dos:
 
-- [ ] Providing some easy-to-use APIs for everyone to customize their specialized training.
+- [ ] Providing some easy-to-use APIs for everyone to customize their specialized training. (Please refer to [RUEEE's fork](https://github.com/RUEEE/thprac))
 
 I doubt we can finish the above before Comiket 106. (^^;;
