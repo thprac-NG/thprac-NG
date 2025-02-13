@@ -922,7 +922,7 @@ private:
         };
 
 #pragma warning(push)
-#pragma warning(disable: 4459) // Global declaration shadowing (defined in winnt.h)
+#pragma warning(disable : 4459) // Global declaration shadowing (defined in winnt.h)
         // Don't need to depend on the entire Driver Development Kit just for
         // ntddk.h.
         typedef struct _OSVERSIONINFOW {
@@ -1032,9 +1032,7 @@ private:
         return version;
     }
 
-    static DWORD DownloadSingleFile(
-        const wchar_t* url, std::vector<uint8_t>& out, std::function<void(DWORD, DWORD)> progressCallback = [](DWORD, DWORD) {}
-    )
+    static DWORD DownloadSingleFile(const wchar_t* url, std::vector<uint8_t>& out, std::function<void(DWORD, DWORD)> progressCallback = [](DWORD, DWORD) {})
     {
         static HINTERNET hInternet = nullptr;
         DWORD byteRet = sizeof(DWORD);

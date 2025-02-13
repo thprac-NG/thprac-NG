@@ -344,11 +344,11 @@ namespace TH185 {
             out.section_param[4].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_DLG)},
-                                  {.label = S(TH_NONSPELL), .writes{{"Boss01tBoss", {{.off = 0x220, .bytes = {0x00, 0x00, 0x24, 0x00}}}}}},
-                                  {.label = S(TH185_SPELL_0_1),
-                     .writes{{"Boss01tBoss", {{.off = 0x220, .bytes = {0x00, 0x00, 0x24, 0x00}}, {.off = 0x1b0, .bytes = {0x84, 0x03, 0x00, 0x00}}}}}}}
+                .section_param =
+                    {{.label = S(TH_DLG)},
+                                    {.label = S(TH_NONSPELL), .writes{{"Boss01tBoss", {{.off = 0x220, .bytes = {0x00, 0x00, 0x24, 0x00}}}}}},
+                                    {.label = S(TH185_SPELL_0_1), .writes{{"Boss01tBoss", {{.off = 0x220, .bytes = {0x00, 0x00, 0x24, 0x00}}, {.off = 0x1b0, .bytes = {0x84, 0x03, 0x00, 0x00}}}}}}
+                    }
             };
             break;
         case 1:
@@ -361,75 +361,44 @@ namespace TH185 {
             out.section_param[3].phases = {
                 .label = S(TH_BOSS),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                    {
-                        .label = S(TH185_NONE_RANDOM)
-                    },
-                    {
-                        .label = S(TH185_GOUTOKUZI_MIKE),
-                        .writes = {
-                            { "WorldWaveB00", {
-                                { .off = 0x34, .bytes = { FORCE_BOSS(0, 2) } }
-                            } }
-                        }
-                    },
-                    { 
-                        .label = S(TH185_AKI_MINORIKO),
-                        .writes = {
-                            { "WorldWaveB00", {
-                                { .off = 0x34, .bytes = { FORCE_BOSS(1, 2) } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_ETERNITY_LARVA),
-                        .writes = {
-                            { "WorldWaveB00", {
-                                { .off = 0x34, .bytes = { FORCE_BOSS(2, 2) } }
-                            } }
-                        }
-                    },
-                    { 
-                        .label = S(TH185_SAKATA_NEMUNO),
-                        .writes = {
-                            { "WorldWaveB00", {
-                                { .off = 0x34, .bytes = { FORCE_BOSS(3, 2) } }
-                            } }
-                        }
-                    }
-                }
+                .section_param =
+                    {{.label = S(TH185_NONE_RANDOM)},
+                                    {.label = S(TH185_GOUTOKUZI_MIKE), .writes = {{"WorldWaveB00", {{.off = 0x34, .bytes = {FORCE_BOSS(0, 2)}}}}}},
+                                    {.label = S(TH185_AKI_MINORIKO), .writes = {{"WorldWaveB00", {{.off = 0x34, .bytes = {FORCE_BOSS(1, 2)}}}}}},
+                                    {.label = S(TH185_ETERNITY_LARVA), .writes = {{"WorldWaveB00", {{.off = 0x34, .bytes = {FORCE_BOSS(2, 2)}}}}}},
+                                    {.label = S(TH185_SAKATA_NEMUNO), .writes = {{"WorldWaveB00", {{.off = 0x34, .bytes = {FORCE_BOSS(3, 2)}}}}}}}
             };
             out.section_param[3].phases->section_param[1].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_1_1),
-                     .writes = {{"Boss01Boss", {{.off = 0x1b0, .bytes = {0x14, 0x05, 0x00, 0x00}}}}, {"Boss01Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(1, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_1_1),
+                      .writes = {{"Boss01Boss", {{.off = 0x1b0, .bytes = {0x14, 0x05, 0x00, 0x00}}}}, {"Boss01Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(1, 1)}}}}}}}
             };
             out.section_param[3].phases->section_param[2].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_2_1),
-                     .writes = {{"Boss02Boss", {{.off = 0x1b0, .bytes = {0x14, 0x05, 0x00, 0x00}}}}, {"Boss02Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(2, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_2_1),
+                      .writes = {{"Boss02Boss", {{.off = 0x1b0, .bytes = {0x14, 0x05, 0x00, 0x00}}}}, {"Boss02Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(2, 1)}}}}}}}
             };
             out.section_param[3].phases->section_param[3].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_3_1),
-                     .writes = {{"Boss03Boss", {{.off = 0x1b0, .bytes = {0x14, 0x05, 0x00, 0x00}}}}, {"Boss03Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(3, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_3_1),
+                      .writes = {{"Boss03Boss", {{.off = 0x1b0, .bytes = {0x14, 0x05, 0x00, 0x00}}}}, {"Boss03Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(3, 1)}}}}}}}
             };
             out.section_param[3].phases->section_param[4].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_4_1),
-                     .writes = {{"Boss04Boss", {{.off = 0x1b0, .bytes = {0x14, 0x05, 0x00, 0x00}}}}, {"Boss04Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(4, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_4_1),
+                      .writes = {{"Boss04Boss", {{.off = 0x1b0, .bytes = {0x14, 0x05, 0x00, 0x00}}}}, {"Boss04Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(4, 1)}}}}}}}
             };
             break;
         case 2:
@@ -445,75 +414,44 @@ namespace TH185 {
             out.section_param[4].phases = {
                 .label = S(TH_BOSS),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                    {
-                        .label = S(TH185_NONE_RANDOM)
-                    },
-                    { 
-                        .label = S(TH185_CIRNO),
-                        .writes = {
-                            { "WorldWaveB00", {
-                                { .off = 0x34, .bytes = { FORCE_BOSS(0, 6) } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_WAKASAGIHIME),
-                        .writes = {
-                            { "WorldWaveB00", {
-                                { .off = 0x34, .bytes = { FORCE_BOSS(1, 6) } }
-                            } }
-                        }
-                    },
-                    { 
-                        .label = S(TH185_SEKIBANKI),
-                        .writes = {
-                            { "WorldWaveB00", {
-                                { .off = 0x34, .bytes = { FORCE_BOSS(2, 6) } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_USHIZAKI_URUMI),
-                        .writes = {
-                            { "WorldWaveB00", {
-                                { .off = 0x34, .bytes = { FORCE_BOSS(3, 6) } }
-                            } }
-                        }
-                    }
-                }
+                .section_param =
+                    {{.label = S(TH185_NONE_RANDOM)},
+                                    {.label = S(TH185_CIRNO), .writes = {{"WorldWaveB00", {{.off = 0x34, .bytes = {FORCE_BOSS(0, 6)}}}}}},
+                                    {.label = S(TH185_WAKASAGIHIME), .writes = {{"WorldWaveB00", {{.off = 0x34, .bytes = {FORCE_BOSS(1, 6)}}}}}},
+                                    {.label = S(TH185_SEKIBANKI), .writes = {{"WorldWaveB00", {{.off = 0x34, .bytes = {FORCE_BOSS(2, 6)}}}}}},
+                                    {.label = S(TH185_USHIZAKI_URUMI), .writes = {{"WorldWaveB00", {{.off = 0x34, .bytes = {FORCE_BOSS(3, 6)}}}}}}}
             };
             out.section_param[4].phases->section_param[1].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_ATTACK)},
-                                  {.label = S(TH185_SPELL_5_1),
-                     .writes = {{"Boss05Boss", {{.off = 0x1b0, .bytes = {0xDC, 0x05, 0x00, 0x00}}}}, {"Boss05Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(5, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_ATTACK)},
+                                    {.label = S(TH185_SPELL_5_1),
+                      .writes = {{"Boss05Boss", {{.off = 0x1b0, .bytes = {0xDC, 0x05, 0x00, 0x00}}}}, {"Boss05Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(5, 1)}}}}}}}
             };
             out.section_param[4].phases->section_param[2].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_6_1),
-                     .writes = {{"Boss06Boss", {{.off = 0x1b0, .bytes = {0xDC, 0x05, 0x00, 0x00}}}}, {"Boss06Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(6, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_6_1),
+                      .writes = {{"Boss06Boss", {{.off = 0x1b0, .bytes = {0xDC, 0x05, 0x00, 0x00}}}}, {"Boss06Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(6, 1)}}}}}}}
             };
             out.section_param[4].phases->section_param[3].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_7_1),
-                     .writes = {{"Boss07Boss", {{.off = 0x1b0, .bytes = {0x14, 0x05, 0x00, 0x00}}}}, {"Boss07Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(7, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_7_1),
+                      .writes = {{"Boss07Boss", {{.off = 0x1b0, .bytes = {0x14, 0x05, 0x00, 0x00}}}}, {"Boss07Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(7, 1)}}}}}}}
             };
             out.section_param[4].phases->section_param[4].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_8_1),
-                     .writes = {{"Boss08Boss", {{.off = 0x1b0, .bytes = {0xDC, 0x05, 0x00, 0x00}}}}, {"Boss08Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(8, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_8_1),
+                      .writes = {{"Boss08Boss", {{.off = 0x1b0, .bytes = {0xDC, 0x05, 0x00, 0x00}}}}, {"Boss08Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(8, 1)}}}}}}}
             };
             break;
         case 3:
@@ -531,75 +469,44 @@ namespace TH185 {
             out.section_param[5].phases = {
                 .label = S(TH_BOSS),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                    {
-                        .label = S(TH185_NONE_RANDOM)
-                    },
-                    {
-                        .label = S(TH185_EBISU_EIKA),
-                        .writes = {
-                            { "WorldWaveB00", {
-                                { .off = 0x34, .bytes = { FORCE_BOSS(0, 10) } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_NIWATARI_KUTAKA),
-                        .writes = {
-                            { "WorldWaveB00", {
-                                { .off = 0x34, .bytes = { FORCE_BOSS(1, 10) } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_YATADERA_NARUMI),
-                        .writes = {
-                            { "WorldWaveB00", {
-                                { .off = 0x34, .bytes = { FORCE_BOSS(2, 10) } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_ONOZUKA_KOMACHI),
-                        .writes = {
-                            { "WorldWaveB00", {
-                                { .off = 0x34, .bytes = { FORCE_BOSS(3, 10) } }
-                            } }
-                        }
-                    }
-                }
+                .section_param =
+                    {{.label = S(TH185_NONE_RANDOM)},
+                                    {.label = S(TH185_EBISU_EIKA), .writes = {{"WorldWaveB00", {{.off = 0x34, .bytes = {FORCE_BOSS(0, 10)}}}}}},
+                                    {.label = S(TH185_NIWATARI_KUTAKA), .writes = {{"WorldWaveB00", {{.off = 0x34, .bytes = {FORCE_BOSS(1, 10)}}}}}},
+                                    {.label = S(TH185_YATADERA_NARUMI), .writes = {{"WorldWaveB00", {{.off = 0x34, .bytes = {FORCE_BOSS(2, 10)}}}}}},
+                                    {.label = S(TH185_ONOZUKA_KOMACHI), .writes = {{"WorldWaveB00", {{.off = 0x34, .bytes = {FORCE_BOSS(3, 10)}}}}}}}
             };
             out.section_param[5].phases->section_param[1].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_9_1),
-                     .writes = {{"Boss09Boss", {{.off = 0x1b0, .bytes = {0x08, 0x07, 0x00, 0x00}}}}, {"Boss09Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(9, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_9_1),
+                      .writes = {{"Boss09Boss", {{.off = 0x1b0, .bytes = {0x08, 0x07, 0x00, 0x00}}}}, {"Boss09Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(9, 1)}}}}}}}
             };
             out.section_param[5].phases->section_param[2].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_10_1),
-                     .writes = {{"Boss10Boss", {{.off = 0x1b0, .bytes = {0x08, 0x07, 0x00, 0x00}}}}, {"Boss10Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(10, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_10_1),
+                      .writes = {{"Boss10Boss", {{.off = 0x1b0, .bytes = {0x08, 0x07, 0x00, 0x00}}}}, {"Boss10Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(10, 1)}}}}}}}
             };
             out.section_param[5].phases->section_param[3].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_11_1),
-                     .writes = {{"Boss11Boss", {{.off = 0x1b0, .bytes = {0x08, 0x07, 0x00, 0x00}}}}, {"Boss11Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(11, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_11_1),
+                      .writes = {{"Boss11Boss", {{.off = 0x1b0, .bytes = {0x08, 0x07, 0x00, 0x00}}}}, {"Boss11Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(11, 1)}}}}}}}
             };
             out.section_param[5].phases->section_param[4].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_12_1),
-                     .writes = {{"Boss12Boss", {{.off = 0x1b0, .bytes = {0x08, 0x07, 0x00, 0x00}}}}, {"Boss12Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(12, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_12_1),
+                      .writes = {{"Boss12Boss", {{.off = 0x1b0, .bytes = {0x08, 0x07, 0x00, 0x00}}}}, {"Boss12Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(12, 1)}}}}}}}
             };
             break;
         case 4:
@@ -619,139 +526,104 @@ namespace TH185 {
             out.section_param[5].phases = {
                 .label = S(TH_BOSS),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                    {
-                        .label = S(TH185_NONE_RANDOM)
-                    },
-                    {
-                        .label = S(TH185_KOCHIYA_SANAE),
-                        .writes = {
-                            { "WorldWaveB00", {
-                                { .off = 0x34, .bytes = { FORCE_BOSS(0, 14) } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_IZAYOI_SAKUYA),
-                        .writes = {
-                            { "WorldWaveB00", {
-                                { .off = 0x34, .bytes = { FORCE_BOSS(1, 14) } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_KONPAKU_YOUMU),
-                        .writes = {
-                            { "WorldWaveB00", {
-                                { .off = 0x34, .bytes = { FORCE_BOSS(2, 14) } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_HAKUREI_REIMU),
-                        .writes = {
-                            { "WorldWaveB00", {
-                                { .off = 0x34, .bytes = { FORCE_BOSS(3, 14) } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_KAWASIRO_NITORI),
-                        .writes = {
-                            { "WorldWaveB00", {
-                                { .off = 0x34, .bytes = {
-                                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x00, 0x00, 0x00, 0xFF, 0x02, 0x00, 0x00, 0x00, 0x00, 14, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00,
-                                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x00, 0x00, 0x00, 0xFF, 0x02, 0x00, 0x00, 0x00, 0x00, 15, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00,
-                                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x00, 0x00, 0x00, 0xFF, 0x02, 0x00, 0x00, 0x00, 0x00, 16, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00,
-                                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x14, 0x00, 0x01, 0x00, 0xFF, 0x01, 0x00, 0x00, 0x00, 0x00, 0x5E, 0xD9, 0xFF, 0xFF,
-                                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x00, 0x00, 0x00, 0xFF, 0x02, 0x00, 0x00, 0x00, 0x00, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                0x00, 0x00, 0x00, 0x00, 0xF3, 0x03, 0x18, 0x00, 0x00, 0x00, 0xFF, 0x02, 0x00, 0x00, 0x00, 0x00, 27, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00 } }
-                            } }
-                        }
-                    }
-                }
+                .section_param =
+                    {{.label = S(TH185_NONE_RANDOM)},
+                                    {.label = S(TH185_KOCHIYA_SANAE), .writes = {{"WorldWaveB00", {{.off = 0x34, .bytes = {FORCE_BOSS(0, 14)}}}}}},
+                                    {.label = S(TH185_IZAYOI_SAKUYA), .writes = {{"WorldWaveB00", {{.off = 0x34, .bytes = {FORCE_BOSS(1, 14)}}}}}},
+                                    {.label = S(TH185_KONPAKU_YOUMU), .writes = {{"WorldWaveB00", {{.off = 0x34, .bytes = {FORCE_BOSS(2, 14)}}}}}},
+                                    {.label = S(TH185_HAKUREI_REIMU), .writes = {{"WorldWaveB00", {{.off = 0x34, .bytes = {FORCE_BOSS(3, 14)}}}}}},
+                                    {.label = S(TH185_KAWASIRO_NITORI),
+                      .writes = {{"WorldWaveB00", {{.off = 0x34, .bytes = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x00, 0x00, 0x00, 0xFF, 0x02, 0x00, 0x00, 0x00, 0x00,
+                                                                           14,   0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x00,
+                                                                           0x00, 0x00, 0xFF, 0x02, 0x00, 0x00, 0x00, 0x00, 15,   0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00,
+                                                                           0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x00, 0x00, 0x00, 0xFF, 0x02, 0x00, 0x00, 0x00, 0x00,
+                                                                           16,   0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x14, 0x00,
+                                                                           0x01, 0x00, 0xFF, 0x01, 0x00, 0x00, 0x00, 0x00, 0x5E, 0xD9, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00,
+                                                                           0x00, 0x00, 0x18, 0x00, 0x00, 0x00, 0xFF, 0x02, 0x00, 0x00, 0x00, 0x00, 0x30, 0x00, 0x00, 0x00,
+                                                                           0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xF3, 0x03, 0x18, 0x00, 0x00, 0x00, 0xFF, 0x02,
+                                                                           0x00, 0x00, 0x00, 0x00, 27,   0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00}}}}}}}
             };
             out.section_param[5].phases->section_param[1].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_13_1),
-                     .writes = {{"Boss13Boss", {{.off = 0x1b0, .bytes = {0x98, 0x08, 0x00, 0x00}}}}, {"Boss13Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(13, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_13_1),
+                      .writes = {{"Boss13Boss", {{.off = 0x1b0, .bytes = {0x98, 0x08, 0x00, 0x00}}}}, {"Boss13Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(13, 1)}}}}}}}
             };
             out.section_param[5].phases->section_param[2].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_14_1),
-                     .writes = {{"Boss14Boss", {{.off = 0x1b0, .bytes = {0x98, 0x08, 0x00, 0x00}}}}, {"Boss14Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(14, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_14_1),
+                      .writes = {{"Boss14Boss", {{.off = 0x1b0, .bytes = {0x98, 0x08, 0x00, 0x00}}}}, {"Boss14Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(14, 1)}}}}}}}
             };
             out.section_param[5].phases->section_param[3].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_15_1),
-                     .writes = {{"Boss15Boss", {{.off = 0x1b0, .bytes = {0xf0, 0x0a, 0x00, 0x00}}}}, {"Boss15Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(15, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_15_1),
+                      .writes = {{"Boss15Boss", {{.off = 0x1b0, .bytes = {0xf0, 0x0a, 0x00, 0x00}}}}, {"Boss15Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(15, 1)}}}}}}}
             };
             out.section_param[5].phases->section_param[4].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_16_1),
-                     .writes = {{"Boss16Boss", {{.off = 0x1b0, .bytes = {0xf0, 0x0a, 0x00, 0x00}}}}, {"Boss16Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(16, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_16_1),
+                      .writes = {{"Boss16Boss", {{.off = 0x1b0, .bytes = {0xf0, 0x0a, 0x00, 0x00}}}}, {"Boss16Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(16, 1)}}}}}}}
             };
             out.section_param[5].phases->section_param[5].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_DLG)},
-                                  {.label = S(TH_NONSPELL),
-                     .writes =
-                         {
-                             {"Boss26Boss", {{.off = 0x208, .bytes = {0x00, 0x00, 0x24, 0x00}}}},
-                         }},
-                                  {.label = S(TH185_SPELL_26_1),
-                     .writes =
-                         {{"Boss26Boss", {{.off = 0x1b0, .bytes = {0xa0, 0x0f, 0x00, 0x00}}, {.off = 0x208, .bytes = {0x00, 0x00, 0x24, 0x00}}}},
-                          {"Boss26Boss1",
-                           {{.off = 0x10,
-                             .bytes =
-                                 {0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x0F,
-                                  0x02,
-                                  0x1C,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0xFF,
-                                  0x03,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x01,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0xFA,
-                                  0x44,
-                                  0x80,
-                                  0xA0,
-                                  0xFF,
-                                  0xFF,
-                                  BOSS_SPELL_CARD_ASYNC(26, 1)}}}}}},
-                                  {.label = S(TH185_SPELL_26_2),
-                     .writes = {
-                         {"Boss26Boss", {{.off = 0x1b0, .bytes = {0xd0, 0x07, 0x00, 0x00}}, {.off = 0x208, .bytes = {0x00, 0x00, 0x24, 0x00}}}},
-                         {"Boss26Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(26, 2)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_DLG)},
+                                    {.label = S(TH_NONSPELL),
+                      .writes =
+                          {
+                              {"Boss26Boss", {{.off = 0x208, .bytes = {0x00, 0x00, 0x24, 0x00}}}},
+                          }},
+                                    {.label = S(TH185_SPELL_26_1),
+                      .writes =
+                          {{"Boss26Boss", {{.off = 0x1b0, .bytes = {0xa0, 0x0f, 0x00, 0x00}}, {.off = 0x208, .bytes = {0x00, 0x00, 0x24, 0x00}}}},
+                           {"Boss26Boss1",
+                            {{.off = 0x10,
+                              .bytes =
+                                  {0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x0F,
+                                   0x02,
+                                   0x1C,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0xFF,
+                                   0x03,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x01,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0xFA,
+                                   0x44,
+                                   0x80,
+                                   0xA0,
+                                   0xFF,
+                                   0xFF,
+                                   BOSS_SPELL_CARD_ASYNC(26, 1)}}}}}},
+                                    {.label = S(TH185_SPELL_26_2),
+                      .writes =
+                          {{"Boss26Boss", {{.off = 0x1b0, .bytes = {0xd0, 0x07, 0x00, 0x00}}, {.off = 0x208, .bytes = {0x00, 0x00, 0x24, 0x00}}}},
+                           {"Boss26Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(26, 2)}}}}}}}
             };
             break;
         case 5:
@@ -771,215 +643,184 @@ namespace TH185 {
             out.section_param[7].phases = {
                 .label = S(TH_BOSS),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                    {
-                        .label = S(TH185_NONE_RANDOM)
-                    },
-                    {
-                        .label = S(TH185_KUDAMAKI_TSUKASA),
-                        .writes = {
-                            { "WorldWaveB00", {
-                                { .off = 0x34, .bytes = { FORCE_BOSS(0, 18) } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_IIZUNAMARU_MEGUMU),
-                        .writes = {
-                            { "WorldWaveB00", {
-                                { .off = 0x34, .bytes = { FORCE_BOSS(1, 18) } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_CLOWNPIECE),
-                        .writes = {
-                            { "WorldWaveB00", {
-                                { .off = 0x34, .bytes = { FORCE_BOSS(2, 18) } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_HINANAWI_TENSHI),
-                        .writes = {
-                            { "WorldWaveB00", {
-                                { .off = 0x34, .bytes = { FORCE_BOSS(3, 18) } }
-                            } }
-                        }
-                    }
-                }
+                .section_param =
+                    {{.label = S(TH185_NONE_RANDOM)},
+                                    {.label = S(TH185_KUDAMAKI_TSUKASA), .writes = {{"WorldWaveB00", {{.off = 0x34, .bytes = {FORCE_BOSS(0, 18)}}}}}},
+                                    {.label = S(TH185_IIZUNAMARU_MEGUMU), .writes = {{"WorldWaveB00", {{.off = 0x34, .bytes = {FORCE_BOSS(1, 18)}}}}}},
+                                    {.label = S(TH185_CLOWNPIECE), .writes = {{"WorldWaveB00", {{.off = 0x34, .bytes = {FORCE_BOSS(2, 18)}}}}}},
+                                    {.label = S(TH185_HINANAWI_TENSHI), .writes = {{"WorldWaveB00", {{.off = 0x34, .bytes = {FORCE_BOSS(3, 18)}}}}}}}
             };
             out.section_param[7].phases->section_param[1].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_17_1),
-                     .writes =
-                         {{"Boss17Boss", {{.off = 0x1b0, .bytes = {0x18, 0x15, 0x00, 0x00}}}},
-                          {"Boss17Boss1",
-                           {{.off = 0x10,
-                             .bytes =
-                                 {0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x0F,
-                                  0x02,
-                                  0x1C,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0xFF,
-                                  0x03,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x01,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x2F,
-                                  0x45,
-                                  0x80,
-                                  0xA0,
-                                  0xFF,
-                                  0xFF,
-                                  BOSS_SPELL_CARD_ASYNC(17, 1)}}}}}},
-                                  {.label = S(TH185_SPELL_17_2),
-                     .writes = {{"Boss17Boss", {{.off = 0x1b0, .bytes = {0xf0, 0x0a, 0x00, 0x00}}}}, {"Boss17Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(17, 2)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_17_1),
+                      .writes =
+                          {{"Boss17Boss", {{.off = 0x1b0, .bytes = {0x18, 0x15, 0x00, 0x00}}}},
+                           {"Boss17Boss1",
+                            {{.off = 0x10,
+                              .bytes =
+                                  {0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x0F,
+                                   0x02,
+                                   0x1C,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0xFF,
+                                   0x03,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x01,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x2F,
+                                   0x45,
+                                   0x80,
+                                   0xA0,
+                                   0xFF,
+                                   0xFF,
+                                   BOSS_SPELL_CARD_ASYNC(17, 1)}}}}}},
+                                    {.label = S(TH185_SPELL_17_2),
+                      .writes = {{"Boss17Boss", {{.off = 0x1b0, .bytes = {0xf0, 0x0a, 0x00, 0x00}}}}, {"Boss17Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(17, 2)}}}}}}}
             };
             out.section_param[7].phases->section_param[2].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_18_1),
-                     .writes =
-                         {{"Boss18Boss", {{.off = 0x1b0, .bytes = {0x18, 0x15, 0x00, 0x00}}}},
-                          {"Boss18Boss1",
-                           {{.off = 0x10,
-                             .bytes =
-                                 {0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x0F,
-                                  0x02,
-                                  0x1C,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0xFF,
-                                  0x03,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x01,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x2F,
-                                  0x45,
-                                  0x80,
-                                  0xA0,
-                                  0xFF,
-                                  0xFF,
-                                  BOSS_SPELL_CARD_ASYNC(18, 1)}}}}}},
-                                  {.label = S(TH185_SPELL_18_2),
-                     .writes = {{"Boss18Boss", {{.off = 0x1b0, .bytes = {0xf0, 0x0a, 0x00, 0x00}}}}, {"Boss18Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(18, 2)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_18_1),
+                      .writes =
+                          {{"Boss18Boss", {{.off = 0x1b0, .bytes = {0x18, 0x15, 0x00, 0x00}}}},
+                           {"Boss18Boss1",
+                            {{.off = 0x10,
+                              .bytes =
+                                  {0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x0F,
+                                   0x02,
+                                   0x1C,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0xFF,
+                                   0x03,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x01,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x2F,
+                                   0x45,
+                                   0x80,
+                                   0xA0,
+                                   0xFF,
+                                   0xFF,
+                                   BOSS_SPELL_CARD_ASYNC(18, 1)}}}}}},
+                                    {.label = S(TH185_SPELL_18_2),
+                      .writes = {{"Boss18Boss", {{.off = 0x1b0, .bytes = {0xf0, 0x0a, 0x00, 0x00}}}}, {"Boss18Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(18, 2)}}}}}}}
             };
             out.section_param[7].phases->section_param[3].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_19_1),
-                     .writes =
-                         {{"Boss19Boss", {{.off = 0x1b0, .bytes = {0x18, 0x15, 0x00, 0x00}}}},
-                          {"Boss19Boss1",
-                           {{.off = 0x10,
-                             .bytes =
-                                 {0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x0F,
-                                  0x02,
-                                  0x1C,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0xFF,
-                                  0x03,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x01,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x2F,
-                                  0x45,
-                                  0x80,
-                                  0xA0,
-                                  0xFF,
-                                  0xFF,
-                                  BOSS_SPELL_CARD_ASYNC(19, 1)}}}}}},
-                                  {.label = S(TH185_SPELL_19_2),
-                     .writes = {{"Boss19Boss", {{.off = 0x1b0, .bytes = {0xf0, 0x0a, 0x00, 0x00}}}}, {"Boss19Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(19, 2)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_19_1),
+                      .writes =
+                          {{"Boss19Boss", {{.off = 0x1b0, .bytes = {0x18, 0x15, 0x00, 0x00}}}},
+                           {"Boss19Boss1",
+                            {{.off = 0x10,
+                              .bytes =
+                                  {0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x0F,
+                                   0x02,
+                                   0x1C,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0xFF,
+                                   0x03,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x01,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x2F,
+                                   0x45,
+                                   0x80,
+                                   0xA0,
+                                   0xFF,
+                                   0xFF,
+                                   BOSS_SPELL_CARD_ASYNC(19, 1)}}}}}},
+                                    {.label = S(TH185_SPELL_19_2),
+                      .writes = {{"Boss19Boss", {{.off = 0x1b0, .bytes = {0xf0, 0x0a, 0x00, 0x00}}}}, {"Boss19Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(19, 2)}}}}}}}
             };
             out.section_param[7].phases->section_param[4].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_20_1),
-                     .writes =
-                         {{"Boss20Boss", {{.off = 0x1b0, .bytes = {0x18, 0x15, 0x00, 0x00}}}},
-                          {"Boss20Boss1",
-                           {{.off = 0x10,
-                             .bytes =
-                                 {0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x0F,
-                                  0x02,
-                                  0x1C,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0xFF,
-                                  0x03,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x01,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x2F,
-                                  0x45,
-                                  0x80,
-                                  0xA0,
-                                  0xFF,
-                                  0xFF,
-                                  BOSS_SPELL_CARD_ASYNC(20, 1)}}}}}},
-                                  {.label = S(TH185_SPELL_20_2),
-                     .writes = {{"Boss20Boss", {{.off = 0x1b0, .bytes = {0xf0, 0x0a, 0x00, 0x00}}}}, {"Boss20Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(20, 2)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_20_1),
+                      .writes =
+                          {{"Boss20Boss", {{.off = 0x1b0, .bytes = {0x18, 0x15, 0x00, 0x00}}}},
+                           {"Boss20Boss1",
+                            {{.off = 0x10,
+                              .bytes =
+                                  {0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x0F,
+                                   0x02,
+                                   0x1C,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0xFF,
+                                   0x03,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x01,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x2F,
+                                   0x45,
+                                   0x80,
+                                   0xA0,
+                                   0xFF,
+                                   0xFF,
+                                   BOSS_SPELL_CARD_ASYNC(20, 1)}}}}}},
+                                    {.label = S(TH185_SPELL_20_2),
+                      .writes = {{"Boss20Boss", {{.off = 0x1b0, .bytes = {0xf0, 0x0a, 0x00, 0x00}}}}, {"Boss20Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(20, 2)}}}}}}}
             };
             break;
         case 6:
@@ -999,391 +840,307 @@ namespace TH185 {
             out.section_param[7].phases = {
                 .label = S(TH_BOSS),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                    {
-                        .label = S(TH185_NONE_RANDOM)
-                    },
-                    {
-                        .label = S(TH185_IBUKI_SUIKA),
-                        .writes = {
-                            { "WorldWaveB00", {
-                                { .off = 0x34, .bytes = { FORCE_BOSS(0, 22) } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_FUTATUIWA_MAMIZOU),
-                        .writes = {
-                            { "WorldWaveB00", {
-                                { .off = 0x34, .bytes = { FORCE_BOSS(1, 22) } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_KUROKOMA_SAKI),
-                        .writes = {
-                            { "WorldWaveB00", {
-                                { .off = 0x34, .bytes = { FORCE_BOSS(2, 22) } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_HIMEMUSHI_MOMOYO),
-                        .writes = {
-                            { "WorldWaveB00", {
-                                { .off = 0x34, .bytes = { FORCE_BOSS(3, 22) } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_YAMASHIRO_TAKANE),
-                        .writes = {
-                            { "WorldWaveB00", {
-                                { .off = 0x34, .bytes = { {
-                                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x00, 0x00, 0x00, 0xFF, 0x02, 0x00, 0x00, 0x00, 0x00, 0x16, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00,
-                                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x00, 0x00, 0x00, 0xFF, 0x02, 0x00, 0x00, 0x00, 0x00, 0x17, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00,
-                                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x00, 0x00, 0x00, 0xFF, 0x02, 0x00, 0x00, 0x00, 0x00, 0x18, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00,
-                                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x14, 0x00, 0x01, 0x00, 0xFF, 0x01, 0x00, 0x00, 0x00, 0x00, 0x5E, 0xD9, 0xFF, 0xFF,
-                                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x00, 0x00, 0x00, 0xFF, 0x02, 0x00, 0x00, 0x00, 0x00, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                0x00, 0x00, 0x00, 0x00, 0xF3, 0x03, 0x18, 0x00, 0x00, 0x00, 0xFF, 0x02, 0x00, 0x00, 0x00, 0x00,   28, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00 } }
-                            } }
-                        } }
-                    }
-                }
+                .section_param =
+                    {{.label = S(TH185_NONE_RANDOM)},
+                                    {.label = S(TH185_IBUKI_SUIKA), .writes = {{"WorldWaveB00", {{.off = 0x34, .bytes = {FORCE_BOSS(0, 22)}}}}}},
+                                    {.label = S(TH185_FUTATUIWA_MAMIZOU), .writes = {{"WorldWaveB00", {{.off = 0x34, .bytes = {FORCE_BOSS(1, 22)}}}}}},
+                                    {.label = S(TH185_KUROKOMA_SAKI), .writes = {{"WorldWaveB00", {{.off = 0x34, .bytes = {FORCE_BOSS(2, 22)}}}}}},
+                                    {.label = S(TH185_HIMEMUSHI_MOMOYO), .writes = {{"WorldWaveB00", {{.off = 0x34, .bytes = {FORCE_BOSS(3, 22)}}}}}},
+                                    {.label = S(TH185_YAMASHIRO_TAKANE),
+                      .writes =
+                          {{"WorldWaveB00",
+                            {{.off = 0x34, .bytes = {{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x00, 0x00, 0x00, 0xFF, 0x02, 0x00, 0x00, 0x00, 0x00, 0x16, 0x00, 0x00, 0x00,
+                                                      0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x00, 0x00, 0x00, 0xFF, 0x02, 0x00, 0x00, 0x00, 0x00,
+                                                      0x17, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x00, 0x00, 0x00, 0xFF, 0x02,
+                                                      0x00, 0x00, 0x00, 0x00, 0x18, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x14, 0x00,
+                                                      0x01, 0x00, 0xFF, 0x01, 0x00, 0x00, 0x00, 0x00, 0x5E, 0xD9, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x00,
+                                                      0x00, 0x00, 0xFF, 0x02, 0x00, 0x00, 0x00, 0x00, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                                      0xF3, 0x03, 0x18, 0x00, 0x00, 0x00, 0xFF, 0x02, 0x00, 0x00, 0x00, 0x00, 28,   0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00}}}}}}}}
             };
             out.section_param[7].phases->section_param[1].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_21_1),
-                     .writes =
-                         {{"Boss21Boss", {{.off = 0x1b0, .bytes = {0xa0, 0x0f, 0x00, 0x00}}}},
-                          {"Boss21Boss1",
-                           {{.off = 0x10,
-                             .bytes =
-                                 {0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x0F,
-                                  0x02,
-                                  0x1C,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0xFF,
-                                  0x03,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x01,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x96,
-                                  0x44,
-                                  0x80,
-                                  0xA0,
-                                  0xFF,
-                                  0xFF,
-                                  BOSS_SPELL_CARD_ASYNC(21, 1)}}}}}},
-                                  {.label = S(TH185_SPELL_21_2),
-                     .writes = {{"Boss21Boss", {{.off = 0x1b0, .bytes = {0xb0, 0x04, 0x00, 0x00}}}}, {"Boss21Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(21, 2)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_21_1),
+                      .writes =
+                          {{"Boss21Boss", {{.off = 0x1b0, .bytes = {0xa0, 0x0f, 0x00, 0x00}}}},
+                           {"Boss21Boss1",
+                            {{.off = 0x10,
+                              .bytes =
+                                  {0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x0F,
+                                   0x02,
+                                   0x1C,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0xFF,
+                                   0x03,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x01,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x96,
+                                   0x44,
+                                   0x80,
+                                   0xA0,
+                                   0xFF,
+                                   0xFF,
+                                   BOSS_SPELL_CARD_ASYNC(21, 1)}}}}}},
+                                    {.label = S(TH185_SPELL_21_2),
+                      .writes = {{"Boss21Boss", {{.off = 0x1b0, .bytes = {0xb0, 0x04, 0x00, 0x00}}}}, {"Boss21Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(21, 2)}}}}}}}
             };
             out.section_param[7].phases->section_param[2].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_22_1),
-                     .writes =
-                         {{"Boss22Boss", {{.off = 0x1b0, .bytes = {0xd4, 0x17, 0x00, 0x00}}}},
-                          {"Boss22Boss1",
-                           {{.off = 0x10,
-                             .bytes =
-                                 {0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x0F,
-                                  0x02,
-                                  0x1C,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0xFF,
-                                  0x03,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x01,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x40,
-                                  0x4E,
-                                  0x45,
-                                  0x80,
-                                  0xA0,
-                                  0xFF,
-                                  0xFF,
-                                  BOSS_SPELL_CARD_ASYNC(22, 1)}}}}}},
-                                  {.label = S(TH185_SPELL_22_2),
-                     .writes = {{"Boss22Boss", {{.off = 0x1b0, .bytes = {0xe4, 0x0c, 0x00, 0x00}}}}, {"Boss22Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(22, 2)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_22_1),
+                      .writes =
+                          {{"Boss22Boss", {{.off = 0x1b0, .bytes = {0xd4, 0x17, 0x00, 0x00}}}},
+                           {"Boss22Boss1",
+                            {{.off = 0x10,
+                              .bytes =
+                                  {0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x0F,
+                                   0x02,
+                                   0x1C,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0xFF,
+                                   0x03,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x01,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x40,
+                                   0x4E,
+                                   0x45,
+                                   0x80,
+                                   0xA0,
+                                   0xFF,
+                                   0xFF,
+                                   BOSS_SPELL_CARD_ASYNC(22, 1)}}}}}},
+                                    {.label = S(TH185_SPELL_22_2),
+                      .writes = {{"Boss22Boss", {{.off = 0x1b0, .bytes = {0xe4, 0x0c, 0x00, 0x00}}}}, {"Boss22Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(22, 2)}}}}}}}
             };
             out.section_param[7].phases->section_param[3].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_23_1),
-                     .writes =
-                         {{"Boss23Boss", {{.off = 0x1b0, .bytes = {0xd4, 0x17, 0x00, 0x00}}}},
-                          {"Boss23Boss1",
-                           {{.off = 0x10,
-                             .bytes =
-                                 {0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x0F,
-                                  0x02,
-                                  0x1C,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0xFF,
-                                  0x03,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x01,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x40,
-                                  0x4E,
-                                  0x45,
-                                  0x80,
-                                  0xA0,
-                                  0xFF,
-                                  0xFF,
-                                  BOSS_SPELL_CARD_ASYNC(23, 1)}}}}}},
-                                  {.label = S(TH185_SPELL_23_2),
-                     .writes = {{"Boss23Boss", {{.off = 0x1b0, .bytes = {0xe4, 0x0c, 0x00, 0x00}}}}, {"Boss23Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(23, 2)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_23_1),
+                      .writes =
+                          {{"Boss23Boss", {{.off = 0x1b0, .bytes = {0xd4, 0x17, 0x00, 0x00}}}},
+                           {"Boss23Boss1",
+                            {{.off = 0x10,
+                              .bytes =
+                                  {0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x0F,
+                                   0x02,
+                                   0x1C,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0xFF,
+                                   0x03,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x01,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x40,
+                                   0x4E,
+                                   0x45,
+                                   0x80,
+                                   0xA0,
+                                   0xFF,
+                                   0xFF,
+                                   BOSS_SPELL_CARD_ASYNC(23, 1)}}}}}},
+                                    {.label = S(TH185_SPELL_23_2),
+                      .writes = {{"Boss23Boss", {{.off = 0x1b0, .bytes = {0xe4, 0x0c, 0x00, 0x00}}}}, {"Boss23Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(23, 2)}}}}}}}
             };
             out.section_param[7].phases->section_param[4].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_24_1),
-                     .writes =
-                         {{"Boss24Boss", {{.off = 0x1b0, .bytes = {0xd4, 0x17, 0x00, 0x00}}}},
-                          {"Boss24Boss1",
-                           {{.off = 0x10,
-                             .bytes =
-                                 {0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x0F,
-                                  0x02,
-                                  0x1C,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0xFF,
-                                  0x03,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x01,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x40,
-                                  0x4E,
-                                  0x45,
-                                  0x80,
-                                  0xA0,
-                                  0xFF,
-                                  0xFF,
-                                  BOSS_SPELL_CARD_ASYNC(24, 1)}}}}}},
-                                  {.label = S(TH185_SPELL_24_2),
-                     .writes = {{"Boss24Boss", {{.off = 0x1b0, .bytes = {0xe4, 0x0c, 0x00, 0x00}}}}, {"Boss24Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(24, 2)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_24_1),
+                      .writes =
+                          {{"Boss24Boss", {{.off = 0x1b0, .bytes = {0xd4, 0x17, 0x00, 0x00}}}},
+                           {"Boss24Boss1",
+                            {{.off = 0x10,
+                              .bytes =
+                                  {0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x0F,
+                                   0x02,
+                                   0x1C,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0xFF,
+                                   0x03,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x01,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x40,
+                                   0x4E,
+                                   0x45,
+                                   0x80,
+                                   0xA0,
+                                   0xFF,
+                                   0xFF,
+                                   BOSS_SPELL_CARD_ASYNC(24, 1)}}}}}},
+                                    {.label = S(TH185_SPELL_24_2),
+                      .writes = {{"Boss24Boss", {{.off = 0x1b0, .bytes = {0xe4, 0x0c, 0x00, 0x00}}}}, {"Boss24Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(24, 2)}}}}}}}
             };
             out.section_param[7].phases->section_param[5].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                    {
-                        .label = S(TH_DLG)
-                    },
-                    {
-                        .label = S(TH_NONSPELL),
-                        .writes = {
-                            { "Boss27Boss", {
-                                { .off = 0x208, .bytes = { 0, 0 } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_SPELL_27_1),
-                        .writes = {
-                            { "Boss27Boss", {
-                                { .off = 0x208, .bytes = { 0, 0 } },
-                                { .off = 0x1b0, .bytes = { 0x88, 0x2c, 0x00, 0x00 } }
-                            } },
-                            { "Boss27Boss1", {
-                                { .off = 0x10, .bytes = {
-                                    0x00, 0x00, 0x00, 0x00, 0x0F, 0x02, 0x1C, 0x00, 0x00, 0x00, 0xFF, 0x03, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0xC0, 0xF3, 0x45, 0x80, 0xA0, 0xFF, 0xFF,
-                                    0x00, 0x00, 0x00, 0x00, 0x0F, 0x02, 0x1C, 0x00, 0x00, 0x00, 0xFF, 0x03, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7A, 0x45, 0x80, 0xA0, 0xFF, 0xFF,
-                                    BOSS_SPELL_CARD_ASYNC(27, 1)
-                                } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_SPELL_27_2),
-                        .writes = {
-                            { "Boss27Boss", {
-                                { .off = 0x208, .bytes = { 0, 0 } },
-                                { .off = 0x1b0, .bytes = { 0x78, 0x1e, 0x00, 0x00 } }
-                            } },
-                            { "Boss27Boss1", {
-                                { .off = 0x10, .bytes = {
-                                    0x00, 0x00, 0x00, 0x00, 0x0F, 0x02, 0x1C, 0x00, 0x00, 0x00, 0xFF, 0x03, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7A, 0x45, 0x80, 0xA0, 0xFF, 0xFF,
-                                    BOSS_SPELL_CARD_ASYNC(27, 2)
-                                } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_SPELL_27_3),
-                        .writes = {
-                            { "Boss27Boss", {
-                                { .off = 0x208, .bytes = { 0, 0 } },
-                                { .off = 0x1b0, .bytes = { 0xa0, 0x0f, 0x00, 0x00 } }
-                            } },
-                            { "Boss27Boss1", {
-                                { .off = 0x10, .bytes = {
-                                    BOSS_SPELL_CARD_ASYNC(27, 3)
-                                } }
-                            } }
-                        }
-                    }
-                }
+                .section_param =
+                    {{.label = S(TH_DLG)},
+                                    {.label = S(TH_NONSPELL), .writes = {{"Boss27Boss", {{.off = 0x208, .bytes = {0, 0}}}}}},
+                                    {.label = S(TH185_SPELL_27_1),
+                      .writes =
+                          {{"Boss27Boss", {{.off = 0x208, .bytes = {0, 0}}, {.off = 0x1b0, .bytes = {0x88, 0x2c, 0x00, 0x00}}}},
+                           {"Boss27Boss1",
+                            {{.off = 0x10,
+                              .bytes = {0x00, 0x00, 0x00, 0x00, 0x0F, 0x02, 0x1C, 0x00, 0x00, 0x00, 0xFF, 0x03, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00,
+                                        0x00, 0x00, 0xC0, 0xF3, 0x45, 0x80, 0xA0, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x0F, 0x02, 0x1C, 0x00, 0x00, 0x00,
+                                        0xFF, 0x03, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7A, 0x45, 0x80, 0xA0, 0xFF, 0xFF, BOSS_SPELL_CARD_ASYNC(27, 1)}}}}
+                          }},
+                                    {.label = S(TH185_SPELL_27_2),
+                      .writes =
+                          {{"Boss27Boss", {{.off = 0x208, .bytes = {0, 0}}, {.off = 0x1b0, .bytes = {0x78, 0x1e, 0x00, 0x00}}}},
+                           {"Boss27Boss1",
+                            {{.off = 0x10,
+                              .bytes =
+                                  {0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x0F,
+                                   0x02,
+                                   0x1C,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0xFF,
+                                   0x03,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x02,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x7A,
+                                   0x45,
+                                   0x80,
+                                   0xA0,
+                                   0xFF,
+                                   0xFF,
+                                   BOSS_SPELL_CARD_ASYNC(27, 2)}}}}}},
+                                    {.label = S(TH185_SPELL_27_3),
+                      .writes =
+                          {{"Boss27Boss", {{.off = 0x208, .bytes = {0, 0}}, {.off = 0x1b0, .bytes = {0xa0, 0x0f, 0x00, 0x00}}}},
+                           {"Boss27Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(27, 3)}}}}}}}
             };
             break;
         case 7:
             out.section_param = {
+                {.label = S(TH185_WAVE_1)},
+                {.label = S(TH185_WAVE_2), .jumps = {{"main", {{.off = 0x29c, .dest = 0x3d4}}}}, .writes = {{"main", {{.off = 0x288, .bytes = {0x02, 0x00, 0x00, 0x00}}}}}},
+                {.label = S(TH185_WAVE_3), .jumps = {{"main", {{.off = 0x29c, .dest = 0x4b0}}}}, .writes = {{"main", {{.off = 0x288, .bytes = {0x03, 0x00, 0x00, 0x00}}}}}},
+                {.label = S(TH185_WAVE_4), .jumps = {{"main", {{.off = 0x29c, .dest = 0x58c}}}}, .writes = {{"main", {{.off = 0x288, .bytes = {0x04, 0x00, 0x00, 0x00}}}}}},
                 {
-                    .label = S(TH185_WAVE_1)
-                },
-                {
-                    .label = S(TH185_WAVE_2),
-                    .jumps = {
-                        { "main", {
-                            { .off = 0x29c, .dest = 0x3d4 }
-                        } }
-                    },
-                    .writes = {
-                        { "main", {
-                            { .off = 0x288, .bytes = { 0x02, 0x00, 0x00, 0x00 } }
-                        } }
-                    }
-                },
-                {
-                    .label = S(TH185_WAVE_3),
-                    .jumps = {
-                        { "main", {
-                            { .off = 0x29c, .dest = 0x4b0 }
-                        } }
-                    },
-                    .writes = {
-                        { "main", {
-                            { .off = 0x288, .bytes = { 0x03, 0x00, 0x00, 0x00 } }
-                        } }
-                    }
-                },
-                {
-                    .label = S(TH185_WAVE_4),
-                    .jumps = {
-                        { "main", {
-                            { .off = 0x29c, .dest = 0x58c }
-                        } }
-                    },
-                    .writes = {
-                        { "main", {
-                            { .off = 0x288, .bytes = { 0x04, 0x00, 0x00, 0x00 } }
-                        } }
-                    }
-                },
-                {
-                    .label = S(TH185_TENKYU_CHIMATA),
-                    .jumps = {
-                        { "main", {
-                            { .off = 0x29c, .dest = 0x67c }
-                        } }
-                    },
-                }
+                 .label = S(TH185_TENKYU_CHIMATA),
+                 .jumps = {{"main", {{.off = 0x29c, .dest = 0x67c}}}},
+                 }
             };
             out.section_param[4].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_DLG)},
-                                  {.label = S(TH_NONSPELL), .writes = {{"Boss25Boss", {{.off = 0x208, .bytes = {0, 0}}}}}},
-                                  {.label = S(TH185_SPELL_25_1),
-                     .writes =
-                         {{"Boss25Boss", {{.off = 0x208, .bytes = {0, 0}}, {.off = 0x1b0, .bytes = {0x58, 0x1b, 0x00, 0x00}}}},
-                          {"Boss25Boss1",
-                           {{.off = 0x10,
-                             .bytes =
-                                 {0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x0F,
-                                  0x02,
-                                  0x1C,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0xFF,
-                                  0x03,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x01,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x7A,
-                                  0x45,
-                                  0x80,
-                                  0xA0,
-                                  0xFF,
-                                  0xFF,
-                                  BOSS_SPELL_CARD_ASYNC(25, 1)}}}}}},
-                                  {.label = S(TH185_SPELL_25_2),
-                     .writes = {
-                         {"Boss25Boss", {{.off = 0x208, .bytes = {0, 0}}, {.off = 0x1b0, .bytes = {0xa0, 0x0f, 0x00, 0x00}}}},
-                         {"Boss25Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(25, 2)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_DLG)},
+                                    {.label = S(TH_NONSPELL), .writes = {{"Boss25Boss", {{.off = 0x208, .bytes = {0, 0}}}}}},
+                                    {.label = S(TH185_SPELL_25_1),
+                      .writes =
+                          {{"Boss25Boss", {{.off = 0x208, .bytes = {0, 0}}, {.off = 0x1b0, .bytes = {0x58, 0x1b, 0x00, 0x00}}}},
+                           {"Boss25Boss1",
+                            {{.off = 0x10,
+                              .bytes =
+                                  {0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x0F,
+                                   0x02,
+                                   0x1C,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0xFF,
+                                   0x03,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x01,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x7A,
+                                   0x45,
+                                   0x80,
+                                   0xA0,
+                                   0xFF,
+                                   0xFF,
+                                   BOSS_SPELL_CARD_ASYNC(25, 1)}}}}}},
+                                    {.label = S(TH185_SPELL_25_2),
+                      .writes =
+                          {{"Boss25Boss", {{.off = 0x208, .bytes = {0, 0}}, {.off = 0x1b0, .bytes = {0xa0, 0x0f, 0x00, 0x00}}}},
+                           {"Boss25Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(25, 2)}}}}}}}
             };
             break;
         case 8:
@@ -1406,768 +1163,535 @@ namespace TH185 {
             out.section_param[1].phases = {
                 .label = S(TH_BOSS),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {
-                        .label = S(TH185_NONE_RANDOM),
-                    },
-                    {
-                        .label = S(TH185_GOUTOKUZI_MIKE),
-                        .writes = {
-                            { "WorldWaveB01", {
-                                { .off = 0x34, .bytes = {
-                                    FORCE_BOSS_C(0, 2)
-                                } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_AKI_MINORIKO),
-                        .writes = {
-                            { "WorldWaveB01", {
-                                { .off = 0x34, .bytes = {
-                                    FORCE_BOSS_C(1, 2)
-                                } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_ETERNITY_LARVA),
-                        .writes = {
-                            { "WorldWaveB01", {
-                                { .off = 0x34, .bytes = {
-                                    FORCE_BOSS_C(2, 2)
-                                } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_SAKATA_NEMUNO),
-                        .writes = {
-                            { "WorldWaveB01", {
-                                { .off = 0x34, .bytes = {
-                                    FORCE_BOSS_C(3, 2)
-                                } }
-                            } }
-                        }
-                    }
-                }
+                .section_param =
+                    {{
+                         .label = S(TH185_NONE_RANDOM),
+                     }, {.label = S(TH185_GOUTOKUZI_MIKE), .writes = {{"WorldWaveB01", {{.off = 0x34, .bytes = {FORCE_BOSS_C(0, 2)}}}}}},
+                                    {.label = S(TH185_AKI_MINORIKO), .writes = {{"WorldWaveB01", {{.off = 0x34, .bytes = {FORCE_BOSS_C(1, 2)}}}}}},
+                                    {.label = S(TH185_ETERNITY_LARVA), .writes = {{"WorldWaveB01", {{.off = 0x34, .bytes = {FORCE_BOSS_C(2, 2)}}}}}},
+                                    {.label = S(TH185_SAKATA_NEMUNO), .writes = {{"WorldWaveB01", {{.off = 0x34, .bytes = {FORCE_BOSS_C(3, 2)}}}}}}}
             };
             out.section_param[3].phases = {
                 .label = S(TH_BOSS),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                    {
-                        .label = S(TH185_NONE_RANDOM)
-                    },
-                    {
-                        .label = S(TH185_CIRNO),
-                        .writes = {
-                            { "WorldWaveB02", {
-                                { .off = 0x34, .bytes = {
-                                    FORCE_BOSS_C(0, 6)
-                                } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_WAKASAGIHIME),
-                        .writes = {
-                            { "WorldWaveB02", {
-                                { .off = 0x34, .bytes = {
-                                    FORCE_BOSS_C(1, 6)
-                                } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_SEKIBANKI),
-                        .writes = {
-                            { "WorldWaveB02", {
-                                { .off = 0x34, .bytes = {
-                                    FORCE_BOSS_C(2, 6)
-                                } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_USHIZAKI_URUMI),
-                        .writes = {
-                            { "WorldWaveB02", {
-                                { .off = 0x34, .bytes = {
-                                    FORCE_BOSS_C(3, 6)
-                                } }
-                            } }
-                        }
-                    }
-                }
+                .section_param =
+                    {{.label = S(TH185_NONE_RANDOM)},
+                                    {.label = S(TH185_CIRNO), .writes = {{"WorldWaveB02", {{.off = 0x34, .bytes = {FORCE_BOSS_C(0, 6)}}}}}},
+                                    {.label = S(TH185_WAKASAGIHIME), .writes = {{"WorldWaveB02", {{.off = 0x34, .bytes = {FORCE_BOSS_C(1, 6)}}}}}},
+                                    {.label = S(TH185_SEKIBANKI), .writes = {{"WorldWaveB02", {{.off = 0x34, .bytes = {FORCE_BOSS_C(2, 6)}}}}}},
+                                    {.label = S(TH185_USHIZAKI_URUMI), .writes = {{"WorldWaveB02", {{.off = 0x34, .bytes = {FORCE_BOSS_C(3, 6)}}}}}}}
             };
             out.section_param[5].phases = {
                 .label = S(TH_BOSS),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                    {
-                        .label = S(TH185_NONE_RANDOM)
-                    },
-                    {
-                        .label = S(TH185_EBISU_EIKA),
-                        .writes = {
-                            { "WorldWaveB03", {
-                                { .off = 0x34, .bytes = {
-                                    FORCE_BOSS_C(0, 10)
-                                } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_NIWATARI_KUTAKA),
-                        .writes = {
-                            { "WorldWaveB03", {
-                                { .off = 0x34, .bytes = {
-                                    FORCE_BOSS_C(1, 10)
-                                } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_YATADERA_NARUMI),
-                        .writes = {
-                            { "WorldWaveB03", {
-                                { .off = 0x34, .bytes = {
-                                    FORCE_BOSS_C(2, 10)
-                                } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_ONOZUKA_KOMACHI),
-                        .writes = {
-                            { "WorldWaveB03", {
-                                { .off = 0x34, .bytes = {
-                                    FORCE_BOSS_C(3, 10)
-                                } }
-                            } }
-                        }
-                    }
-                }
+                .section_param =
+                    {{.label = S(TH185_NONE_RANDOM)},
+                                    {.label = S(TH185_EBISU_EIKA), .writes = {{"WorldWaveB03", {{.off = 0x34, .bytes = {FORCE_BOSS_C(0, 10)}}}}}},
+                                    {.label = S(TH185_NIWATARI_KUTAKA), .writes = {{"WorldWaveB03", {{.off = 0x34, .bytes = {FORCE_BOSS_C(1, 10)}}}}}},
+                                    {.label = S(TH185_YATADERA_NARUMI), .writes = {{"WorldWaveB03", {{.off = 0x34, .bytes = {FORCE_BOSS_C(2, 10)}}}}}},
+                                    {.label = S(TH185_ONOZUKA_KOMACHI), .writes = {{"WorldWaveB03", {{.off = 0x34, .bytes = {FORCE_BOSS_C(3, 10)}}}}}}}
             };
             out.section_param[7].phases = {
                 .label = S(TH_BOSS),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                    {
-                        .label = S(TH185_NONE_RANDOM)
-                    },
-                    {
-                        .label = S(TH185_KOCHIYA_SANAE),
-                        .writes = {
-                            { "WorldWaveB04", {
-                                { .off = 0x34, .bytes = {
-                                    FORCE_BOSS_C(0, 14)
-                                } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_IZAYOI_SAKUYA),
-                        .writes = {
-                            { "WorldWaveB04", {
-                                { .off = 0x34, .bytes = {
-                                    FORCE_BOSS_C(1, 14)
-                                } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_KONPAKU_YOUMU),
-                        .writes = {
-                            { "WorldWaveB04", {
-                                { .off = 0x34, .bytes = {
-                                    FORCE_BOSS_C(2, 14)
-                                } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_HAKUREI_REIMU),
-                        .writes = {
-                            { "WorldWaveB04", {
-                                { .off = 0x34, .bytes = {
-                                    FORCE_BOSS_C(3, 14)
-                                } }
-                            } }
-                        }
-                    }
-                }
+                .section_param =
+                    {{.label = S(TH185_NONE_RANDOM)},
+                                    {.label = S(TH185_KOCHIYA_SANAE), .writes = {{"WorldWaveB04", {{.off = 0x34, .bytes = {FORCE_BOSS_C(0, 14)}}}}}},
+                                    {.label = S(TH185_IZAYOI_SAKUYA), .writes = {{"WorldWaveB04", {{.off = 0x34, .bytes = {FORCE_BOSS_C(1, 14)}}}}}},
+                                    {.label = S(TH185_KONPAKU_YOUMU), .writes = {{"WorldWaveB04", {{.off = 0x34, .bytes = {FORCE_BOSS_C(2, 14)}}}}}},
+                                    {.label = S(TH185_HAKUREI_REIMU), .writes = {{"WorldWaveB04", {{.off = 0x34, .bytes = {FORCE_BOSS_C(3, 14)}}}}}}}
             };
             out.section_param[9].phases = {
                 .label = S(TH_BOSS),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                    {
-                        .label = S(TH185_NONE_RANDOM)
-                    },
-                    {
-                        .label = S(TH185_KUDAMAKI_TSUKASA),
-                        .writes = {
-                            { "WorldWaveB05", {
-                                { .off = 0x34, .bytes = {
-                                    FORCE_BOSS_C(0, 18)
-                                } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_IIZUNAMARU_MEGUMU),
-                        .writes = {
-                            { "WorldWaveB05", {
-                                { .off = 0x34, .bytes = {
-                                    FORCE_BOSS_C(1, 18)
-                                } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_CLOWNPIECE),
-                        .writes = {
-                            { "WorldWaveB05", {
-                                { .off = 0x34, .bytes = {
-                                    FORCE_BOSS_C(2, 18)
-                                } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_HINANAWI_TENSHI),
-                        .writes = {
-                            { "WorldWaveB05", {
-                                { .off = 0x34, .bytes = {
-                                    FORCE_BOSS_C(3, 18)
-                                } }
-                            } }
-                        }
-                    }
-                }
+                .section_param =
+                    {{.label = S(TH185_NONE_RANDOM)},
+                                    {.label = S(TH185_KUDAMAKI_TSUKASA), .writes = {{"WorldWaveB05", {{.off = 0x34, .bytes = {FORCE_BOSS_C(0, 18)}}}}}},
+                                    {.label = S(TH185_IIZUNAMARU_MEGUMU), .writes = {{"WorldWaveB05", {{.off = 0x34, .bytes = {FORCE_BOSS_C(1, 18)}}}}}},
+                                    {.label = S(TH185_CLOWNPIECE), .writes = {{"WorldWaveB05", {{.off = 0x34, .bytes = {FORCE_BOSS_C(2, 18)}}}}}},
+                                    {.label = S(TH185_HINANAWI_TENSHI), .writes = {{"WorldWaveB05", {{.off = 0x34, .bytes = {FORCE_BOSS_C(3, 18)}}}}}}}
             };
             out.section_param[11].phases = {
                 .label = S(TH_BOSS),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                    {
-                        .label = S(TH185_NONE_RANDOM)
-                    },
-                    {
-                        .label = S(TH185_IBUKI_SUIKA),
-                        .writes = {
-                            { "WorldWaveB06", {
-                                { .off = 0x34, .bytes = {
-                                    FORCE_BOSS_C(0, 22)
-                                } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_FUTATUIWA_MAMIZOU),
-                        .writes = {
-                            { "WorldWaveB06", {
-                                { .off = 0x34, .bytes = {
-                                    FORCE_BOSS_C(1, 22)
-                                } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_KUROKOMA_SAKI),
-                        .writes = {
-                            { "WorldWaveB06", {
-                                { .off = 0x34, .bytes = {
-                                    FORCE_BOSS_C(2, 22)
-                                } }
-                            } }
-                        }
-                    },
-                    {
-                        .label = S(TH185_HIMEMUSHI_MOMOYO),
-                        .writes = {
-                            { "WorldWaveB06", {
-                                { .off = 0x34, .bytes = {
-                                    FORCE_BOSS_C(3, 22)
-                                } }
-                            } }
-                        }
-                    }
-                }
+                .section_param =
+                    {{.label = S(TH185_NONE_RANDOM)},
+                                    {.label = S(TH185_IBUKI_SUIKA), .writes = {{"WorldWaveB06", {{.off = 0x34, .bytes = {FORCE_BOSS_C(0, 22)}}}}}},
+                                    {.label = S(TH185_FUTATUIWA_MAMIZOU), .writes = {{"WorldWaveB06", {{.off = 0x34, .bytes = {FORCE_BOSS_C(1, 22)}}}}}},
+                                    {.label = S(TH185_KUROKOMA_SAKI), .writes = {{"WorldWaveB06", {{.off = 0x34, .bytes = {FORCE_BOSS_C(2, 22)}}}}}},
+                                    {.label = S(TH185_HIMEMUSHI_MOMOYO), .writes = {{"WorldWaveB06", {{.off = 0x34, .bytes = {FORCE_BOSS_C(3, 22)}}}}}}}
             };
             out.section_param[1].phases->section_param[1].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_1_1),
-                     .writes = {{"Boss01Boss", {{.off = 0x1b0, .bytes = {0x14, 0x05, 0x00, 0x00}}}}, {"Boss01Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(1, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_1_1),
+                      .writes = {{"Boss01Boss", {{.off = 0x1b0, .bytes = {0x14, 0x05, 0x00, 0x00}}}}, {"Boss01Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(1, 1)}}}}}}}
             };
             out.section_param[1].phases->section_param[2].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_2_1),
-                     .writes = {{"Boss02Boss", {{.off = 0x1b0, .bytes = {0x14, 0x05, 0x00, 0x00}}}}, {"Boss02Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(2, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_2_1),
+                      .writes = {{"Boss02Boss", {{.off = 0x1b0, .bytes = {0x14, 0x05, 0x00, 0x00}}}}, {"Boss02Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(2, 1)}}}}}}}
             };
             out.section_param[1].phases->section_param[3].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_3_1),
-                     .writes = {{"Boss03Boss", {{.off = 0x1b0, .bytes = {0x14, 0x05, 0x00, 0x00}}}}, {"Boss03Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(3, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_3_1),
+                      .writes = {{"Boss03Boss", {{.off = 0x1b0, .bytes = {0x14, 0x05, 0x00, 0x00}}}}, {"Boss03Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(3, 1)}}}}}}}
             };
             out.section_param[1].phases->section_param[4].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_4_1),
-                     .writes = {{"Boss04Boss", {{.off = 0x1b0, .bytes = {0x14, 0x05, 0x00, 0x00}}}}, {"Boss04Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(4, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_4_1),
+                      .writes = {{"Boss04Boss", {{.off = 0x1b0, .bytes = {0x14, 0x05, 0x00, 0x00}}}}, {"Boss04Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(4, 1)}}}}}}}
             };
             out.section_param[3].phases->section_param[1].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_5_1),
-                     .writes = {{"Boss05Boss", {{.off = 0x1b0, .bytes = {0xDC, 0x05, 0x00, 0x00}}}}, {"Boss05Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(5, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_5_1),
+                      .writes = {{"Boss05Boss", {{.off = 0x1b0, .bytes = {0xDC, 0x05, 0x00, 0x00}}}}, {"Boss05Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(5, 1)}}}}}}}
             };
             out.section_param[3].phases->section_param[2].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_6_1),
-                     .writes = {{"Boss06Boss", {{.off = 0x1b0, .bytes = {0xDC, 0x05, 0x00, 0x00}}}}, {"Boss06Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(6, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_6_1),
+                      .writes = {{"Boss06Boss", {{.off = 0x1b0, .bytes = {0xDC, 0x05, 0x00, 0x00}}}}, {"Boss06Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(6, 1)}}}}}}}
             };
             out.section_param[3].phases->section_param[3].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_7_1),
-                     .writes = {{"Boss07Boss", {{.off = 0x1b0, .bytes = {0x14, 0x05, 0x00, 0x00}}}}, {"Boss07Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(7, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_7_1),
+                      .writes = {{"Boss07Boss", {{.off = 0x1b0, .bytes = {0x14, 0x05, 0x00, 0x00}}}}, {"Boss07Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(7, 1)}}}}}}}
             };
             out.section_param[3].phases->section_param[4].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_8_1),
-                     .writes = {{"Boss08Boss", {{.off = 0x1b0, .bytes = {0xDC, 0x05, 0x00, 0x00}}}}, {"Boss08Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(8, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_8_1),
+                      .writes = {{"Boss08Boss", {{.off = 0x1b0, .bytes = {0xDC, 0x05, 0x00, 0x00}}}}, {"Boss08Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(8, 1)}}}}}}}
             };
             out.section_param[5].phases->section_param[1].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_9_1),
-                     .writes = {{"Boss09Boss", {{.off = 0x1b0, .bytes = {0x08, 0x07, 0x00, 0x00}}}}, {"Boss09Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(9, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_9_1),
+                      .writes = {{"Boss09Boss", {{.off = 0x1b0, .bytes = {0x08, 0x07, 0x00, 0x00}}}}, {"Boss09Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(9, 1)}}}}}}}
             };
             out.section_param[5].phases->section_param[2].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_10_1),
-                     .writes = {{"Boss10Boss", {{.off = 0x1b0, .bytes = {0x08, 0x07, 0x00, 0x00}}}}, {"Boss10Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(10, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_10_1),
+                      .writes = {{"Boss10Boss", {{.off = 0x1b0, .bytes = {0x08, 0x07, 0x00, 0x00}}}}, {"Boss10Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(10, 1)}}}}}}}
             };
             out.section_param[5].phases->section_param[3].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_11_1),
-                     .writes = {{"Boss11Boss", {{.off = 0x1b0, .bytes = {0x08, 0x07, 0x00, 0x00}}}}, {"Boss11Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(11, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_11_1),
+                      .writes = {{"Boss11Boss", {{.off = 0x1b0, .bytes = {0x08, 0x07, 0x00, 0x00}}}}, {"Boss11Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(11, 1)}}}}}}}
             };
             out.section_param[5].phases->section_param[4].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_12_1),
-                     .writes = {{"Boss12Boss", {{.off = 0x1b0, .bytes = {0x08, 0x07, 0x00, 0x00}}}}, {"Boss12Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(12, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_12_1),
+                      .writes = {{"Boss12Boss", {{.off = 0x1b0, .bytes = {0x08, 0x07, 0x00, 0x00}}}}, {"Boss12Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(12, 1)}}}}}}}
             };
             out.section_param[7].phases->section_param[1].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_13_1),
-                     .writes = {{"Boss13Boss", {{.off = 0x1b0, .bytes = {0x98, 0x08, 0x00, 0x00}}}}, {"Boss13Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(13, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_13_1),
+                      .writes = {{"Boss13Boss", {{.off = 0x1b0, .bytes = {0x98, 0x08, 0x00, 0x00}}}}, {"Boss13Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(13, 1)}}}}}}}
             };
             out.section_param[7].phases->section_param[2].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_14_1),
-                     .writes = {{"Boss14Boss", {{.off = 0x1b0, .bytes = {0x98, 0x08, 0x00, 0x00}}}}, {"Boss14Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(14, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_14_1),
+                      .writes = {{"Boss14Boss", {{.off = 0x1b0, .bytes = {0x98, 0x08, 0x00, 0x00}}}}, {"Boss14Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(14, 1)}}}}}}}
             };
             out.section_param[7].phases->section_param[3].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_15_1),
-                     .writes = {{"Boss15Boss", {{.off = 0x1b0, .bytes = {0xf0, 0x0a, 0x00, 0x00}}}}, {"Boss15Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(15, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_15_1),
+                      .writes = {{"Boss15Boss", {{.off = 0x1b0, .bytes = {0xf0, 0x0a, 0x00, 0x00}}}}, {"Boss15Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(15, 1)}}}}}}}
             };
             out.section_param[7].phases->section_param[4].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_16_1),
-                     .writes = {{"Boss16Boss", {{.off = 0x1b0, .bytes = {0xf0, 0x0a, 0x00, 0x00}}}}, {"Boss16Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(16, 1)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_16_1),
+                      .writes = {{"Boss16Boss", {{.off = 0x1b0, .bytes = {0xf0, 0x0a, 0x00, 0x00}}}}, {"Boss16Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(16, 1)}}}}}}}
             };
             out.section_param[9].phases->section_param[1].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_17_1),
-                     .writes =
-                         {{"Boss17Boss", {{.off = 0x1b0, .bytes = {0x18, 0x15, 0x00, 0x00}}}},
-                          {"Boss17Boss1",
-                           {{.off = 0x10,
-                             .bytes =
-                                 {0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x0F,
-                                  0x02,
-                                  0x1C,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0xFF,
-                                  0x03,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x01,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x2F,
-                                  0x45,
-                                  0x80,
-                                  0xA0,
-                                  0xFF,
-                                  0xFF,
-                                  BOSS_SPELL_CARD_ASYNC(17, 1)}}}}}},
-                                  {.label = S(TH185_SPELL_17_2),
-                     .writes = {{"Boss17Boss", {{.off = 0x1b0, .bytes = {0xf0, 0x0a, 0x00, 0x00}}}}, {"Boss17Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(17, 2)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_17_1),
+                      .writes =
+                          {{"Boss17Boss", {{.off = 0x1b0, .bytes = {0x18, 0x15, 0x00, 0x00}}}},
+                           {"Boss17Boss1",
+                            {{.off = 0x10,
+                              .bytes =
+                                  {0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x0F,
+                                   0x02,
+                                   0x1C,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0xFF,
+                                   0x03,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x01,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x2F,
+                                   0x45,
+                                   0x80,
+                                   0xA0,
+                                   0xFF,
+                                   0xFF,
+                                   BOSS_SPELL_CARD_ASYNC(17, 1)}}}}}},
+                                    {.label = S(TH185_SPELL_17_2),
+                      .writes = {{"Boss17Boss", {{.off = 0x1b0, .bytes = {0xf0, 0x0a, 0x00, 0x00}}}}, {"Boss17Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(17, 2)}}}}}}}
             };
             out.section_param[9].phases->section_param[2].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_18_1),
-                     .writes =
-                         {{"Boss18Boss", {{.off = 0x1b0, .bytes = {0x18, 0x15, 0x00, 0x00}}}},
-                          {"Boss18Boss1",
-                           {{.off = 0x10,
-                             .bytes =
-                                 {0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x0F,
-                                  0x02,
-                                  0x1C,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0xFF,
-                                  0x03,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x01,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x2F,
-                                  0x45,
-                                  0x80,
-                                  0xA0,
-                                  0xFF,
-                                  0xFF,
-                                  BOSS_SPELL_CARD_ASYNC(18, 1)}}}}}},
-                                  {.label = S(TH185_SPELL_18_2),
-                     .writes = {{"Boss18Boss", {{.off = 0x1b0, .bytes = {0xf0, 0x0a, 0x00, 0x00}}}}, {"Boss18Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(18, 2)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_18_1),
+                      .writes =
+                          {{"Boss18Boss", {{.off = 0x1b0, .bytes = {0x18, 0x15, 0x00, 0x00}}}},
+                           {"Boss18Boss1",
+                            {{.off = 0x10,
+                              .bytes =
+                                  {0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x0F,
+                                   0x02,
+                                   0x1C,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0xFF,
+                                   0x03,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x01,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x2F,
+                                   0x45,
+                                   0x80,
+                                   0xA0,
+                                   0xFF,
+                                   0xFF,
+                                   BOSS_SPELL_CARD_ASYNC(18, 1)}}}}}},
+                                    {.label = S(TH185_SPELL_18_2),
+                      .writes = {{"Boss18Boss", {{.off = 0x1b0, .bytes = {0xf0, 0x0a, 0x00, 0x00}}}}, {"Boss18Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(18, 2)}}}}}}}
             };
             out.section_param[9].phases->section_param[3].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_19_1),
-                     .writes =
-                         {{"Boss19Boss", {{.off = 0x1b0, .bytes = {0x18, 0x15, 0x00, 0x00}}}},
-                          {"Boss19Boss1",
-                           {{.off = 0x10,
-                             .bytes =
-                                 {0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x0F,
-                                  0x02,
-                                  0x1C,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0xFF,
-                                  0x03,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x01,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x2F,
-                                  0x45,
-                                  0x80,
-                                  0xA0,
-                                  0xFF,
-                                  0xFF,
-                                  BOSS_SPELL_CARD_ASYNC(19, 1)}}}}}},
-                                  {.label = S(TH185_SPELL_19_2),
-                     .writes = {{"Boss19Boss", {{.off = 0x1b0, .bytes = {0xf0, 0x0a, 0x00, 0x00}}}}, {"Boss19Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(19, 2)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_19_1),
+                      .writes =
+                          {{"Boss19Boss", {{.off = 0x1b0, .bytes = {0x18, 0x15, 0x00, 0x00}}}},
+                           {"Boss19Boss1",
+                            {{.off = 0x10,
+                              .bytes =
+                                  {0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x0F,
+                                   0x02,
+                                   0x1C,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0xFF,
+                                   0x03,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x01,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x2F,
+                                   0x45,
+                                   0x80,
+                                   0xA0,
+                                   0xFF,
+                                   0xFF,
+                                   BOSS_SPELL_CARD_ASYNC(19, 1)}}}}}},
+                                    {.label = S(TH185_SPELL_19_2),
+                      .writes = {{"Boss19Boss", {{.off = 0x1b0, .bytes = {0xf0, 0x0a, 0x00, 0x00}}}}, {"Boss19Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(19, 2)}}}}}}}
             };
             out.section_param[9].phases->section_param[4].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_20_1),
-                     .writes =
-                         {{"Boss20Boss", {{.off = 0x1b0, .bytes = {0x18, 0x15, 0x00, 0x00}}}},
-                          {"Boss20Boss1",
-                           {{.off = 0x10,
-                             .bytes =
-                                 {0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x0F,
-                                  0x02,
-                                  0x1C,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0xFF,
-                                  0x03,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x01,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x2F,
-                                  0x45,
-                                  0x80,
-                                  0xA0,
-                                  0xFF,
-                                  0xFF,
-                                  BOSS_SPELL_CARD_ASYNC(20, 1)}}}}}},
-                                  {.label = S(TH185_SPELL_20_2),
-                     .writes = {{"Boss20Boss", {{.off = 0x1b0, .bytes = {0xf0, 0x0a, 0x00, 0x00}}}}, {"Boss20Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(20, 2)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_20_1),
+                      .writes =
+                          {{"Boss20Boss", {{.off = 0x1b0, .bytes = {0x18, 0x15, 0x00, 0x00}}}},
+                           {"Boss20Boss1",
+                            {{.off = 0x10,
+                              .bytes =
+                                  {0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x0F,
+                                   0x02,
+                                   0x1C,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0xFF,
+                                   0x03,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x01,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x2F,
+                                   0x45,
+                                   0x80,
+                                   0xA0,
+                                   0xFF,
+                                   0xFF,
+                                   BOSS_SPELL_CARD_ASYNC(20, 1)}}}}}},
+                                    {.label = S(TH185_SPELL_20_2),
+                      .writes = {{"Boss20Boss", {{.off = 0x1b0, .bytes = {0xf0, 0x0a, 0x00, 0x00}}}}, {"Boss20Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(20, 2)}}}}}}}
             };
             out.section_param[11].phases->section_param[1].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_21_1),
-                     .writes =
-                         {{"Boss21Boss", {{.off = 0x1b0, .bytes = {0xa0, 0x0f, 0x00, 0x00}}}},
-                          {"Boss21Boss1",
-                           {{.off = 0x10,
-                             .bytes =
-                                 {0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x0F,
-                                  0x02,
-                                  0x1C,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0xFF,
-                                  0x03,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x01,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x96,
-                                  0x44,
-                                  0x80,
-                                  0xA0,
-                                  0xFF,
-                                  0xFF,
-                                  BOSS_SPELL_CARD_ASYNC(21, 1)}}}}}},
-                                  {.label = S(TH185_SPELL_21_2),
-                     .writes = {{"Boss21Boss", {{.off = 0x1b0, .bytes = {0xb0, 0x04, 0x00, 0x00}}}}, {"Boss21Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(21, 2)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_21_1),
+                      .writes =
+                          {{"Boss21Boss", {{.off = 0x1b0, .bytes = {0xa0, 0x0f, 0x00, 0x00}}}},
+                           {"Boss21Boss1",
+                            {{.off = 0x10,
+                              .bytes =
+                                  {0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x0F,
+                                   0x02,
+                                   0x1C,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0xFF,
+                                   0x03,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x01,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x96,
+                                   0x44,
+                                   0x80,
+                                   0xA0,
+                                   0xFF,
+                                   0xFF,
+                                   BOSS_SPELL_CARD_ASYNC(21, 1)}}}}}},
+                                    {.label = S(TH185_SPELL_21_2),
+                      .writes = {{"Boss21Boss", {{.off = 0x1b0, .bytes = {0xb0, 0x04, 0x00, 0x00}}}}, {"Boss21Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(21, 2)}}}}}}}
             };
             out.section_param[11].phases->section_param[2].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_22_1),
-                     .writes =
-                         {{"Boss22Boss", {{.off = 0x1b0, .bytes = {0xd4, 0x17, 0x00, 0x00}}}},
-                          {"Boss22Boss1",
-                           {{.off = 0x10,
-                             .bytes =
-                                 {0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x0F,
-                                  0x02,
-                                  0x1C,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0xFF,
-                                  0x03,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x01,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x40,
-                                  0x4E,
-                                  0x45,
-                                  0x80,
-                                  0xA0,
-                                  0xFF,
-                                  0xFF,
-                                  BOSS_SPELL_CARD_ASYNC(22, 1)}}}}}},
-                                  {.label = S(TH185_SPELL_22_2),
-                     .writes = {{"Boss22Boss", {{.off = 0x1b0, .bytes = {0x4a, 0x01, 0x00, 0x00}}}}, {"Boss22Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(22, 2)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_22_1),
+                      .writes =
+                          {{"Boss22Boss", {{.off = 0x1b0, .bytes = {0xd4, 0x17, 0x00, 0x00}}}},
+                           {"Boss22Boss1",
+                            {{.off = 0x10,
+                              .bytes =
+                                  {0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x0F,
+                                   0x02,
+                                   0x1C,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0xFF,
+                                   0x03,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x01,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x40,
+                                   0x4E,
+                                   0x45,
+                                   0x80,
+                                   0xA0,
+                                   0xFF,
+                                   0xFF,
+                                   BOSS_SPELL_CARD_ASYNC(22, 1)}}}}}},
+                                    {.label = S(TH185_SPELL_22_2),
+                      .writes = {{"Boss22Boss", {{.off = 0x1b0, .bytes = {0x4a, 0x01, 0x00, 0x00}}}}, {"Boss22Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(22, 2)}}}}}}}
             };
             out.section_param[11].phases->section_param[3].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_23_1),
-                     .writes =
-                         {{"Boss23Boss", {{.off = 0x1b0, .bytes = {0xd4, 0x17, 0x00, 0x00}}}},
-                          {"Boss23Boss1",
-                           {{.off = 0x10,
-                             .bytes =
-                                 {0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x0F,
-                                  0x02,
-                                  0x1C,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0xFF,
-                                  0x03,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x01,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x40,
-                                  0x4E,
-                                  0x45,
-                                  0x80,
-                                  0xA0,
-                                  0xFF,
-                                  0xFF,
-                                  BOSS_SPELL_CARD_ASYNC(23, 1)}}}}}},
-                                  {.label = S(TH185_SPELL_23_2),
-                     .writes = {{"Boss23Boss", {{.off = 0x1b0, .bytes = {0xe4, 0x0c, 0x00, 0x00}}}}, {"Boss23Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(23, 2)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_23_1),
+                      .writes =
+                          {{"Boss23Boss", {{.off = 0x1b0, .bytes = {0xd4, 0x17, 0x00, 0x00}}}},
+                           {"Boss23Boss1",
+                            {{.off = 0x10,
+                              .bytes =
+                                  {0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x0F,
+                                   0x02,
+                                   0x1C,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0xFF,
+                                   0x03,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x01,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x40,
+                                   0x4E,
+                                   0x45,
+                                   0x80,
+                                   0xA0,
+                                   0xFF,
+                                   0xFF,
+                                   BOSS_SPELL_CARD_ASYNC(23, 1)}}}}}},
+                                    {.label = S(TH185_SPELL_23_2),
+                      .writes = {{"Boss23Boss", {{.off = 0x1b0, .bytes = {0xe4, 0x0c, 0x00, 0x00}}}}, {"Boss23Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(23, 2)}}}}}}}
             };
             out.section_param[11].phases->section_param[4].phases = {
                 .label = S(TH_ATTACK),
                 .type = stage_warps_t::TYPE_COMBO,
-                .section_param = {
-                                  {.label = S(TH_NONSPELL)},
-                                  {.label = S(TH185_SPELL_24_1),
-                     .writes =
-                         {{"Boss24Boss", {{.off = 0x1b0, .bytes = {0xd4, 0x17, 0x00, 0x00}}}},
-                          {"Boss24Boss1",
-                           {{.off = 0x10,
-                             .bytes =
-                                 {0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x0F,
-                                  0x02,
-                                  0x1C,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0xFF,
-                                  0x03,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x01,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x00,
-                                  0x96,
-                                  0x44,
-                                  0x80,
-                                  0xA0,
-                                  0xFF,
-                                  0xFF,
-                                  BOSS_SPELL_CARD_ASYNC(24, 1)}}}}}},
-                                  {.label = S(TH185_SPELL_24_2),
-                     .writes = {{"Boss24Boss", {{.off = 0x1b0, .bytes = {0x4a, 0x01, 0x00, 0x00}}}}, {"Boss24Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(24, 2)}}}}}}}
+                .section_param =
+                    {{.label = S(TH_NONSPELL)},
+                                    {.label = S(TH185_SPELL_24_1),
+                      .writes =
+                          {{"Boss24Boss", {{.off = 0x1b0, .bytes = {0xd4, 0x17, 0x00, 0x00}}}},
+                           {"Boss24Boss1",
+                            {{.off = 0x10,
+                              .bytes =
+                                  {0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x0F,
+                                   0x02,
+                                   0x1C,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0xFF,
+                                   0x03,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x01,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x00,
+                                   0x96,
+                                   0x44,
+                                   0x80,
+                                   0xA0,
+                                   0xFF,
+                                   0xFF,
+                                   BOSS_SPELL_CARD_ASYNC(24, 1)}}}}}},
+                                    {.label = S(TH185_SPELL_24_2),
+                      .writes = {{"Boss24Boss", {{.off = 0x1b0, .bytes = {0x4a, 0x01, 0x00, 0x00}}}}, {"Boss24Boss1", {{.off = 0x10, .bytes = {BOSS_SPELL_CARD_ASYNC(24, 2)}}}}}}}
             };
             break;
         default:
@@ -2267,24 +1791,26 @@ namespace TH185 {
                                    Timer* timer = (Timer*)(pCtx->Ecx + 0x34);
                                    *timer = {-1, 0, 0, 0, 0};
                                })}};
-        Gui::GuiHotKey mWholesale{
-            TH185_WHOLESALE, "F6", VK_F6, {new HookCtx(0x41da02, [](PCONTEXT pCtx) {
-                uint8_t wholesale[] = {
-                    0x53, 0x00, 0x00, 0x00, 0xF8, 0xA3, 0x4C, 0x00, 0x3C, 0xA4, 0x4C, 0x00, 0x80, 0xA4, 0x4C, 0x00, 0xC4, 0xA4, 0x4C, 0x00, 0x08, 0xA5, 0x4C, 0x00, 0x4C, 0xA5,
-                    0x4C, 0x00, 0x90, 0xA5, 0x4C, 0x00, 0xD4, 0xA5, 0x4C, 0x00, 0x18, 0xA6, 0x4C, 0x00, 0x5C, 0xA6, 0x4C, 0x00, 0xA0, 0xA6, 0x4C, 0x00, 0xE4, 0xA6, 0x4C, 0x00,
-                    0x28, 0xA7, 0x4C, 0x00, 0x6C, 0xA7, 0x4C, 0x00, 0xB0, 0xA7, 0x4C, 0x00, 0xF4, 0xA7, 0x4C, 0x00, 0x38, 0xA8, 0x4C, 0x00, 0x7C, 0xA8, 0x4C, 0x00, 0xC0, 0xA8,
-                    0x4C, 0x00, 0x04, 0xA9, 0x4C, 0x00, 0x48, 0xA9, 0x4C, 0x00, 0x8C, 0xA9, 0x4C, 0x00, 0xD0, 0xA9, 0x4C, 0x00, 0x14, 0xAA, 0x4C, 0x00, 0x58, 0xAA, 0x4C, 0x00,
-                    0x9C, 0xAA, 0x4C, 0x00, 0xE0, 0xAA, 0x4C, 0x00, 0x24, 0xAB, 0x4C, 0x00, 0x68, 0xAB, 0x4C, 0x00, 0xAC, 0xAB, 0x4C, 0x00, 0xF0, 0xAB, 0x4C, 0x00, 0x34, 0xAC,
-                    0x4C, 0x00, 0x78, 0xAC, 0x4C, 0x00, 0xBC, 0xAC, 0x4C, 0x00, 0x00, 0xAD, 0x4C, 0x00, 0x44, 0xAD, 0x4C, 0x00, 0x88, 0xAD, 0x4C, 0x00, 0xCC, 0xAD, 0x4C, 0x00,
-                    0x10, 0xAE, 0x4C, 0x00, 0x54, 0xAE, 0x4C, 0x00, 0x98, 0xAE, 0x4C, 0x00, 0xDC, 0xAE, 0x4C, 0x00, 0x20, 0xAF, 0x4C, 0x00, 0x64, 0xAF, 0x4C, 0x00, 0xA8, 0xAF,
-                    0x4C, 0x00, 0xEC, 0xAF, 0x4C, 0x00, 0x30, 0xB0, 0x4C, 0x00, 0x74, 0xB0, 0x4C, 0x00, 0xB8, 0xB0, 0x4C, 0x00, 0xFC, 0xB0, 0x4C, 0x00, 0x40, 0xB1, 0x4C, 0x00,
-                    0x84, 0xB1, 0x4C, 0x00, 0xC8, 0xB1, 0x4C, 0x00, 0x0C, 0xB2, 0x4C, 0x00, 0x50, 0xB2, 0x4C, 0x00, 0x94, 0xB2, 0x4C, 0x00, 0xD8, 0xB2, 0x4C, 0x00, 0x1C, 0xB3,
-                    0x4C, 0x00, 0x60, 0xB3, 0x4C, 0x00, 0xA4, 0xB3, 0x4C, 0x00, 0xE8, 0xB3, 0x4C, 0x00, 0x2C, 0xB4, 0x4C, 0x00, 0x70, 0xB4, 0x4C, 0x00, 0xB4, 0xB4, 0x4C, 0x00,
-                    0xF8, 0xB4, 0x4C, 0x00, 0x3C, 0xB5, 0x4C, 0x00, 0x80, 0xB5, 0x4C, 0x00, 0xC4, 0xB5, 0x4C, 0x00, 0x08, 0xB6, 0x4C, 0x00, 0x4C, 0xB6, 0x4C, 0x00, 0x90, 0xB6,
-                    0x4C, 0x00, 0xD4, 0xB6, 0x4C, 0x00, 0x18, 0xB7, 0x4C, 0x00, 0x5C, 0xB7, 0x4C, 0x00, 0xA0, 0xB7, 0x4C, 0x00, 0xE4, 0xB7, 0x4C, 0x00, 0x28, 0xB8, 0x4C, 0x00,
-                    0x6C, 0xB8, 0x4C, 0x00, 0xB0, 0xB8, 0x4C, 0x00, 0xF4, 0xB8, 0x4C, 0x00, 0x38, 0xB9, 0x4C, 0x00, 0x7C, 0xB9, 0x4C, 0x00, 0xC0, 0xB9, 0x4C, 0x00};
-                memcpy((void*)(pCtx->Esi + 0xA40), wholesale, sizeof(wholesale));
-            })}};
+        Gui::GuiHotKey mWholesale{TH185_WHOLESALE, "F6", VK_F6, {new HookCtx(0x41da02, [](PCONTEXT pCtx) {
+                                      uint8_t wholesale[] = {0x53, 0x00, 0x00, 0x00, 0xF8, 0xA3, 0x4C, 0x00, 0x3C, 0xA4, 0x4C, 0x00, 0x80, 0xA4, 0x4C, 0x00, 0xC4, 0xA4, 0x4C, 0x00,
+                                                             0x08, 0xA5, 0x4C, 0x00, 0x4C, 0xA5, 0x4C, 0x00, 0x90, 0xA5, 0x4C, 0x00, 0xD4, 0xA5, 0x4C, 0x00, 0x18, 0xA6, 0x4C, 0x00,
+                                                             0x5C, 0xA6, 0x4C, 0x00, 0xA0, 0xA6, 0x4C, 0x00, 0xE4, 0xA6, 0x4C, 0x00, 0x28, 0xA7, 0x4C, 0x00, 0x6C, 0xA7, 0x4C, 0x00,
+                                                             0xB0, 0xA7, 0x4C, 0x00, 0xF4, 0xA7, 0x4C, 0x00, 0x38, 0xA8, 0x4C, 0x00, 0x7C, 0xA8, 0x4C, 0x00, 0xC0, 0xA8, 0x4C, 0x00,
+                                                             0x04, 0xA9, 0x4C, 0x00, 0x48, 0xA9, 0x4C, 0x00, 0x8C, 0xA9, 0x4C, 0x00, 0xD0, 0xA9, 0x4C, 0x00, 0x14, 0xAA, 0x4C, 0x00,
+                                                             0x58, 0xAA, 0x4C, 0x00, 0x9C, 0xAA, 0x4C, 0x00, 0xE0, 0xAA, 0x4C, 0x00, 0x24, 0xAB, 0x4C, 0x00, 0x68, 0xAB, 0x4C, 0x00,
+                                                             0xAC, 0xAB, 0x4C, 0x00, 0xF0, 0xAB, 0x4C, 0x00, 0x34, 0xAC, 0x4C, 0x00, 0x78, 0xAC, 0x4C, 0x00, 0xBC, 0xAC, 0x4C, 0x00,
+                                                             0x00, 0xAD, 0x4C, 0x00, 0x44, 0xAD, 0x4C, 0x00, 0x88, 0xAD, 0x4C, 0x00, 0xCC, 0xAD, 0x4C, 0x00, 0x10, 0xAE, 0x4C, 0x00,
+                                                             0x54, 0xAE, 0x4C, 0x00, 0x98, 0xAE, 0x4C, 0x00, 0xDC, 0xAE, 0x4C, 0x00, 0x20, 0xAF, 0x4C, 0x00, 0x64, 0xAF, 0x4C, 0x00,
+                                                             0xA8, 0xAF, 0x4C, 0x00, 0xEC, 0xAF, 0x4C, 0x00, 0x30, 0xB0, 0x4C, 0x00, 0x74, 0xB0, 0x4C, 0x00, 0xB8, 0xB0, 0x4C, 0x00,
+                                                             0xFC, 0xB0, 0x4C, 0x00, 0x40, 0xB1, 0x4C, 0x00, 0x84, 0xB1, 0x4C, 0x00, 0xC8, 0xB1, 0x4C, 0x00, 0x0C, 0xB2, 0x4C, 0x00,
+                                                             0x50, 0xB2, 0x4C, 0x00, 0x94, 0xB2, 0x4C, 0x00, 0xD8, 0xB2, 0x4C, 0x00, 0x1C, 0xB3, 0x4C, 0x00, 0x60, 0xB3, 0x4C, 0x00,
+                                                             0xA4, 0xB3, 0x4C, 0x00, 0xE8, 0xB3, 0x4C, 0x00, 0x2C, 0xB4, 0x4C, 0x00, 0x70, 0xB4, 0x4C, 0x00, 0xB4, 0xB4, 0x4C, 0x00,
+                                                             0xF8, 0xB4, 0x4C, 0x00, 0x3C, 0xB5, 0x4C, 0x00, 0x80, 0xB5, 0x4C, 0x00, 0xC4, 0xB5, 0x4C, 0x00, 0x08, 0xB6, 0x4C, 0x00,
+                                                             0x4C, 0xB6, 0x4C, 0x00, 0x90, 0xB6, 0x4C, 0x00, 0xD4, 0xB6, 0x4C, 0x00, 0x18, 0xB7, 0x4C, 0x00, 0x5C, 0xB7, 0x4C, 0x00,
+                                                             0xA0, 0xB7, 0x4C, 0x00, 0xE4, 0xB7, 0x4C, 0x00, 0x28, 0xB8, 0x4C, 0x00, 0x6C, 0xB8, 0x4C, 0x00, 0xB0, 0xB8, 0x4C, 0x00,
+                                                             0xF4, 0xB8, 0x4C, 0x00, 0x38, 0xB9, 0x4C, 0x00, 0x7C, 0xB9, 0x4C, 0x00, 0xC0, 0xB9, 0x4C, 0x00};
+                                      memcpy((void*)(pCtx->Esi + 0xA40), wholesale, sizeof(wholesale));
+                                  })}};
     };
 
     stage_warps_t stages[9] = {};
@@ -2295,7 +1821,9 @@ namespace TH185 {
         THWaveSelect() noexcept
         {
             SetWndFlag(
-                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0);
+                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing
+                | ImGuiWindowFlags_NoNav | 0
+            );
 
             SetFade(0.5f, 0.5f);
             SetSizeRel(0.3f, 0.6f);
@@ -2310,14 +1838,13 @@ namespace TH185 {
             ImGui::TextUnformatted(S(TH185_FORCE_WAVE));
             ImGui::Separator();
 
-            const ImVec4 green = { 0, 1, 0, 1 };
+            const ImVec4 green = {0, 1, 0, 1};
 
             if (selectedWave == -1) {
                 ImGui::TextColored(green, "[%s]", S(TH185_NONE_RANDOM));
             } else {
                 ImGui::TextUnformatted(S(TH185_NONE_RANDOM));
             }
-
 
             for (size_t i = 0; i < waveOpts.size(); i++) {
                 auto [id, name] = waveOpts[i];
@@ -2444,16 +1971,7 @@ namespace TH185 {
             PracticeMenu();
         }
 
-        const char* difficulties[8] = {
-            "Very Easy",
-            "Easy",
-            "Normal",
-            "Little Hard",
-            "Hard",
-            "Very Hard",
-            "Lunatic",
-            "Over Drive"
-        };
+        const char* difficulties[8] = {"Very Easy", "Easy", "Normal", "Little Hard", "Hard", "Very Hard", "Lunatic", "Over Drive"};
 
         void PracticeMenu()
         {
@@ -2615,7 +2133,6 @@ namespace TH185 {
     }
     PATCH_ST(th185_unhardcode_bosses, 0x43d0f6, "\xeb", 1);
 
-
     HOOKSET_DEFINE(THMainHook)
     EHOOK_DY(th185_wave_fire, 0x43cf47)
     {
@@ -2654,7 +2171,6 @@ namespace TH185 {
         };
 
         auto& wave_select = THWaveSelect::singleton();
-
 
         if (wave_select.IsClosed()) {
             auto* weights = (uint32_t*)GetMemAddr(ENEMY_MANAGER, 0x324);

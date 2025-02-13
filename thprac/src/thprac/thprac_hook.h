@@ -178,7 +178,6 @@ static inline R asm_call_rel(Args... args)
     }
 }
 
-
 inline void PushHelper32(CONTEXT* pCtx, DWORD value)
 {
     pCtx->Esp -= 4;
@@ -192,17 +191,17 @@ inline DWORD PopHelper32(CONTEXT* pCtx)
     return ret;
 }
 
-#define EHOOK_G1(name, target) \
+#define EHOOK_G1(name, target)                                                         \
     __declspec(noinline) void __stdcall __vehf_##name([[maybe_unused]] PCONTEXT pCtx); \
-    typedef EHookSingleton <target, __vehf_##name> name; \
+    typedef EHookSingleton<target, __vehf_##name> name;                                \
     __declspec(noinline) void __stdcall __vehf_##name([[maybe_unused]] PCONTEXT pCtx)
 
-#define EHOOK_ST(name, target)                                \
-    HookCtx name { target, __vehf_##name }; \
+#define EHOOK_ST(name, target)           \
+    HookCtx name{target, __vehf_##name}; \
     static __declspec(noinline) void __stdcall __vehf_##name([[maybe_unused]] PCONTEXT pCtx)
 
-#define EHOOK_DY(name, target)                                \
-    HookCtx name { mHooks, target, __vehf_##name }; \
+#define EHOOK_DY(name, target)                   \
+    HookCtx name{mHooks, target, __vehf_##name}; \
     static __declspec(noinline) void __stdcall __vehf_##name([[maybe_unused]] PCONTEXT pCtx)
 
 #define PATCH_S1(name, target, patch, size)           \

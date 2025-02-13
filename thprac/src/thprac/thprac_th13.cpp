@@ -299,13 +299,13 @@ namespace TH13 {
             }
         }
 
-        Gui::GuiCombo mMode { TH_MODE, TH_MODE_SELECT };
-        Gui::GuiCombo mStage { TH_STAGE, TH_STAGE_SELECT };
-        Gui::GuiCombo mWarp { TH_WARP, TH_WARP_SELECT };
-        Gui::GuiCombo mSpiritSide { TH13_SPIRIT_SIDE, TH_SIDE_SELECT };
-        Gui::GuiCombo mSection { TH_MODE };
-        Gui::GuiCombo mPhase { TH_PHASE };
-        Gui::GuiCheckBox mDlg { TH_DLG };
+        Gui::GuiCombo mMode{TH_MODE, TH_MODE_SELECT};
+        Gui::GuiCombo mStage{TH_STAGE, TH_STAGE_SELECT};
+        Gui::GuiCombo mWarp{TH_WARP, TH_WARP_SELECT};
+        Gui::GuiCombo mSpiritSide{TH13_SPIRIT_SIDE, TH_SIDE_SELECT};
+        Gui::GuiCombo mSection{TH_MODE};
+        Gui::GuiCombo mPhase{TH_PHASE};
+        Gui::GuiCheckBox mDlg{TH_DLG};
 
         Gui::GuiSlider<int, ImGuiDataType_S32> mChapter{TH_CHAPTER, 0, 0};
         Gui::GuiDrag<int64_t, ImGuiDataType_S64> mScore{TH_SCORE, 0, 9999999990, 10, 100000000};
@@ -322,19 +322,18 @@ namespace TH13 {
         Gui::GuiNavFocus mNavFocus{TH_STAGE, TH_MODE, TH_WARP,     TH_DLG,           TH_MID_STAGE, TH_END_STAGE,     TH_NONSPELL, TH_SPELL, TH_PHASE, TH_CHAPTER,
                                    TH_SCORE, TH_LIFE, TH13_EXTEND, TH_LIFE_FRAGMENT, TH_BOMB,      TH_BOMB_FRAGMENT, TH_POWER,    TH_VALUE, TH_GRAZE, TH13_TRANCE_METER};
 
-        Gui::GuiNavFocus mNavFocus { TH_STAGE, TH_MODE, TH_WARP, TH_DLG,
-            TH_MID_STAGE, TH_END_STAGE, TH_NONSPELL, TH_SPELL, TH_PHASE, TH_CHAPTER,
-            TH_SCORE, TH_LIFE, TH13_EXTEND, TH_LIFE_FRAGMENT, TH_BOMB, TH_BOMB_FRAGMENT,
-            TH_POWER, TH_VALUE, TH_GRAZE, TH13_TRANCE_METER, TH13_SPIRIT_SIDE };
+        Gui::GuiNavFocus mNavFocus{TH_STAGE, TH_MODE,          TH_WARP,    TH_DLG,   TH_MID_STAGE, TH_END_STAGE,      TH_NONSPELL,
+                                   TH_SPELL, TH_PHASE,         TH_CHAPTER, TH_SCORE, TH_LIFE,      TH13_EXTEND,       TH_LIFE_FRAGMENT,
+                                   TH_BOMB,  TH_BOMB_FRAGMENT, TH_POWER,   TH_VALUE, TH_GRAZE,     TH13_TRANCE_METER, TH13_SPIRIT_SIDE};
 
-        int mChapterSetup[7][2] {
-            { 3, 2 },
-            { 4, 2 },
-            { 4, 4 },
-            { 4, 4 },
-            { 3, 4 },
-            { 4, 0 },
-            { 3, 3 },
+        int mChapterSetup[7][2]{
+            {3, 2},
+            {4, 2},
+            {4, 4},
+            {4, 4},
+            {3, 4},
+            {4, 0},
+            {3, 3},
         };
 
         int mDiffculty = 0;

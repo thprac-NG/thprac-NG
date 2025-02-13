@@ -2,9 +2,9 @@
 
 #include "thprac_gui_components.h"
 
-#include <vector>
-#include <unordered_map>
 #include <optional>
+#include <unordered_map>
+#include <vector>
 
 struct IDirect3DDevice8;
 
@@ -14,7 +14,7 @@ struct Float2 {
     float x;
     float y;
 };
-    
+
 struct Float3 {
     float x;
     float y;
@@ -37,7 +37,7 @@ struct Timer19 {
     uint32_t flags;
 };
 
-template<typename T>
+template <typename T>
 struct ThList {
     T* entry;
     ThList<T>* next;
@@ -52,9 +52,10 @@ enum game_gui_impl {
     IMPL_WIN32_DX9
 };
 
-void GameGuiInit(game_gui_impl impl, int device, int hwnd, int wndproc_addr,
-    Gui::ingame_input_gen_t input_gen, int reg1, int reg2, int reg3 = 0,
-    int wnd_size_flag = -1, float x = 640.0f, float y = 480.0f);
+void GameGuiInit(
+    game_gui_impl impl, int device, int hwnd, int wndproc_addr, Gui::ingame_input_gen_t input_gen, int reg1, int reg2, int reg3 = 0, int wnd_size_flag = -1, float x = 640.0f,
+    float y = 480.0f
+);
 extern int GameGuiProgress;
 void GameGuiBegin(game_gui_impl impl, bool game_nav = true);
 void GameGuiEnd(bool draw_cursor = false);
@@ -107,17 +108,11 @@ void AboutOpt(const char* thanks_text = nullptr);
 #pragma region Game BGM
 
 // TODO: Should bgm_cmd be removed?
-template <
-    uintptr_t play_addr,
-    uintptr_t stop_addr,
-    uintptr_t pause_addr,
-    uintptr_t resume_addr,
-    uintptr_t caller_addr>
-static bool ElBgmTest(bool hotkey_status, bool practice_status,
-    uintptr_t retn_addr, [[maybe_unused]] int32_t bgm_cmd, int32_t bgm_param, uintptr_t caller)
+template <uintptr_t play_addr, uintptr_t stop_addr, uintptr_t pause_addr, uintptr_t resume_addr, uintptr_t caller_addr>
+static bool ElBgmTest(bool hotkey_status, bool practice_status, uintptr_t retn_addr, [[maybe_unused]] int32_t bgm_cmd, int32_t bgm_param, uintptr_t caller)
 {
-    static bool mElStatus { false };
-    static int mLockBgmId { -1 };
+    static bool mElStatus{false};
+    static int mLockBgmId{-1};
 
     bool hotkey = hotkey_status;
     bool is_practice = practice_status;
@@ -172,18 +167,11 @@ static bool ElBgmTest(bool hotkey_status, bool practice_status,
 }
 
 // TODO: Should bgm_cmd be removed?
-template <
-    uintptr_t play_addr,
-    uintptr_t play_addr_2,
-    uintptr_t stop_addr,
-    uintptr_t pause_addr,
-    uintptr_t resume_addr,
-    uintptr_t caller_addr>
-static bool ElBgmTestTemp(bool hotkey_status, bool practice_status,
-    uintptr_t retn_addr, [[maybe_unused]] int32_t bgm_cmd, int32_t bgm_param, uintptr_t caller)
+template <uintptr_t play_addr, uintptr_t play_addr_2, uintptr_t stop_addr, uintptr_t pause_addr, uintptr_t resume_addr, uintptr_t caller_addr>
+static bool ElBgmTestTemp(bool hotkey_status, bool practice_status, uintptr_t retn_addr, [[maybe_unused]] int32_t bgm_cmd, int32_t bgm_param, uintptr_t caller)
 {
-    static bool mElStatus { false };
-    static int mLockBgmId { -1 };
+    static bool mElStatus{false};
+    static int mLockBgmId{-1};
 
     bool hotkey = hotkey_status;
     bool is_practice = practice_status;

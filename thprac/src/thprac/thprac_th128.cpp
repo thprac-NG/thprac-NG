@@ -356,7 +356,8 @@ namespace TH128 {
             TH128_MOTIVATION,
             TH128_PERFECT_FREEZE,
             TH128_ICE_POWER,
-            TH128_ICE_AREA};
+            TH128_ICE_AREA
+        };
 
         int mChapterSetup[16][2]{
             {5, 2},

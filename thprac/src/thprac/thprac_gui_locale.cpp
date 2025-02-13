@@ -459,7 +459,7 @@ static ImWchar baseUnicodeRanges[] =
         CheckFontJa,
     };
 
-    static ImFont* __glocale_fonts[3] {};
+    static ImFont* __glocale_fonts[3]{};
     void LocaleFontWarning()
     {
         if (__glocale_disabled) {

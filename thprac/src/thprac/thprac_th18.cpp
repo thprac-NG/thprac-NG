@@ -1,6 +1,5 @@
-﻿#include "thprac_games.h"
-#include "thprac_utils.h"
-#include "thprac_game_data.h"
+﻿#include "thprac_game_data.h"
+#include "thprac_games.h"
 #include "thprac_utils.h"
 #include <metrohash128.h>
 
@@ -14,7 +13,7 @@ namespace TH18 {
         CARD_DESC_LIST = 0x4c53c0,
         MUKADE_ADDR = 0x4cf2d4,
     };
-    
+
     enum cards {
         KOZUCHI = 42,
         KANAME,
@@ -316,7 +315,6 @@ namespace TH18 {
         }
 
     protected:
-
     protected:
         virtual void OnLocaleChange() override
         {
@@ -408,8 +406,6 @@ namespace TH18 {
                         (*slider)(str);
                     }
                 }
-
-                
             }
 
             mNavFocus();
@@ -503,51 +499,48 @@ namespace TH18 {
         Gui::GuiCombo mPhase{TH_PHASE};
         Gui::GuiCheckBox mDlg{TH_DLG};
 
-        Gui::GuiSlider<int, ImGuiDataType_S32> mChapter { TH_CHAPTER, 0, 0 };
-        Gui::GuiDrag<int64_t, ImGuiDataType_S64> mScore { TH_SCORE, 0, 42949672950, 10, 10000000000 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mLife { TH_LIFE, 0, 7 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mLifeFragment { TH_LIFE_FRAGMENT, 0, 2 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mBomb { TH_BOMB, 0, 7 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mBombFragment { TH_BOMB_FRAGMENT, 0, 2 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mPower { TH_POWER, 100, 400 };
-        Gui::GuiDrag<int, ImGuiDataType_S32> mFunds { TH18_FUNDS, 0, 999990, 1, 100000 };
+        Gui::GuiSlider<int, ImGuiDataType_S32> mChapter{TH_CHAPTER, 0, 0};
+        Gui::GuiDrag<int64_t, ImGuiDataType_S64> mScore{TH_SCORE, 0, 42949672950, 10, 10000000000};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mLife{TH_LIFE, 0, 7};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mLifeFragment{TH_LIFE_FRAGMENT, 0, 2};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mBomb{TH_BOMB, 0, 7};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mBombFragment{TH_BOMB_FRAGMENT, 0, 2};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mPower{TH_POWER, 100, 400};
+        Gui::GuiDrag<int, ImGuiDataType_S32> mFunds{TH18_FUNDS, 0, 999990, 1, 100000};
 
-        Gui::GuiSlider<int, ImGuiDataType_S32> mKozuchi { TH18_KOZUCHI_CD, 0, 10000, 1, 1000 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mKaname { TH18_KANAME_CD, 0, 10000, 1, 1000 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mMoon { TH18_MOON_CD, 0, 10000, 1, 1000 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mMikoflash { TH18_MIKOFLASH_CD, 0, 10000, 1, 1000 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mVampire { TH18_VAMPIRE_CD, 0, 10000, 1, 1000 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mSun { TH18_SUN_CD, 0, 10000, 1, 1000 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mLilyCount { TH18_LILY_COUNT, 0, 10, 1, 1, 1 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mLilyCD { TH18_LILY_CD, 0, 10000, 1, 1000 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mBassdrum { TH18_BASSDRUM_CD, 0, 10000, 1, 1000 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mPsyco { TH18_PSYCO_CD, 0, 10000, 1, 1000 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mCylinder { TH18_CYLINDER_CD, 0, 10000, 1, 1000 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mRiceball { TH18_RICEBALL_CD, 0, 10000, 1, 1000 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mMukade { TH18_MUKADE, 0, 800, 1, 100 };
+        Gui::GuiSlider<int, ImGuiDataType_S32> mKozuchi{TH18_KOZUCHI_CD, 0, 10000, 1, 1000};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mKaname{TH18_KANAME_CD, 0, 10000, 1, 1000};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mMoon{TH18_MOON_CD, 0, 10000, 1, 1000};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mMikoflash{TH18_MIKOFLASH_CD, 0, 10000, 1, 1000};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mVampire{TH18_VAMPIRE_CD, 0, 10000, 1, 1000};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mSun{TH18_SUN_CD, 0, 10000, 1, 1000};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mLilyCount{TH18_LILY_COUNT, 0, 10, 1, 1, 1};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mLilyCD{TH18_LILY_CD, 0, 10000, 1, 1000};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mBassdrum{TH18_BASSDRUM_CD, 0, 10000, 1, 1000};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mPsyco{TH18_PSYCO_CD, 0, 10000, 1, 1000};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mCylinder{TH18_CYLINDER_CD, 0, 10000, 1, 1000};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mRiceball{TH18_RICEBALL_CD, 0, 10000, 1, 1000};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mMukade{TH18_MUKADE, 0, 800, 1, 100};
 
         std::unordered_map<int, std::pair<Gui::GuiSlider<int, ImGuiDataType_S32>*, bool>> mCardToggles = {
-            { KOZUCHI, { &mKozuchi, false } },
-            { KANAME, { &mKaname, false } },
-            { MOON, { &mMoon, false } },
-            { MIKOFLASH, { &mMikoflash, false } },
-            { VAMPIRE, { &mVampire, false } },
-            { SUN, { &mSun, false } },
-            { LILY, { &mLilyCD, false } },
-            { BASSDRUM, { &mBassdrum, false } },
-            { PSYCO, { &mPsyco, false } },
-            { CYLINDER, { &mCylinder, false } },
-            { RICEBALL, { &mRiceball, false } },
-            { MUKADE, { &mMukade, false } },
+            {KOZUCHI,   {&mKozuchi, false}  },
+            {KANAME,    {&mKaname, false}   },
+            {MOON,      {&mMoon, false}     },
+            {MIKOFLASH, {&mMikoflash, false}},
+            {VAMPIRE,   {&mVampire, false}  },
+            {SUN,       {&mSun, false}      },
+            {LILY,      {&mLilyCD, false}   },
+            {BASSDRUM,  {&mBassdrum, false} },
+            {PSYCO,     {&mPsyco, false}    },
+            {CYLINDER,  {&mCylinder, false} },
+            {RICEBALL,  {&mRiceball, false} },
+            {MUKADE,    {&mMukade, false}   },
         };
 
-        Gui::GuiNavFocus mNavFocus { TH_STAGE, TH_MODE, TH_WARP, TH_DLG,
-            TH_MID_STAGE, TH_END_STAGE, TH_NONSPELL, TH_SPELL, TH_PHASE, TH_CHAPTER,
-            TH_SCORE, TH_LIFE, TH_LIFE_FRAGMENT, TH_BOMB, TH_BOMB_FRAGMENT,
-            TH_POWER, TH18_FUNDS, TH18_MUKADE, TH18_KOZUCHI_CD, TH18_KANAME_CD,
-            TH18_MOON_CD, TH18_MIKOFLASH_CD, TH18_VAMPIRE_CD, TH18_SUN_CD,
-            TH18_LILY_COUNT, TH18_LILY_CD, TH18_BASSDRUM_CD, TH18_PSYCO_CD,
-            TH18_CYLINDER_CD, TH18_RICEBALL_CD };
+        Gui::GuiNavFocus mNavFocus{TH_STAGE,        TH_MODE,      TH_WARP,          TH_DLG,         TH_MID_STAGE,     TH_END_STAGE,      TH_NONSPELL,      TH_SPELL,
+                                   TH_PHASE,        TH_CHAPTER,   TH_SCORE,         TH_LIFE,        TH_LIFE_FRAGMENT, TH_BOMB,           TH_BOMB_FRAGMENT, TH_POWER,
+                                   TH18_FUNDS,      TH18_MUKADE,  TH18_KOZUCHI_CD,  TH18_KANAME_CD, TH18_MOON_CD,     TH18_MIKOFLASH_CD, TH18_VAMPIRE_CD,  TH18_SUN_CD,
+                                   TH18_LILY_COUNT, TH18_LILY_CD, TH18_BASSDRUM_CD, TH18_PSYCO_CD,  TH18_CYLINDER_CD, TH18_RICEBALL_CD};
 
         int mChapterSetup[7][2]{
             {3, 2},
@@ -707,7 +700,7 @@ namespace TH18 {
         {
             if (cardId < 55)
                 asm_call<0x411460, Thiscall>(*(uint32_t*)ABILTIY_MANAGER_PTR, cardId, 2);
-                asm_call<0x418de0, Fastcall>(cardId, 0);
+            asm_call<0x418de0, Fastcall>(cardId, 0);
         }
         bool IsMarketAvailable()
         {
@@ -1107,48 +1100,41 @@ namespace TH18 {
                     *score = 999999999;
             }
         }
-        static void StaticMalletConversion(PCONTEXT pCtx) {
+        static void StaticMalletConversion(PCONTEXT pCtx)
+        {
             int32_t mallet_cancel_item_type = GetMemContent(BULLET_MANAGER_PTR, 0x7a41d0) % 30;
-            
+
             switch (mallet_cancel_item_type) {
-                case 0:
-                case 3:
-                case 6:
-                case 8:
-                case 11:
-                case 14:
-                case 16:
-                case 19:
-                case 22:
-                case 25:
-                case 28:
-                    pCtx->Eip = 0x429222; // gold
-                    break;
-                default:
-                    pCtx->Eip = 0x42917b; // green
+            case 0:
+            case 3:
+            case 6:
+            case 8:
+            case 11:
+            case 14:
+            case 16:
+            case 19:
+            case 22:
+            case 25:
+            case 28:
+                pCtx->Eip = 0x429222; // gold
+                break;
+            default:
+                pCtx->Eip = 0x42917b; // green
             }
         }
         EHOOK_ST(th18_static_mallet_replay_gold, 0x429222)
         {
-            if (GetMemContent(0x4cf2e4, 0xd0)) StaticMalletConversion(pCtx);
+            if (GetMemContent(0x4cf2e4, 0xd0))
+                StaticMalletConversion(pCtx);
         }
         EHOOK_ST(th18_static_mallet_replay_green, 0x42921d)
         {
-            if (GetMemContent(0x4cf2e4, 0xd0)) StaticMalletConversion(pCtx);
+            if (GetMemContent(0x4cf2e4, 0xd0))
+                StaticMalletConversion(pCtx);
         }
-        uint32_t scoreUncapOffsetNew[23] {
-            0x419e70,
-            0x42a7fd, 0x42a80f,
-            0x430eab, 0x430eb6,
-            0x44476b, 0x44477a,
-            0x444ad9, 0x444ade,
-            0x444c00, 0x444c05,
-            0x4462eb, 0x446302,
-            0x4463a1, 0x4463b1,
-            0x44656e, 0x446578,
-            0x446ac6, 0x446ad7,
-            0x446d09, 0x446d1a,
-            0x45f2c4, 0x45f2cf,
+        uint32_t scoreUncapOffsetNew[23]{
+            0x419e70, 0x42a7fd, 0x42a80f, 0x430eab, 0x430eb6, 0x44476b, 0x44477a, 0x444ad9, 0x444ade, 0x444c00, 0x444c05, 0x4462eb,
+            0x446302, 0x4463a1, 0x4463b1, 0x44656e, 0x446578, 0x446ac6, 0x446ad7, 0x446d09, 0x446d1a, 0x45f2c4, 0x45f2cf,
         };
         HookCtx* scoreUncapStageTrFix[2];
         std::vector<HookCtx*> scoreUncapHooks;
@@ -1690,14 +1676,14 @@ namespace TH18 {
                 if (ImGui::Checkbox(S(TH18_REPLAY_BONUS), &scoreReplayFactor)) {
                     th18_score_uncap_replay_factor.Toggle(scoreReplayFactor);
                 }
-                
+
                 if (ImGui::Checkbox(S(TH18_STATIC_MALLET), &staticMalletReplay)) {
                     th18_static_mallet_replay_gold.Toggle(staticMalletReplay);
                     th18_static_mallet_replay_green.Toggle(staticMalletReplay);
                 }
                 ImGui::SameLine();
                 HelpMarker(S(TH18_STATIC_MALLET_DESC));
-                
+
                 EndOptGroup();
             }
             if (BeginOptGroup<TH18_BUG_FIX>()) {
@@ -2836,7 +2822,7 @@ namespace TH18 {
         if (thPracParam.mode != 1)
             return;
 
-#define R(name) \
+#define R(name)                                                                                                                 \
     card->_recharge_timer.current = static_cast<int32_t>(card->recharge_time * (static_cast<float>(thPracParam.name) / 10000)); \
     card->_recharge_timer.current_f = card->recharge_time * (thPracParam.name / 10000.0f)
 
@@ -2847,14 +2833,14 @@ namespace TH18 {
         *(int32_t*)(0x4ccd5c) = thPracParam.bomb_fragment;
         *(int32_t*)(0x4ccd38) = thPracParam.power;
         *(int32_t*)(0x4ccd30) = *(int32_t*)(0x4ccd34) = thPracParam.funds;
-        
+
         auto* ability_manager = *(AbilityManager**)ABILTIY_MANAGER_PTR;
-        
+
         for (ThList<CardBase>* entry = &ability_manager->card_list_head; entry; entry = entry->next) {
             CardBase* card = entry->entry;
             if (!GameState_Assert(card != nullptr))
                 continue;
-        
+
             switch (card->card_id) {
             case KOZUCHI:
                 R(kozuchi);
@@ -2897,7 +2883,6 @@ namespace TH18 {
         }
         THSectionPatch();
 #undef R
-
     }
     EHOOK_DY(th18_bgm, 0x444370)
     {

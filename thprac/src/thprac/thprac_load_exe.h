@@ -1,8 +1,7 @@
 ﻿#pragma once
 #include <Windows.h>
 
-namespace THPrac
-{
+namespace THPrac {
 
 // DO NOT CHANGE THIS STRUCT WITHOUT RECOMPILING init_shellcode.cpp
 struct remote_param {

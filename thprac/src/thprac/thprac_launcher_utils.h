@@ -155,12 +155,7 @@ inline void GuiSetPosYRel(float rel)
 }
 
 void GuiHelpMarker(const char* desc);
-int GuiCornerButton(
-    const char* text,
-    const char* text2 = nullptr,
-    const ImVec2& offset = ImVec2(1.5f, 0.5f),
-    bool useCurrentY = false
-);
+int GuiCornerButton(const char* text, const char* text2 = nullptr, const ImVec2& offset = ImVec2(1.5f, 0.5f), bool useCurrentY = false);
 
 inline bool GuiButtonRelCentered(const char* buttonText, float posYRel, const ImVec2& sizeRel)
 {
@@ -208,18 +203,9 @@ inline bool GuiButtonModal(const char* buttonText, const char* modalTitle)
     return false;
 }
 
-bool GuiButtonYesNo(
-    const char* buttonText1 = "OK",
-    const char* buttonText2 = "Cancel",
-    float buttonSize = -1.0f
-);
+bool GuiButtonYesNo(const char* buttonText1 = "OK", const char* buttonText2 = "Cancel", float buttonSize = -1.0f);
 bool GuiButtonAndModalYesNo(
-    const char* buttonText,
-    const char* modalTitle,
-    const char* modalText,
-    float buttonSize = 6.0f,
-    const char* buttonText1 = "OK",
-    const char* buttonText2 = "Cancel"
+    const char* buttonText, const char* modalTitle, const char* modalText, float buttonSize = 6.0f, const char* buttonText1 = "OK", const char* buttonText2 = "Cancel"
 );
 
 }

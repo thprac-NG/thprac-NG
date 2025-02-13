@@ -2,7 +2,8 @@
 
 namespace THPrac {
 
-void MovWndToTop(HWND m_hWnd) {
+void MovWndToTop(HWND m_hWnd)
+{
     HWND hCurWnd = ::GetForegroundWindow();
     DWORD dwMyID = ::GetCurrentThreadId();
     DWORD dwCurID = ::GetWindowThreadProcessId(hCurWnd, nullptr);
@@ -15,7 +16,8 @@ void MovWndToTop(HWND m_hWnd) {
     ::AttachThreadInput(dwCurID, dwMyID, FALSE);
 }
 
-void GuiColumnText(const char* text) {
+void GuiColumnText(const char* text)
+{
     auto columnX = ImGui::GetColumnWidth();
     auto itemX = ImGui::CalcTextSize(text).x + ImGui::GetStyle().ItemSpacing.x;
     ImGui::TextUnformatted(text);
@@ -34,7 +36,8 @@ inline void GuiCenteredText(const char* text);
 inline void GuiSetPosXText(const char* text, float offset);
 inline void GuiSetPosYRel(float rel);
 
-void GuiHelpMarker(const char* desc) {
+void GuiHelpMarker(const char* desc)
+{
     ImGui::TextDisabled("(?)");
     if (ImGui::IsItemHovered()) {
         ImGui::BeginTooltip();
@@ -45,7 +48,8 @@ void GuiHelpMarker(const char* desc) {
     }
 }
 
-int GuiCornerButton(const char* text, const char* text2, const ImVec2& offset, bool useCurrentY) {
+int GuiCornerButton(const char* text, const char* text2, const ImVec2& offset, bool useCurrentY)
+{
     int result = 0;
     auto& style = ImGui::GetStyle();
     auto currentCursorY = ImGui::GetCursorPosY();
@@ -81,7 +85,8 @@ inline bool GuiModal(const char* modalTitle, ImVec2 sizeRel);
 inline bool GuiModalFullScreen(const char* modalTitle);
 inline bool GuiButtonModal(const char* buttonText, const char* modalTitle);
 
-bool GuiButtonYesNo(const char* buttonText1, const char* buttonText2, float buttonSize) {
+bool GuiButtonYesNo(const char* buttonText1, const char* buttonText2, float buttonSize)
+{
     if (buttonSize == -1.0f) {
         buttonSize = ImGui::GetItemRectSize().x / 2.05f;
     } else {
@@ -99,14 +104,8 @@ bool GuiButtonYesNo(const char* buttonText1, const char* buttonText2, float butt
     return false;
 }
 
-bool GuiButtonAndModalYesNo(
-    const char* buttonText,
-    const char* modalTitle,
-    const char* modalText,
-    float buttonSize,
-    const char* buttonText1,
-    const char* buttonText2
-) {
+bool GuiButtonAndModalYesNo(const char* buttonText, const char* modalTitle, const char* modalText, float buttonSize, const char* buttonText1, const char* buttonText2)
+{
     bool result = false;
 
     GuiButtonModal(buttonText, modalTitle);

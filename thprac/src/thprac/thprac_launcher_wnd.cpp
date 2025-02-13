@@ -528,7 +528,8 @@ std::wstring LauncherWndFolderSelect(const wchar_t* title)
     return L"";
 }
 
-std::wstring LauncherWndFileSelect([[maybe_unused]] const wchar_t* title, const wchar_t* filter) {
+std::wstring LauncherWndFileSelect([[maybe_unused]] const wchar_t* title, const wchar_t* filter)
+{
     OPENFILENAME ofn = {};
     wchar_t szFile[MAX_PATH] = {};
     ofn.lStructSize = sizeof(ofn);

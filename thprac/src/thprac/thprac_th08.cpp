@@ -165,19 +165,18 @@ namespace TH08 {
                 if (mGaugeType != gaugeType) {
                     switch (gaugeType) {
                     case -1: // scarlet team
-						*mGauge = 10000;
-						break;
+                        *mGauge = 10000;
+                        break;
                     case 1: // ghost team
-						*mGauge = -5000;
-						break;
+                        *mGauge = -5000;
+                        break;
                     case 2: // solo youmu
                         *mGauge = -5000;
                         break;
                     default:
                         *mGauge = 0;
-						break;
+                        break;
                     }
-                    
                 }
                 mGaugeType = gaugeType;
                 break;
@@ -414,28 +413,27 @@ namespace TH08 {
         Gui::GuiCombo mPhase{TH_PHASE};
         Gui::GuiCheckBox mDlg{TH_DLG};
 
-        Gui::GuiSlider<int, ImGuiDataType_S32> mChapter { TH_CHAPTER, 0, 0 };
-        Gui::GuiDrag<int, ImGuiDataType_S32> mFrame { TH_FRAME, 0, INT_MAX };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mLife { TH_LIFE, 0, 8 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mBomb { TH_BOMB, 0, 8 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mPower { TH_POWER, 0, 128 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mGauge { TH08_GAUGE, -10000, 10000, 1, 1000 };
-        Gui::GuiDrag<int64_t, ImGuiDataType_S64> mScore { TH_SCORE, 0, 9999999990, 10, 100000000 };
-        Gui::GuiDrag<int, ImGuiDataType_S32> mGraze { TH_GRAZE, 0, INT_MAX, 1, 10000 };
-        Gui::GuiDrag<int, ImGuiDataType_S32> mPoint { TH_POINT, 0, 9999, 1, 1000 };
-        Gui::GuiDrag<int, ImGuiDataType_S32> mPointTotal { TH_POINT_TOTAL, 0, 9999, 1, 1000 };
-        Gui::GuiDrag<int, ImGuiDataType_S32> mPointStage { TH_POINT_STAGE, 0, 9999, 1, 1000 };
-        Gui::GuiDrag<int, ImGuiDataType_S32> mTime { TH08_TIME, 0, INT_MAX, 1, 1000 };
-        Gui::GuiDrag<int, ImGuiDataType_S32> mValue { TH08_VALUE, 0, 9999999, 10, 100000 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mFamiliar { TH08_FAMILIAR, 0, 2000, 1, 100 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mNight { TH08_NIGHT, 0, 11, 1, 1 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mRank { TH_BULLET_RANK, 8, 16, 1, 10, 10 };
-        Gui::GuiCheckBox mRankLock { TH_BULLET_RANKLOCK };
+        Gui::GuiSlider<int, ImGuiDataType_S32> mChapter{TH_CHAPTER, 0, 0};
+        Gui::GuiDrag<int, ImGuiDataType_S32> mFrame{TH_FRAME, 0, INT_MAX};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mLife{TH_LIFE, 0, 8};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mBomb{TH_BOMB, 0, 8};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mPower{TH_POWER, 0, 128};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mGauge{TH08_GAUGE, -10000, 10000, 1, 1000};
+        Gui::GuiDrag<int64_t, ImGuiDataType_S64> mScore{TH_SCORE, 0, 9999999990, 10, 100000000};
+        Gui::GuiDrag<int, ImGuiDataType_S32> mGraze{TH_GRAZE, 0, INT_MAX, 1, 10000};
+        Gui::GuiDrag<int, ImGuiDataType_S32> mPoint{TH_POINT, 0, 9999, 1, 1000};
+        Gui::GuiDrag<int, ImGuiDataType_S32> mPointTotal{TH_POINT_TOTAL, 0, 9999, 1, 1000};
+        Gui::GuiDrag<int, ImGuiDataType_S32> mPointStage{TH_POINT_STAGE, 0, 9999, 1, 1000};
+        Gui::GuiDrag<int, ImGuiDataType_S32> mTime{TH08_TIME, 0, INT_MAX, 1, 1000};
+        Gui::GuiDrag<int, ImGuiDataType_S32> mValue{TH08_VALUE, 0, 9999999, 10, 100000};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mFamiliar{TH08_FAMILIAR, 0, 2000, 1, 100};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mNight{TH08_NIGHT, 0, 11, 1, 1};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mRank{TH_BULLET_RANK, 8, 16, 1, 10, 10};
+        Gui::GuiCheckBox mRankLock{TH_BULLET_RANKLOCK};
 
-        Gui::GuiNavFocus mNavFocus { TH_STAGE, TH_MODE, TH_WARP, TH_FRAME, TH_DLG,
-            TH_MID_STAGE, TH_END_STAGE, TH_NONSPELL, TH_SPELL, TH_PHASE, TH_CHAPTER,
-            TH_LIFE, TH_BOMB, TH_POWER, TH08_GAUGE, TH_SCORE, TH_GRAZE, TH_POINT, TH_POINT_TOTAL, TH_POINT_STAGE,
-            TH08_TIME, TH08_VALUE,  TH08_NIGHT, TH_BULLET_RANK, TH_BULLET_RANKLOCK };
+        Gui::GuiNavFocus mNavFocus{TH_STAGE,       TH_MODE,        TH_WARP,   TH_FRAME,   TH_DLG,     TH_MID_STAGE,   TH_END_STAGE,      TH_NONSPELL, TH_SPELL,
+                                   TH_PHASE,       TH_CHAPTER,     TH_LIFE,   TH_BOMB,    TH_POWER,   TH08_GAUGE,     TH_SCORE,          TH_GRAZE,    TH_POINT,
+                                   TH_POINT_TOTAL, TH_POINT_STAGE, TH08_TIME, TH08_VALUE, TH08_NIGHT, TH_BULLET_RANK, TH_BULLET_RANKLOCK};
 
         int mChapterSetup[9][2]{
             {1, 1},

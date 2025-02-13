@@ -379,20 +379,20 @@ namespace TH17 {
         Gui::GuiCombo mPhase{TH_PHASE};
         Gui::GuiCheckBox mDlg{TH_DLG};
 
-        Gui::GuiSlider<int, ImGuiDataType_S32> mChapter { TH_CHAPTER, 0, 0 };
-        Gui::GuiDrag<int64_t, ImGuiDataType_S64> mScore { TH_SCORE, 0, 9999999990, 10, 100000000 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mLife { TH_LIFE, 0, 9 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mLifeFragment { TH_LIFE_FRAGMENT, 0, 2 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mBomb { TH_BOMB, 0, 9 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mBombFragment { TH_BOMB_FRAGMENT, 0, 2 };
-        Gui::GuiCombo mGoast1 { TH17_GOAST_1, TH17_GOAST_SELECT };
-        Gui::GuiCombo mGoast2 { TH17_GOAST_2, TH17_GOAST_SELECT };
-        Gui::GuiCombo mGoast3 { TH17_GOAST_3, TH17_GOAST_SELECT };
-        Gui::GuiCombo mGoast4 { TH17_GOAST_4, TH17_GOAST_SELECT };
-        Gui::GuiCombo mGoast5 { TH17_GOAST_5, TH17_GOAST_SELECT };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mPower { TH_POWER, 100, 400 };
-        Gui::GuiDrag<int, ImGuiDataType_S32> mValue { TH_VALUE, 0, 999990, 10, 100000 };
-        Gui::GuiDrag<int, ImGuiDataType_S32> mGraze { TH_GRAZE, 0, 999999, 1, 100000 };
+        Gui::GuiSlider<int, ImGuiDataType_S32> mChapter{TH_CHAPTER, 0, 0};
+        Gui::GuiDrag<int64_t, ImGuiDataType_S64> mScore{TH_SCORE, 0, 9999999990, 10, 100000000};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mLife{TH_LIFE, 0, 9};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mLifeFragment{TH_LIFE_FRAGMENT, 0, 2};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mBomb{TH_BOMB, 0, 9};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mBombFragment{TH_BOMB_FRAGMENT, 0, 2};
+        Gui::GuiCombo mGoast1{TH17_GOAST_1, TH17_GOAST_SELECT};
+        Gui::GuiCombo mGoast2{TH17_GOAST_2, TH17_GOAST_SELECT};
+        Gui::GuiCombo mGoast3{TH17_GOAST_3, TH17_GOAST_SELECT};
+        Gui::GuiCombo mGoast4{TH17_GOAST_4, TH17_GOAST_SELECT};
+        Gui::GuiCombo mGoast5{TH17_GOAST_5, TH17_GOAST_SELECT};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mPower{TH_POWER, 100, 400};
+        Gui::GuiDrag<int, ImGuiDataType_S32> mValue{TH_VALUE, 0, 999990, 10, 100000};
+        Gui::GuiDrag<int, ImGuiDataType_S32> mGraze{TH_GRAZE, 0, 999999, 1, 100000};
 
         Gui::GuiNavFocus mNavFocus{TH_STAGE,     TH_MODE,      TH_WARP,      TH_DLG,       TH_MID_STAGE,     TH_END_STAGE, TH_NONSPELL,      TH_SPELL,
                                    TH_PHASE,     TH_CHAPTER,   TH_SCORE,     TH_LIFE,      TH_LIFE_FRAGMENT, TH_BOMB,      TH_BOMB_FRAGMENT, TH17_GOAST_1,
@@ -811,7 +811,8 @@ namespace TH17 {
             ImGui::SliderFloat("Angle", &mGoastAng, -M_PI, M_PI);
             ImGui::Checkbox("Force angle", &mForceGoastAngle);
             ImGui::SameLine();
-            HelpMarker("Tokens will try to move away from eachother both when spawning and when bouncing from a wall. This will ensure that a token will always go in the direction you specify");
+            HelpMarker("Tokens will try to move away from eachother both when spawning and when bouncing from a wall. This will ensure that a token will always go in the "
+                       "direction you specify");
 
             if (mGoastAngleRandom)
                 ImGui::EndDisabled();

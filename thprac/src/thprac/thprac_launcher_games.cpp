@@ -114,7 +114,8 @@ bool GetExeInfoEx(uintptr_t hProcess, uintptr_t base, ExeSig& exeSigOut)
     }
 
     exeSigOut.timeStamp = ntHeader.FileHeader.TimeDateStamp;
-    PIMAGE_SECTION_HEADER pSection = (PIMAGE_SECTION_HEADER)((ULONG_PTR)(base + dosHeader.e_lfanew) + ((LONG)(LONG_PTR) & (((IMAGE_NT_HEADERS*)0)->OptionalHeader)) + ntHeader.FileHeader.SizeOfOptionalHeader);
+    PIMAGE_SECTION_HEADER pSection =
+        (PIMAGE_SECTION_HEADER)((ULONG_PTR)(base + dosHeader.e_lfanew) + ((LONG)(LONG_PTR) & (((IMAGE_NT_HEADERS*)0)->OptionalHeader)) + ntHeader.FileHeader.SizeOfOptionalHeader);
     for (int i = 0; i < ntHeader.FileHeader.NumberOfSections; i++, pSection++) {
         IMAGE_SECTION_HEADER section;
         if (!ReadProcessMemory(hProc, (void*)(pSection), &section, sizeof(IMAGE_SECTION_HEADER), &bytesRead)) {
@@ -2245,7 +2246,7 @@ public:
         for (size_t i = 0; i < elementsof(gGameDefs); i++) {
             // In case I need multiple gameDefs for the same game cause I, let's say
             // want to support multiple versions of the same game
-            // 
+            //
             // Yes I'm comparing string pointers and not actual strings. This is OK here.
             auto& gameRef = gGameDefs[i];
             if (i != 0 && strcmp(gameRef.idStr, gGameDefs[i - 1].idStr) == 0) {

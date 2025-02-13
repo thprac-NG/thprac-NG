@@ -317,7 +317,8 @@ namespace TH11 {
         Gui::GuiDrag<int, ImGuiDataType_S32> mValue{TH_FAITH, 0, 999990, 10, 100000};
 
         Gui::GuiNavFocus mNavFocus{
-            TH_STAGE, TH_MODE, TH_WARP, TH_DLG, TH_MID_STAGE, TH_END_STAGE, TH_NONSPELL, TH_SPELL, TH_PHASE, TH_CHAPTER, TH_LIFE, TH_FAITH, TH_SCORE, TH_POWER, TH_GRAZE};
+            TH_STAGE, TH_MODE, TH_WARP, TH_DLG, TH_MID_STAGE, TH_END_STAGE, TH_NONSPELL, TH_SPELL, TH_PHASE, TH_CHAPTER, TH_LIFE, TH_FAITH, TH_SCORE, TH_POWER, TH_GRAZE
+        };
 
         int mChapterSetup[7][2]{
             {2, 2},

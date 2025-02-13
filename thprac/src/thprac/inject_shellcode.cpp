@@ -13,11 +13,12 @@
 typedef void PExeMain();
 
 // Undefined behaviour yeah whatever.
-// If the one thing that calls this actually manages to overflow this buffer then you're trying to 
+// If the one thing that calls this actually manages to overflow this buffer then you're trying to
 // inject thprac into an exe that is genuinely malformed and that wouldn't run even without thprac.
-__forceinline void string_copy(char* out, char* in) {
+__forceinline void string_copy(char* out, char* in)
+{
     DWORD i = 0;
-    for(; in[i]; i++) {
+    for (; in[i]; i++) {
         out[i] = in[i];
     }
     out[i] = 0;
@@ -44,11 +45,11 @@ extern "C" __declspec(safebuffers) __declspec(dllexport) InjectResult WINAPI Inj
 
     pe.hModule = pLoadLibraryW(param->sExePath);
     if (pe.hModule == NULL)
-        return { InjectResult::LoadError, (WORD)pGetLastError() };
+        return {InjectResult::LoadError, (WORD)pGetLastError()};
 
     /*-------------------------------------------------------------------------------
-								  B A S E    R E L O C A T I O N
-		-------------------------------------------------------------------------------*/
+                                  B A S E    R E L O C A T I O N
+        -------------------------------------------------------------------------------*/
 
     PIMAGE_NT_HEADERS pImageNtHeader = MakePointer(PIMAGE_NT_HEADERS, pe.pImageDosHeader, pe.pImageDosHeader->e_lfanew);
 
@@ -57,13 +58,14 @@ extern "C" __declspec(safebuffers) __declspec(dllexport) InjectResult WINAPI Inj
 
     // This module has been loaded to the ImageBase, no need to do relocation
     if (0 != lBaseDelta) {
-        if (!(0 == pImageNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_BASERELOC].VirtualAddress || 0 == pImageNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_BASERELOC].Size)) {
+        if (!(0 == pImageNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_BASERELOC].VirtualAddress
+              || 0 == pImageNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_BASERELOC].Size)) {
 
-            PIMAGE_BASE_RELOCATION pImageBaseRelocation = MakePointer(PIMAGE_BASE_RELOCATION, pe.lpBase,
-                pImageNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_BASERELOC].VirtualAddress);
+            PIMAGE_BASE_RELOCATION pImageBaseRelocation =
+                MakePointer(PIMAGE_BASE_RELOCATION, pe.lpBase, pImageNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_BASERELOC].VirtualAddress);
 
             if (NULL == pImageBaseRelocation)
-                return { InjectResult::RelocationError, 0 };
+                return {InjectResult::RelocationError, 0};
 
             while (0 != (pImageBaseRelocation->VirtualAddress + pImageBaseRelocation->SizeOfBlock)) {
                 PWORD pRelocationData = MakePointer(PWORD, pImageBaseRelocation, sizeof(IMAGE_BASE_RELOCATION));
@@ -86,12 +88,13 @@ extern "C" __declspec(safebuffers) __declspec(dllexport) InjectResult WINAPI Inj
     }
 
     /*-------------------------------------------------------------------------------
-								  I M P O R T    R E S O L V E
-		-------------------------------------------------------------------------------*/
-    if (!(pImageNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress == 0 || pImageNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].Size == 0)) {
+                                  I M P O R T    R E S O L V E
+        -------------------------------------------------------------------------------*/
+    if (!(pImageNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress == 0
+          || pImageNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].Size == 0)) {
 
-        PIMAGE_IMPORT_DESCRIPTOR pImageImportDescriptor = MakePointer(PIMAGE_IMPORT_DESCRIPTOR, pe.lpBase,
-            pImageNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress);
+        PIMAGE_IMPORT_DESCRIPTOR pImageImportDescriptor =
+            MakePointer(PIMAGE_IMPORT_DESCRIPTOR, pe.lpBase, pImageNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress);
 
         for (; pImageImportDescriptor->Name; pImageImportDescriptor++) {
             // Get the dependent module name
@@ -103,7 +106,7 @@ extern "C" __declspec(safebuffers) __declspec(dllexport) InjectResult WINAPI Inj
             // Failed
             if (NULL == hMod) {
                 string_copy(param->sLoadErrDllName, pDllName);
-                return { InjectResult::LoadError, (WORD)pGetLastError() };
+                return {InjectResult::LoadError, (WORD)pGetLastError()};
             }
 
             // Original thunk
@@ -114,18 +117,16 @@ extern "C" __declspec(safebuffers) __declspec(dllexport) InjectResult WINAPI Inj
                 pOriginalThunk = MakePointer(PIMAGE_THUNK_DATA, pe.lpBase, pImageImportDescriptor->FirstThunk);
 
             // IAT thunk
-            PIMAGE_THUNK_DATA pIATThunk = MakePointer(PIMAGE_THUNK_DATA, pe.lpBase,
-                pImageImportDescriptor->FirstThunk);
+            PIMAGE_THUNK_DATA pIATThunk = MakePointer(PIMAGE_THUNK_DATA, pe.lpBase, pImageImportDescriptor->FirstThunk);
 
             for (; pOriginalThunk->u1.AddressOfData; pOriginalThunk++, pIATThunk++) {
                 FARPROC lpFunction = NULL;
                 if (IMAGE_SNAP_BY_ORDINAL(pOriginalThunk->u1.Ordinal)) {
                     lpFunction = pGetProcAddress(hMod, (LPCSTR)IMAGE_ORDINAL(pOriginalThunk->u1.Ordinal));
                 } else {
-                    PIMAGE_IMPORT_BY_NAME pImageImportByName = MakePointer(
-                        PIMAGE_IMPORT_BY_NAME, pe.lpBase, pOriginalThunk->u1.AddressOfData);
+                    PIMAGE_IMPORT_BY_NAME pImageImportByName = MakePointer(PIMAGE_IMPORT_BY_NAME, pe.lpBase, pOriginalThunk->u1.AddressOfData);
 
-                    lpFunction = pGetProcAddress(hMod, (LPCSTR)&(pImageImportByName->Name));
+                    lpFunction = pGetProcAddress(hMod, (LPCSTR) & (pImageImportByName->Name));
                 }
 
                 // Write into IAT
@@ -143,7 +144,7 @@ extern "C" __declspec(safebuffers) __declspec(dllexport) InjectResult WINAPI Inj
 
     PIMAGE_DATA_DIRECTORY directory = GET_HEADER_DICTIONARY(pImageNtHeader, IMAGE_DIRECTORY_ENTRY_TLS);
     if (directory->VirtualAddress == 0) {
-        return { InjectResult::Ok, 0 };
+        return {InjectResult::Ok, 0};
     }
 
     tls = (PIMAGE_TLS_DIRECTORY)(codeBase + directory->VirtualAddress);
@@ -166,10 +167,11 @@ extern "C" __declspec(safebuffers) __declspec(dllexport) InjectResult WINAPI Inj
     if (pfnModuleEntry) {
         pfnModuleEntry();
     }
-    return { InjectResult::Ok, 0 };
+    return {InjectResult::Ok, 0};
 };
 
 // Dummy function to make this compile
-extern "C" BOOL WINAPI _DllMainCRTStartup(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved) {
+extern "C" BOOL WINAPI _DllMainCRTStartup(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved)
+{
     return TRUE;
 }

@@ -339,7 +339,8 @@ namespace TH10 {
             TH10_FAITH_BAR,
             TH_SCORE,
             TH_POWER,
-            TH_GRAZE};
+            TH_GRAZE
+        };
 
         int mChapterSetup[7][2]{
             {3, 2},
@@ -467,30 +468,27 @@ namespace TH10 {
             }
         }
 
-        Gui::GuiHotKey mMenu { "ModMenuToggle", "BACKSPACE", VK_BACK };
-        Gui::GuiHotKey mMuteki { TH_MUTEKI, "F1", VK_F1, {
-            new HookCtx(0x426D05, "\x01", 1),
-            new HookCtx(0x425a2b, "\xeb", 1),
-            new HookCtx(0x426D69, "\x83\xc4\x08\x90\x90", 5) } };
-        Gui::GuiHotKey mInfLives { TH_INFLIVES, "F2", VK_F2, {
-            new HookCtx(0x426A15, "\x90", 1) } };
-        Gui::GuiHotKey mInfPower { TH_INFPOWER, "F3", VK_F3, {
-            new HookCtx(0x4259DB, "\x00", 1),
-            new HookCtx(0x425C4A, "\x00", 1),
-            new HookCtx(0x425ABD, "\x00", 1) } };
-        Gui::GuiHotKey mTimeLock { TH_TIMELOCK, "F4", VK_F4, {
-            new HookCtx(0x408D93, "\xeb", 1),
-            new HookCtx(0x40E5B0, "\x90", 1) } };
-        Gui::GuiHotKey mAutoBomb { TH_AUTOBOMB, "F5", VK_F5, {
-            new HookCtx(0x425C13, "\xc6", 1) } };
-        Gui::GuiHotKey mNoFaithLoss { TH10_NO_FAITH_LOSS, "F6", VK_F6, {
-            new HookCtx(0x418A2B, "\x90\x90\x90", 3),
-            new HookCtx(0x426A22, "\x90\x90\x90\x90\x90\x90", 6),
-            new HookCtx(0x412E8F, "\x90\x90\x90", 3) } };
-
+        Gui::GuiHotKey mMenu{"ModMenuToggle", "BACKSPACE", VK_BACK};
+        Gui::GuiHotKey mMuteki{
+            TH_MUTEKI, "F1", VK_F1, {new HookCtx(0x426D05, "\x01", 1), new HookCtx(0x425a2b, "\xeb", 1), new HookCtx(0x426D69, "\x83\xc4\x08\x90\x90", 5)}
+        };
+        Gui::GuiHotKey mInfLives{TH_INFLIVES, "F2", VK_F2, {new HookCtx(0x426A15, "\x90", 1)}};
+        Gui::GuiHotKey mInfPower{
+            TH_INFPOWER, "F3", VK_F3, {new HookCtx(0x4259DB, "\x00", 1), new HookCtx(0x425C4A, "\x00", 1), new HookCtx(0x425ABD, "\x00", 1)}
+        };
+        Gui::GuiHotKey mTimeLock{
+            TH_TIMELOCK, "F4", VK_F4, {new HookCtx(0x408D93, "\xeb", 1), new HookCtx(0x40E5B0, "\x90", 1)}
+        };
+        Gui::GuiHotKey mAutoBomb{TH_AUTOBOMB, "F5", VK_F5, {new HookCtx(0x425C13, "\xc6", 1)}};
+        Gui::GuiHotKey mNoFaithLoss{
+            TH10_NO_FAITH_LOSS,
+            "F6",
+            VK_F6,
+            {new HookCtx(0x418A2B, "\x90\x90\x90", 3), new HookCtx(0x426A22, "\x90\x90\x90\x90\x90\x90", 6), new HookCtx(0x412E8F, "\x90\x90\x90", 3)}
+        };
 
     public:
-        Gui::GuiHotKey mElBgm { TH_EL_BGM, "F7", VK_F7 };
+        Gui::GuiHotKey mElBgm{TH_EL_BGM, "F7", VK_F7};
     };
 
     class THAdvOptWnd : public Gui::PPGuiWnd {

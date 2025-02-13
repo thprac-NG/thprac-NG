@@ -55,49 +55,50 @@ namespace Gui {
         }
     }
 
-		// Gen 2 (TH10 ~ Now)
-		static int32_t* __gi_gen2_r1 = nullptr;
-		static int8_t*  __gi_gen2_r2 = nullptr;
-		__forceinline bool __GI_Gen2_Reg2Test2(int mask)
-		{
-			if (*__gi_gen2_r1 & mask || *__gi_gen2_r2 & mask) return true;
-			return false;
-		}
-		__forceinline bool __GI_Gen2_Reg2Test1(int mask)
-		{
-			if (*__gi_gen2_r1 & mask) return true;
-			return false;
-		}
-		__forceinline bool __GI_Gen2_Init(int reg1, int reg2, [[maybe_unused]] int reg3)
-		{
-			__gi_gen2_r1 = (int32_t*)reg1;
-			__gi_gen2_r2 = (int8_t*)reg2;
-			return (!reg1 || !reg2);
-		}
-		__forceinline bool __GI_Gen2_Get(int key)
-		{
-			switch (key)
-			{
-			case 0x40:
-				return __GI_Gen2_Reg2Test2(0xf0);
-			case VK_UP:
-				return __GI_Gen2_Reg2Test2(0x10);
-			case VK_DOWN:
-				return __GI_Gen2_Reg2Test2(0x20);
-			case VK_LEFT:
-				return __GI_Gen2_Reg2Test2(0x40);
-			case VK_RIGHT:
-				return __GI_Gen2_Reg2Test2(0x80);
-			case VK_LSHIFT:
-				return __GI_Gen2_Reg2Test1(0x8);
-			case 'X': // Z
-				return __GI_Gen2_Reg2Test1(0x2);
-			case 'Z': // Z
-				return __GI_Gen2_Reg2Test1(0x1);
-			default:
-				return false;
-			}
-		}
+    // Gen 2 (TH10 ~ Now)
+    static int32_t* __gi_gen2_r1 = nullptr;
+    static int8_t* __gi_gen2_r2 = nullptr;
+    __forceinline bool __GI_Gen2_Reg2Test2(int mask)
+    {
+        if (*__gi_gen2_r1 & mask || *__gi_gen2_r2 & mask)
+            return true;
+        return false;
+    }
+    __forceinline bool __GI_Gen2_Reg2Test1(int mask)
+    {
+        if (*__gi_gen2_r1 & mask)
+            return true;
+        return false;
+    }
+    __forceinline bool __GI_Gen2_Init(int reg1, int reg2, [[maybe_unused]] int reg3)
+    {
+        __gi_gen2_r1 = (int32_t*)reg1;
+        __gi_gen2_r2 = (int8_t*)reg2;
+        return (!reg1 || !reg2);
+    }
+    __forceinline bool __GI_Gen2_Get(int key)
+    {
+        switch (key) {
+        case 0x40:
+            return __GI_Gen2_Reg2Test2(0xf0);
+        case VK_UP:
+            return __GI_Gen2_Reg2Test2(0x10);
+        case VK_DOWN:
+            return __GI_Gen2_Reg2Test2(0x20);
+        case VK_LEFT:
+            return __GI_Gen2_Reg2Test2(0x40);
+        case VK_RIGHT:
+            return __GI_Gen2_Reg2Test2(0x80);
+        case VK_LSHIFT:
+            return __GI_Gen2_Reg2Test1(0x8);
+        case 'X': // Z
+            return __GI_Gen2_Reg2Test1(0x2);
+        case 'Z': // Z
+            return __GI_Gen2_Reg2Test1(0x1);
+        default:
+            return false;
+        }
+    }
 
     // API
     static ingame_input_gen_t __gi_gen = INGAGME_INPUT_NONE;

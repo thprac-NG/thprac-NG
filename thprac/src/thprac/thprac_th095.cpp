@@ -73,10 +73,7 @@ namespace TH095 {
 
     public:
         Gui::GuiHotKey mFocusLockOn{
-            TH_COERCIVE,
-            "F3",
-            VK_F3,
-            {new HookCtx(0x432ee4, "\x90\x90\x90\x90\x90\x90", 6), new HookCtx(0x431cf2, "\x90\x90\x90\x90\x90\x90", 6), new HookCtx(0x432f7e, "\x00", 1)}
+            TH_COERCIVE, "F3", VK_F3, {new HookCtx(0x432ee4, "\x90\x90\x90\x90\x90\x90", 6), new HookCtx(0x431cf2, "\x90\x90\x90\x90\x90\x90", 6), new HookCtx(0x432f7e, "\x00", 1)}
         };
 
     private:

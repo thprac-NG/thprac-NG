@@ -1,13 +1,13 @@
 ﻿#define NOMINMAX
 
-#include "thprac_init.h"
-#include "thprac_launcher_main.h"
-#include "thprac_launcher_cfg.h"
-#include "thprac_launcher_games.h"
-#include "thprac_main.h"
 #include "thprac_gui_locale.h"
 #include "thprac_hook.h"
+#include "thprac_init.h"
+#include "thprac_launcher_cfg.h"
+#include "thprac_launcher_games.h"
+#include "thprac_launcher_main.h"
 #include "thprac_load_exe.h"
+#include "thprac_main.h"
 #include "thprac_utils.h"
 #include <Windows.h>
 #include <psapi.h>
@@ -33,12 +33,14 @@ bool PrivilegeCheck()
     return fRet;
 }
 
-void ApplyToProcById(DWORD pid) {
+void ApplyToProcById(DWORD pid)
+{
     auto hProc = OpenProcess(
         // PROCESS_SUSPEND_RESUME |
         PROCESS_QUERY_INFORMATION | PROCESS_CREATE_THREAD | PROCESS_VM_OPERATION | PROCESS_VM_READ | PROCESS_VM_WRITE,
         FALSE,
-        pid);
+        pid
+    );
     if (!hProc) {
         fprintf(stderr, "Error: failed to open process %d\n", pid);
         return;
@@ -54,9 +56,10 @@ void ApplyToProcById(DWORD pid) {
     }
 }
 
-bool DetectGame(const wchar_t* const exe, THGameSig** sigIn) {
+bool DetectGame(const wchar_t* const exe, THGameSig** sigIn)
+{
     MappedFile f(exe);
-    if(!f.fileMapView) {
+    if (!f.fileMapView) {
         return false;
     }
 
@@ -73,10 +76,10 @@ bool DetectGame(const wchar_t* const exe, THGameSig** sigIn) {
     }
 
     return false;
-
 }
 
-bool doCmdLineStuff(PWSTR cmdLine) {
+bool doCmdLineStuff(PWSTR cmdLine)
+{
     int argc;
     LPWSTR* argv = CommandLineToArgvW(cmdLine, &argc);
     defer(LocalFree(argv));
@@ -96,7 +99,7 @@ bool doCmdLineStuff(PWSTR cmdLine) {
             freopen("conout$", "w", stderr);
         }
     } else {
-        return false;    
+        return false;
     }
     THGameSig* sig = nullptr;
 
@@ -147,12 +150,8 @@ bool doCmdLineStuff(PWSTR cmdLine) {
     }
 }
 
-int WINAPI wWinMain(
-    [[maybe_unused]] HINSTANCE hInstance,
-    [[maybe_unused]] HINSTANCE hPrevInstance,
-    PWSTR pCmdLine,
-    [[maybe_unused]] int nCmdShow
-) {
+int WINAPI wWinMain([[maybe_unused]] HINSTANCE hInstance, [[maybe_unused]] HINSTANCE hPrevInstance, PWSTR pCmdLine, [[maybe_unused]] int nCmdShow)
+{
     HookCtx::VEHInit();
     if (LauncherPreUpdate(pCmdLine)) {
         return 0;
@@ -163,7 +162,7 @@ int WINAPI wWinMain(
 
     if (doCmdLineStuff(pCmdLine)) {
         return 0;
-    }    
+    }
 
     int launchBehavior = 0;
     bool dontFindOngoingGame = false;

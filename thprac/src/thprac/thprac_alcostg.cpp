@@ -298,7 +298,8 @@ namespace Alcostg {
         Gui::GuiSlider<int, ImGuiDataType_S32> mProgress{TH_PROGRESS, 1, 19, 1, 1};
 
         Gui::GuiNavFocus mNavFocus{
-            TH_MODE, TH_STAGE, TH_WARP, TH_PROGRESS, TH_MID_STAGE, TH_END_STAGE, TH_NONSPELL, TH_SPELL, TH_PHASE, TH_SCORE, ALCOSTG_TIME, ALCOSTG_BEER, ALCOSTG_BEER_MAX};
+            TH_MODE, TH_STAGE, TH_WARP, TH_PROGRESS, TH_MID_STAGE, TH_END_STAGE, TH_NONSPELL, TH_SPELL, TH_PHASE, TH_SCORE, ALCOSTG_TIME, ALCOSTG_BEER, ALCOSTG_BEER_MAX
+        };
 
         int mDiffculty = 0;
     };

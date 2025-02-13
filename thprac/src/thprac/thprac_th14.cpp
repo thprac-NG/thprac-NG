@@ -350,7 +350,8 @@ namespace TH14 {
             TH14_CYCLE,
             TH_POWER,
             TH_VALUE,
-            TH_GRAZE};
+            TH_GRAZE
+        };
 
         int mChapterSetup[7][2]{
             {3, 2},
@@ -1053,7 +1054,6 @@ namespace TH14 {
                 MultiByteToWideChar(CP_UTF8, 0, msg2, -1, msg2_wchar, 256);
             }
             MsgBox(type, title_wchar, msg_wchar, msg2 ? msg2_wchar : nullptr);
-
         }
         bool LoadReplayInternal(const wchar_t* rep_path)
         {

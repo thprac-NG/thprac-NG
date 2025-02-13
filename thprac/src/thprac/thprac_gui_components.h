@@ -78,10 +78,10 @@ namespace Gui {
     protected:
         std::vector<StyleValue>::iterator GetStyleIt(ImGuiStyleVar style);
 
-        virtual void OnLocaleChange(){};
-        virtual void OnContentUpdate(){};
-        virtual void OnPreUpdate(){};
-        virtual void OnPostUpdate(){};
+        virtual void OnLocaleChange() {};
+        virtual void OnContentUpdate() {};
+        virtual void OnPreUpdate() {};
+        virtual void OnPostUpdate() {};
 
         int mStatus = 0;
         std::vector<StyleValue> mStyle;

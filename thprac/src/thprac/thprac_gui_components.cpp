@@ -207,14 +207,14 @@ namespace Gui {
                 itemSpacing->value = ImVec2(0.0125f * io.DisplaySize.x, 0.00833f * io.DisplaySize.y);
             }
         }
-        void GameGuiWnd::AutoSize(ImVec2 size,
-            const char* content_1, const char* content_2, const char* label_1, const char* label_2,
-            float widiget_counts, ImVec2 size_max, ImVec2 size_min)
+        void GameGuiWnd::AutoSize(
+            ImVec2 size, const char* content_1, const char* content_2, const char* label_1, const char* label_2, float widiget_counts, ImVec2 size_max, ImVec2 size_min
+        )
         {
             auto& io = ImGui::GetIO();
             auto& style = ImGui::GetStyle();
 
-            ImVec2 label_size = { -1.0f, -1.0f };
+            ImVec2 label_size = {-1.0f, -1.0f};
             if (label_1) {
                 auto label_size_1 = ImGui::CalcTextSize(label_1);
                 if (label_2) {
@@ -225,7 +225,7 @@ namespace Gui {
             }
             bool label_valid = label_size.x >= 0.0f && label_size.y >= 0.0f;
 
-            ImVec2 content_size = { -1.0f, -1.0f };
+            ImVec2 content_size = {-1.0f, -1.0f};
             if (content_1) {
                 auto content_size_1 = ImGui::CalcTextSize(content_1);
                 if (content_2) {
@@ -438,15 +438,13 @@ namespace Gui {
             return pressed;
         }
 
-
-
         bool GuiHotKey::OnWidgetUpdate()
         {
             const char* text = mText ? mText : LocaleGetStr(mTextRef);
             std::string realText;
             if (mStatus) {
                 realText = std::format("[{}: {}]", mKeyText, text);
-                ImGui::PushStyleColor(ImGuiCol_Text, { 0.0f, 1.0f, 0.0f, 1.0f });
+                ImGui::PushStyleColor(ImGuiCol_Text, {0.0f, 1.0f, 0.0f, 1.0f});
             } else {
                 realText = std::format("{}: {}", mKeyText, text);
             }
@@ -457,7 +455,7 @@ namespace Gui {
 
             if (mStatus)
                 ImGui::PopStyleColor();
-                        
+
             if (ImGui::InvisibleButton(mKeyText, ImGui::CalcTextSize(realText.c_str())))
                 return true;
             else
@@ -481,8 +479,6 @@ namespace Gui {
                     }
                 }
             }
-
-            
 
             return flag;
         }
@@ -554,7 +550,7 @@ namespace Gui {
             }
         }
 
-        void ComboSelect(size_t& out, const char* const* choices, const size_t choices_count, const char* label)
+        void ComboSelect(size_t & out, const char* const* choices, const size_t choices_count, const char* label)
         {
             if (ImGui::BeginCombo(label, choices[out])) {
                 for (size_t i = 0; i < choices_count; i++) {
@@ -583,7 +579,7 @@ namespace Gui {
             }
         }
 
-        void ComboSelect(size_t& out, th_glossary_t* choices, const size_t choices_count, const char* label)
+        void ComboSelect(size_t & out, th_glossary_t * choices, const size_t choices_count, const char* label)
         {
             if (ImGui::BeginCombo(label, S(choices[out]))) {
                 for (size_t i = 0; i < choices_count; i++) {
@@ -612,7 +608,7 @@ namespace Gui {
             }
         }
 
-        void MultiComboSelectImpl(std::vector<size_t>& out, const char* const* choices, const size_t choices_count, const char* format, size_t level)
+        void MultiComboSelectImpl(std::vector<size_t> & out, const char* const* choices, const size_t choices_count, const char* format, size_t level)
         {
             if (out.size() <= level)
                 out.resize(level + 1);
@@ -633,7 +629,7 @@ namespace Gui {
             delete[] labelStr;
         }
 
-        void MultiComboSelect(std::vector<size_t>& out, const char* const* choices, const size_t choices_count, const char* format)
+        void MultiComboSelect(std::vector<size_t> & out, const char* const* choices, const size_t choices_count, const char* format)
         {
             MultiComboSelectImpl(out, choices, choices_count, format, 0);
         }

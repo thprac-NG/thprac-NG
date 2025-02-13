@@ -1,11 +1,11 @@
 #include "thprac_games.h"
+#include "../3rdParties/d3d8/include/d3d8.h"
+#include "thprac_gui_impl_dx8.h"
+#include "thprac_gui_impl_dx9.h"
 #include "thprac_launcher_cfg.h"
 #include "thprac_launcher_main.h"
 #include "thprac_licence.h"
-#include "thprac_gui_impl_dx8.h"
-#include "thprac_gui_impl_dx9.h"
 #include "thprac_utils.h"
-#include "../3rdParties/d3d8/include/d3d8.h"
 #include <metrohash128.h>
 
 namespace THPrac {
@@ -16,9 +16,7 @@ DWORD* g_gameGuiDevice = nullptr;
 DWORD* g_gameGuiHwnd = nullptr;
 HIMC g_gameIMCCtx = 0;
 
-void GameGuiInit(game_gui_impl impl, int device, int hwnd, int wndproc_addr,
-    Gui::ingame_input_gen_t input_gen, int reg1, int reg2, int reg3,
-    int wnd_size_flag, float x, float y)
+void GameGuiInit(game_gui_impl impl, int device, int hwnd, int wndproc_addr, Gui::ingame_input_gen_t input_gen, int reg1, int reg2, int reg3, int wnd_size_flag, float x, float y)
 {
     ingame_mb_init();
     ::ImGui::CreateContext();
@@ -59,7 +57,7 @@ void GameGuiInit(game_gui_impl impl, int device, int hwnd, int wndproc_addr,
     // Display size setup
     auto& io = ::ImGui::GetIO();
     if (wnd_size_flag == -1) {
-        io.DisplaySize = { x, y };
+        io.DisplaySize = {x, y};
         Gui::LocaleCreateFont(io.DisplaySize.x * 0.025f);
     } else if (wnd_size_flag == -2) {
         float dispX, dispY;
@@ -79,14 +77,14 @@ void GameGuiInit(game_gui_impl impl, int device, int hwnd, int wndproc_addr,
         switch (wnd_size_flag) {
         case 2:
         case 5:
-            io.DisplaySize = { 1280.0f, 960.0f };
+            io.DisplaySize = {1280.0f, 960.0f};
             break;
         case 1:
         case 4:
-            io.DisplaySize = { 960.0f, 720.0f };
+            io.DisplaySize = {960.0f, 720.0f};
             break;
         default:
-            io.DisplaySize = { 640.0f, 480.0f };
+            io.DisplaySize = {640.0f, 480.0f};
             break;
         }
         Gui::LocaleCreateFont(io.DisplaySize.x * 0.025f);
@@ -101,9 +99,7 @@ void GameGuiInit(game_gui_impl impl, int device, int hwnd, int wndproc_addr,
             auto captionSize = GetSystemMetrics(SM_CYCAPTION);
             auto longPtr = GetWindowLongW(*(HWND*)hwnd, GWL_STYLE);
             SetWindowLongW(*(HWND*)hwnd, GWL_STYLE, longPtr | WS_SIZEBOX);
-            SetWindowPos(*(HWND*)hwnd, HWND_NOTOPMOST,
-                0, 0, wndRect.right + frameSize, wndRect.bottom + frameSize + captionSize,
-                SWP_NOMOVE | SWP_NOZORDER | SWP_FRAMECHANGED);
+            SetWindowPos(*(HWND*)hwnd, HWND_NOTOPMOST, 0, 0, wndRect.right + frameSize, wndRect.bottom + frameSize + captionSize, SWP_NOMOVE | SWP_NOZORDER | SWP_FRAMECHANGED);
         }
         int theme;
         if (LauncherSettingGet("theme", theme)) {
@@ -312,7 +308,7 @@ int FPSHelper(adv_opt_ctx& ctx, bool repStatus, bool vpFast, bool vpSlow, FPSHel
 
 bool GameFPSOpt(adv_opt_ctx& ctx, bool replay)
 {
-    static char tmpStr[32] {};
+    static char tmpStr[32]{};
     static int fps = 0;
     static int fpsStatic = 60;
     static int fpsSlowStatic = 0;
@@ -432,10 +428,7 @@ bool GameFPSOpt(adv_opt_ctx& ctx, bool replay)
     ImGui::SameLine();
     HelpMarker("Blah");
 
-    if (fpsStatic != fps
-        || fpsSlowStatic != ctx.fps_replay_slow
-        || fpsFastStatic != ctx.fps_replay_fast / 60
-        || fpsDebugAcc != ctx.fps_debug_acc) {
+    if (fpsStatic != fps || fpsSlowStatic != ctx.fps_replay_slow || fpsFastStatic != ctx.fps_replay_fast / 60 || fpsDebugAcc != ctx.fps_debug_acc) {
         ImGui::SameLine();
         if (ImGui::Button(S(TH_ADV_OPT_APPLY))) {
             clickedApply = true;
@@ -715,7 +708,8 @@ namespace THSnapshot {
         if (hFile == INVALID_HANDLE_VALUE)
             return;
 
-        auto header = "\x42\x4d\x36\x10\x0e\x00\x00\x00\x00\x00\x36\x00\x00\x00\x28\x00\x00\x00\x80\x02\x00\x00\xe0\x01\x00\x00\x01\x00\x18\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
+        auto header = "\x42\x4d\x36\x10\x0e\x00\x00\x00\x00\x00\x36\x00\x00\x00\x28\x00\x00\x00\x80\x02\x00\x00\xe0\x01\x00\x00\x01\x00\x18\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+                      "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
         void* bmp = GetSnapshotData(d3d8);
         DWORD bytesRead;
         WriteFile(hFile, header, 0x36, &bytesRead, nullptr);
@@ -813,12 +807,11 @@ void StageWarpsApply(stage_warps_t& warps, std::vector<unsigned int>& in_warp, e
                 uint8_t b[4];
                 i32b(uint32_t a)
                     : i(a)
-                {
-                }
+                { }
             };
 
             i32b ecl_time = jmp.ecl_time;
-            uint8_t instr[] = { 0x0c, 0x00, 0x18, 0x00, 0x00, 0x00, 0xff, 0x2c, 0x00, 0x00, 0x00, 0x00 };
+            uint8_t instr[] = {0x0c, 0x00, 0x18, 0x00, 0x00, 0x00, 0xff, 0x2c, 0x00, 0x00, 0x00, 0x00};
             i32b dest = jmp.dest - jmp.off;
             i32b at_frame = jmp.at_frame;
 
@@ -854,11 +847,14 @@ bool GameState_Assert(bool cond)
     if (cond)
         return true;
 
-    int res = MessageBoxW(NULL,
+    int res = MessageBoxW(
+        NULL,
         L"CORRUPT GAME STATE DETECTED!!!\n\n"
         L"Your game will likely crash very soon\n"
         L"Would you like to proceed anyways?",
-        L"FATAL ERROR", MB_ICONERROR | MB_YESNO);
+        L"FATAL ERROR",
+        MB_ICONERROR | MB_YESNO
+    );
     if (res == IDYES)
         return false;
     else

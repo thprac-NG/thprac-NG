@@ -1,7 +1,6 @@
-﻿#include "thprac_games.h"
+﻿#include "../3rdParties/d3d8/include/d3d8.h"
+#include "thprac_games.h"
 #include "thprac_utils.h"
-#include "../3rdParties/d3d8/include/d3d8.h"
-
 
 namespace THPrac {
 
@@ -487,7 +486,8 @@ namespace TH06 {
             TH_POINT,
             TH06_RANK,
             TH06_RANKLOCK,
-            TH06_FS};
+            TH06_FS
+        };
 
         int mChapterSetup[7][2]{
             {4, 2},
@@ -1851,7 +1851,7 @@ namespace TH06 {
     EHOOK_DY(th06_activateapp, 0x420D96)
     {
         // Wacky hack to disable rendering for one frame to prevent the game from crasing when alt tabbing into it if the pause menu is open and the game is in fullscreen mode
-        GameGuiProgress = 1; 
+        GameGuiProgress = 1;
     }
     EHOOK_DY(th06_bgm_play, 0x424b5d)
     {

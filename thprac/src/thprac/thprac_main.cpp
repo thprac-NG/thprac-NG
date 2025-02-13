@@ -39,7 +39,8 @@ bool CheckMutex(const char* mutex_name)
 
 bool CheckIfAnyGame()
 {
-    if (CheckMutex("Touhou Koumakyou App") || CheckMutex("Touhou YouYouMu App") || CheckMutex("Touhou 08 App") || CheckMutex("Touhou 10 App") || CheckMutex("Touhou 11 App") || CheckMutex("Touhou 12 App") || CheckMutex("th17 App") || CheckMutex("th18 App") || CheckMutex("th185 App") || CheckMutex("th19 App"))
+    if (CheckMutex("Touhou Koumakyou App") || CheckMutex("Touhou YouYouMu App") || CheckMutex("Touhou 08 App") || CheckMutex("Touhou 10 App") || CheckMutex("Touhou 11 App")
+        || CheckMutex("Touhou 12 App") || CheckMutex("th17 App") || CheckMutex("th18 App") || CheckMutex("th185 App") || CheckMutex("th19 App"))
         return true;
     return false;
 }
@@ -270,7 +271,7 @@ bool FindOngoingGame(bool prompt)
                 HANDLE hProc = 0;
                 if (!(gameSig = CheckOngoingGame(entry, &base, &hProc)))
                     continue;
-                
+
                 hasPrompted = true;
                 if (!PromptUser(PR_ASK_IF_ATTACH, gameSig))
                     continue;
@@ -284,7 +285,7 @@ bool FindOngoingGame(bool prompt)
                     CloseHandle(snapshot);
                     return true;
                 }
-                
+
             } while (Process32NextW(snapshot, &entry));
         }
     }
