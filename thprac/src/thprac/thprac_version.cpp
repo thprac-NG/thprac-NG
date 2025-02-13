@@ -19,5 +19,4 @@ const int* GetVersionInt()
     return g_thpracVersionInt;
 }
 
-
 }

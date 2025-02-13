@@ -14,13 +14,11 @@
 
 namespace THPrac {
 
-
-
 class OffsetValueBase {
 public:
     static bool IsBadPtr(void* p)
     {
-        MEMORY_BASIC_INFORMATION mbi = { 0 };
+        MEMORY_BASIC_INFORMATION mbi = {0};
         if (::VirtualQuery(p, &mbi, sizeof(mbi))) {
             DWORD mask = (PAGE_READONLY | PAGE_READWRITE | PAGE_WRITECOPY | PAGE_EXECUTE_READ | PAGE_EXECUTE_READWRITE | PAGE_EXECUTE_WRITECOPY);
             bool b = !(mbi.Protect & mask);
@@ -61,6 +59,5 @@ public:
 protected:
     std::vector<size_t> offset;
 };
-
 
 }

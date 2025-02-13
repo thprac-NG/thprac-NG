@@ -2,14 +2,14 @@
 
 #define NOMINMAX
 
-#include "thprac_version.h"
 #include "thprac_gui_components.h"
 #include "thprac_gui_impl_dx8.h"
 #include "thprac_gui_impl_dx9.h"
 #include "thprac_gui_impl_win32.h"
+#include "thprac_gui_locale.h"
 #include "thprac_hook.h"
 #include "thprac_locale_def.h"
-#include "thprac_gui_locale.h"
+#include "thprac_version.h"
 
 #include <Windows.h>
 #include <cstdint>
@@ -94,7 +94,8 @@ struct RAII_CRITICAL_SECTION {
         DeleteCriticalSection(&cs);
     }
 
-    CRITICAL_SECTION* operator*() {
+    CRITICAL_SECTION* operator*()
+    {
         return &cs;
     }
 };

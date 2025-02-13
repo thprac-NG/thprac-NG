@@ -1,4 +1,5 @@
-﻿/*
+﻿// clang-format off
+/*
 	This file is a modified copy of imgui's Win32 platform implemention's  source file.
 	Major changes made:
 

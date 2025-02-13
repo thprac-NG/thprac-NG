@@ -3,20 +3,20 @@
 namespace THPrac {
 
 #define SINGLETON_DEPENDENCY(...)
-#define SINGLETON(className)                        \
-public:                                             \
-    className(const className&) = delete;           \
-    className& operator=(className&) = delete;      \
-    className(className&&) = delete;                \
-    className& operator=(className&&) = delete;     \
-    __declspec(noinline) static auto& singleton()   \
-    {                                               \
-        static className* s_singleton = nullptr;    \
-        if (!s_singleton)                           \
-            s_singleton = new className();          \
-        return *s_singleton;                        \
-    }                                               \
-                                                    \
+#define SINGLETON(className)                      \
+public:                                           \
+    className(const className&) = delete;         \
+    className& operator=(className&) = delete;    \
+    className(className&&) = delete;              \
+    className& operator=(className&&) = delete;   \
+    __declspec(noinline) static auto& singleton() \
+    {                                             \
+        static className* s_singleton = nullptr;  \
+        if (!s_singleton)                         \
+            s_singleton = new className();        \
+        return *s_singleton;                      \
+    }                                             \
+                                                  \
 private:
 
 #define NON_COPYABLE(className)                      \
@@ -60,9 +60,11 @@ struct privDefer {
     F f;
     explicit privDefer(F f)
         : f(f)
+    { }
+    ~privDefer()
     {
+        f();
     }
-    ~privDefer() { f(); }
 };
 
 template <typename F>

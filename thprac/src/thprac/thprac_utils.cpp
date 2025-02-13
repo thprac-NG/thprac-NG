@@ -4,7 +4,10 @@
 #include "thprac_launcher_cfg.h"
 #include <metrohash128.h>
 #include "../3rdParties/d3d8/include/d3d8.h"
-
+#include "thprac_launcher_cfg.h"
+#include "thprac_launcher_main.h"
+#include "thprac_licence.h"
+#include <metrohash128.h>
 
 namespace THPrac {
 
@@ -30,7 +33,8 @@ static void* _str_cvt_buffer(size_t size)
 RAII_CRITICAL_SECTION str_cvt_lock;
 
 typedef int WINAPI MultiByteToWideChar_t(UINT CodePage, DWORD dwFlags, LPCCH lpMultiByteStr, int cbMultiByte, LPWSTR lpWideCharStr, int cchWideChar);
-typedef int WINAPI WideCharToMultiByte_t(UINT CodePage, DWORD dwFlags, LPCWCH lpWideCharStr, int cchWideChar, LPSTR lpMultiByteStr, int cbMultiByte, LPCCH lpDefaultChar, LPBOOL lpUsedDefaultChar);
+typedef int WINAPI
+WideCharToMultiByte_t(UINT CodePage, DWORD dwFlags, LPCWCH lpWideCharStr, int cchWideChar, LPSTR lpMultiByteStr, int cbMultiByte, LPCCH lpDefaultChar, LPBOOL lpUsedDefaultChar);
 
 WideCharToMultiByte_t* _WideCharToMultiByte = ::WideCharToMultiByte;
 MultiByteToWideChar_t* _MultiByteToWideChar = ::MultiByteToWideChar;
@@ -241,7 +245,8 @@ DWORD WINAPI CheckDLLFunction(const wchar_t* path, const char* funcName)
     if (!pSection)
         return 0;
 
-    if (pNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress != 0 && pNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].Size != 0) {
+    if (pNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress != 0
+        && pNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].Size != 0) {
         auto pExportSectionVA = pNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress;
         for (DWORD i = 0; i < pNtHeader->FileHeader.NumberOfSections; i++, pSection++) {
             if (pSection->VirtualAddress <= pExportSectionVA && pSection->VirtualAddress + pSection->SizeOfRawData > pExportSectionVA) {

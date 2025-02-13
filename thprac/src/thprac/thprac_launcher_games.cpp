@@ -11,16 +11,15 @@
 #include "thprac_main.h"
 #include "thprac_utils.h"
 #include <Windows.h>
-#include <shlwapi.h>
 #include <cstdint>
 #include <functional>
 #include <imgui.h>
 #include <metrohash128.h>
 #include <psapi.h>
+#include <shlwapi.h>
 #include <tlhelp32.h>
-#include <vector>
 #include <unordered_map>
-
+#include <vector>
 
 namespace THPrac {
 inline bool HashCompare(uint32_t hash1[4], uint32_t hash2[4])
@@ -68,7 +67,8 @@ bool GetExeInfo(void* exeBuffer, size_t exeSize, ExeSig& exeSigOut)
         hashBlock = 0;
     }
 
-    PIMAGE_SECTION_HEADER pSection = (PIMAGE_SECTION_HEADER)((ULONG_PTR)((LONG)exeBuffer + dosHeader.e_lfanew) + ((LONG)(LONG_PTR) & (((IMAGE_NT_HEADERS*)0)->OptionalHeader)) + ntHeader.FileHeader.SizeOfOptionalHeader);
+    PIMAGE_SECTION_HEADER pSection = (PIMAGE_SECTION_HEADER)((ULONG_PTR)((LONG)exeBuffer + dosHeader.e_lfanew) + ((LONG)(LONG_PTR) & (((IMAGE_NT_HEADERS*)0)->OptionalHeader))
+                                                             + ntHeader.FileHeader.SizeOfOptionalHeader);
     for (int i = 0; i < ntHeader.FileHeader.NumberOfSections; i++, pSection++) {
         IMAGE_SECTION_HEADER section;
         if (!ReadMemory(&section, pSection, sizeof(IMAGE_SECTION_HEADER)))
@@ -193,7 +193,8 @@ int CheckHasSteamDRM(void* exeBuffer, size_t exeSize)
     if (!ReadMemory(&ntHeader, (void*)((DWORD)exeBuffer + dosHeader.e_lfanew), sizeof(IMAGE_NT_HEADERS)) || ntHeader.Signature != 0x00004550)
         return 0;
 
-    PIMAGE_SECTION_HEADER pSection = (PIMAGE_SECTION_HEADER)((ULONG_PTR)((LONG)exeBuffer + dosHeader.e_lfanew) + ((LONG)(LONG_PTR) & (((IMAGE_NT_HEADERS*)0)->OptionalHeader)) + ntHeader.FileHeader.SizeOfOptionalHeader);
+    PIMAGE_SECTION_HEADER pSection = (PIMAGE_SECTION_HEADER)((ULONG_PTR)((LONG)exeBuffer + dosHeader.e_lfanew) + ((LONG)(LONG_PTR) & (((IMAGE_NT_HEADERS*)0)->OptionalHeader))
+                                                             + ntHeader.FileHeader.SizeOfOptionalHeader);
     for (int i = 0; i < ntHeader.FileHeader.NumberOfSections; i++, pSection++) {
         IMAGE_SECTION_HEADER section;
         if (!ReadMemory(&section, pSection, sizeof(IMAGE_SECTION_HEADER)))
@@ -638,7 +639,6 @@ public:
 
         thcrapChkGames(cfgDir);
 
-
         return true;
     }
 
@@ -740,9 +740,7 @@ public:
     }
     void ColumnsScanResultHdr(bool& selectAll, std::vector<THGameScan>& games)
     {
-        float offset[] = {
-            0.0f, 2.0f, 10.0f
-        };
+        float offset[] = {0.0f, 2.0f, 10.0f};
         ImGui::Columns(3, "##@__scan_result_col", true);
         for (int i = 0; i < 3; ++i) {
             ImGui::SetColumnOffset(i, offset[i] * ImGui::GetFontSize());
@@ -836,7 +834,7 @@ public:
     void GuiScanCheckMalicious()
     {
         int idx = 0;
-        ImVec4 color { 255.0f, 0.0f, 0.0f, 255.0f };
+        ImVec4 color{255.0f, 0.0f, 0.0f, 255.0f};
         char childId[64];
         sprintf_s(childId, "##@__result_c%d", idx);
 
@@ -859,9 +857,7 @@ public:
             ImGui::SetScrollY(0.0f);
         }
 
-        float offset[] = {
-            0.0f, 8.0f
-        };
+        float offset[] = {0.0f, 8.0f};
         ImGui::Columns(2, "##@__scan_result_col", true);
         for (int i = 0; i < 2; ++i) {
             ImGui::SetColumnOffset(i, offset[i] * ImGui::GetFontSize());
@@ -1099,9 +1095,7 @@ public:
             steamappsPath.reserve(512);
 
             std::string::size_type searchPos = 0;
-            for (searchPos = cfgStr.find(":\\\\");
-                 searchPos != std::string::npos;
-                 searchPos = cfgStr.find(":\\\\", searchPos + 1)) {
+            for (searchPos = cfgStr.find(":\\\\"); searchPos != std::string::npos; searchPos = cfgStr.find(":\\\\", searchPos + 1)) {
                 if (isalpha(cfgStr[searchPos - 1]) && cfgStr[searchPos - 2] == '\"') {
                     auto endQuotePos = cfgStr.find("\"", searchPos);
                     if (endQuotePos != std::string::npos) {
@@ -1407,7 +1401,7 @@ public:
                 }
                 for (auto& game : gGameDefs) {
                     auto gameType = (GameRollType)((int)game.catagory + 1);
-                    GameRoll roll { game.idStr, gameType, game.steamId ? "STEAM": nullptr, 1, false };
+                    GameRoll roll{game.idStr, gameType, game.steamId ? "STEAM" : nullptr, 1, false};
 
                     auto it = mGames.find(roll.name);
                     if (it != mGames.end()) {
@@ -1481,9 +1475,7 @@ public:
                         if (it != mGames.end()) {
                             bool hasSteamGame = false;
                             auto& existingGames = it->second.instances;
-                            for (auto gameIt = existingGames.begin();
-                                gameIt != existingGames.end();
-                                ++gameIt) {
+                            for (auto gameIt = existingGames.begin(); gameIt != existingGames.end(); ++gameIt) {
                                 if ((*gameIt).type == TYPE_STEAM) {
                                     hasSteamGame = true;
                                     if (!steamGame.selected) {
@@ -1511,7 +1503,7 @@ public:
             ImGui::Separator();
             GuiSetPosYRel(0.5f);
             GuiCenteredText(S(THPRAC_STEAM_MNG_MANUAL_COMPLETE));
-             if (GuiCornerButton(S(THPRAC_FINISH))) {
+            if (GuiCornerButton(S(THPRAC_FINISH))) {
                 mGuiUpdFunc = [&]() { GuiMain(); };
             }
         }
@@ -1536,10 +1528,7 @@ public:
         }
 
         // Open the related process
-        auto hProc = OpenProcess(
-            PROCESS_QUERY_INFORMATION | PROCESS_CREATE_THREAD | PROCESS_VM_OPERATION | PROCESS_VM_READ | PROCESS_VM_WRITE,
-            FALSE,
-            proc.th32ProcessID);
+        auto hProc = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_CREATE_THREAD | PROCESS_VM_OPERATION | PROCESS_VM_READ | PROCESS_VM_WRITE, FALSE, proc.th32ProcessID);
         if (!hProc)
             return false;
 
@@ -1611,10 +1600,7 @@ public:
         CloseHandle(hModuleSnap);
 
         if (result) {
-            auto hProc = OpenProcess(
-                PROCESS_QUERY_INFORMATION | PROCESS_CREATE_THREAD | PROCESS_VM_OPERATION | PROCESS_VM_READ | PROCESS_VM_WRITE,
-                FALSE,
-                process);
+            auto hProc = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_CREATE_THREAD | PROCESS_VM_OPERATION | PROCESS_VM_READ | PROCESS_VM_WRITE, FALSE, process);
             if (hProc) {
                 // Check THPrac signature
                 DWORD sigAddr = 0;
@@ -1657,9 +1643,8 @@ public:
                         bool test = isOmni ? CheckProcessOmni(procEntry, base) : CheckProcess(procEntry.th32ProcessID, exePath, base);
                         if (test) {
                             auto hProc = OpenProcess(
-                                PROCESS_QUERY_INFORMATION | PROCESS_CREATE_THREAD | PROCESS_VM_OPERATION | PROCESS_VM_READ | PROCESS_VM_WRITE,
-                                FALSE,
-                                procEntry.th32ProcessID);
+                                PROCESS_QUERY_INFORMATION | PROCESS_CREATE_THREAD | PROCESS_VM_OPERATION | PROCESS_VM_READ | PROCESS_VM_WRITE, FALSE, procEntry.th32ProcessID
+                            );
                             if (hProc) {
                                 auto result = (WriteTHPracSig(hProc, base) && LocalApplyTHPrac(hProc));
                                 CloseHandle(hProc);
@@ -1828,8 +1813,7 @@ public:
             ShellExecuteW(nullptr, L"open", steamURL.c_str(), nullptr, nullptr, SW_SHOW);
             currentInstExePath = GetUnifiedPath(currentInstExePath);
             executeResult = (HINSTANCE)64;
-        }
-            break;
+        } break;
         default:
             executeResult = ShellExecuteW(nullptr, L"open", currentInstPath.c_str(), nullptr, currentInstDir.c_str(), SW_SHOW);
             break;
@@ -1984,9 +1968,7 @@ public:
         int sourceIdx = -1;
         int destIdx = -1;
 
-        float offset[] = {
-            0.0f, 10.0f, 15.0f
-        };
+        float offset[] = {0.0f, 10.0f, 15.0f};
         ImGui::TextUnformatted(S(THPRAC_GAMES_SELECT_VER));
         ImGui::BeginChild("##@_game_version", ImVec2(0, ImGui::GetWindowHeight() * 0.35f), true);
         if (mNewGameWnd) {
@@ -2148,7 +2130,7 @@ public:
         if (ImGui::Checkbox(S(THPRAC_GAMES_DEFAULT_LAUNCH), &setDefaultLaunch)) {
             if (setDefaultLaunch) {
                 mCurrentGame->defaultLaunch = currentInstIdx;
-            } else  {
+            } else {
                 mCurrentGame->defaultLaunch = -1;
             }
             WriteGameCfg();
@@ -2308,7 +2290,7 @@ public:
                     }
                 } else if (game.signature.steamId && ImGui::BeginPopupContextItem(nullptr, ImGuiPopupFlags_MouseButtonLeft)) {
                     if (ImGui::Selectable(S(THPRAC_GOTO_STEAM_PAGE))) {
-                        std::wstring steamURL { L"https://store.steampowered.com/app/" };
+                        std::wstring steamURL{L"https://store.steampowered.com/app/"};
                         steamURL += game.signature.steamId;
                         ShellExecuteW(nullptr, L"open", steamURL.c_str(), nullptr, nullptr, SW_SHOW);
                     }
@@ -2374,7 +2356,7 @@ private:
     bool mNewGameWnd = false;
     char mRename[256];
     float mCustomErrTxtTime = 0.0f;
-    GuiThread mLaunchThread { THGameGui::LaunchThreadFunc };
+    GuiThread mLaunchThread{THGameGui::LaunchThreadFunc};
     float mLaunchModalTimeout = 0;
     bool mLaunchFailed = false;
     bool mLaunchAbortInd = false;
@@ -2389,15 +2371,15 @@ private:
 
     // Scanning
     float mRescanModalTimeout = 0;
-    GuiThread mScanThread { THGameGui::ScanThreadFunc };
-    GuiThread mRescanThread { THGameGui::RescanThreadFunc };
+    GuiThread mScanThread{THGameGui::ScanThreadFunc};
+    GuiThread mRescanThread{THGameGui::RescanThreadFunc};
     int mScanStatus = 0;
     bool mScanOption[4];
     GuiWaitingAnm mScanAnm;
     std::wstring mScanPath = L"";
     std::vector<THGameScan> mGameScan[GAME_SCAN_TYPE_CNT];
-    bool mGameScanScrollReset[GAME_SCAN_TYPE_CNT] { true, true, true, true, true, true };
-    bool mGameScanSelect[GAME_SCAN_TYPE_CNT] { false, true, true, true, false, false };
+    bool mGameScanScrollReset[GAME_SCAN_TYPE_CNT]{true, true, true, true, true, true};
+    bool mGameScanSelect[GAME_SCAN_TYPE_CNT]{false, true, true, true, false, false};
     std::string mScanCurrent[2];
     int mScanCurrentIdx = 0;
     int mSteamMenuStatus = 0;

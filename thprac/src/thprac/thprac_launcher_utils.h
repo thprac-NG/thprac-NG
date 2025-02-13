@@ -19,12 +19,11 @@
 
 #define NOMINMAX
 #include <Windows.h>
+#include <ctime>
+#include <functional>
 #include <imgui.h>
 #include <string>
-#include <functional>
 #include <vector>
-#include <ctime>
-#include <imgui.h>
 #pragma warning(disable : 4091)
 #include <Shlobj.h>
 #pragma warning(default : 4091)
@@ -69,7 +68,7 @@ public:
         if (mThreadHnd != INVALID_HANDLE_VALUE) {
             if (IsActive()) {
 #pragma warning(push)
-#pragma warning(disable: 6258)
+#pragma warning(disable : 6258)
                 TerminateThread(mThreadHnd, 0);
 #pragma warning(pop)
             }

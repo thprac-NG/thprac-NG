@@ -1,7 +1,7 @@
-﻿#include "thprac_launcher_cfg.h"
+﻿#include "thprac_gui_locale.h"
+#include "thprac_launcher_cfg.h"
 #include "thprac_launcher_utils.h"
 #include "thprac_launcher_wnd.h"
-#include "thprac_gui_locale.h"
 #include "thprac_utils.h"
 #include "utils/utils.h"
 #include <functional>
@@ -15,11 +15,9 @@
 #include <string>
 #include <vector>
 
-
 namespace THPrac {
 
-struct LinkSelectable {
-};
+struct LinkSelectable { };
 
 struct LinkLeaf : public LinkSelectable {
     std::string name;
@@ -31,7 +29,6 @@ struct LinkNode : public LinkSelectable {
     std::vector<LinkLeaf> leaves;
     bool isOpen = false;
 };
-
 
 class THLinksGui {
 private:
@@ -332,8 +329,7 @@ private:
             strcpy_s(mLinkInput, linkOut.c_str());
             strcpy_s(mLinkParamInput, paramOut.c_str());
             ImGui::OpenPopup(S(THPRAC_LINKS_EDIT));
-        }
-            break;
+        } break;
         case THPrac::THLinksGui::TRIGGER_DELETE_LINK:
             ImGui::OpenPopup(S(THPRAC_LINKS_DELETE_MODAL));
             break;
@@ -507,8 +503,8 @@ private:
     }
     void GuiMain()
     {
-        static int moveIdx[2] = { -1, -1 };
-        int destIdx[2] = { -1, -1 };
+        static int moveIdx[2] = {-1, -1};
+        int destIdx[2] = {-1, -1};
         static int filterMoveIdx = -1;
         int filterDestIdx = -1;
         if (GuiPopupCtxMenu(0)) {

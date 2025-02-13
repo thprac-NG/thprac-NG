@@ -1,4 +1,5 @@
 ﻿#pragma once
+// clang-format off
 #include "thprac_gui_locale.h"
 #include <cstdint>
 

@@ -1,7 +1,6 @@
 ﻿#include "thprac_games.h"
 #include "thprac_utils.h"
 
-
 namespace THPrac {
 namespace TH125 {
     class THOverlay : public Gui::GameGuiWnd {
@@ -12,10 +11,13 @@ namespace TH125 {
             SetPos(10.0f, 10.0f);
             SetSize(0.0f, 0.0f);
             SetWndFlag(
-                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0);
+                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
+                | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0
+            );
             OnLocaleChange();
         }
         SINGLETON(THOverlay);
+
     protected:
         virtual void OnLocaleChange() override
         {
@@ -63,27 +65,28 @@ namespace TH125 {
             }
         }
 
-        Gui::GuiHotKey mMenu { "ModMenuToggle", "BACKSPACE", VK_BACK };
-        Gui::GuiHotKey mMuteki { TH_MUTEKI, "F1", VK_F1, {
-            new HookCtx(0x436C2C, "\x01", 1),
-            new HookCtx(0x436DF8, "\xeb\x19", 2),
-            new HookCtx(0x436c76, "\x83\xc4\x10\x90\x90", 5) } };
-        Gui::GuiHotKey mInfCharge { TH_INFCHARGE, "F2", VK_F2, {
-            new HookCtx(0x43A0EA, "\x00", 1) } };
+        Gui::GuiHotKey mMenu{"ModMenuToggle", "BACKSPACE", VK_BACK};
+        Gui::GuiHotKey mMuteki{
+            TH_MUTEKI, "F1", VK_F1, {new HookCtx(0x436C2C, "\x01", 1), new HookCtx(0x436DF8, "\xeb\x19", 2), new HookCtx(0x436c76, "\x83\xc4\x10\x90\x90", 5)}
+        };
+        Gui::GuiHotKey mInfCharge{TH_INFCHARGE, "F2", VK_F2, {new HookCtx(0x43A0EA, "\x00", 1)}};
 
     public:
-        Gui::GuiHotKey mFocusLockOn { TH_COERCIVE, "F3", VK_F3, {
-            new HookCtx(0x438eb9, "\x90\x90\x90\x90\x90\x90", 6),
-            new HookCtx(0x438ec9, "\x90\x90\x90\x90\x90\x90", 6),
-            new HookCtx(0x4379c5, "\x90\x90\x90\x90\x90\x90", 6),
-            new HookCtx(0x438f66, "\x00", 1) } };
+        Gui::GuiHotKey mFocusLockOn{
+            TH_COERCIVE,
+            "F3",
+            VK_F3,
+            {new HookCtx(0x438eb9, "\x90\x90\x90\x90\x90\x90", 6),
+              new HookCtx(0x438ec9, "\x90\x90\x90\x90\x90\x90", 6),
+              new HookCtx(0x4379c5, "\x90\x90\x90\x90\x90\x90", 6),
+              new HookCtx(0x438f66, "\x00", 1)}
+        };
 
     private:
-        Gui::GuiHotKey mTimeLock { TH_TIMELOCK, "F4", VK_F4, {
-            new HookCtx(0x41DEDA, "\xeb", 1) } };
+        Gui::GuiHotKey mTimeLock{TH_TIMELOCK, "F4", VK_F4, {new HookCtx(0x41DEDA, "\xeb", 1)}};
 
     public:
-        Gui::GuiHotKey mElBgm {
+        Gui::GuiHotKey mElBgm{
             TH_EL_BGM,
             "F7",
             VK_F7,
@@ -125,11 +128,9 @@ namespace TH125 {
             }
         }
         void GameplayInit()
-        {
-        }
+        { }
         void GameplaySet()
-        {
-        }
+        { }
 
     public:
         THAdvOptWnd() noexcept
@@ -238,8 +239,7 @@ namespace TH125 {
         float* crosshair_pos;
         float* boss_pos;
 
-        if (*THOverlay::singleton().mFocusLockOn)
-        {
+        if (*THOverlay::singleton().mFocusLockOn) {
             if (GetMemContent(0x4B678C, 0x54)) {
 
                 crosshair_pos = (float*)GetMemAddr(0x4b68c8, 0x2484 + 0x13cc);
@@ -250,7 +250,6 @@ namespace TH125 {
                 crosshair_pos[2] = boss_pos[2];
             }
         }
-
     }
     EHOOK_DY(th125_render_1, 0x44ee42)
     {
@@ -270,16 +269,13 @@ namespace TH125 {
     static __declspec(noinline) void THGuiCreate()
     {
         // Init
-        GameGuiInit(IMPL_WIN32_DX9, 0x4d0cd8, 0x4d17d8, 0x44e960,
-            Gui::INGAGME_INPUT_GEN2, 0x4d8dac, 0x4d8da8, 0,
-            -1);
+        GameGuiInit(IMPL_WIN32_DX9, 0x4d0cd8, 0x4d17d8, 0x44e960, Gui::INGAGME_INPUT_GEN2, 0x4d8dac, 0x4d8da8, 0, -1);
 
         // Gui components creation
         THOverlay::singleton();
 
         // Hooks
         THMainHook::singleton().EnableAllHooks();
-
     }
     static __declspec(noinline) void THInitHookDisable()
     {

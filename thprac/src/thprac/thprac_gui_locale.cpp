@@ -9,6 +9,7 @@
 namespace THPrac {
 namespace Gui {
 #pragma region Japanese Glyph Range
+    // clang-format off
 static const short offsetsFrom0x4E00[] =
 {
 	-1,0,1,3,0,0,0,0,1,0,1,0,2,1,1,0,4,2,4,3,2,4,5,0,1,0,6,0,0,2,2,1,0,0,6,0,0,0,3,0,0,17,1,10,1,1,3,1,0,1,0,1,2,0,1,0,2,0,1,0,1,2,0,1,
@@ -114,6 +115,7 @@ static ImWchar baseUnicodeRanges[] =
 };
 #pragma endregion
 
+    // clang-format on
     locale_t __glocale_current = LOCALE_EN_US;
     bool __glocale_merge = false;
     unsigned int __glocale_disabled = 0;
@@ -180,24 +182,24 @@ static ImWchar baseUnicodeRanges[] =
     };
 
     font_info zhFontsInfo[] = {
-        { L"Microsoft YaHei UI Light", 1, 1.0f },
-        { L"Microsoft YaHei Light", 0, 1.0f },
-        { L"微软雅黑", 0, 1.0f },
-        { L"Microsoft YaHei", 0, 1.0f },
-        { L"黑体", 0, 0.9f },
-        { L"SimHei", 0, 0.9f },
-        { L"宋体", 0, 0.9f },
-        { L"SimSun", 0, 0.9f },
+        {L"Microsoft YaHei UI Light", 1, 1.0f},
+        {L"Microsoft YaHei Light",    0, 1.0f},
+        {L"微软雅黑",             0, 1.0f},
+        {L"Microsoft YaHei",          0, 1.0f},
+        {L"黑体",                   0, 0.9f},
+        {L"SimHei",                   0, 0.9f},
+        {L"宋体",                   0, 0.9f},
+        {L"SimSun",                   0, 0.9f},
     };
     font_info enFontsInfo[] = {
-        { L"Segoe UI", 0, 1.0f },
-        { L"Tahoma", 0, 0.88f },
+        {L"Segoe UI", 0, 1.0f },
+        {L"Tahoma",   0, 0.88f},
     };
     font_info jaFontsInfo[] = {
-        { L"Yu Gothic UI", 1, 1.0f },
-        { L"Meiryo UI", 0, 1.0f },
-        { L"MS UI Gothic", 0, 0.85f },
-        { L"MS Mincho", 0, 0.85f },
+        {L"Yu Gothic UI", 1, 1.0f },
+        {L"Meiryo UI",    0, 1.0f },
+        {L"MS UI Gothic", 0, 0.85f},
+        {L"MS Mincho",    0, 0.85f},
     };
 
     int CALLBACK __glocale_font_enum_proc([[maybe_unused]] const LOGFONTW* lpelfe, [[maybe_unused]] const TEXTMETRICW* lpntme, [[maybe_unused]] DWORD FontType, LPARAM lParam)
@@ -228,10 +230,12 @@ static ImWchar baseUnicodeRanges[] =
 
         // Check code page bitfields
         // For complete list of bitfields: https://msdn.microsoft.com/library/windows/desktop/dd317754(v=vs.85).aspx
+        // clang-format off
         static std::uint8_t codePageBitfields[] = {
             0, 1, // Latin,
             17, // Japanese
         };
+        // clang-format on
 
         for (auto bitToCheck : codePageBitfields) {
             DWORD mask = 1 << (bitToCheck & 32);
@@ -242,6 +246,7 @@ static ImWchar baseUnicodeRanges[] =
 
         // Check unicode subset bitfields
         // For complete list of bitfields: https://msdn.microsoft.com/library/windows/desktop/dd374090(v=vs.85).aspx
+        // clang-format off
         static std::uint8_t unicodeSubsetBitfields[] = {
             0, 1, // Basic Latin + Latin Supplement
             48, 49, 50, // Punctuations, Hiragana, Katakana
@@ -249,6 +254,7 @@ static ImWchar baseUnicodeRanges[] =
             37, // Arrows
             59, // CJK Unified Ideographs
         };
+        // clang-format on
 
         for (auto bitToCheck : unicodeSubsetBitfields) {
             DWORD mask = 1 << (bitToCheck % 32);
@@ -286,10 +292,12 @@ static ImWchar baseUnicodeRanges[] =
 
         // Check code page bitfields
         // For complete list of bitfields: https://msdn.microsoft.com/library/windows/desktop/dd317754(v=vs.85).aspx
+        // clang-format off
         static std::uint8_t codePageBitfields[] = {
             0, 1, // Latin,
             18, // SChinese
         };
+        // clang-format on
 
         for (auto bitToCheck : codePageBitfields) {
             DWORD mask = 1 << (bitToCheck & 32);
@@ -300,6 +308,7 @@ static ImWchar baseUnicodeRanges[] =
 
         // Check unicode subset bitfields
         // For complete list of bitfields: https://msdn.microsoft.com/library/windows/desktop/dd374090(v=vs.85).aspx
+        // clang-format off
         static std::uint8_t unicodeSubsetBitfields[] = {
             0, 1, // Basic Latin + Latin Supplement
             //31,
@@ -307,6 +316,7 @@ static ImWchar baseUnicodeRanges[] =
             //68, // Half-width characters
             59, // CJK Unified Ideographs
         };
+        // clang-format on
 
         for (auto bitToCheck : unicodeSubsetBitfields) {
             DWORD mask = 1 << (bitToCheck % 32);
@@ -348,15 +358,10 @@ static ImWchar baseUnicodeRanges[] =
             info.font_name = L"";
             info.font_index = 0;
             info.font_scale = 1.0f;
-            return CreateFontW(0, 0, 0, 0, 0, 0, 0, 0, GB2312_CHARSET, 0, 0, 0, 0,
-                fontFamilyName.c_str());
+            return CreateFontW(0, 0, 0, 0, 0, 0, 0, 0, GB2312_CHARSET, 0, 0, 0, 0, fontFamilyName.c_str());
         }
 
-        return CreateFontW(
-            0, 0, 0, 0, 0, 0, 0, 0,
-            GB2312_CHARSET,
-            0, 0, 0, 0,
-            info.font_name);
+        return CreateFontW(0, 0, 0, 0, 0, 0, 0, 0, GB2312_CHARSET, 0, 0, 0, 0, info.font_name);
     }
     HFONT CALLBACK CheckFontEn(HDC hdc, font_info& info)
     {
@@ -382,11 +387,7 @@ static ImWchar baseUnicodeRanges[] =
             return (HFONT)GetStockObject(SYSTEM_FONT);
         }
 
-        return CreateFontW(
-            0, 0, 0, 0, 0, 0, 0, 0,
-            ANSI_CHARSET,
-            0, 0, 0, 0,
-            info.font_name);
+        return CreateFontW(0, 0, 0, 0, 0, 0, 0, 0, ANSI_CHARSET, 0, 0, 0, 0, info.font_name);
     }
     HFONT CALLBACK CheckFontJa(HDC hdc, font_info& info)
     {
@@ -415,15 +416,10 @@ static ImWchar baseUnicodeRanges[] =
             info.font_name = L"";
             info.font_index = 0;
             info.font_scale = 1.0f;
-            return CreateFontW(0, 0, 0, 0, 0, 0, 0, 0, SHIFTJIS_CHARSET, 0, 0, 0, 0,
-                fontFamilyName.c_str());
+            return CreateFontW(0, 0, 0, 0, 0, 0, 0, 0, SHIFTJIS_CHARSET, 0, 0, 0, 0, fontFamilyName.c_str());
         }
 
-        return CreateFontW(
-            0, 0, 0, 0, 0, 0, 0, 0,
-            SHIFTJIS_CHARSET,
-            0, 0, 0, 0,
-            info.font_name);
+        return CreateFontW(0, 0, 0, 0, 0, 0, 0, 0, SHIFTJIS_CHARSET, 0, 0, 0, 0, info.font_name);
     }
     ImWchar* GetGlyphRange(int locale)
     {
@@ -471,7 +467,13 @@ static ImWchar baseUnicodeRanges[] =
                 MessageBoxW(nullptr, L"No font can be loaded.\nthprac will now terminate.", L"Fatal error", MB_OK | MB_ICONERROR);
                 ExitProcess(ERROR_FILE_CORRUPT);
             } else {
-                MessageBoxW(nullptr, L"One or more fonts failed to load, which will cause certain non-Latin characters to not render properly.\nIf you are running thprac under wine/Crossover, seek help to link the appropriate fonts or try using wine-staging.", L"Warning", MB_OK | MB_ICONWARNING);
+                MessageBoxW(
+                    nullptr,
+                    L"One or more fonts failed to load, which will cause certain non-Latin characters to not render properly.\nIf you are running thprac under wine/Crossover, "
+                    L"seek help to link the appropriate fonts or try using wine-staging.",
+                    L"Warning",
+                    MB_OK | MB_ICONWARNING
+                );
             }
         }
     }
@@ -523,8 +525,7 @@ static ImWchar baseUnicodeRanges[] =
             float fontFinalSize = font_size * info.font_scale;
             ImWchar* glyphRange = GetGlyphRange(locale);
 
-            __glocale_fonts[locale] = io.Fonts->AddFontFromMemoryTTF(fontData, fontDataSize, fontFinalSize,
-                &fontConfig, (ImWchar*)glyphRange);
+            __glocale_fonts[locale] = io.Fonts->AddFontFromMemoryTTF(fontData, fontDataSize, fontFinalSize, &fontConfig, (ImWchar*)glyphRange);
         }
 
         ImGuiFreeType::BuildFontAtlas(io.Fonts, 0);
