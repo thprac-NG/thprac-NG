@@ -1,11 +1,11 @@
 ﻿#include "thprac_launcher_wnd.h"
+#include "..\..\resource.h"
 #include "imgui.h"
 #include "thprac_gui_impl_dx9.h"
 #include "thprac_gui_impl_win32.h"
 #include "thprac_gui_locale.h"
 #include "thprac_launcher_utils.h"
 #include "thprac_utils.h"
-#include "..\..\resource.h"
 #include <d3d9.h>
 #include <tchar.h>
 #pragma warning(disable : 4091)
@@ -87,12 +87,9 @@ void ResizeWindow(HWND hwnd, ImVec2& wndPos, ImVec2& wndSize)
     RECT wndRect;
     ::GetWindowRect(hwnd, &wndRect);
     if ((LONG)wndSize.x != wndRect.right - wndRect.left || (LONG)wndSize.y != wndRect.bottom - wndRect.top) {
-        RECT rect = { 0, 0, (LONG)wndSize.x, (LONG)wndSize.y };
+        RECT rect = {0, 0, (LONG)wndSize.x, (LONG)wndSize.y};
         ::AdjustWindowRectEx(&rect, WS_POPUP, FALSE, WS_EX_APPWINDOW); // Client to Screen
-        ::SetWindowPos(hwnd, nullptr,
-            wndRect.left + (LONG)wndPos.x, wndRect.top + (LONG)wndPos.y,
-            rect.right - rect.left, rect.bottom - rect.top,
-            SWP_NOZORDER | SWP_NOACTIVATE);
+        ::SetWindowPos(hwnd, nullptr, wndRect.left + (LONG)wndPos.x, wndRect.top + (LONG)wndPos.y, rect.right - rect.left, rect.bottom - rect.top, SWP_NOZORDER | SWP_NOACTIVATE);
 
         ImGuiIO& io = ImGui::GetIO();
         io.DisplaySize.x = (float)wndSize.x;
@@ -182,11 +179,11 @@ int LauncherWndInit(unsigned int width, unsigned int height, unsigned int maxWid
     // Create application window
     auto windowTitle = utf8_to_utf16(Gui::LocaleGetStr(THPRAC_LAUNCHER));
     auto icon = LoadIcon(GetModuleHandle(nullptr), MAKEINTRESOURCE(IDI_ICON1));
-    __thprac_lc_wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(nullptr), icon, nullptr, nullptr, nullptr, _T("thprac launcher window"), nullptr };
+    __thprac_lc_wc = {sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(nullptr), icon, nullptr, nullptr, nullptr, _T("thprac launcher window"), nullptr};
     ::RegisterClassEx(&__thprac_lc_wc);
-    __thprac_lc_hwnd = ::CreateWindow(__thprac_lc_wc.lpszClassName, windowTitle.c_str(),
-        WS_POPUP | WS_SYSMENU | WS_MINIMIZEBOX, 0, 0, width, height,
-        nullptr, nullptr, __thprac_lc_wc.hInstance, nullptr);
+    __thprac_lc_hwnd = ::CreateWindow(
+        __thprac_lc_wc.lpszClassName, windowTitle.c_str(), WS_POPUP | WS_SYSMENU | WS_MINIMIZEBOX, 0, 0, width, height, nullptr, nullptr, __thprac_lc_wc.hInstance, nullptr
+    );
 
     // DPI handling
     DEVMODE devMod;
@@ -231,7 +228,7 @@ int LauncherWndInit(unsigned int width, unsigned int height, unsigned int maxWid
     ImGui::CreateContext();
     Gui::ImplWin32Init(__thprac_lc_hwnd);
     Gui::ImplDX9Init(g_pd3dDevice);
-    Gui::LocaleCreateMergeFont(Gui::LocaleGet(), 20.0f * __thprac_lc_scale); //30.0f LOCALE_ZH_CN LOCALE_EN_US LOCALE_JA_JP
+    Gui::LocaleCreateMergeFont(Gui::LocaleGet(), 20.0f * __thprac_lc_scale); // 30.0f LOCALE_ZH_CN LOCALE_EN_US LOCALE_JA_JP
     if (__thprac_lc_scale != 1.0f) {
         ImGui::GetStyle().ScaleAllSizes(__thprac_lc_scale);
     }
@@ -291,7 +288,7 @@ bool LauncherWndNewFrame()
     io.KeyAlt = (::GetKeyState(VK_MENU) & 0x8000) != 0;
     io.KeySuper = false;
 
-    //ResizeWindow(__thprac_lc_hwnd, wndPos, wndSize);
+    // ResizeWindow(__thprac_lc_hwnd, wndPos, wndSize);
     Gui::ImplDX9NewFrame();
     Gui::ImplWin32NewFrame(false);
     ImGui::NewFrame();
@@ -308,16 +305,14 @@ bool LauncherWndEndFrame(ImVec2& wndPos, ImVec2& wndSize, bool canMove)
     ::GetWindowRect(__thprac_lc_hwnd, &wndRect);
     if ((LONG)wndSize.x != wndRect.right - wndRect.left || (LONG)wndSize.y != wndRect.bottom - wndRect.top) {
         moved = true;
-        RECT rect = { 0, 0, (LONG)wndSize.x, (LONG)wndSize.y };
+        RECT rect = {0, 0, (LONG)wndSize.x, (LONG)wndSize.y};
         ::AdjustWindowRectEx(&rect, WS_POPUP, FALSE, WS_EX_APPWINDOW); // Client to Screen
-        ::SetWindowPos(__thprac_lc_hwnd, nullptr,
-            wndRect.left + (LONG)wndPos.x, wndRect.top + (LONG)wndPos.y,
-            rect.right - rect.left, rect.bottom - rect.top,
-            SWP_NOZORDER | SWP_NOACTIVATE);
+        ::SetWindowPos(
+            __thprac_lc_hwnd, nullptr, wndRect.left + (LONG)wndPos.x, wndRect.top + (LONG)wndPos.y, rect.right - rect.left, rect.bottom - rect.top, SWP_NOZORDER | SWP_NOACTIVATE
+        );
     }
     ::GetClientRect(__thprac_lc_hwnd, &wndRect);
-    RECT renderRect = { (LONG)wndPos.x, (LONG)wndPos.y,
-        (LONG)(wndSize.x) + (LONG)(wndPos.x), (LONG)(wndSize.y) + (LONG)(wndPos.y) };
+    RECT renderRect = {(LONG)wndPos.x, (LONG)wndPos.y, (LONG)(wndSize.x) + (LONG)(wndPos.x), (LONG)(wndSize.y) + (LONG)(wndPos.y)};
 
     ImGui::EndFrame();
 
@@ -327,9 +322,7 @@ bool LauncherWndEndFrame(ImVec2& wndPos, ImVec2& wndSize, bool canMove)
     g_pd3dDevice->SetRenderState(D3DRS_SCISSORTESTENABLE, false);
 
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-    D3DCOLOR clear_col_dx = D3DCOLOR_RGBA(
-        (int)(clear_color.x * 255.0f), (int)(clear_color.y * 255.0f),
-        (int)(clear_color.z * 255.0f), (int)(clear_color.w * 255.0f));
+    D3DCOLOR clear_col_dx = D3DCOLOR_RGBA((int)(clear_color.x * 255.0f), (int)(clear_color.y * 255.0f), (int)(clear_color.z * 255.0f), (int)(clear_color.w * 255.0f));
     g_pd3dDevice->Clear(0, nullptr, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, clear_col_dx, 1.0f, 0);
 
     if (g_pd3dDevice->BeginScene() >= 0) {
@@ -374,7 +367,7 @@ bool LauncherWndShutdown()
 
 ImVec2 LauncherWndGetSize()
 {
-    RECT wndRect {};
+    RECT wndRect{};
     ::GetWindowRect(__thprac_lc_hwnd, &wndRect);
     return ImVec2((float)(wndRect.right - wndRect.left), (float)(wndRect.bottom - wndRect.top));
 }
@@ -417,20 +410,33 @@ template <typename T>
 struct ComRAII {
     T* p;
 
-    operator bool() const { return !!p; }
-    operator T*() const { return p; }
-    T** operator&() { return &p; }
-    T* operator->() const { return p; }
-    T& operator*() const { return *p; }
+    operator bool() const
+    {
+        return !!p;
+    }
+    operator T*() const
+    {
+        return p;
+    }
+    T** operator&()
+    {
+        return &p;
+    }
+    T* operator->() const
+    {
+        return p;
+    }
+    T& operator*() const
+    {
+        return *p;
+    }
 
     ComRAII()
         : p(nullptr)
-    {
-    }
+    { }
     explicit ComRAII(T* p)
         : p(p)
-    {
-    }
+    { }
     ComRAII(const ComRAII<T>& other) = delete;
     ComRAII<T>& operator=(const ComRAII<T>& other) = delete;
     ~ComRAII()
@@ -454,7 +460,7 @@ static int SelectFolderVista(HWND owner, PIDLIST_ABSOLUTE initial_path, PIDLIST_
         return -1;
 
     ComRAII<IFileDialog> pfd;
-    if(FAILED(CoCreateInstance(CLSID_FileOpenDialog, nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&pfd))))
+    if (FAILED(CoCreateInstance(CLSID_FileOpenDialog, nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&pfd))))
         return -1;
     if (!pfd)
         return -1;
@@ -467,9 +473,7 @@ static int SelectFolderVista(HWND owner, PIDLIST_ABSOLUTE initial_path, PIDLIST_
         pfd->SetDefaultFolder(psi);
     }
 
-    pfd->SetOptions(
-        FOS_NOCHANGEDIR | FOS_PICKFOLDERS | FOS_FORCEFILESYSTEM
-        | FOS_PATHMUSTEXIST | FOS_FILEMUSTEXIST | FOS_DONTADDTORECENT);
+    pfd->SetOptions(FOS_NOCHANGEDIR | FOS_PICKFOLDERS | FOS_FORCEFILESYSTEM | FOS_PATHMUSTEXIST | FOS_FILEMUSTEXIST | FOS_DONTADDTORECENT);
     pfd->SetTitle(window_title);
     HRESULT hr = pfd->Show(owner);
     ComRAII<IShellItem> psi;
@@ -485,8 +489,8 @@ static int SelectFolderVista(HWND owner, PIDLIST_ABSOLUTE initial_path, PIDLIST_
 
 static int SelectFolderXP(HWND owner, PIDLIST_ABSOLUTE initial_path, PIDLIST_ABSOLUTE& pidl, const wchar_t* window_title)
 {
-    BROWSEINFOW bi = { 0 };
-    initial_path_t ip = { 0 };
+    BROWSEINFOW bi = {0};
+    initial_path_t ip = {0};
     ip.path = initial_path;
 
     bi.lpszTitle = window_title;
@@ -498,7 +502,8 @@ static int SelectFolderXP(HWND owner, PIDLIST_ABSOLUTE initial_path, PIDLIST_ABS
     return 0;
 }
 
-std::wstring LauncherWndFolderSelect(const wchar_t* title) {
+std::wstring LauncherWndFolderSelect(const wchar_t* title)
+{
     if (FAILED(CoInitialize(nullptr)))
         return L"";
     defer(CoUninitialize());

@@ -1,4 +1,5 @@
 ﻿#pragma once
+// clang-format off
 /*
 	This file is a modified copy of imgui's Win32 platform implemention's header file.
 	Changes made:

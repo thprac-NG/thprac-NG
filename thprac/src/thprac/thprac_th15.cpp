@@ -1,7 +1,6 @@
 ﻿#include "thprac_games.h"
 #include "thprac_utils.h"
 
-
 namespace THPrac {
 namespace TH15 {
     using std::pair;
@@ -76,7 +75,7 @@ namespace TH15 {
             ReturnJson();
         }
     };
-    THPracParam thPracParam {};
+    THPracParam thPracParam{};
 
     class THGuiPrac : public Gui::GameGuiWnd {
         THGuiPrac() noexcept
@@ -94,7 +93,6 @@ namespace TH15 {
         }
         SINGLETON(THGuiPrac)
     public:
-
         __declspec(noinline) void State(int state)
         {
             switch (state) {
@@ -272,7 +270,7 @@ namespace TH15 {
             if (Morbius == 7)
                 th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty][TH15_ST5_MID1] = "it's morbin time";
 
-            static char chapterStr[256] {};
+            static char chapterStr[256]{};
             auto& chapterCounts = mChapterSetup[*mStage];
 
             switch (*mWarp) {
@@ -291,18 +289,14 @@ namespace TH15 {
                 break;
             case 2:
             case 3: // Mid boss & End boss
-                if (mSection(TH_WARP_SELECT[*mWarp],
-                        th_sections_cba[*mStage][*mWarp - 2],
-                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
+                if (mSection(TH_WARP_SELECT[*mWarp], th_sections_cba[*mStage][*mWarp - 2], th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
                     *mPhase = 0;
                 if (SectionHasDlg(th_sections_cba[*mStage][*mWarp - 2][*mSection]))
                     mDlg();
                 break;
             case 4:
             case 5: // Non-spell & Spellcard
-                if (mSection(TH_WARP_SELECT[*mWarp],
-                        th_sections_cbt[*mStage][*mWarp - 4],
-                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
+                if (mSection(TH_WARP_SELECT[*mWarp], th_sections_cbt[*mStage][*mWarp - 4], th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
                     *mPhase = 0;
                 if (SectionHasDlg(th_sections_cbt[*mStage][*mWarp - 4][*mSection]))
                     mDlg();
@@ -312,12 +306,12 @@ namespace TH15 {
             }
         }
 
-        Gui::GuiCombo mMode { TH_MODE, TH_MODE_SELECT };
-        Gui::GuiCombo mStage { TH_STAGE, TH_STAGE_SELECT };
-        Gui::GuiCombo mWarp { TH_WARP, TH_WARP_SELECT };
-        Gui::GuiCombo mSection { TH_MODE };
-        Gui::GuiCombo mPhase { TH_PHASE };
-        Gui::GuiCheckBox mDlg { TH_DLG };
+        Gui::GuiCombo mMode{TH_MODE, TH_MODE_SELECT};
+        Gui::GuiCombo mStage{TH_STAGE, TH_STAGE_SELECT};
+        Gui::GuiCombo mWarp{TH_WARP, TH_WARP_SELECT};
+        Gui::GuiCombo mSection{TH_MODE};
+        Gui::GuiCombo mPhase{TH_PHASE};
+        Gui::GuiCheckBox mDlg{TH_DLG};
 
         Gui::GuiSlider<int, ImGuiDataType_S32> mChapter { TH_CHAPTER, 0, 0 };
         Gui::GuiDrag<int64_t, ImGuiDataType_S64> mScore { TH_SCORE, 0, 9999999990, 10, 100000000 };
@@ -329,19 +323,34 @@ namespace TH15 {
         Gui::GuiDrag<int, ImGuiDataType_S32> mValue { TH_VALUE, 0, 999990, 10, 100000 };
         Gui::GuiDrag<int, ImGuiDataType_S32> mGraze { TH_GRAZE, 0, 999999, 1, 100000 };
 
-        Gui::GuiNavFocus mNavFocus { TH_STAGE, TH_MODE, TH_WARP, TH_DLG,
-            TH_MID_STAGE, TH_END_STAGE, TH_NONSPELL, TH_SPELL, TH_PHASE, TH_CHAPTER,
-            TH_SCORE, TH_LIFE, TH_LIFE_FRAGMENT, TH_BOMB, TH_BOMB_FRAGMENT,
-            TH_POWER, TH_VALUE, TH_GRAZE };
+        Gui::GuiNavFocus mNavFocus{
+            TH_STAGE,
+            TH_MODE,
+            TH_WARP,
+            TH_DLG,
+            TH_MID_STAGE,
+            TH_END_STAGE,
+            TH_NONSPELL,
+            TH_SPELL,
+            TH_PHASE,
+            TH_CHAPTER,
+            TH_SCORE,
+            TH_LIFE,
+            TH_LIFE_FRAGMENT,
+            TH_BOMB,
+            TH_BOMB_FRAGMENT,
+            TH_POWER,
+            TH_VALUE,
+            TH_GRAZE};
 
-        int mChapterSetup[7][2] {
-            { 2, 4 },
-            { 3, 3 },
-            { 3, 3 },
-            { 3, 3 },
-            { 4, 6 },
-            { 4, 0 },
-            { 5, 4 },
+        int mChapterSetup[7][2]{
+            {2, 4},
+            {3, 3},
+            {3, 3},
+            {3, 3},
+            {4, 6},
+            {4, 0},
+            {5, 4},
         };
 
         int mDiffculty = 0;
@@ -354,8 +363,8 @@ namespace TH15 {
             mAppdataPath = appdata;
         }
         SINGLETON(THGuiRep);
-    public:
 
+    public:
         void CheckReplay()
         {
             uint32_t index = GetMemContent(0x4e9be0, 0x5a00);
@@ -406,12 +415,14 @@ namespace TH15 {
             SetPos(10.0f, 10.0f);
             SetSize(0.0f, 0.0f);
             SetWndFlag(
-                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0);
+                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
+                | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0
+            );
             OnLocaleChange();
         }
         SINGLETON(THOverlay);
-    public:
 
+    public:
     protected:
         virtual void OnLocaleChange() override
         {
@@ -464,23 +475,18 @@ namespace TH15 {
             }
         }
 
-        Gui::GuiHotKey mMenu { "ModMenuToggle", "BACKSPACE", VK_BACK };
-        Gui::GuiHotKey mMuteki { TH_MUTEKI, "F1", VK_F1, {
-            new HookCtx(0x4566a5, "\x01", 1) } };
-        Gui::GuiHotKey mInfLives { TH_INFLIVES, "F2", VK_F2, {
-            new HookCtx(0x456397, "\x90", 1) } };
-        Gui::GuiHotKey mInfBombs { TH_INFBOMBS, "F3", VK_F3, {
-            new HookCtx(0x414963, "\x90", 1) } };
-        Gui::GuiHotKey mInfPower { TH_INFPOWER, "F4", VK_F4, {
-            new HookCtx(0x4582fa, "\x45", 1) } };
-        Gui::GuiHotKey mTimeLock { TH_TIMELOCK, "F5", VK_F5, {
-            new HookCtx(0x41fdf5, "\xeb", 1),
-            new HookCtx(0x428b5d, "\xa7", 1) } };
-        Gui::GuiHotKey mAutoBomb { TH_AUTOBOMB, "F6", VK_F6, {
-            new HookCtx(0x454cc9, "\xc6", 1) } };
+        Gui::GuiHotKey mMenu{"ModMenuToggle", "BACKSPACE", VK_BACK};
+        Gui::GuiHotKey mMuteki{TH_MUTEKI, "F1", VK_F1, {new HookCtx(0x4566a5, "\x01", 1)}};
+        Gui::GuiHotKey mInfLives{TH_INFLIVES, "F2", VK_F2, {new HookCtx(0x456397, "\x90", 1)}};
+        Gui::GuiHotKey mInfBombs{TH_INFBOMBS, "F3", VK_F3, {new HookCtx(0x414963, "\x90", 1)}};
+        Gui::GuiHotKey mInfPower{TH_INFPOWER, "F4", VK_F4, {new HookCtx(0x4582fa, "\x45", 1)}};
+        Gui::GuiHotKey mTimeLock{
+            TH_TIMELOCK, "F5", VK_F5, {new HookCtx(0x41fdf5, "\xeb", 1), new HookCtx(0x428b5d, "\xa7", 1)}
+        };
+        Gui::GuiHotKey mAutoBomb{TH_AUTOBOMB, "F6", VK_F6, {new HookCtx(0x454cc9, "\xc6", 1)}};
 
     public:
-        Gui::GuiHotKey mElBgm { TH_EL_BGM, "F7", VK_F7 };
+        Gui::GuiHotKey mElBgm{TH_EL_BGM, "F7", VK_F7};
     };
 
     class THAdvOptWnd : public Gui::PPGuiWnd {
@@ -508,6 +514,7 @@ namespace TH15 {
                 pCtx->Eip = 0x43d9a2;
             }
         }
+
     private:
         void FpsInit()
         {
@@ -560,10 +567,7 @@ namespace TH15 {
             SetStyle(ImGuiStyleVar_WindowRounding, 0.0f);
             SetStyle(ImGuiStyleVar_WindowBorderSize, 0.0f);
 
-            InitUpdFunc([&]() { ContentUpdate(); },
-                [&]() { LocaleUpdate(); },
-                [&]() {},
-                []() {});
+            InitUpdFunc([&]() { ContentUpdate(); }, [&]() { LocaleUpdate(); }, [&]() {}, []() {});
 
             OnLocaleChange();
             FpsInit();
@@ -586,7 +590,6 @@ namespace TH15 {
 
             return advOptWnd.IsOpen();
         }
-
 
     protected:
         void LocaleUpdate()
@@ -923,21 +926,17 @@ namespace TH15 {
             ECLJump(ecl, 0x2a0, 0x2f4, 5);
             // Remove Movement Restriction & Move Directly
             ecl.SetPos(0x480);
-            ecl << 0 << 0x001001f9 << 0x00ff0000 << 0
-                << 0 << 0x00340190 << 0x02ff0000 << 0 << 0x43400000 << 0xc2800000;
+            ecl << 0 << 0x001001f9 << 0x00ff0000 << 0 << 0 << 0x00340190 << 0x02ff0000 << 0 << 0x43400000 << 0xc2800000;
         };
         auto st7_enter_spell = [&](int ordinal, int health, bool is_junko = false) {
             ecl.SetFile(3);
             ecl.SetPos(0x6d0);
             ecl << 0 << 0x001401ff << 0x01ff0000 << 0 << health;
             if (is_junko) {
-                ecl << 0 << 0x0014012e << 0x01ff0000 << 0 << 5
-                    << 0 << 0x0018012f << 0x02ff0000 << 0 << 3 << 6;
-                ecl << 0 << 0x0020000f << 0x01ff0000 << 0 << 0xc
-                    << 0x73736f42 << 0x6f705f34 << 0x00000073; // "Boss", "4_po", "s"
+                ecl << 0 << 0x0014012e << 0x01ff0000 << 0 << 5 << 0 << 0x0018012f << 0x02ff0000 << 0 << 3 << 6;
+                ecl << 0 << 0x0020000f << 0x01ff0000 << 0 << 0xc << 0x73736f42 << 0x6f705f34 << 0x00000073; // "Boss", "4_po", "s"
             }
-            ecl << 0 << 0x0020000b << 0x01ff0000 << 0 << 0xc
-                << 0x73736f42 << 0x64726143 << ordinal;
+            ecl << 0 << 0x0020000b << 0x01ff0000 << 0 << 0xc << 0x73736f42 << 0x64726143 << ordinal;
         };
 
         switch (section) {
@@ -1324,10 +1323,8 @@ namespace TH15 {
             ecl << pair{0x698, 4000}; // Set Health
             ecl << pair{0x6b8, (int8_t)0x33}; // Set Spell Ordinal
             ecl.SetPos(0x63c); // Boss Effect
-            ecl << 0 << 0x0014012e << 0x01ff0000 << 0 << 3
-                << 0 << 0x0018012f << 0x02ff0000 << 0 << 3 << 6;
-            ecl << 0 << 0x0020000f << 0x01ff0000 << 0 << 0xc
-                << 0x73736f42 << 0x6f705f33 << 0x00000073; // "Boss", "3_po", "s"
+            ecl << 0 << 0x0014012e << 0x01ff0000 << 0 << 3 << 0 << 0x0018012f << 0x02ff0000 << 0 << 3 << 6;
+            ecl << 0 << 0x0020000f << 0x01ff0000 << 0 << 0xc << 0x73736f42 << 0x6f705f33 << 0x00000073; // "Boss", "3_po", "s"
             break;
         case THPrac::TH15::TH15_ST6_BOSS7:
             ECLJump(ecl, 0x91d0, 0x9500, 60);
@@ -1344,10 +1341,8 @@ namespace TH15 {
             ecl << pair{0x698, 3700}; // Set Health
             ecl << pair{0x6b8, (int8_t)0x34}; // Set Spell Ordinal
             ecl.SetPos(0x63c); // Boss Effect
-            ecl << 0 << 0x0014012e << 0x01ff0000 << 0 << 3
-                << 0 << 0x0018012f << 0x02ff0000 << 0 << 3 << 6;
-            ecl << 0 << 0x0020000f << 0x01ff0000 << 0 << 0xc
-                << 0x73736f42 << 0x6f705f34 << 0x00000073; // "Boss", "4_po", "s"
+            ecl << 0 << 0x0014012e << 0x01ff0000 << 0 << 3 << 0 << 0x0018012f << 0x02ff0000 << 0 << 3 << 6;
+            ecl << 0 << 0x0020000f << 0x01ff0000 << 0 << 0xc << 0x73736f42 << 0x6f705f34 << 0x00000073; // "Boss", "4_po", "s"
             break;
         case THPrac::TH15::TH15_ST6_BOSS9:
             ECLJump(ecl, 0x91d0, 0x9500, 60);
@@ -1373,10 +1368,8 @@ namespace TH15 {
             ecl << pair{0x698, 8000}; // Set Health
             ecl << pair{0x6b8, (int8_t)0x37}; // Set Spell Ordinal
             ecl.SetPos(0x63c); // Boss Effect
-            ecl << 0 << 0x0014012e << 0x01ff0000 << 0 << 3
-                << 0 << 0x0018012f << 0x02ff0000 << 0 << 3 << 6;
-            ecl << 0 << 0x0020000f << 0x01ff0000 << 0 << 0xc
-                << 0x73736f42 << 0x6f705f34 << 0x00000073; // "Boss", "4_po", "s"
+            ecl << 0 << 0x0014012e << 0x01ff0000 << 0 << 3 << 0 << 0x0018012f << 0x02ff0000 << 0 << 3 << 6;
+            ecl << 0 << 0x0020000f << 0x01ff0000 << 0 << 0xc << 0x73736f42 << 0x6f705f34 << 0x00000073; // "Boss", "4_po", "s"
 
             if (thPracParam.phase) {
                 if (thPracParam.phase == 1)
@@ -1398,8 +1391,7 @@ namespace TH15 {
                 ecl.SetPos(0x34c); // Inv. Time
                 ecl << 0 << 0x00200203 << 0x01ff0000 << 0 << 60;
                 ecl.SetPos(0x37c); // Boss Movement Restriction
-                ecl << 0 << 0x002c01f8 << 0x04ff0000 << 0
-                    << 0x0 << 0x43000000 << 0x438c0000 << 0x43800000;
+                ecl << 0 << 0x002c01f8 << 0x04ff0000 << 0 << 0x0 << 0x43000000 << 0x438c0000 << 0x43800000;
                 ecl << pair{0x33c, (int16_t)0}; // Void Wait
                 ecl << pair{0x36c, 60} << pair{0x328, 60}; // Wait Time & Move Time
                 ECLJump(ecl, 0x48c, 0x508, 0); // Spell Jump
@@ -1414,8 +1406,7 @@ namespace TH15 {
             ecl.SetPos(0x34c); // Inv. Time
             ecl << 0 << 0x00200203 << 0x01ff0000 << 0 << 60;
             ecl.SetPos(0x37c); // Boss Movement Restriction
-            ecl << 0 << 0x002c01f8 << 0x04ff0000 << 0
-                << 0x0 << 0x43000000 << 0x438c0000 << 0x43800000;
+            ecl << 0 << 0x002c01f8 << 0x04ff0000 << 0 << 0x0 << 0x43000000 << 0x438c0000 << 0x43800000;
             ecl << pair{0x33c, (int16_t)0}; // Void Wait
             ecl << pair{0x36c, 60} << pair{0x328, 60}; // Wait Time & Move Time
             ECLJump(ecl, 0x48c, 0x508, 0); // Spell Jump
@@ -1429,8 +1420,7 @@ namespace TH15 {
             ecl.SetPos(0x34c); // Inv. Time
             ecl << 0 << 0x00200203 << 0x01ff0000 << 0 << 60;
             ecl.SetPos(0x37c); // Boss Movement Restriction
-            ecl << 0 << 0x002c01f8 << 0x04ff0000 << 0
-                << 0x0 << 0x43000000 << 0x438c0000 << 0x43800000;
+            ecl << 0 << 0x002c01f8 << 0x04ff0000 << 0 << 0x0 << 0x43000000 << 0x438c0000 << 0x43800000;
             ecl << pair{0x33c, (int16_t)0}; // Void Wait
             ecl << pair{0x36c, 60} << pair{0x328, 60}; // Wait Time & Move Time
             ECLJump(ecl, 0x48c, 0x508, 0); // Spell Jump
@@ -1651,8 +1641,7 @@ namespace TH15 {
             // Health
             ecl << 0 << 0x001401ff << 0x01ff0000 << 0 << 3000;
             // Card
-            ecl << 0 << 0x0020000b << 0x01ff0000 << 0 << 0xc
-                << 0x73736f42 << 0x64726143 << 0x39;
+            ecl << 0 << 0x0020000b << 0x01ff0000 << 0 << 0xc << 0x73736f42 << 0x64726143 << 0x39;
             break;
         case THPrac::TH15::TH15_ST7_END_S10:
             ECLJump(ecl, 0x8f6c, 0x93cc, 60);
@@ -1665,16 +1654,13 @@ namespace TH15 {
             ecl << pair(0x688, -1) << pair(0x6a0, -1); // Change 303-1 & 303-2
             ecl.SetPos(0x6d0);
             // Effect
-            ecl << 5 << 0x0014012e << 0x01ff0000 << 0 << 5
-                << 5 << 0x0018012f << 0x02ff0000 << 0 << 3 << 6;
-            ecl << 5 << 0x0020000f << 0x01ff0000 << 0 << 0xc
-                << 0x73736f42 << 0x6f705f34 << 0x00000073; // "Boss", "4_po", "s"
+            ecl << 5 << 0x0014012e << 0x01ff0000 << 0 << 5 << 5 << 0x0018012f << 0x02ff0000 << 0 << 3 << 6;
+            ecl << 5 << 0x0020000f << 0x01ff0000 << 0 << 0xc << 0x73736f42 << 0x6f705f34 << 0x00000073; // "Boss", "4_po", "s"
             ecl << 5 << 0x0014012e << 0x01ff0000 << 0 << 3;
             // Health
             ecl << 5 << 0x001401ff << 0x01ff0000 << 0 << 7000;
             // Card
-            ecl << 6 << 0x0020000b << 0x01ff0000 << 0 << 0xc
-                << 0x73736f42 << 0x64726143 << 0x3031;
+            ecl << 6 << 0x0020000b << 0x01ff0000 << 0 << 0xc << 0x73736f42 << 0x64726143 << 0x3031;
 
             // Junko
             ecl.SetFile(4);
@@ -1758,8 +1744,7 @@ namespace TH15 {
         is_practice = (*((int32_t*)0x4e7794) & 0x1);
         if (thPracParam.mode && thPracParam.section == TH15_ST6_STARS)
             el_switch = false;
-        result = ElBgmTest<0x44d413, 0x43cb40, 0x450efd, 0x452a63, 0xffffffff>(
-            el_switch, is_practice, retn_addr, bgm_cmd, bgm_id, 0xffffffff);
+        result = ElBgmTest<0x44d413, 0x43cb40, 0x450efd, 0x452a63, 0xffffffff>(el_switch, is_practice, retn_addr, bgm_cmd, bgm_id, 0xffffffff);
 
         if (result) {
             pCtx->Eip = 0x476fa3;
@@ -1864,9 +1849,7 @@ namespace TH15 {
     static __declspec(noinline) void THGuiCreate()
     {
         // Init
-        GameGuiInit(IMPL_WIN32_DX9, 0x4e77d8, 0x519bb0, 0x471f10,
-            Gui::INGAGME_INPUT_GEN2, 0x4e6d1c, 0x4e6d18, 0,
-            (*((int32_t*)0x51bbec) >> 2) & 0xf);
+        GameGuiInit(IMPL_WIN32_DX9, 0x4e77d8, 0x519bb0, 0x471f10, Gui::INGAGME_INPUT_GEN2, 0x4e6d1c, 0x4e6d18, 0, (*((int32_t*)0x51bbec) >> 2) & 0xf);
 
         // Gui components creation
         THGuiPrac::singleton();

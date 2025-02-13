@@ -1,4 +1,5 @@
 ﻿#pragma once
+// clang-format off
 /*
 	This file is a modified copy of imgui's DirectX9 renderer implemention's  header file.
 	Changes made:

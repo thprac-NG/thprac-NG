@@ -8,11 +8,10 @@
 #include "thprac_launcher_wnd.h"
 #include "thprac_utils.h"
 #include <ShlObj.h>
-#include <Windows.h>
 #include <Shlwapi.h>
+#include <Windows.h>
 #include <cstdio>
 #include <sstream>
-
 
 namespace THPrac {
 const char* gTabToOpen = nullptr;
@@ -179,8 +178,7 @@ int GuiLauncherMain()
             MSG msg;
             Gui::LocaleSet((Gui::locale_t)localeSwitch);
             LauncherWndShutdown();
-            while (::PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE)) {
-            }
+            while (::PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE)) { }
             LauncherWndInit(640, 480, 1280, 960, 960, 720);
             localeSwitch = -1;
         }

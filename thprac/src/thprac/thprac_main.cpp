@@ -1,9 +1,9 @@
 ﻿#include "thprac_main.h"
 #include "thprac_games.h"
 #include "thprac_gui_locale.h"
-#include "thprac_launcher_wnd.h"
-#include "thprac_launcher_games.h"
 #include "thprac_launcher_cfg.h"
+#include "thprac_launcher_games.h"
+#include "thprac_launcher_wnd.h"
 #include "thprac_load_exe.h"
 #include "thprac_utils.h"
 #include "utils/wininternal.h"
@@ -104,7 +104,7 @@ bool PromptUser(thprac_prompt_t info, THGameSig* gameSig = nullptr)
 THGameSig* CheckOngoingGame(PROCESSENTRY32W& proc, uintptr_t* base, HANDLE* pOutHandle = nullptr)
 {
     // Eliminate impossible process
-    if ( wcscmp(L"東方紅魔郷.exe", proc.szExeFile) && wcscmp(L"alcostg.exe", proc.szExeFile)) {
+    if (wcscmp(L"東方紅魔郷.exe", proc.szExeFile) && wcscmp(L"alcostg.exe", proc.szExeFile)) {
         if (proc.szExeFile[0] != L't' || proc.szExeFile[1] != L'h')
             return nullptr;
         if (proc.szExeFile[2] < L'0' || proc.szExeFile[2] > L'9')
@@ -126,10 +126,11 @@ THGameSig* CheckOngoingGame(PROCESSENTRY32W& proc, uintptr_t* base, HANDLE* pOut
 
     // Open the related process
     auto hProc = OpenProcess(
-        //PROCESS_SUSPEND_RESUME |
+        // PROCESS_SUSPEND_RESUME |
         PROCESS_QUERY_INFORMATION | PROCESS_CREATE_THREAD | PROCESS_VM_OPERATION | PROCESS_VM_READ | PROCESS_VM_WRITE,
         FALSE,
-        proc.th32ProcessID);
+        proc.th32ProcessID
+    );
     if (!hProc)
         return nullptr;
 

@@ -1,7 +1,6 @@
 ﻿#include "thprac_games.h"
 #include "thprac_utils.h"
 
-
 namespace THPrac {
 namespace TH08 {
     using std::pair;
@@ -101,7 +100,7 @@ namespace TH08 {
             ReturnJson();
         }
     };
-    THPracParam thPracParam {};
+    THPracParam thPracParam{};
 
     class THGuiPrac : public Gui::GameGuiWnd {
         THGuiPrac() noexcept
@@ -120,8 +119,8 @@ namespace TH08 {
             OnLocaleChange();
         }
         SINGLETON(THGuiPrac);
-    public:
 
+    public:
         __declspec(noinline) void State(int state)
         {
             int gaugeType = 0;
@@ -356,7 +355,7 @@ namespace TH08 {
         }
         void SectionWidget()
         {
-            static char chapterStr[256] {};
+            static char chapterStr[256]{};
             auto& chapterCounts = mChapterSetup[*mStage];
 
             switch (*mWarp) {
@@ -375,18 +374,14 @@ namespace TH08 {
                 break;
             case 2:
             case 3: // Mid boss & End boss
-                if (mSection(TH_WARP_SELECT_FRAME[*mWarp],
-                        th_sections_cba[*mStage][*mWarp - 2],
-                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
+                if (mSection(TH_WARP_SELECT_FRAME[*mWarp], th_sections_cba[*mStage][*mWarp - 2], th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
                     *mPhase = 0;
                 if (SectionHasDlg(th_sections_cba[*mStage][*mWarp - 2][*mSection]))
                     mDlg();
                 break;
             case 4:
             case 5: // Non-spell & Spellcard
-                if (mSection(TH_WARP_SELECT_FRAME[*mWarp],
-                        th_sections_cbt[*mStage][*mWarp - 4],
-                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
+                if (mSection(TH_WARP_SELECT_FRAME[*mWarp], th_sections_cbt[*mStage][*mWarp - 4], th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
                     *mPhase = 0;
                 if (SectionHasDlg(th_sections_cbt[*mStage][*mWarp - 4][*mSection]))
                     mDlg();
@@ -412,12 +407,12 @@ namespace TH08 {
             return false;
         }
         // Data
-        Gui::GuiCombo mMode { TH_MODE, TH_MODE_SELECT };
-        Gui::GuiCombo mStage { TH_STAGE, TH08_STAGE_SELECT };
-        Gui::GuiCombo mWarp { TH_WARP, TH_WARP_SELECT_FRAME };
-        Gui::GuiCombo mSection { TH_MODE };
-        Gui::GuiCombo mPhase { TH_PHASE };
-        Gui::GuiCheckBox mDlg { TH_DLG };
+        Gui::GuiCombo mMode{TH_MODE, TH_MODE_SELECT};
+        Gui::GuiCombo mStage{TH_STAGE, TH08_STAGE_SELECT};
+        Gui::GuiCombo mWarp{TH_WARP, TH_WARP_SELECT_FRAME};
+        Gui::GuiCombo mSection{TH_MODE};
+        Gui::GuiCombo mPhase{TH_PHASE};
+        Gui::GuiCheckBox mDlg{TH_DLG};
 
         Gui::GuiSlider<int, ImGuiDataType_S32> mChapter { TH_CHAPTER, 0, 0 };
         Gui::GuiDrag<int, ImGuiDataType_S32> mFrame { TH_FRAME, 0, INT_MAX };
@@ -442,16 +437,16 @@ namespace TH08 {
             TH_LIFE, TH_BOMB, TH_POWER, TH08_GAUGE, TH_SCORE, TH_GRAZE, TH_POINT, TH_POINT_TOTAL, TH_POINT_STAGE,
             TH08_TIME, TH08_VALUE,  TH08_NIGHT, TH_BULLET_RANK, TH_BULLET_RANKLOCK };
 
-        int mChapterSetup[9][2] {
-            { 1, 1 },
-            { 4, 0 },
-            { 2, 1 },
-            { 4, 2 },
-            { 4, 2 },
-            { 3, 2 },
-            { 2, 0 },
-            { 2, 0 },
-            { 3, 4 }
+        int mChapterSetup[9][2]{
+            {1, 1},
+            {4, 0},
+            {2, 1},
+            {4, 2},
+            {4, 2},
+            {3, 2},
+            {2, 0},
+            {2, 0},
+            {3, 4}
         };
 
         int mGaugeType;
@@ -459,11 +454,10 @@ namespace TH08 {
     };
     class THGuiRep : public Gui::GameGuiWnd {
         THGuiRep() noexcept
-        {
-        }
+        { }
         SINGLETON(THGuiRep);
-    public:
 
+    public:
         void CheckReplay()
         {
             uint32_t index = GetMemContent(0x18bde08, 0xc28c);
@@ -511,12 +505,14 @@ namespace TH08 {
             SetPos(10.0f, 10.0f);
             SetSize(0.0f, 0.0f);
             SetWndFlag(
-                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0);
+                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
+                | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0
+            );
             OnLocaleChange();
         }
         SINGLETON(THOverlay);
-    public:
 
+    public:
     protected:
         virtual void OnLocaleChange() override
         {
@@ -570,28 +566,26 @@ namespace TH08 {
             }
         }
 
-        Gui::GuiHotKey mMenu { "ModMenuToggle", "BACKSPACE", VK_BACK };
-        Gui::GuiHotKey mMuteki { TH_MUTEKI, "F1", VK_F1, {
-            new HookCtx(0x44abda, "\xB9\x70\xA6\x4E\x00\xE8\xBC\x1F\x00\x00\xE9\xC0\x02\x00\x00", 15),
-            new HookCtx(0x44Ab86, "\x03", 1) } };
-        Gui::GuiHotKey mInfLives { TH_INFLIVES, "F2", VK_F2, {
-            new HookCtx(0x44D0FA, "\x00", 1) } };
-        Gui::GuiHotKey mInfBombs { TH_INFBOMBS, "F3", VK_F3, {
-            new HookCtx(0x44CA78, "\x00", 1),
-            new HookCtx(0x44CAA4, "\x00", 1) } };
-        Gui::GuiHotKey mInfPower { TH_INFPOWER, "F4", VK_F4, {
-            new HookCtx(0x43B295, "\x2e\xe9\x61", 3),
-            new HookCtx(0x44CDB1, "\x00", 1) } };
-        Gui::GuiHotKey mTimeLock { TH_TIMELOCK, "F5", VK_F5, {
-            new HookCtx(0x416CBE, "\x2e\xe9", 2),
-            new HookCtx(0x42DDB5, "\xeb", 1) } };
-        Gui::GuiHotKey mAutoBomb { TH_AUTOBOMB, "F6", VK_F6, {
-            new HookCtx(0x44CC18, "\xff\x89", 2),
-            new HookCtx(0x44CC21, "\x66\xC7\x05\x28\xD5\x64\x01\x02", 8),
-            new HookCtx(0x44C85D, "\x30", 1) } };
+        Gui::GuiHotKey mMenu{"ModMenuToggle", "BACKSPACE", VK_BACK};
+        Gui::GuiHotKey mMuteki{
+            TH_MUTEKI, "F1", VK_F1, {new HookCtx(0x44abda, "\xB9\x70\xA6\x4E\x00\xE8\xBC\x1F\x00\x00\xE9\xC0\x02\x00\x00", 15), new HookCtx(0x44Ab86, "\x03", 1)}
+        };
+        Gui::GuiHotKey mInfLives{TH_INFLIVES, "F2", VK_F2, {new HookCtx(0x44D0FA, "\x00", 1)}};
+        Gui::GuiHotKey mInfBombs{
+            TH_INFBOMBS, "F3", VK_F3, {new HookCtx(0x44CA78, "\x00", 1), new HookCtx(0x44CAA4, "\x00", 1)}
+        };
+        Gui::GuiHotKey mInfPower{
+            TH_INFPOWER, "F4", VK_F4, {new HookCtx(0x43B295, "\x2e\xe9\x61", 3), new HookCtx(0x44CDB1, "\x00", 1)}
+        };
+        Gui::GuiHotKey mTimeLock{
+            TH_TIMELOCK, "F5", VK_F5, {new HookCtx(0x416CBE, "\x2e\xe9", 2), new HookCtx(0x42DDB5, "\xeb", 1)}
+        };
+        Gui::GuiHotKey mAutoBomb{
+            TH_AUTOBOMB, "F6", VK_F6, {new HookCtx(0x44CC18, "\xff\x89", 2), new HookCtx(0x44CC21, "\x66\xC7\x05\x28\xD5\x64\x01\x02", 8), new HookCtx(0x44C85D, "\x30", 1)}
+        };
 
     public:
-        Gui::GuiHotKey mElBgm { TH_EL_BGM, "F7", VK_F7 };
+        Gui::GuiHotKey mElBgm{TH_EL_BGM, "F7", VK_F7};
     };
 
     class THAdvOptWnd : public Gui::PPGuiWnd {
@@ -656,10 +650,7 @@ namespace TH08 {
             SetStyle(ImGuiStyleVar_WindowRounding, 0.0f);
             SetStyle(ImGuiStyleVar_WindowBorderSize, 0.0f);
 
-            InitUpdFunc([&]() { ContentUpdate(); },
-                [&]() { LocaleUpdate(); },
-                [&]() {},
-                []() {});
+            InitUpdFunc([&]() { ContentUpdate(); }, [&]() { LocaleUpdate(); }, [&]() {}, []() {});
 
             OnLocaleChange();
             FpsInit();
@@ -748,8 +739,7 @@ namespace TH08 {
         if (thPracParam.mode == 1 && thPracParam.stage >= 3 && thPracParam.stage <= 4 && thPracParam.section) {
             VFile anm;
             anm.SetFile(buffer, 0x99999);
-            anm << pair{0x8029c, 0} << pair{0x802b0, 0} << pair{0x802bc, 4000}
-                << pair{0x802f8, 0} << pair{0x8030c, 0} << pair{0x802fc, 1};
+            anm << pair{0x8029c, 0} << pair{0x802b0, 0} << pair{0x802bc, 4000} << pair{0x802f8, 0} << pair{0x8030c, 0} << pair{0x802fc, 1};
         }
 
         return nullptr;
@@ -805,10 +795,7 @@ namespace TH08 {
         }
         th08_name_fix::GetHook().Disable();
     }
-    void ECLWarp(int32_t time1, int32_t offset1,
-        int32_t time2 = -1, int32_t offset2 = -1,
-        int32_t time3 = -1, int32_t offset3 = -1,
-        int32_t time4 = -1, int32_t offset4 = -1)
+    void ECLWarp(int32_t time1, int32_t offset1, int32_t time2 = -1, int32_t offset2 = -1, int32_t time3 = -1, int32_t offset3 = -1, int32_t time4 = -1, int32_t offset4 = -1)
     {
         int32_t* target = (int32_t*)0xf54cf8;
         int32_t pECL = *((int32_t*)0x4ECCB8);
@@ -849,30 +836,26 @@ namespace TH08 {
     void ECLCallSub(ECLHelper& ecl, int offset, int sub_id, int ecl_time = -1, bool stall = false)
     {
         ecl.SetPos(offset);
-        ecl << (ecl_time == -1 ? 0 : ecl_time) << 0x00100034 << 0x0000ff00
-            << sub_id;
+        ecl << (ecl_time == -1 ? 0 : ecl_time) << 0x00100034 << 0x0000ff00 << sub_id;
         if (stall)
             ecl << 0xffffffff << 0x000Cffff << 0x00FFff00;
     }
     void ECLJump(ECLHelper& ecl, int offset, int dest, int time = 0, int ecl_time = -1)
     {
         ecl.SetPos(offset);
-        ecl << (ecl_time == -1 ? 0 : ecl_time) << 0x00140004 << 0x0000ff00
-            << time << (dest - offset);
+        ecl << (ecl_time == -1 ? 0 : ecl_time) << 0x00140004 << 0x0000ff00 << time << (dest - offset);
     }
     void ECLSetTime(ECLHelper& ecl, int offset, int32_t time, int32_t sub_id, int ecl_time = -1, bool stall = true)
     {
         ecl.SetPos(offset);
-        ecl << (ecl_time == -1 ? 0 : ecl_time) << 0x00140086 << 0x0000ff00
-            << time << sub_id;
+        ecl << (ecl_time == -1 ? 0 : ecl_time) << 0x00140086 << 0x0000ff00 << time << sub_id;
         if (stall)
             ecl << 0x999999 << 0x000C0000 << 0x0000ff00;
     }
     void ECLSetHealth(ECLHelper& ecl, int offset, int32_t health, int ecl_time = -1, bool stall = true)
     {
         ecl.SetPos(offset);
-        ecl << (ecl_time == -1 ? 0 : ecl_time) << 0x00100083 << 0x0000ff00
-            << health;
+        ecl << (ecl_time == -1 ? 0 : ecl_time) << 0x00100083 << 0x0000ff00 << health;
         if (stall)
             ecl << 0x999999 << 0x000C0000 << 0x0000ff00;
     }
@@ -901,8 +884,7 @@ namespace TH08 {
         std << pair{0xed8, 1} << pair{0xf14, 1};
         if (isLastSpell) {
             std.SetPos(0x1394);
-            std << 6926 << 0x000c001f << 2 << 0 << 0
-                << 6926 << 0x000c0004 << 1 << 0 << 0;
+            std << 6926 << 0x000c001f << 2 << 0 << 0 << 6926 << 0x000c0004 << 1 << 0 << 0;
             std.SetPos(0xf48);
             std << 0 << 0x000c0004 << 70 << 6926 << 0;
         }
@@ -1193,8 +1175,7 @@ namespace TH08 {
 
             ECLTimeFix(0x3e14, 0, 1);
             ECLSetTime(ecl, 0x3e30, 0, 51, 0);
-            ecl << ECLX(0x3db0, (int16_t)0) << ECLX(0x3da8, 51) << ECLX(0x7524, 0)
-                << ECLX(0x7508, (int16_t)0) << ECLX(0x7518, (int16_t)0);
+            ecl << ECLX(0x3db0, (int16_t)0) << ECLX(0x3da8, 51) << ECLX(0x7524, 0) << ECLX(0x7508, (int16_t)0) << ECLX(0x7518, (int16_t)0);
             break;
         case THPrac::TH08::TH08_ST2_LS:
             ECLWarp(4871, 0xc07c, 0, -1);
@@ -1348,9 +1329,7 @@ namespace TH08 {
 
             ECLCallSub(ecl, 0x3850, 45, 60);
             ecl << pair{0x3818, 60} << pair{0x3834, 60};
-            ecl << pair{0x3764, (int16_t)0} << pair{0x37d4, (int16_t)0}
-                << pair{0x7d04, 0} << pair{0x7d10, 0}
-                << pair{0x7c68, (int16_t)0} << pair{0x7c78, (int16_t)0};
+            ecl << pair{0x3764, (int16_t)0} << pair{0x37d4, (int16_t)0} << pair{0x7d04, 0} << pair{0x7d10, 0} << pair{0x7c68, (int16_t)0} << pair{0x7c78, (int16_t)0};
             break;
         case THPrac::TH08::TH08_ST4A_LS:
             STDStage4Fix();
@@ -1411,15 +1390,13 @@ namespace TH08 {
         case THPrac::TH08::TH08_ST4B_BOSS7:
             ECLWarp(6923, 0xdcd4, 0, -1);
             ecl << pair{0xdcda, (int8_t)0x50};
-            ecl << pair{0x2f14, 0} << pair{0x2f20, 31}
-                << pair{0x38b8, 120} << pair{0x38d4, 120};
+            ecl << pair{0x2f14, 0} << pair{0x2f20, 31} << pair{0x38b8, 120} << pair{0x38d4, 120};
             STDStage4Fix();
             break;
         case THPrac::TH08::TH08_ST4B_BOSS8:
             ECLWarp(6923, 0xdcd4, 0, -1);
             ecl << pair{0xdcda, (int8_t)0x50};
-            ecl << pair{0x2f14, 0} << pair{0x2f20, 31}
-                << pair{0x38b8, 120} << pair{0x38d4, 120};
+            ecl << pair{0x2f14, 0} << pair{0x2f20, 31} << pair{0x38b8, 120} << pair{0x38d4, 120};
             STDStage4Fix();
 
             ECLSetTime(ecl, 0x38d4, 0, 55, 60);
@@ -1432,10 +1409,7 @@ namespace TH08 {
             STDStage4Fix();
 
             ECLCallSub(ecl, 0x38d4, 61, 60);
-            ecl << pair{0x38b8, 60}
-                << pair{0x8b48, 0} << pair{0x8b54, 0} << pair{0x8b68, 0}
-                << pair{0x8aac, (int16_t)0} << pair{0x8abc, (int16_t)0}
-                << pair{0x3888, (int16_t)0};
+            ecl << pair{0x38b8, 60} << pair{0x8b48, 0} << pair{0x8b54, 0} << pair{0x8b68, 0} << pair{0x8aac, (int16_t)0} << pair{0x8abc, (int16_t)0} << pair{0x3888, (int16_t)0};
             break;
         case THPrac::TH08::TH08_ST4B_LS:
             STDStage4Fix();
@@ -1656,18 +1630,15 @@ namespace TH08 {
             ECLCallSub(ecl, 0x3dc8, 72);
             ECLTimeFix(0x3d28, 0, 6);
             ECLTimeFix(0x9a44, 60, 6);
-            ecl << pair{0x3cd8, (int16_t)0}
-                << pair{0x99f8, (int16_t)0} << pair{0x9a08, (int16_t)0};
+            ecl << pair{0x3cd8, (int16_t)0} << pair{0x99f8, (int16_t)0} << pair{0x9a08, (int16_t)0};
             break;
         case THPrac::TH08::TH08_ST6A_LS:
             MSGNameFix();
             ECLWarp(4083, 0xc89c);
             ecl << pair{0xc8a2, (int8_t)0x44};
             ECLCallSub(ecl, 0x376c, 30);
-            ecl << pair{0x3760, (int16_t)0} << pair{0x3918, (int16_t)0}
-                << pair{0x3938, (int16_t)0};
-            ecl << pair{0xc8e0, 4084} << pair{0xc900, 4084}
-                << pair{0xc90c, 4084} << pair{0xc918, 4084};
+            ecl << pair{0x3760, (int16_t)0} << pair{0x3918, (int16_t)0} << pair{0x3938, (int16_t)0};
+            ecl << pair{0xc8e0, 4084} << pair{0xc900, 4084} << pair{0xc90c, 4084} << pair{0xc918, 4084};
             break;
         case THPrac::TH08::TH08_ST6B_MID1:
             ECLWarp(3490, 0x104e4);
@@ -1788,8 +1759,7 @@ namespace TH08 {
             ECLCallSub(ecl, 0x3c08, 70);
             ECLTimeFix(0x3b68, 0, 6);
             ECLTimeFix(0xa920, 60, 7);
-            ecl << pair{0x3b18, (int16_t)0}
-                << pair{0xa8e4, (int16_t)0} << pair{0xa8d4, (int16_t)0};
+            ecl << pair{0x3b18, (int16_t)0} << pair{0xa8e4, (int16_t)0} << pair{0xa8d4, (int16_t)0};
             break;
         case THPrac::TH08::TH08_ST6B_LS1:
             *((int32_t*)0x4ea290) = 1;
@@ -2145,11 +2115,9 @@ namespace TH08 {
         }
         is_practice = *((int32_t*)0x17ce8b4) == 2;
         if (retn_addr == 0x4480ed && th08_pause_test == 0x434d08)
-            result = ElBgmTest<0x447ef4, 0x4480ed, 0x43a170, 0x406c68, 0x43a048>(
-                el_switch, is_practice, 0x447ef4, 2, 2, call_addr);
+            result = ElBgmTest<0x447ef4, 0x4480ed, 0x43a170, 0x406c68, 0x43a048>(el_switch, is_practice, 0x447ef4, 2, 2, call_addr);
         else
-            result = ElBgmTest<0x447ef4, 0x4480ed, 0x43a170, 0x406c68, 0x43a048>(
-                el_switch, is_practice, retn_addr, bgm_cmd, bgm_id, call_addr);
+            result = ElBgmTest<0x447ef4, 0x4480ed, 0x43a170, 0x406c68, 0x43a048>(el_switch, is_practice, retn_addr, bgm_cmd, bgm_id, call_addr);
 
         if (result) {
             pCtx->Eip = 0x45e2be;
@@ -2300,9 +2268,7 @@ namespace TH08 {
     // Exactly one instruction before th08_gui_create_2
     EHOOK_DY(th08_recreate_device, 0x442A7E)
     {
-        GameGuiInit(IMPL_WIN32_DX8, 0x17ce760, 0x17ce700, 0x442390,
-            Gui::INGAGME_INPUT_GEN1, 0x164d528, 0x164d530, 0x164d538,
-            -1);
+        GameGuiInit(IMPL_WIN32_DX8, 0x17ce760, 0x17ce700, 0x442390, Gui::INGAGME_INPUT_GEN1, 0x164d528, 0x164d530, 0x164d538, -1);
     }
     HOOKSET_ENDDEF()
 
@@ -2310,9 +2276,7 @@ namespace TH08 {
     static __declspec(noinline) void THGuiCreate()
     {
         // Init
-        GameGuiInit(IMPL_WIN32_DX8, 0x17ce760, 0x17ce700, 0x442390,
-            Gui::INGAGME_INPUT_GEN1, 0x164d528, 0x164d530, 0x164d538,
-            -1);
+        GameGuiInit(IMPL_WIN32_DX8, 0x17ce760, 0x17ce700, 0x442390, Gui::INGAGME_INPUT_GEN1, 0x164d528, 0x164d530, 0x164d538, -1);
 
         // Gui components creation
         THGuiPrac::singleton();
@@ -2354,16 +2318,15 @@ void TH08Init()
 {
     TH08::THInitHook::singleton().EnableAllHooks();
 
-
-    //VFSHook(VFS_TH08, (void*)0x43e660);
-    //VFSAddListener("stg4abg.anm", nullptr, TH08::THStage4ANM);
+    // VFSHook(VFS_TH08, (void*)0x43e660);
+    // VFSAddListener("stg4abg.anm", nullptr, TH08::THStage4ANM);
 }
 
 /*
-	Memo:
-	0xF54CF0: Timeline Struct
-	0x4ECCB8: ECL Buffer Pointer
-	0x4E4824: STD Buffer
-	0x4E483C & 0x4E4844: STD Time
-	*/
+    Memo:
+    0xF54CF0: Timeline Struct
+    0x4ECCB8: ECL Buffer Pointer
+    0x4E4824: STD Buffer
+    0x4E483C & 0x4E4844: STD Time
+    */
 }

@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-namespace THPrac
-{
-	void RemoteInit();
+namespace THPrac {
+void RemoteInit();
 }
