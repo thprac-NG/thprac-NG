@@ -1,3 +1,5 @@
+This branch should NEVER be merged into `master` in any circumstances by directly using `git merge`. Only the `.clang-format` and the other formatting-related files shall be merged into `master`. 
+
 ## [README](https://github.com/touhouworldcup/thprac/blob/master/README.md)
 
 ## A very ambitious to-do list:
