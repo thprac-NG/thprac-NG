@@ -8,7 +8,7 @@ on:
       - reopened
       - opened
 jobs:
-  label_issues:
+  label-new-issues:
     runs-on: ubuntu-latest
     permissions:
       issues: write
