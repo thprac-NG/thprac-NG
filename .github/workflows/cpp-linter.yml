@@ -1,32 +1,29 @@
-# Modified from https://github.com/cpp-linter/cpp-linter-action/blob/main/.github/workflows/cpp-linter.yml
+# Modified from https://cpp-linter.github.io/cpp-linter-action/examples/
 name: cpp-linter
-
-on: 
-  push:
-    paths:
-      - "thprac/src/thprac/*"
+on:
   pull_request:
-    paths:
-      - "thprac/src/thprac/*"
+    branches: [main, master, DONT-MERGE-format-test]
+    paths: ['**.c', '**.cpp', '**.h', '**.hpp']
+  push:
+    branches: [main, master, DONT-MERGE-format-test]
+    paths: ['**.c', '**.cpp', '**.h', '**.hpp']
 
 jobs:
   cpp-linter:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: cpp-linter/cpp-linter-action@main
+
+      # ... optionally setup build env to create a compilation database
+
+      - uses: cpp-linter/cpp-linter-action@v2
         id: linter
-        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          style: file
-          files-changed-only: true
-          thread-comments: false
+          style: 'file'  # Use .clang-format config file. 
+          tidy-checks: '-*' # disable clang-tidy checks. 
 
       - name: Fail fast?!
-        if: steps.linter.outputs.checks-failed != 0
-        run: |
-          echo "some linter checks failed. ${{ steps.linter.outputs.checks-failed }}"
-        # for actual deployment
-        # run: exit 1
+        if: steps.linter.outputs.clang-format-checks-failed > 0
+        run: exit 1
