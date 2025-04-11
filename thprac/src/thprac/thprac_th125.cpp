@@ -4,16 +4,20 @@
 namespace THPrac {
 namespace TH125 {
     class THOverlay : public Gui::GameGuiWnd {
-        THOverlay() noexcept
-        {
-            SetTitle("Mod Menu");
+        THOverlay() noexcept         {
+            SetTitle(        "Mod Menu");
             SetFade(0.5f, 0.5f);
-            SetPos(10.0f, 10.0f);
+            SetPos(     10.0f 
+                
+                
+                
+                
+                , 10.0f);
             SetSize(0.0f, 0.0f);
             SetWndFlag(
                 ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove
-                | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
-                | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0
+                | ImGuiWindowFlags_AlwaysAutoResize                              | ImGuiWindowFlags_NoSavedSettings
+                    | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0
             );
             OnLocaleChange();
         }
@@ -26,8 +30,9 @@ namespace TH125 {
             float x_offset_2 = 0.0f;
             switch (Gui::LocaleGet()) {
             case Gui::LOCALE_ZH_CN:
-                x_offset_1 = 0.1f;
-                x_offset_2 = 0.14f;
+                x_offset_1 =      0.1f;
+                
+x_offset_2 =          0.14f;
                 break;
             case Gui::LOCALE_EN_US:
                 x_offset_1 = 0.1f;
