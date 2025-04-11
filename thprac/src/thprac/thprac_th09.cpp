@@ -1,7 +1,6 @@
 ﻿#include "thprac_games.h"
 #include "thprac_utils.h"
 
-
 namespace THPrac {
 namespace TH09 {
     PATCH_ST(th09_ranklock, 0x41ac7f, "\xEB", 1);
@@ -12,7 +11,8 @@ namespace TH09 {
     };
 
     class TH09Tools : public Gui::GameGuiWnd {
-        TH09Tools() {
+        TH09Tools()
+        {
             SetWndFlag(ImGuiWindowFlags_NoCollapse);
             SetFade(0.8f, 0.8f);
             SetStyle(ImGuiStyleVar_WindowRounding, 0.0f);
@@ -25,6 +25,7 @@ namespace TH09 {
             th09_ranklock.Setup();
         }
         SINGLETON(TH09Tools);
+
     public:
         bool enabled = false;
 
@@ -52,16 +53,19 @@ namespace TH09 {
     protected:
         int cpu_charge_p1;
         int cpu_charge_p2;
-        virtual void OnLocaleChange() override {
+        virtual void OnLocaleChange() override
+        {
             this->SetTitle(S(TH09_TOOLS_TITLE));
         }
-        virtual void OnPreUpdate() override {
+        virtual void OnPreUpdate() override
+        {
             if (justOpened) {
                 ImGui::SetWindowFocus(nullptr);
                 justOpened--;
             }
         }
-        virtual void OnContentUpdate() override {
+        virtual void OnContentUpdate() override
+        {
             uint32_t pl1 = *(uint32_t*)0x4a7d94;
             uint32_t pl2 = *(uint32_t*)0x4a7dcc;
 
@@ -388,7 +392,11 @@ namespace TH09 {
         t.enabled = false;
         TH09PracHook::singleton().DisableAllHooks();
     }
-#define CHARGELOCK_BOMB(addr) EHOOK_DY(th09_chargelock_bomb_##addr, addr) { th09_chargelock_bomb(pCtx); }
+#define CHARGELOCK_BOMB(addr)                   \
+    EHOOK_DY(th09_chargelock_bomb_##addr, addr) \
+    {                                           \
+        th09_chargelock_bomb(pCtx);             \
+    }
     CHARGELOCK_BOMB(0x41ca86);
     CHARGELOCK_BOMB(0x41cb39);
     CHARGELOCK_BOMB(0x41cab9);
@@ -398,7 +406,11 @@ namespace TH09 {
     CHARGELOCK_BOMB(0x41e51c);
     CHARGELOCK_BOMB(0x41e5ac);
 #undef CHARGELOCK_BOMB
-#define CHARGELOCK_RET(addr) EHOOK_DY(th09_chargelock_ret_##addr, addr) { th09_chargelock_ret(pCtx); }
+#define CHARGELOCK_RET(addr)                   \
+    EHOOK_DY(th09_chargelock_ret_##addr, addr) \
+    {                                          \
+        th09_chargelock_ret(pCtx);             \
+    }
     CHARGELOCK_RET(0x41f310);
     CHARGELOCK_RET(0x41bc90);
 #undef CHARGELOCK_RET
@@ -413,10 +425,12 @@ namespace TH09 {
             SetAutoSpacing(true);
             OnLocaleChange();
         }
+
     public:
-        Gui::GuiCombo mMode { TH_MODE, TH_MODE_SELECT };
+        Gui::GuiCombo mMode{TH_MODE, TH_MODE_SELECT};
         bool allow = false;
         SINGLETON(THGuiPrac);
+
     protected:
         virtual void OnLocaleChange() override
         {
@@ -425,7 +439,10 @@ namespace TH09 {
             SetPos(220, 74);
             SetItemWidthRel(-0.052f);
         }
-        virtual void OnContentUpdate() override { mMode(); }
+        virtual void OnContentUpdate() override
+        {
+            mMode();
+        }
     };
 
     class THAdvOptWnd : public Gui::GameGuiWnd {
@@ -456,16 +473,17 @@ namespace TH09 {
             }
         }
         void GameplayInit()
-        {
-        }
+        { }
         void GameplaySet()
-        {
-        }
+        { }
 
     public:
         THAdvOptWnd() noexcept
         {
-            SetWndFlag(ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
+            SetWndFlag(
+                ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse
+                | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove
+            );
             SetFade(0.8f, 0.8f);
             SetStyle(ImGuiStyleVar_WindowRounding, 0.0f);
             SetStyle(ImGuiStyleVar_WindowBorderSize, 0.0f);
@@ -607,9 +625,17 @@ namespace TH09 {
     }
     EHOOK_DY(th09_gui_reinit, 0x42e50f)
     {
-        GameGuiInit(IMPL_WIN32_DX8, 0x4b3108, 0x4b30b0, 0x42d3d0,
-            Gui::INGAGME_INPUT_GEN2, 0x4acf3a, 0x4acf38, 0,
-            -1);
+        GameGuiInit(
+            IMPL_WIN32_DX8,
+            0x4b3108,
+            0x4b30b0,
+            0x42d3d0,
+            Gui::INGAGME_INPUT_GEN2,
+            0x4acf3a,
+            0x4acf38,
+            0,
+            -1
+        );
     }
     HOOKSET_ENDDEF()
 
@@ -617,9 +643,17 @@ namespace TH09 {
     static __declspec(noinline) void THGuiCreate()
     {
         // Init
-        GameGuiInit(IMPL_WIN32_DX8, 0x4b3108, 0x4b30b0, 0x42d3d0,
-            Gui::INGAGME_INPUT_GEN2, 0x4acf3a, 0x4acf38, 0,
-            -1);
+        GameGuiInit(
+            IMPL_WIN32_DX8,
+            0x4b3108,
+            0x4b30b0,
+            0x42d3d0,
+            Gui::INGAGME_INPUT_GEN2,
+            0x4acf3a,
+            0x4acf38,
+            0,
+            -1
+        );
 
         // Gui components creation
         TH09Tools::singleton();

@@ -8,11 +8,10 @@
 #include "thprac_launcher_wnd.h"
 #include "thprac_utils.h"
 #include <ShlObj.h>
-#include <Windows.h>
 #include <Shlwapi.h>
+#include <Windows.h>
 #include <cstdio>
 #include <sstream>
-
 
 namespace THPrac {
 const char* gTabToOpen = nullptr;
@@ -75,7 +74,8 @@ int GuiLauncherMain()
         // LauncherSettingGet only accepts signed ints but I want to do an unsigned comparison
         if ((unsigned int)theme > 2) {
             if (LauncherSettingGet("theme_user", theme_user) && theme_user) {
-                std::wstring theme_path = LauncherGetDataDir() + L"themes\\" + utf8_to_utf16(theme_user);
+                std::wstring theme_path =
+                    LauncherGetDataDir() + L"themes\\" + utf8_to_utf16(theme_user);
                 if (!PathFileExistsW(theme_path.c_str())) {
                     LauncherSettingSet("theme", Sus);
                     theme = Sus;
@@ -100,7 +100,9 @@ int GuiLauncherMain()
         static bool isMinimize = false;
         bool canMove = false;
 
-        ImGui::SetNextWindowSizeConstraints(ImVec2(640.0f * scale, 480.0f * scale), ImVec2(1280.0f * scale, 960.0f * scale));
+        ImGui::SetNextWindowSizeConstraints(
+            ImVec2(640.0f * scale, 480.0f * scale), ImVec2(1280.0f * scale, 960.0f * scale)
+        );
         ImGui::SetNextWindowPos(ImVec2(0.0f, 0.0f), ImGuiCond_Always);
         ImGui::SetNextWindowSize(ImVec2(960.0f * scale, 720.0f * scale), ImGuiCond_FirstUseEver);
         ImGui::SetNextWindowBgAlpha(0.9f);
@@ -109,9 +111,15 @@ int GuiLauncherMain()
         if (LauncherIsChkingUpd()) {
             wndTitleText += " // Checking for updates...";
         }
-        wndTitleText = LauncherIsChkingUpd() ? S(THPRAC_LAUNCHER_CHECKING_UPDATE) : S(THPRAC_LAUNCHER);
+        wndTitleText =
+            LauncherIsChkingUpd() ? S(THPRAC_LAUNCHER_CHECKING_UPDATE) : S(THPRAC_LAUNCHER);
         wndTitleText += "###thprac_wnd";
-        ImGui::Begin(wndTitleText.c_str(), &isOpen, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove, &isMinimize);
+        ImGui::Begin(
+            wndTitleText.c_str(),
+            &isOpen,
+            ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove,
+            &isMinimize
+        );
         if (!isOpen)
             break;
         if (isMinimize) {
@@ -179,8 +187,7 @@ int GuiLauncherMain()
             MSG msg;
             Gui::LocaleSet((Gui::locale_t)localeSwitch);
             LauncherWndShutdown();
-            while (::PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE)) {
-            }
+            while (::PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE)) { }
             LauncherWndInit(640, 480, 1280, 960, 960, 720);
             localeSwitch = -1;
         }

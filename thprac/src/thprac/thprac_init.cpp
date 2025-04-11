@@ -31,7 +31,8 @@ void RemoteInit()
         if (gameDef.catagory != CAT_MAIN && gameDef.catagory != CAT_SPINOFF_STG) {
             continue;
         }
-        if (gameDef.exeSig.textSize != exeSig.textSize || gameDef.exeSig.timeStamp != exeSig.timeStamp) {
+        if (gameDef.exeSig.textSize != exeSig.textSize
+            || gameDef.exeSig.timeStamp != exeSig.timeStamp) {
             continue;
         }
         if (gameDef.initFunc) {
@@ -40,15 +41,15 @@ void RemoteInit()
         break;
     }
 
-    // This has to be ExitThread, because making wWinMain return will destruct any static classes 
-    // and uninitialize a lot of C runtime library stuff that we'll need when the game hits our hooks.
-    // Using ExitThread here, directly, prevents all that uninitialization code from running.
-    // 
+    // This has to be ExitThread, because making wWinMain return will destruct any static classes
+    // and uninitialize a lot of C runtime library stuff that we'll need when the game hits our
+    // hooks. Using ExitThread here, directly, prevents all that uninitialization code from running.
+    //
     // This also means that every resource allocated by thprac gets leaked when the game exits, but
     // Windows knows how to clean that up on it's own
-    // 
-    // The value passed to ExitThread is interpreted as an InjectResult { .error = Ok, .lastError = 0 }
-    // See thprac_load_exe.cpp, thprac_load_exe.h and inject_shellcode.cpp for more info
+    //
+    // The value passed to ExitThread is interpreted as an InjectResult { .error = Ok, .lastError =
+    // 0 } See thprac_load_exe.cpp, thprac_load_exe.h and inject_shellcode.cpp for more info
     THREAD_RETURN(InjectResult::Ok, 0);
 #undef THREAD_RETURN
 }

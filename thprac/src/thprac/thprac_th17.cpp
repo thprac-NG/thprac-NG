@@ -10,7 +10,8 @@ struct vec2f {
 
 namespace THPrac {
 namespace TH17 {
-    __declspec(noinline) void SpawnToken(uint32_t goast, vec2f& pos, float ang) {
+    __declspec(noinline) void SpawnToken(uint32_t goast, vec2f& pos, float ang)
+    {
         uintptr_t goast_manager = GetMemContent(0x004B7684);
         __asm movss xmm2, ang;
         asm_call<0x00410380, Thiscall>(goast_manager, &pos, goast);
@@ -130,7 +131,7 @@ namespace TH17 {
             ReturnJson();
         }
     };
-    THPracParam thPracParam {};
+    THPracParam thPracParam{};
 
     class THGuiPrac : public Gui::GameGuiWnd {
         THGuiPrac() noexcept
@@ -147,8 +148,8 @@ namespace TH17 {
             OnLocaleChange();
         }
         SINGLETON(THGuiPrac);
-    public:
 
+    public:
         __declspec(noinline) void State(int state)
         {
             switch (state) {
@@ -335,7 +336,7 @@ namespace TH17 {
         }
         void SectionWidget()
         {
-            static char chapterStr[256] {};
+            static char chapterStr[256]{};
             auto& chapterCounts = mChapterSetup[*mStage];
 
             switch (*mWarp) {
@@ -354,18 +355,22 @@ namespace TH17 {
                 break;
             case 2:
             case 3: // Mid boss & End boss
-                if (mSection(TH_WARP_SELECT[*mWarp],
+                if (mSection(
+                        TH_WARP_SELECT[*mWarp],
                         th_sections_cba[*mStage][*mWarp - 2],
-                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
+                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]
+                    ))
                     *mPhase = 0;
                 if (SectionHasDlg(th_sections_cba[*mStage][*mWarp - 2][*mSection]))
                     mDlg();
                 break;
             case 4:
             case 5: // Non-spell & Spellcard
-                if (mSection(TH_WARP_SELECT[*mWarp],
+                if (mSection(
+                        TH_WARP_SELECT[*mWarp],
                         th_sections_cbt[*mStage][*mWarp - 4],
-                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
+                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]
+                    ))
                     *mPhase = 0;
                 if (SectionHasDlg(th_sections_cbt[*mStage][*mWarp - 4][*mSection]))
                     mDlg();
@@ -375,42 +380,43 @@ namespace TH17 {
             }
         }
 
-        Gui::GuiCombo mMode { TH_MODE, TH_MODE_SELECT };
-        Gui::GuiCombo mStage { TH_STAGE, TH_STAGE_SELECT };
-        Gui::GuiCombo mWarp { TH_WARP, TH_WARP_SELECT };
-        Gui::GuiCombo mSection { TH_MODE };
-        Gui::GuiCombo mPhase { TH_PHASE };
-        Gui::GuiCheckBox mDlg { TH_DLG };
+        Gui::GuiCombo mMode{TH_MODE, TH_MODE_SELECT};
+        Gui::GuiCombo mStage{TH_STAGE, TH_STAGE_SELECT};
+        Gui::GuiCombo mWarp{TH_WARP, TH_WARP_SELECT};
+        Gui::GuiCombo mSection{TH_MODE};
+        Gui::GuiCombo mPhase{TH_PHASE};
+        Gui::GuiCheckBox mDlg{TH_DLG};
 
-        Gui::GuiSlider<int, ImGuiDataType_S32> mChapter { TH_CHAPTER, 0, 0 };
-        Gui::GuiDrag<int64_t, ImGuiDataType_S64> mScore { TH_SCORE, 0, 9999999990, 10, 100000000 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mLife { TH_LIFE, 0, 8 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mLifeFragment { TH_LIFE_FRAGMENT, 0, 2 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mBomb { TH_BOMB, 0, 8 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mBombFragment { TH_BOMB_FRAGMENT, 0, 2 };
-        Gui::GuiCombo mGoast1 { TH17_GOAST_1, TH17_GOAST_SELECT };
-        Gui::GuiCombo mGoast2 { TH17_GOAST_2, TH17_GOAST_SELECT };
-        Gui::GuiCombo mGoast3 { TH17_GOAST_3, TH17_GOAST_SELECT };
-        Gui::GuiCombo mGoast4 { TH17_GOAST_4, TH17_GOAST_SELECT };
-        Gui::GuiCombo mGoast5 { TH17_GOAST_5, TH17_GOAST_SELECT };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mPower { TH_POWER, 100, 400 };
-        Gui::GuiDrag<int, ImGuiDataType_S32> mValue { TH_VALUE, 0, 999990, 10, 100000 };
-        Gui::GuiDrag<int, ImGuiDataType_S32> mGraze { TH_GRAZE, 0, 999999, 1, 100000 };
+        Gui::GuiSlider<int, ImGuiDataType_S32> mChapter{TH_CHAPTER, 0, 0};
+        Gui::GuiDrag<int64_t, ImGuiDataType_S64> mScore{TH_SCORE, 0, 9999999990, 10, 100000000};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mLife{TH_LIFE, 0, 8};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mLifeFragment{TH_LIFE_FRAGMENT, 0, 2};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mBomb{TH_BOMB, 0, 8};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mBombFragment{TH_BOMB_FRAGMENT, 0, 2};
+        Gui::GuiCombo mGoast1{TH17_GOAST_1, TH17_GOAST_SELECT};
+        Gui::GuiCombo mGoast2{TH17_GOAST_2, TH17_GOAST_SELECT};
+        Gui::GuiCombo mGoast3{TH17_GOAST_3, TH17_GOAST_SELECT};
+        Gui::GuiCombo mGoast4{TH17_GOAST_4, TH17_GOAST_SELECT};
+        Gui::GuiCombo mGoast5{TH17_GOAST_5, TH17_GOAST_SELECT};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mPower{TH_POWER, 100, 400};
+        Gui::GuiDrag<int, ImGuiDataType_S32> mValue{TH_VALUE, 0, 999990, 10, 100000};
+        Gui::GuiDrag<int, ImGuiDataType_S32> mGraze{TH_GRAZE, 0, 999999, 1, 100000};
 
-        Gui::GuiNavFocus mNavFocus { TH_STAGE, TH_MODE, TH_WARP, TH_DLG,
-            TH_MID_STAGE, TH_END_STAGE, TH_NONSPELL, TH_SPELL, TH_PHASE, TH_CHAPTER,
-            TH_SCORE, TH_LIFE, TH_LIFE_FRAGMENT, TH_BOMB, TH_BOMB_FRAGMENT,
-            TH17_GOAST_1, TH17_GOAST_2, TH17_GOAST_3, TH17_GOAST_4, TH17_GOAST_5,
-            TH_POWER, TH_VALUE, TH_GRAZE };
+        Gui::GuiNavFocus mNavFocus{TH_STAGE,         TH_MODE,      TH_WARP,          TH_DLG,
+                                   TH_MID_STAGE,     TH_END_STAGE, TH_NONSPELL,      TH_SPELL,
+                                   TH_PHASE,         TH_CHAPTER,   TH_SCORE,         TH_LIFE,
+                                   TH_LIFE_FRAGMENT, TH_BOMB,      TH_BOMB_FRAGMENT, TH17_GOAST_1,
+                                   TH17_GOAST_2,     TH17_GOAST_3, TH17_GOAST_4,     TH17_GOAST_5,
+                                   TH_POWER,         TH_VALUE,     TH_GRAZE};
 
-        int mChapterSetup[7][2] {
-            { 2, 2 },
-            { 2, 3 },
-            { 3, 3 },
-            { 4, 2 },
-            { 4, 2 },
-            { 2, 2 },
-            { 4, 4 },
+        int mChapterSetup[7][2]{
+            {2, 2},
+            {2, 3},
+            {3, 3},
+            {4, 2},
+            {4, 2},
+            {2, 2},
+            {4, 4},
         };
 
         int mDiffculty = 0;
@@ -423,6 +429,7 @@ namespace TH17 {
             mAppdataPath = appdata;
         }
         SINGLETON(THGuiRep);
+
     public:
         void CheckReplay()
         {
@@ -474,10 +481,14 @@ namespace TH17 {
             SetPos(10.0f, 10.0f);
             SetSize(0.0f, 0.0f);
             SetWndFlag(
-                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0);
+                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove
+                | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
+                | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0
+            );
             OnLocaleChange();
         }
         SINGLETON(THOverlay);
+
     protected:
         virtual void OnLocaleChange() override
         {
@@ -532,27 +543,33 @@ namespace TH17 {
             }
         }
 
-        Gui::GuiHotKey mMenu { "ModMenuToggle", "BACKSPACE", VK_BACK };
-        Gui::GuiHotKey mMuteki { TH_MUTEKI, "F1", VK_F1, {
-            new HookCtx(0x44956a, "\x01", 1) } };
-        Gui::GuiHotKey mInfLives { TH_INFLIVES, "F2", VK_F2, {
-            new HookCtx(0x44921a, "\x90", 1) } };
-        Gui::GuiHotKey mInfBombs { TH_INFBOMBS, "F3", VK_F3, {
-            new HookCtx(0x411c96, "\x90\x90\x90", 3) } };
-        Gui::GuiHotKey mInfPower { TH_INFPOWER, "F4", VK_F4, {
-            new HookCtx(0x447b84, "\x31\xf6\x90\x90\x90\x90", 6) } };
-        Gui::GuiHotKey mTimeLock { TH_TIMELOCK, "F5", VK_F5, {
-            new HookCtx(0x41a8cf, "\xeb", 1),
-            new HookCtx(0x420a1e, "\x05\x8d", 2) } };
-        Gui::GuiHotKey mAutoBomb { TH_AUTOBOMB, "F6", VK_F6, {
-            new HookCtx(0x447c20, "\x90\x90\x90\x90\x90\x90", 6) } };
+        Gui::GuiHotKey mMenu{"ModMenuToggle", "BACKSPACE", VK_BACK};
+        Gui::GuiHotKey mMuteki{TH_MUTEKI, "F1", VK_F1, {new HookCtx(0x44956a, "\x01", 1)}};
+        Gui::GuiHotKey mInfLives{TH_INFLIVES, "F2", VK_F2, {new HookCtx(0x44921a, "\x90", 1)}};
+        Gui::GuiHotKey mInfBombs{
+            TH_INFBOMBS, "F3", VK_F3, {new HookCtx(0x411c96, "\x90\x90\x90", 3)}
+        };
+        Gui::GuiHotKey mInfPower{
+            TH_INFPOWER, "F4", VK_F4, {new HookCtx(0x447b84, "\x31\xf6\x90\x90\x90\x90", 6)}
+        };
+        Gui::GuiHotKey mTimeLock{
+            TH_TIMELOCK,
+            "F5",
+            VK_F5,
+            {new HookCtx(0x41a8cf, "\xeb", 1), new HookCtx(0x420a1e, "\x05\x8d", 2)}
+        };
+        Gui::GuiHotKey mAutoBomb{
+            TH_AUTOBOMB, "F6", VK_F6, {new HookCtx(0x447c20, "\x90\x90\x90\x90\x90\x90", 6)}
+        };
 
     public:
-        Gui::GuiHotKey mInfRoaring { TH17_INF_ROARING, "F7", VK_F7, {
-            new HookCtx(0x40ef6a, "\x00", 1) } };
-        Gui::GuiHotKey mNoGoast { TH17_NO_GOAST, "F8", VK_F8, {
-            new HookCtx(0x4347af, "\xe9\x03\x01\x00\x00", 5) } };
-        Gui::GuiHotKey mElBgm { TH_EL_BGM, "F9", VK_F9 };
+        Gui::GuiHotKey mInfRoaring{
+            TH17_INF_ROARING, "F7", VK_F7, {new HookCtx(0x40ef6a, "\x00", 1)}
+        };
+        Gui::GuiHotKey mNoGoast{
+            TH17_NO_GOAST, "F8", VK_F8, {new HookCtx(0x4347af, "\xe9\x03\x01\x00\x00", 5)}
+        };
+        Gui::GuiHotKey mElBgm{TH_EL_BGM, "F9", VK_F9};
     };
     class THGuiSP : public Gui::GameGuiWnd {
         THGuiSP() noexcept
@@ -565,6 +582,7 @@ namespace TH17 {
             OnLocaleChange();
         }
         SINGLETON(THGuiSP);
+
     public:
         int mState = 0;
         __declspec(noinline) int State()
@@ -669,12 +687,13 @@ namespace TH17 {
 
         unsigned int mSpellId = UINT_MAX;
 
-        Gui::GuiCheckBox mBugFix { TH16_BUGFIX };
-        Gui::GuiCombo mPhase { TH_PHASE };
-        Gui::GuiNavFocus mNavFocus { TH_PHASE };
+        Gui::GuiCheckBox mBugFix{TH16_BUGFIX};
+        Gui::GuiCombo mPhase{TH_PHASE};
+        Gui::GuiNavFocus mNavFocus{TH_PHASE};
     };
 
-    EHOOK_G1(th17_force_goast_angle, 0x4105C9) {
+    EHOOK_G1(th17_force_goast_angle, 0x4105C9)
+    {
         th17_force_goast_angle::GetHook().Disable();
         pCtx->Eip = 0x41062E;
     }
@@ -704,6 +723,7 @@ namespace TH17 {
                 pCtx->Eip = 0x4322a4;
             }
         }
+
     private:
         bool mInGoastMenu = false;
 
@@ -740,15 +760,15 @@ namespace TH17 {
 
         THAdvOptWnd() noexcept
         {
-            SetWndFlag(ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
+            SetWndFlag(
+                ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse
+                | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove
+            );
             SetFade(0.8f, 0.8f);
             SetStyle(ImGuiStyleVar_WindowRounding, 0.0f);
             SetStyle(ImGuiStyleVar_WindowBorderSize, 0.0f);
 
-            InitUpdFunc([&]() { ContentUpdate(); },
-                [&]() { LocaleUpdate(); },
-                [&]() {},
-                []() {});
+            InitUpdFunc([&]() { ContentUpdate(); }, [&]() { LocaleUpdate(); }, [&]() {}, []() {});
 
             OnLocaleChange();
             FpsInit();
@@ -800,13 +820,19 @@ namespace TH17 {
             }
         }
 
-        void GoastMenu() {
+        void GoastMenu()
+        {
             if (ImGui::Button(S(TH_BACK))) {
                 mInGoastMenu = false;
                 return;
             }
 
-            Gui::ComboSelect(mSelectedGoast, (th_glossary_t*)TH17_GOAST_SELECT_TOKENS, elementsof(TH17_GOAST_SELECT_TOKENS) - 1, S(TH17_GOAST));
+            Gui::ComboSelect(
+                mSelectedGoast,
+                (th_glossary_t*)TH17_GOAST_SELECT_TOKENS,
+                elementsof(TH17_GOAST_SELECT_TOKENS) - 1,
+                S(TH17_GOAST)
+            );
 
             if (!mSelectedGoast) {
                 ImGui::BeginDisabled();
@@ -840,7 +866,6 @@ namespace TH17 {
             if (!mSelectedGoast) {
                 ImGui::EndDisabled();
             }
-
         }
 
         void ContentUpdate()
@@ -900,7 +925,9 @@ namespace TH17 {
             ecl.SetPos(start);
         ecl << ecl_time << 0x00140276 << 0x01ff0000 << 0x00000000 << std_id;
     }
-    void ECLJump(ECLHelper& ecl, unsigned int start, unsigned int dest, int at_frame, int ecl_time = 0)
+    void ECLJump(
+        ECLHelper& ecl, unsigned int start, unsigned int dest, int at_frame, int ecl_time = 0
+    )
     {
         if (start)
             ecl.SetPos(start);
@@ -1425,7 +1452,8 @@ namespace TH17 {
             ecl.SetFile(2);
             ecl << pair{0x454, (int16_t)0};
             ecl << pair{0xda4, (int8_t)0x34}; // Change Nonspell
-            ecl << pair{0x4888, (int16_t)0} << pair{0x48c0, (int16_t)0} << pair{0x48f8, (int16_t)0}; // Disable Item Drops
+            ecl << pair{0x4888, (int16_t)0} << pair{0x48c0, (int16_t)0}
+                << pair{0x48f8, (int16_t)0}; // Disable Item Drops
             ecl << pair{0x4a3c, (int16_t)0}; // Disable Item Drops & SE
             ecl << pair{0x4ba0, 0} << pair{0x4794, 30};
             ecl << pair{0x4854, (int16_t)0};
@@ -1783,7 +1811,8 @@ namespace TH17 {
 #define TH17AddGoast(goast_id) asm_call<0x40f980, Thiscall>(GetMemContent(0x4b7684), goast_id)
 
     HOOKSET_DEFINE(THMainHook)
-    EHOOK_DY(th17_window_mousedown, 0x46198b) {
+    EHOOK_DY(th17_window_mousedown, 0x46198b)
+    {
         auto& adv_opt = THAdvOptWnd::singleton();
 
         if (GetMemContent(0x4b7684) && adv_opt.IsClosed() && adv_opt.mSelectedGoast) {
@@ -1800,9 +1829,8 @@ namespace TH17 {
             if (adv_opt.mForceGoastAngle && !adv_opt.mGoastAngleRandom) {
                 th17_force_goast_angle::GetHook().Enable();
             }
-            vec2f stgFramePos { gameX - 224.0f, gameY - 16.0f };
-            if (stgFramePos.y > 128 && stgFramePos.y < 448
-                && abs(stgFramePos.x) < 192) {
+            vec2f stgFramePos{gameX - 224.0f, gameY - 16.0f};
+            if (stgFramePos.y > 128 && stgFramePos.y < 448 && abs(stgFramePos.x) < 192) {
                 float ang = adv_opt.mGoastAng;
                 if (adv_opt.mGoastAngleRandom) {
                     ang = asm_call<0x402880, Thiscall, float>(0x4B7668) * M_PI;
@@ -1814,12 +1842,14 @@ namespace TH17 {
     }
     EHOOK_DY(th17_goast_bugfix, 0x430080)
     {
-        if (THAdvOptWnd::singleton().mGoastBugfix && *(uint32_t*)0x4b59dc == *(uint32_t*)0x4b59e0 && GetMemContent(0x4b76b0, 0xa8) == 0)
+        if (THAdvOptWnd::singleton().mGoastBugfix && *(uint32_t*)0x4b59dc == *(uint32_t*)0x4b59e0
+            && GetMemContent(0x4b76b0, 0xa8) == 0)
             *(uint32_t*)0x4b5ac4 &= 0xfffffffd;
     }
     EHOOK_DY(th17_goast_repfix, 0x430c97)
     {
-        if (THAdvOptWnd::singleton().mGoastRepfix && *(uint32_t*)0x4b59dc == *(uint32_t*)0x4b59e0 && GetMemContent(0x4b76b0, 0xa8) == 1) {
+        if (THAdvOptWnd::singleton().mGoastRepfix && *(uint32_t*)0x4b59dc == *(uint32_t*)0x4b59e0
+            && GetMemContent(0x4b76b0, 0xa8) == 1) {
             uint32_t repStart = 1;
             uint32_t repData = GetMemContent(0x4b77d8);
 
@@ -1850,10 +1880,12 @@ namespace TH17 {
         bool is_practice;
         bool result;
 
-        el_switch = *(THOverlay::singleton().mElBgm) && !THGuiRep::singleton().mRepStatus && (thPracParam.mode == 1) && thPracParam.section;
+        el_switch = *(THOverlay::singleton().mElBgm) && !THGuiRep::singleton().mRepStatus
+            && (thPracParam.mode == 1) && thPracParam.section;
         is_practice = (*((int32_t*)0x4b59c8) & 0x1);
         result = ElBgmTestTemp<0x4420f3, 0x42eab2, 0x4311f0, 0x443bbd, 0x445f12, 0xffffffff>(
-            el_switch, is_practice, retn_addr, bgm_cmd, bgm_id, 0xffffffff);
+            el_switch, is_practice, retn_addr, bgm_cmd, bgm_id, 0xffffffff
+        );
 
         if (result) {
             pCtx->Eip = 0x466376;
@@ -1999,7 +2031,8 @@ namespace TH17 {
         THGuiPrac::singleton().Update();
         THOverlay::singleton().Update();
         THGuiSP::singleton().Update();
-        bool drawCursor = THAdvOptWnd::StaticUpdate() || THGuiPrac::singleton().IsOpen() || THGuiSP::singleton().IsOpen();
+        bool drawCursor = THAdvOptWnd::StaticUpdate() || THGuiPrac::singleton().IsOpen()
+            || THGuiSP::singleton().IsOpen();
         GameGuiEnd(drawCursor);
     }
     EHOOK_DY(th17_render, 0x4014d0)
@@ -2013,9 +2046,17 @@ namespace TH17 {
     {
 
         // Init
-        GameGuiInit(IMPL_WIN32_DX9, 0x4b5ae8, 0x5226c0, 0x4617d0,
-            Gui::INGAGME_INPUT_GEN2, 0x4b323c, 0x4b3238, 0,
-            (*((int32_t*)0x524700) >> 2) & 0xf);
+        GameGuiInit(
+            IMPL_WIN32_DX9,
+            0x4b5ae8,
+            0x5226c0,
+            0x4617d0,
+            Gui::INGAGME_INPUT_GEN2,
+            0x4b323c,
+            0x4b3238,
+            0,
+            (*((int32_t*)0x524700) >> 2) & 0xf
+        );
 
         // Gui components creation
         THGuiPrac::singleton();

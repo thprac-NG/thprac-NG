@@ -1,7 +1,7 @@
-﻿#include "thprac_launcher_cfg.h"
+﻿#include "thprac_gui_locale.h"
+#include "thprac_launcher_cfg.h"
 #include "thprac_launcher_utils.h"
 #include "thprac_launcher_wnd.h"
-#include "thprac_gui_locale.h"
 #include "thprac_utils.h"
 #include "utils/utils.h"
 #include <functional>
@@ -15,11 +15,9 @@
 #include <string>
 #include <vector>
 
-
 namespace THPrac {
 
-struct LinkSelectable {
-};
+struct LinkSelectable { };
 
 struct LinkLeaf : public LinkSelectable {
     std::string name;
@@ -31,7 +29,6 @@ struct LinkNode : public LinkSelectable {
     std::vector<LinkLeaf> leaves;
     bool isOpen = false;
 };
-
 
 class THLinksGui {
 private:
@@ -123,7 +120,8 @@ private:
                 if (it->value.IsObject()) {
                     LinkNode node;
                     node.name = it->name.GetString();
-                    for (auto linkIt = it->value.MemberBegin(); linkIt != it->value.MemberEnd(); ++linkIt) {
+                    for (auto linkIt = it->value.MemberBegin(); linkIt != it->value.MemberEnd();
+                         ++linkIt) {
                         auto isOpenFlag = !strcmp(linkIt->name.GetString(), "__is_open__");
                         if (!isOpenFlag && linkIt->value.IsString()) {
                             LinkLeaf leaf;
@@ -200,11 +198,19 @@ private:
         switch (linkType) {
         case 1:
             linkDirectoryW = GetDirFromFullPath(linkExecW);
-            execResult = ShellExecuteW(nullptr, L"open", linkExecW.c_str(), linkParamW.c_str(), linkDirectoryW.c_str(), SW_SHOW);
+            execResult = ShellExecuteW(
+                nullptr,
+                L"open",
+                linkExecW.c_str(),
+                linkParamW.c_str(),
+                linkDirectoryW.c_str(),
+                SW_SHOW
+            );
             break;
         case 0:
         case 2:
-            execResult = ShellExecuteW(nullptr, nullptr, linkExecW.c_str(), nullptr, nullptr, SW_SHOW);
+            execResult =
+                ShellExecuteW(nullptr, nullptr, linkExecW.c_str(), nullptr, nullptr, SW_SHOW);
             break;
         default:
             return false;
@@ -221,16 +227,24 @@ private:
     {
         switch (err) {
         case 1:
-            ImGui::TextColored(ImVec4(255.0f, 0.0f, 0.0f, 255.0f), "%s", S(THPRAC_LINKS_EDIT_ERR_NAME));
+            ImGui::TextColored(
+                ImVec4(255.0f, 0.0f, 0.0f, 255.0f), "%s", S(THPRAC_LINKS_EDIT_ERR_NAME)
+            );
             break;
         case 2:
-            ImGui::TextColored(ImVec4(255.0f, 0.0f, 0.0f, 255.0f), "%s", S(THPRAC_LINKS_EDIT_ERR_LINK));
+            ImGui::TextColored(
+                ImVec4(255.0f, 0.0f, 0.0f, 255.0f), "%s", S(THPRAC_LINKS_EDIT_ERR_LINK)
+            );
             break;
         case 3:
-            ImGui::TextColored(ImVec4(255.0f, 0.0f, 0.0f, 255.0f), "%s", S(THPRAC_LINKS_EDIT_ERR_REPEATED));
+            ImGui::TextColored(
+                ImVec4(255.0f, 0.0f, 0.0f, 255.0f), "%s", S(THPRAC_LINKS_EDIT_ERR_REPEATED)
+            );
             break;
         case 4:
-            ImGui::TextColored(ImVec4(255.0f, 0.0f, 0.0f, 255.0f), "%s", S(THPRAC_LINKS_EDIT_ERR_RSV));
+            ImGui::TextColored(
+                ImVec4(255.0f, 0.0f, 0.0f, 255.0f), "%s", S(THPRAC_LINKS_EDIT_ERR_RSV)
+            );
             break;
         default:
             break;
@@ -332,8 +346,7 @@ private:
             strcpy_s(mLinkInput, linkOut.c_str());
             strcpy_s(mLinkParamInput, paramOut.c_str());
             ImGui::OpenPopup(S(THPRAC_LINKS_EDIT));
-        }
-            break;
+        } break;
         case THPrac::THLinksGui::TRIGGER_DELETE_LINK:
             ImGui::OpenPopup(S(THPRAC_LINKS_DELETE_MODAL));
             break;
@@ -364,7 +377,9 @@ private:
                     linkToInsert.name = mLinkNameInput;
                     linkToInsert.link = finalLink;
                     auto insertIdx = mLinkSelected ? mCurrentLeaf : 0;
-                    mLinks[mCurrentNode].leaves.insert(mLinks[mCurrentNode].leaves.begin() + insertIdx, linkToInsert);
+                    mLinks[mCurrentNode].leaves.insert(
+                        mLinks[mCurrentNode].leaves.begin() + insertIdx, linkToInsert
+                    );
                     mCurrentLeaf = insertIdx;
                     mLinkSelected = nullptr;
                     WriteLinksCfg();
@@ -392,14 +407,18 @@ private:
         if (GuiModal(S(THPRAC_LINKS_DELETE_MODAL))) {
             ImGui::TextUnformatted(S(THPRAC_LINKS_DELETE_WARNING));
             if (GuiButtonYesNo(S(THPRAC_YES), S(THPRAC_NO), 6.0f)) {
-                mLinks[mCurrentNode].leaves.erase(mLinks[mCurrentNode].leaves.begin() + mCurrentLeaf);
+                mLinks[mCurrentNode].leaves.erase(
+                    mLinks[mCurrentNode].leaves.begin() + mCurrentLeaf
+                );
                 mLinkSelected = nullptr;
                 WriteLinksCfg();
             }
             ImGui::EndPopup();
         }
 
-        if (GuiModal(S(THPRAC_LINKS_FILTER_ADD_MODAL), ImVec2(ImGui::GetIO().DisplaySize.x * 0.5f, 0.0f))) {
+        if (GuiModal(
+                S(THPRAC_LINKS_FILTER_ADD_MODAL), ImVec2(ImGui::GetIO().DisplaySize.x * 0.5f, 0.0f)
+            )) {
             ImGui::TextUnformatted(S(THPRAC_LINKS_EDIT_NAME));
             ImGui::SameLine();
             ImGui::SetNextItemWidth(-1.0f);
@@ -507,8 +526,8 @@ private:
     }
     void GuiMain()
     {
-        static int moveIdx[2] = { -1, -1 };
-        int destIdx[2] = { -1, -1 };
+        static int moveIdx[2] = {-1, -1};
+        int destIdx[2] = {-1, -1};
         static int filterMoveIdx = -1;
         int filterDestIdx = -1;
         if (GuiPopupCtxMenu(0)) {
@@ -525,20 +544,24 @@ private:
         int i = 0;
         for (auto& node : mLinks) {
             ImGui::SetNextItemOpen(node.isOpen, ImGuiCond_FirstUseEver);
-            auto isNodeOpen = ImGui::TreeNodeEx(node.name.c_str(), mLinkSelected == &node ? ImGuiTreeNodeFlags_Selected : 0);
+            auto isNodeOpen = ImGui::TreeNodeEx(
+                node.name.c_str(), mLinkSelected == &node ? ImGuiTreeNodeFlags_Selected : 0
+            );
             if (ImGui::BeginDragDropSource()) {
                 filterMoveIdx = i;
                 ImGui::SetDragDropPayload("##@__dnd_linkfilter", &(moveIdx), sizeof(moveIdx));
                 ImGui::EndDragDropSource();
             }
             if (ImGui::BeginDragDropTarget()) {
-                if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("##@__dnd_linkfilter")) {
+                if (const ImGuiPayload* payload =
+                        ImGui::AcceptDragDropPayload("##@__dnd_linkfilter")) {
                     filterDestIdx = i;
                 }
                 ImGui::EndDragDropTarget();
             }
             if (ImGui::BeginDragDropTarget()) {
-                if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("##@__dnd_linkleaf")) {
+                if (const ImGuiPayload* payload =
+                        ImGui::AcceptDragDropPayload("##@__dnd_linkleaf")) {
                     destIdx[0] = i;
                     destIdx[1] = 0;
                 }
@@ -556,7 +579,8 @@ private:
             if (isNodeOpen) {
                 int j = 0;
                 for (auto& leaf : node.leaves) {
-                    auto nodeFlag = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen | ImGuiTreeNodeFlags_SpanAvailWidth;
+                    auto nodeFlag = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen
+                        | ImGuiTreeNodeFlags_SpanAvailWidth;
                     if (mLinkSelected == &leaf) {
                         nodeFlag |= ImGuiTreeNodeFlags_Selected;
                     }
@@ -583,7 +607,8 @@ private:
                         ImGui::EndDragDropSource();
                     }
                     if (ImGui::BeginDragDropTarget()) {
-                        if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("##@__dnd_linkleaf")) {
+                        if (const ImGuiPayload* payload =
+                                ImGui::AcceptDragDropPayload("##@__dnd_linkleaf")) {
                             destIdx[0] = i;
                             destIdx[1] = j;
                         }
@@ -664,7 +689,7 @@ private:
         GuiCtxMenuUpdate();
     }
 
-    std::function<void(void)> mGuiUpdFunc = []() {};
+    std::function<void(void)> mGuiUpdFunc = []() { };
     std::vector<LinkNode> mLinks;
 
     LinkGuiTrigger mTrigger = TRIGGER_ERROR;

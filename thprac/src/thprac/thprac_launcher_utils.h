@@ -19,12 +19,11 @@
 
 #define NOMINMAX
 #include <Windows.h>
+#include <ctime>
+#include <functional>
 #include <imgui.h>
 #include <string>
-#include <functional>
 #include <vector>
-#include <ctime>
-#include <imgui.h>
 #pragma warning(disable : 4091)
 #include <Shlobj.h>
 #pragma warning(default : 4091)
@@ -32,8 +31,12 @@
 
 namespace THPrac {
 
-#define JsonAddMember(json, key, value, alloc) json.AddMember(rapidjson::Value(key, alloc).Move(), rapidjson::Value(value).Move(), alloc);
-#define JsonAddMemberA(json, key, value, alloc) json.AddMember(rapidjson::Value(key, alloc).Move(), rapidjson::Value(value, alloc).Move(), alloc);
+#define JsonAddMember(json, key, value, alloc) \
+    json.AddMember(rapidjson::Value(key, alloc).Move(), rapidjson::Value(value).Move(), alloc);
+#define JsonAddMemberA(json, key, value, alloc)                                           \
+    json.AddMember(                                                                       \
+        rapidjson::Value(key, alloc).Move(), rapidjson::Value(value, alloc).Move(), alloc \
+    );
 
 class GuiThread {
 public:
@@ -69,7 +72,7 @@ public:
         if (mThreadHnd != INVALID_HANDLE_VALUE) {
             if (IsActive()) {
 #pragma warning(push)
-#pragma warning(disable: 6258)
+#pragma warning(disable : 6258)
                 TerminateThread(mThreadHnd, 0);
 #pragma warning(pop)
             }
@@ -141,13 +144,17 @@ void GuiColumnText(const char* text);
 
 inline void GuiCenteredText(const char* text)
 {
-    ImGui::SetCursorPosX((ImGui::GetWindowWidth() - ImGui::CalcTextSize(text, 0, false, 0.0f).x) / 2.0f);
+    ImGui::SetCursorPosX(
+        (ImGui::GetWindowWidth() - ImGui::CalcTextSize(text, 0, false, 0.0f).x) / 2.0f
+    );
     ImGui::TextWrapped("%s", text);
 }
 
 inline void GuiSetPosXText(const char* text, float offset = 0.0f)
 {
-    ImGui::SetCursorPosX((ImGui::GetWindowWidth() - ImGui::CalcTextSize(text, 0, false, 0.0f).x) / 2.0f - offset);
+    ImGui::SetCursorPosX(
+        (ImGui::GetWindowWidth() - ImGui::CalcTextSize(text, 0, false, 0.0f).x) / 2.0f - offset
+    );
 }
 
 inline void GuiSetPosYRel(float rel)
@@ -157,9 +164,7 @@ inline void GuiSetPosYRel(float rel)
 
 void GuiHelpMarker(const char* desc);
 int GuiCornerButton(
-    const char* text,
-    const char* text2 = nullptr,
-    const ImVec2& offset = ImVec2(1.5f, 0.5f),
+    const char* text, const char* text2 = nullptr, const ImVec2& offset = ImVec2(1.5f, 0.5f),
     bool useCurrentY = false
 );
 
@@ -189,7 +194,9 @@ inline bool GuiModal(const char* modalTitle, ImVec2 sizeRel = ImVec2(0.0f, 0.0f)
     if (sizeRel.x != 0.0f || sizeRel.y != 0.0f) {
         ImGui::SetNextWindowSize(sizeRel, ImGuiCond_Always);
     }
-    return ImGui::BeginPopupModal(modalTitle, nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoMove);
+    return ImGui::BeginPopupModal(
+        modalTitle, nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoMove
+    );
 }
 
 inline bool GuiModalFullScreen(const char* modalTitle)
@@ -197,7 +204,11 @@ inline bool GuiModalFullScreen(const char* modalTitle)
     auto wndSize = LauncherWndGetSize();
     ImGui::SetNextWindowPos(ImVec2(0.0f, 0.0f), ImGuiCond_Appearing);
     ImGui::SetNextWindowSize(wndSize, ImGuiCond_Appearing);
-    return ImGui::BeginPopupModal(modalTitle, nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
+    return ImGui::BeginPopupModal(
+        modalTitle,
+        nullptr,
+        ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize
+    );
 }
 
 inline bool GuiButtonModal(const char* buttonText, const char* modalTitle)
@@ -210,17 +221,11 @@ inline bool GuiButtonModal(const char* buttonText, const char* modalTitle)
 }
 
 bool GuiButtonYesNo(
-    const char* buttonText1 = "OK",
-    const char* buttonText2 = "Cancel",
-    float buttonSize = -1.0f
+    const char* buttonText1 = "OK", const char* buttonText2 = "Cancel", float buttonSize = -1.0f
 );
 bool GuiButtonAndModalYesNo(
-    const char* buttonText,
-    const char* modalTitle,
-    const char* modalText,
-    float buttonSize = 6.0f,
-    const char* buttonText1 = "OK",
-    const char* buttonText2 = "Cancel"
+    const char* buttonText, const char* modalTitle, const char* modalText, float buttonSize = 6.0f,
+    const char* buttonText1 = "OK", const char* buttonText2 = "Cancel"
 );
 
 }

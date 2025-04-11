@@ -76,7 +76,7 @@ BreakBeforeInlineASMColon: OnlyMultiline
 # BreakConstructorInitializers: BeforeComma
 # BreakInheritanceList: BeforeColon
 # BreakStringLiterals: true
-ColumnLimit: 180 # TODO: Set this to something more reasonable - maybe 100?
+ColumnLimit: 100 # TODO: Set this to something more reasonable - maybe 100?
 Cpp11BracedListStyle: true
 InsertNewlineAtEOF: true
 # SpaceAfterCStyleCast: false

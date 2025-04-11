@@ -1,8 +1,7 @@
 ﻿#pragma once
 #include <Windows.h>
 
-namespace THPrac
-{
+namespace THPrac {
 
 // DO NOT CHANGE THIS STRUCT WITHOUT RECOMPILING init_shellcode.cpp
 struct remote_param {
@@ -20,7 +19,8 @@ struct remote_param {
 // GetLastError return value + an additional error code packed in a 32 bit integer
 // Return value of InjectShellcode in inject_shellcode.cpp
 struct InjectResult {
-    // Appending to this enum is fine, but if you reorder any of the fields, recompile inject_shellcode.cpp
+    // Appending to this enum is fine, but if you reorder any of the fields, recompile
+    // inject_shellcode.cpp
     enum : WORD {
         Ok = 0,
         LoadError,

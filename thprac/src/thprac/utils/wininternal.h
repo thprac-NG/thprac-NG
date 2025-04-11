@@ -98,7 +98,7 @@ struct _PEB {
 #else
     ULONG GdiHandleBuffer[0x22];
 #endif
-    VOID (*PostProcessInitRoutine)
+    VOID(*PostProcessInitRoutine)
     (VOID);
     PVOID TlsExpansionBitmap;
     ULONG TlsExpansionBitmapBits[0x20];
@@ -186,13 +186,14 @@ struct _TEB {
     HANDLE DbgSsReserved[2];
 };
 
-#define read_teb_member(member) (                                                                                                             \
-    member_size(TEB, member) == 1 ? read_fs_byte(offsetof(TEB, member)) : member_size(TEB, member) == 2 ? read_fs_word(offsetof(TEB, member)) \
-                                                                                                        : read_fs_dword(offsetof(TEB, member)))
+#define read_teb_member(member)                                                \
+    (member_size(TEB, member) == 1       ? read_fs_byte(offsetof(TEB, member)) \
+         : member_size(TEB, member) == 2 ? read_fs_word(offsetof(TEB, member)) \
+                                         : read_fs_dword(offsetof(TEB, member)))
 #define write_teb_member(member, data) (\
 member_size(TEB, member) == 1 ? write_fs_byte(offsetof(TEB, member), (data)) : \
 member_size(TEB, member) == 2 ? write_fs_word(offsetof(TEB, member), (data)) : \
-write_fs_dword(offsetof(TEB, member), (data)) \
+write_fs_dword(offsetof(TEB, member), (data))
 
 #define CurrentTeb() ((TEB*)read_teb_member(Self))
 #define CurrentPeb() ((PEB*)read_teb_member(ProcessEnvironmentBlock))
@@ -215,7 +216,6 @@ typedef struct _PROCESS_BASIC_INFORMATION {
 } PROCESS_BASIC_INFORMATION;
 typedef PROCESS_BASIC_INFORMATION* PPROCESS_BASIC_INFORMATION;
 
-
 typedef enum _PROCESSINFOCLASS {
     ProcessBasicInformation = 0,
     ProcessDebugPort = 7,
@@ -224,17 +224,15 @@ typedef enum _PROCESSINFOCLASS {
     ProcessBreakOnTermination = 29
 } PROCESSINFOCLASS;
 
-extern "C" __kernel_entry NTSTATUS
-    NTAPI
-    NtQueryInformationProcess(
-        IN HANDLE ProcessHandle,
-        IN PROCESSINFOCLASS ProcessInformationClass,
-        OUT PVOID ProcessInformation,
-        IN ULONG ProcessInformationLength,
-        OUT PULONG ReturnLength OPTIONAL);
+extern "C" __kernel_entry NTSTATUS NTAPI NtQueryInformationProcess(
+    IN HANDLE ProcessHandle, IN PROCESSINFOCLASS ProcessInformationClass,
+    OUT PVOID ProcessInformation, IN ULONG ProcessInformationLength,
+    OUT PULONG ReturnLength OPTIONAL
+);
 
 // KUSER_SHARED_DATA struct definition so that we don't have to depend on the WDK just for ntddk.h
-// KUSER_SHARED_DATA itself comes from MSDN https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/ntddk/ns-ntddk-kuser_shared_data
+// KUSER_SHARED_DATA itself comes from MSDN
+// https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/ntddk/ns-ntddk-kuser_shared_data
 // The structs and enums used inside are not on MSDN (for some reason) do I got them from NirSoft
 // https://www.nirsoft.net/kernel_struct/vista/KSYSTEM_TIME.html
 // https://www.nirsoft.net/kernel_struct/vista/NT_PRODUCT_TYPE.html

@@ -2,14 +2,14 @@
 
 #define NOMINMAX
 
-#include "thprac_version.h"
 #include "thprac_gui_components.h"
 #include "thprac_gui_impl_dx8.h"
 #include "thprac_gui_impl_dx9.h"
 #include "thprac_gui_impl_win32.h"
+#include "thprac_gui_locale.h"
 #include "thprac_hook.h"
 #include "thprac_locale_def.h"
-#include "thprac_gui_locale.h"
+#include "thprac_version.h"
 
 #include <Windows.h>
 #include <cstdint>
@@ -39,7 +39,15 @@ struct MappedFile {
 
     MappedFile(const wchar_t* fn, size_t max_size = -1)
     {
-        hFile = CreateFileW(fn, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+        hFile = CreateFileW(
+            fn,
+            GENERIC_READ,
+            FILE_SHARE_READ,
+            nullptr,
+            OPEN_EXISTING,
+            FILE_ATTRIBUTE_NORMAL,
+            nullptr
+        );
         if (hFile == INVALID_HANDLE_VALUE) {
             return;
         }
@@ -94,7 +102,8 @@ struct RAII_CRITICAL_SECTION {
         DeleteCriticalSection(&cs);
     }
 
-    CRITICAL_SECTION* operator*() {
+    CRITICAL_SECTION* operator*()
+    {
         return &cs;
     }
 };
@@ -103,8 +112,14 @@ struct RAII_CRITICAL_SECTION {
 std::string utf16_to_mb(const wchar_t* utf16, UINT encoding);
 std::wstring mb_to_utf16(const char* utf8, UINT encoding);
 
-inline std::string utf16_to_utf8(const wchar_t* utf16) { return utf16_to_mb(utf16, CP_UTF8); }
-inline std::wstring utf8_to_utf16(const char* utf8) { return mb_to_utf16(utf8, CP_UTF8); }
+inline std::string utf16_to_utf8(const wchar_t* utf16)
+{
+    return utf16_to_mb(utf16, CP_UTF8);
+}
+inline std::wstring utf8_to_utf16(const char* utf8)
+{
+    return mb_to_utf16(utf8, CP_UTF8);
+}
 
 void ingame_mb_init();
 #pragma endregion

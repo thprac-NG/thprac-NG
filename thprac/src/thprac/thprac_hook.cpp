@@ -2,18 +2,18 @@
 
 #define NOMINMAX
 
+#include "thprac_gui_locale.h"
 #include "thprac_launcher_cfg.h"
 #include "thprac_utils.h"
-#include "thprac_gui_locale.h"
 
 #include "..\MinHook\src\buffer.h"
 #include "..\MinHook\src\trampoline.h"
 #include <MinHook.h>
 
 #include <Windows.h>
+#include <algorithm>
 #include <cstdint>
 #include <vector>
-#include <algorithm>
 #pragma warning(disable : 4091)
 #include <DbgHelp.h>
 #pragma warning(default : 4091)
@@ -263,7 +263,11 @@ bool HookCtx::Setup(void* target, const char* patch, size_t patch_size)
     if (!buffer)
         return false;
     memcpy(buffer, patch, patch_size);
-    memcpy((void*)((size_t)buffer + patch_size), (void*)((uintptr_t)target + ingame_image_base), patch_size);
+    memcpy(
+        (void*)((size_t)buffer + patch_size),
+        (void*)((uintptr_t)target + ingame_image_base),
+        patch_size
+    );
 
     mTarget = target;
     mIsPatch = true;
@@ -280,9 +284,16 @@ bool HookCtx::Enable()
 
     if (mIsPatch) {
         DWORD oldProtect;
-        VirtualProtect((LPVOID)((uintptr_t)mTarget + ingame_image_base), mPatchSize, PAGE_EXECUTE_READWRITE, &oldProtect);
+        VirtualProtect(
+            (LPVOID)((uintptr_t)mTarget + ingame_image_base),
+            mPatchSize,
+            PAGE_EXECUTE_READWRITE,
+            &oldProtect
+        );
         memcpy((void*)((uintptr_t)mTarget + ingame_image_base), mPatch, mPatchSize);
-        VirtualProtect((LPVOID)((uintptr_t)mTarget + ingame_image_base), mPatchSize, oldProtect, &oldProtect);
+        VirtualProtect(
+            (LPVOID)((uintptr_t)mTarget + ingame_image_base), mPatchSize, oldProtect, &oldProtect
+        );
     } else {
         VEHHookEnable(mTarget);
     }
@@ -297,9 +308,20 @@ bool HookCtx::Disable()
 
     if (mIsPatch) {
         DWORD oldProtect;
-        VirtualProtect((LPVOID)((uintptr_t)mTarget + ingame_image_base), mPatchSize, PAGE_EXECUTE_READWRITE, &oldProtect);
-        memcpy((void*)((uintptr_t)mTarget + ingame_image_base), (void*)((size_t)mPatch + mPatchSize), mPatchSize);
-        VirtualProtect((LPVOID)((uintptr_t)mTarget + ingame_image_base), mPatchSize, oldProtect, &oldProtect);
+        VirtualProtect(
+            (LPVOID)((uintptr_t)mTarget + ingame_image_base),
+            mPatchSize,
+            PAGE_EXECUTE_READWRITE,
+            &oldProtect
+        );
+        memcpy(
+            (void*)((uintptr_t)mTarget + ingame_image_base),
+            (void*)((size_t)mPatch + mPatchSize),
+            mPatchSize
+        );
+        VirtualProtect(
+            (LPVOID)((uintptr_t)mTarget + ingame_image_base), mPatchSize, oldProtect, &oldProtect
+        );
     } else {
         VEHHookDisable(mTarget);
     }

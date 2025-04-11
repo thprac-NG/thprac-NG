@@ -2,9 +2,9 @@
 
 #include "thprac_gui_components.h"
 
-#include <vector>
-#include <unordered_map>
 #include <optional>
+#include <unordered_map>
+#include <vector>
 
 struct IDirect3DDevice8;
 
@@ -14,7 +14,7 @@ struct Float2 {
     float x;
     float y;
 };
-    
+
 struct Float3 {
     float x;
     float y;
@@ -37,7 +37,7 @@ struct Timer19 {
     uint32_t flags;
 };
 
-template<typename T>
+template <typename T>
 struct ThList {
     T* entry;
     ThList<T>* next;
@@ -52,9 +52,10 @@ enum game_gui_impl {
     IMPL_WIN32_DX9
 };
 
-void GameGuiInit(game_gui_impl impl, int device, int hwnd, int wndproc_addr,
-    Gui::ingame_input_gen_t input_gen, int reg1, int reg2, int reg3 = 0,
-    int wnd_size_flag = -1, float x = 640.0f, float y = 480.0f);
+void GameGuiInit(
+    game_gui_impl impl, int device, int hwnd, int wndproc_addr, Gui::ingame_input_gen_t input_gen,
+    int reg1, int reg2, int reg3 = 0, int wnd_size_flag = -1, float x = 640.0f, float y = 480.0f
+);
 extern int GameGuiProgress;
 void GameGuiBegin(game_gui_impl impl, bool game_nav = true);
 void GameGuiEnd(bool draw_cursor = false);
@@ -97,7 +98,9 @@ inline void EndOptGroup()
     ImGui::Unindent();
 }
 typedef void __stdcall FPSHelperCallback(int32_t);
-int FPSHelper(adv_opt_ctx& ctx, bool repStatus, bool vpFast, bool vpSlow, FPSHelperCallback* callback);
+int FPSHelper(
+    adv_opt_ctx& ctx, bool repStatus, bool vpFast, bool vpSlow, FPSHelperCallback* callback
+);
 bool GameFPSOpt(adv_opt_ctx& ctx, bool replay = true);
 bool GameplayOpt(adv_opt_ctx& ctx);
 void AboutOpt(const char* thanks_text = nullptr);
@@ -108,16 +111,15 @@ void AboutOpt(const char* thanks_text = nullptr);
 
 // TODO: Should bgm_cmd be removed?
 template <
-    uintptr_t play_addr,
-    uintptr_t stop_addr,
-    uintptr_t pause_addr,
-    uintptr_t resume_addr,
+    uintptr_t play_addr, uintptr_t stop_addr, uintptr_t pause_addr, uintptr_t resume_addr,
     uintptr_t caller_addr>
-static bool ElBgmTest(bool hotkey_status, bool practice_status,
-    uintptr_t retn_addr, [[maybe_unused]] int32_t bgm_cmd, int32_t bgm_param, uintptr_t caller)
+static bool ElBgmTest(
+    bool hotkey_status, bool practice_status, uintptr_t retn_addr, [[maybe_unused]] int32_t bgm_cmd,
+    int32_t bgm_param, uintptr_t caller
+)
 {
-    static bool mElStatus { false };
-    static int mLockBgmId { -1 };
+    static bool mElStatus{false};
+    static int mLockBgmId{-1};
 
     bool hotkey = hotkey_status;
     bool is_practice = practice_status;
@@ -173,17 +175,15 @@ static bool ElBgmTest(bool hotkey_status, bool practice_status,
 
 // TODO: Should bgm_cmd be removed?
 template <
-    uintptr_t play_addr,
-    uintptr_t play_addr_2,
-    uintptr_t stop_addr,
-    uintptr_t pause_addr,
-    uintptr_t resume_addr,
-    uintptr_t caller_addr>
-static bool ElBgmTestTemp(bool hotkey_status, bool practice_status,
-    uintptr_t retn_addr, [[maybe_unused]] int32_t bgm_cmd, int32_t bgm_param, uintptr_t caller)
+    uintptr_t play_addr, uintptr_t play_addr_2, uintptr_t stop_addr, uintptr_t pause_addr,
+    uintptr_t resume_addr, uintptr_t caller_addr>
+static bool ElBgmTestTemp(
+    bool hotkey_status, bool practice_status, uintptr_t retn_addr, [[maybe_unused]] int32_t bgm_cmd,
+    int32_t bgm_param, uintptr_t caller
+)
 {
-    static bool mElStatus { false };
-    static int mLockBgmId { -1 };
+    static bool mElStatus{false};
+    static int mLockBgmId{-1};
 
     bool hotkey = hotkey_status;
     bool is_practice = practice_status;
@@ -381,7 +381,7 @@ inline R GetMemContent(uintptr_t addr)
 template <typename R = size_t, typename... OffsetArgs>
 inline R GetMemContent(uintptr_t addr, size_t offset, OffsetArgs... remaining_offsets)
 {
-    return GetMemContent<R>(((uintptr_t) * (R*)addr) + offset, remaining_offsets...);
+    return GetMemContent<R>(((uintptr_t)*(R*)addr) + offset, remaining_offsets...);
 }
 
 template <typename R = uintptr_t>
@@ -392,7 +392,7 @@ inline R GetMemAddr(uintptr_t addr)
 template <typename R = uintptr_t, typename... OffsetArgs>
 inline R GetMemAddr(uintptr_t addr, size_t offset, OffsetArgs... remaining_offsets)
 {
-    return GetMemAddr<R>(((uintptr_t) * (R*)addr) + offset, remaining_offsets...);
+    return GetMemAddr<R>(((uintptr_t)*(R*)addr) + offset, remaining_offsets...);
 }
 
 // Code by zero318 (https://github.com/zero318)
@@ -529,7 +529,10 @@ typedef uint8_t* ecl_get_sub_t(const char* name, uintptr_t user_param);
 uint8_t* ThModern_ECLGetSub(const char* name, uintptr_t param);
 
 void StageWarpsRender(stage_warps_t& warps, std::vector<unsigned int>& out_warp, size_t level);
-void StageWarpsApply(stage_warps_t& warps, std::vector<unsigned int>& in_warp, ecl_get_sub_t* ecl_get_sub, uintptr_t ecl_get_sub_param, size_t level);
+void StageWarpsApply(
+    stage_warps_t& warps, std::vector<unsigned int>& in_warp, ecl_get_sub_t* ecl_get_sub,
+    uintptr_t ecl_get_sub_param, size_t level
+);
 #pragma endregion
 
 #pragma region Game State

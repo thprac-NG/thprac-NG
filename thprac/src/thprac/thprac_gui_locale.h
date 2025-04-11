@@ -17,10 +17,12 @@ namespace Gui {
     {
         return __glocale_current;
     }
-    __forceinline const char** LocaleGetCurrentGlossary() {
+    __forceinline const char** LocaleGetCurrentGlossary()
+    {
         return th_glossary_str[LocaleGet()];
     };
-    __forceinline const char* LocaleGetStr(th_glossary_t name) {
+    __forceinline const char* LocaleGetStr(th_glossary_t name)
+    {
         return LocaleGetCurrentGlossary()[name];
     };
 

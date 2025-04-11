@@ -1,7 +1,6 @@
 ﻿#include "thprac_games.h"
 #include "thprac_utils.h"
 
-
 namespace THPrac {
 namespace Alcostg {
     using std::pair;
@@ -56,10 +55,10 @@ namespace Alcostg {
             ReturnJson();
         }
     };
-    THPracParam thPracParam {};
-    bool thLock { false };
-    bool thHardLock { false };
-    bool thRestart { false };
+    THPracParam thPracParam{};
+    bool thLock{false};
+    bool thHardLock{false};
+    bool thRestart{false};
 
     unsigned int alcostg_beer_cd = 0;
     EHOOK_G1(alcostg_add_beer, 0x4264fc)
@@ -75,11 +74,7 @@ namespace Alcostg {
 				    call edx;
                 }
 #else
-                asm volatile(
-                    "call *%[func]"
-                    :
-                    : [func]"r"(0x413ef0), "a"(0x48e580), "c"(beer)
-                );
+                asm volatile("call *%[func]" : : [func] "r"(0x413ef0), "a"(0x48e580), "c"(beer));
 #endif
                 alcostg_add_beer::GetHook().Disable();
             }
@@ -112,8 +107,8 @@ namespace Alcostg {
             OnLocaleChange();
         }
         SINGLETON(THGuiPrac);
-    public:
 
+    public:
         int mState = 0;
         __declspec(noinline) int State()
         {
@@ -141,7 +136,8 @@ namespace Alcostg {
                         if (*mWarp == 1)
                             thPracParam.progress = *mProgress;
                         else
-                            thPracParam.section = *mWarp ? th_sections_cba[*mStage][*mWarp - 1][*mSection] : 0;
+                            thPracParam.section =
+                                *mWarp ? th_sections_cba[*mStage][*mWarp - 1][*mSection] : 0;
                         thPracParam.time = *mTime;
                         thPracParam.beer = static_cast<int16_t>(*mBeer);
                         thPracParam.beer_max = static_cast<int16_t>(*mBeerMax);
@@ -169,8 +165,7 @@ namespace Alcostg {
 
     protected:
         virtual void OnPreUpdate() override
-        {
-        }
+        { }
         virtual void OnLocaleChange() override
         {
             SetTitle(S(TH_MENU));
@@ -259,7 +254,9 @@ namespace Alcostg {
                             sprintf_s(temp, S(ALCOSTG_ORDER), *mProgress);
                         mProgress(temp);
                     } else {
-                        if (mSection(TH_WARP_ALCOSTG[*mWarp], XCBA(*mStage, *mWarp - 1), XSSS(mDiffculty)))
+                        if (mSection(
+                                TH_WARP_ALCOSTG[*mWarp], XCBA(*mStage, *mWarp - 1), XSSS(mDiffculty)
+                            ))
                             *mPhase = 0;
                         mPhase(TH_PHASE, SpellPhase());
                     }
@@ -289,33 +286,46 @@ namespace Alcostg {
 
         int mModePrv = 0;
         unsigned int mTimeBase = 17;
-        Gui::GuiCombo mMode { TH_MODE, ALCOSTG_MODE_SELECT };
+        Gui::GuiCombo mMode{TH_MODE, ALCOSTG_MODE_SELECT};
 
     protected:
-        Gui::GuiCombo mStage { TH_STAGE, ALCOSTG_STAGE_SELECT };
-        Gui::GuiCombo mWarp { TH_WARP, TH_WARP_ALCOSTG };
-        Gui::GuiCombo mSection { TH_MODE };
-        Gui::GuiCombo mPhase { TH_PHASE };
+        Gui::GuiCombo mStage{TH_STAGE, ALCOSTG_STAGE_SELECT};
+        Gui::GuiCombo mWarp{TH_WARP, TH_WARP_ALCOSTG};
+        Gui::GuiCombo mSection{TH_MODE};
+        Gui::GuiCombo mPhase{TH_PHASE};
 
-        Gui::GuiDrag<int64_t, ImGuiDataType_S64> mScore { TH_SCORE, 0, 99999990, 10, 10000000 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mTime { ALCOSTG_TIME, 0, 210, 1, 60, 30 }; // 1 for 2 sec
-        Gui::GuiSlider<int, ImGuiDataType_S32> mBeer { ALCOSTG_BEER, 0, 30, 1, 10 }; // 3000
-        Gui::GuiSlider<int, ImGuiDataType_S32> mBeerMax { ALCOSTG_BEER_MAX, 0, 30, 1, 10 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mProgress { TH_PROGRESS, 1, 19, 1, 1 };
+        Gui::GuiDrag<int64_t, ImGuiDataType_S64> mScore{TH_SCORE, 0, 99999990, 10, 10000000};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mTime{
+            ALCOSTG_TIME, 0, 210, 1, 60, 30
+        }; // 1 for 2 sec
+        Gui::GuiSlider<int, ImGuiDataType_S32> mBeer{ALCOSTG_BEER, 0, 30, 1, 10}; // 3000
+        Gui::GuiSlider<int, ImGuiDataType_S32> mBeerMax{ALCOSTG_BEER_MAX, 0, 30, 1, 10};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mProgress{TH_PROGRESS, 1, 19, 1, 1};
 
-        Gui::GuiNavFocus mNavFocus { TH_MODE, TH_STAGE, TH_WARP, TH_PROGRESS,
-            TH_MID_STAGE, TH_END_STAGE, TH_NONSPELL, TH_SPELL, TH_PHASE,
-            TH_SCORE, ALCOSTG_TIME, ALCOSTG_BEER, ALCOSTG_BEER_MAX };
+        Gui::GuiNavFocus mNavFocus{
+            TH_MODE,
+            TH_STAGE,
+            TH_WARP,
+            TH_PROGRESS,
+            TH_MID_STAGE,
+            TH_END_STAGE,
+            TH_NONSPELL,
+            TH_SPELL,
+            TH_PHASE,
+            TH_SCORE,
+            ALCOSTG_TIME,
+            ALCOSTG_BEER,
+            ALCOSTG_BEER_MAX
+        };
 
         int mDiffculty = 0;
     };
     class THGuiRep : public Gui::GameGuiWnd {
         THGuiRep() noexcept
-        {
-        }
+        { }
         SINGLETON(THGuiRep);
-    public:
 
+    public:
         void CheckReplay()
         {
             uint32_t index = GetMemContent(0x4741ac, 0x5650);
@@ -368,12 +378,15 @@ namespace Alcostg {
             SetPos(10.0f, 10.0f);
             SetSize(0.0f, 0.0f);
             SetWndFlag(
-                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0);
+                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove
+                | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
+                | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0
+            );
             OnLocaleChange();
         }
         SINGLETON(THOverlay);
-    public:
 
+    public:
     protected:
         virtual void OnLocaleChange() override
         {
@@ -426,26 +439,37 @@ namespace Alcostg {
             }
         }
 
-        Gui::GuiHotKey mMenu { "ModMenuToggle", "BACKSPACE", VK_BACK };
-        Gui::GuiHotKey mMuteki { TH_MUTEKI, "F1", VK_F1, {
-            new HookCtx(0x426eb5, "\x01", 1),
-            new HookCtx(0x425cfa, "\xeb", 1),
-            new HookCtx(0x426f19, "\x83\xc4\x08\x90\x90", 5) } };
-        Gui::GuiHotKey mFreeMiss { ALCOSTG_FREE_MISS, "F2", VK_F2, {
-            new HookCtx(0x42722c, "\x83\xc4\x04\x90\x90", 5),
-            new HookCtx(0x426c2b, "\xeb\x60", 2) } };
-        Gui::GuiHotKey mFreeBomb { ALCOSTG_FREE_BOMB, "F3", VK_F3, {
-            new HookCtx(0x427310, "\xc3", 1) } };
-        Gui::GuiHotKey mAutoBomb { TH_AUTOBOMB, "F4", VK_F4, {
-            new HookCtx(0x425dee, "\xc6", 1) } };
-        Gui::GuiHotKey mLockTimeBar { ALCOSTG_LOCK_TIME_BAR, "F5", VK_F5, {
-            new HookCtx(0x419510, "\xc3", 1) } };
-        Gui::GuiHotKey mLockTimeBoss { ALCOSTG_LOCK_TIME_BOSS, "F6", VK_F6, {
-            new HookCtx(0x4094b9, "\xeb", 1),
-            new HookCtx(0x40ed74, "\x90", 1) } };
+        Gui::GuiHotKey mMenu{"ModMenuToggle", "BACKSPACE", VK_BACK};
+        Gui::GuiHotKey mMuteki{
+            TH_MUTEKI,
+            "F1",
+            VK_F1,
+            {new HookCtx(0x426eb5, "\x01", 1),
+              new HookCtx(0x425cfa, "\xeb", 1),
+              new HookCtx(0x426f19, "\x83\xc4\x08\x90\x90", 5)}
+        };
+        Gui::GuiHotKey mFreeMiss{
+            ALCOSTG_FREE_MISS,
+            "F2",
+            VK_F2,
+            {new HookCtx(0x42722c, "\x83\xc4\x04\x90\x90", 5), new HookCtx(0x426c2b, "\xeb\x60", 2)}
+        };
+        Gui::GuiHotKey mFreeBomb{
+            ALCOSTG_FREE_BOMB, "F3", VK_F3, {new HookCtx(0x427310, "\xc3", 1)}
+        };
+        Gui::GuiHotKey mAutoBomb{TH_AUTOBOMB, "F4", VK_F4, {new HookCtx(0x425dee, "\xc6", 1)}};
+        Gui::GuiHotKey mLockTimeBar{
+            ALCOSTG_LOCK_TIME_BAR, "F5", VK_F5, {new HookCtx(0x419510, "\xc3", 1)}
+        };
+        Gui::GuiHotKey mLockTimeBoss{
+            ALCOSTG_LOCK_TIME_BOSS,
+            "F6",
+            VK_F6,
+            {new HookCtx(0x4094b9, "\xeb", 1), new HookCtx(0x40ed74, "\x90", 1)}
+        };
 
     public:
-        Gui::GuiHotKey mElBgm { TH_EL_BGM, "F7", VK_F7 };
+        Gui::GuiHotKey mElBgm{TH_EL_BGM, "F7", VK_F7};
     };
 
     class THAdvOptWnd : public Gui::GameGuiWnd {
@@ -475,16 +499,17 @@ namespace Alcostg {
             }
         }
         void GameplayInit()
-        {
-        }
+        { }
         void GameplaySet()
-        {
-        }
+        { }
 
     public:
         THAdvOptWnd() noexcept
         {
-            SetWndFlag(ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
+            SetWndFlag(
+                ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse
+                | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove
+            );
             SetFade(0.8f, 0.8f);
             SetStyle(ImGuiStyleVar_WindowRounding, 0.0f);
             SetStyle(ImGuiStyleVar_WindowBorderSize, 0.0f);
@@ -574,12 +599,16 @@ namespace Alcostg {
         std << pair{0x06e4, 128};
         std << pair{0x06f0, 0};
     }
-    void ECLJump(ECLHelper& ecl, unsigned int start, unsigned int dest, int at_frame, int ecl_time = 0)
+    void ECLJump(
+        ECLHelper& ecl, unsigned int start, unsigned int dest, int at_frame, int ecl_time = 0
+    )
     {
         ecl.SetPos(start);
         ecl << ecl_time << 0x0018000C << 0x02ff0000 << 0x00000000 << dest - start << at_frame;
     }
-    void ECLTimeFix(ECLHelper& ecl, size_t pos, int32_t delta_time, unsigned int ins_count = 0xFFFFFFFF)
+    void ECLTimeFix(
+        ECLHelper& ecl, size_t pos, int32_t delta_time, unsigned int ins_count = 0xFFFFFFFF
+    )
     {
         ecl.SetPos(pos);
         int32_t ecl_time;
@@ -957,7 +986,8 @@ namespace Alcostg {
         bool is_practice;
         bool result;
 
-        el_switch = *(THOverlay::singleton().mElBgm) && !THGuiRep::singleton().mRepStatus && thPracParam.mode && thPracParam.section;
+        el_switch = *(THOverlay::singleton().mElBgm) && !THGuiRep::singleton().mRepStatus
+            && thPracParam.mode && thPracParam.section;
         if (thLock)
             el_switch = false;
 
@@ -970,10 +1000,12 @@ namespace Alcostg {
         if (retn_addr == 0x42093f && call_addr == 0x412bf6) {
             thLock = true;
             result = ElBgmTest<0x420802, 0x418b7d, 0x422b44, 0x422bc1, 0x418e91>(
-                el_switch, is_practice, 0x420802, 2, 2, call_addr);
+                el_switch, is_practice, 0x420802, 2, 2, call_addr
+            );
         } else {
             result = ElBgmTest<0x420802, 0x418b7d, 0x422b44, 0x422bc1, 0x418e91>(
-                el_switch, is_practice, retn_addr, bgm_cmd, bgm_id, call_addr);
+                el_switch, is_practice, retn_addr, bgm_cmd, bgm_id, call_addr
+            );
         }
 
         if (result) {
@@ -1087,9 +1119,17 @@ namespace Alcostg {
     static __declspec(noinline) void THGuiCreate()
     {
         // Init
-        GameGuiInit(IMPL_WIN32_DX9, 0x48e648, 0x48ef20, 0x435230,
-            Gui::INGAGME_INPUT_GEN2, 0x471514, 0x471510, 0,
-            -1);
+        GameGuiInit(
+            IMPL_WIN32_DX9,
+            0x48e648,
+            0x48ef20,
+            0x435230,
+            Gui::INGAGME_INPUT_GEN2,
+            0x471514,
+            0x471510,
+            0,
+            -1
+        );
 
         // Gui components creation
         THGuiPrac::singleton();

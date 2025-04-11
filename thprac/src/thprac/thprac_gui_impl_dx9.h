@@ -1,10 +1,10 @@
 ﻿#pragma once
 /*
-	This file is a modified copy of imgui's DirectX9 renderer implemention's  header file.
-	Changes made:
+    This file is a modified copy of imgui's DirectX9 renderer implemention's  header file.
+    Changes made:
 
-	1. Function "ImGui_ImplDX9_HookReset": Add declaration.
-	2. Function "ImGui_ImplDX9_UnHookReset": Add declaration.
+    1. Function "ImGui_ImplDX9_HookReset": Add declaration.
+    2. Function "ImGui_ImplDX9_UnHookReset": Add declaration.
 */
 
 #include <imgui.h>

@@ -1,17 +1,19 @@
 ﻿/*
-	This file is a modified copy of imgui's Win32 platform implemention's  source file.
-	Major changes made:
+    This file is a modified copy of imgui's Win32 platform implemention's  source file.
+    Major changes made:
 
-	1. Includes: Renamed "imgui_impl_win32.h".
-	2. Includes: Added "thprac_hook.h".
-	2. Function "ImGui_ImplWin32_UpdateMousePos": Added extra code to fix unmatch window/render size.
-	3. Function "ImGui_ImplWin32_UpdateGamepads": Emptied function.
-	4. Function "ImGui_ImplWin32_NewFrame": Removed sections: Setup display size; Read keyboard modifiers inputs.
-	5. Function "ImGui_ImplWin32_HookWndProc": Add definition.
-	6. Function "ImGui_ImplWin32_UnHookWndProc": Add definition.
-	4. Function "ImGui_ImplWin32_CheckFullScreen": Add definition.
+    1. Includes: Renamed "imgui_impl_win32.h".
+    2. Includes: Added "thprac_hook.h".
+    2. Function "ImGui_ImplWin32_UpdateMousePos": Added extra code to fix unmatch window/render
+   size.
+    3. Function "ImGui_ImplWin32_UpdateGamepads": Emptied function.
+    4. Function "ImGui_ImplWin32_NewFrame": Removed sections: Setup display size; Read keyboard
+   modifiers inputs.
+    5. Function "ImGui_ImplWin32_HookWndProc": Add definition.
+    6. Function "ImGui_ImplWin32_UnHookWndProc": Add definition.
+    4. Function "ImGui_ImplWin32_CheckFullScreen": Add definition.
 
-	Last official change: 2019-01-17.
+    Last official change: 2019-01-17.
 */
 
 #ifndef WIN32_LEAN_AND_MEAN
@@ -29,7 +31,8 @@
 namespace THPrac {
 namespace Gui {
     // Macros
-    // Allow compilation with old Windows SDK. MinGW doesn't have default _WIN32_WINNT/WINVER versions.
+    // Allow compilation with old Windows SDK. MinGW doesn't have default _WIN32_WINNT/WINVER
+    // versions.
 #ifndef WM_MOUSEHWHEEL
 #define WM_MOUSEHWHEEL 0x020E
 #endif
@@ -245,9 +248,10 @@ namespace Gui {
     {
         ImGuiIO& io = ImGui::GetIO();
 
-        // Set OS mouse position if requested (rarely used, only when ImGuiConfigFlags_NavEnableSetMousePos is enabled by user)
+        // Set OS mouse position if requested (rarely used, only when
+        // ImGuiConfigFlags_NavEnableSetMousePos is enabled by user)
         if (io.WantSetMousePos) {
-            POINT pos = { (int)io.MousePos.x, (int)io.MousePos.y };
+            POINT pos = {(int)io.MousePos.x, (int)io.MousePos.y};
             ::ClientToScreen(g_hWnd, &pos);
             ::SetCursorPos(pos.x, pos.y);
         }
@@ -275,17 +279,22 @@ namespace Gui {
     LRESULT ImplWin32WndProcHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
         // Process Win32 mouse/keyboard inputs.
-        // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
-        // - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application.
-        // - When io.WantCaptureKeyboard is true, do not dispatch keyboard input data to your main application.
-        // Generally you may always pass all inputs to dear imgui, and hide them from your application based on those two flags.
-        // PS: In this Win32 handler, we use the capture API (GetCapture/SetCapture/ReleaseCapture) to be able to read mouse coordinates when dragging mouse outside of our window bounds.
-        // PS: We treat DBLCLK messages as regular mouse down messages, so this code will work on windows classes that have the CS_DBLCLKS flag set. Our own example app code doesn't set this flag.
+        // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui
+        // wants to use your inputs.
+        // - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main
+        // application.
+        // - When io.WantCaptureKeyboard is true, do not dispatch keyboard input data to your main
+        // application. Generally you may always pass all inputs to dear imgui, and hide them from
+        // your application based on those two flags. PS: In this Win32 handler, we use the capture
+        // API (GetCapture/SetCapture/ReleaseCapture) to be able to read mouse coordinates when
+        // dragging mouse outside of our window bounds. PS: We treat DBLCLK messages as regular
+        // mouse down messages, so this code will work on windows classes that have the CS_DBLCLKS
+        // flag set. Our own example app code doesn't set this flag.
 
         if (ImGui::GetCurrentContext() == NULL)
             return 0;
 
-        static char doubleByte[2] {};
+        static char doubleByte[2]{};
         static bool isDoubleByte = false;
 
         ImGuiIO& io = ImGui::GetIO();
@@ -418,7 +427,7 @@ namespace Gui {
             default:
                 break;
             }
-            }
+        }
             return 0;
         }
         return 0;
@@ -426,17 +435,22 @@ namespace Gui {
     LRESULT ImplWin32WndProcHandlerW(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
         // Process Win32 mouse/keyboard inputs.
-        // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
-        // - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application.
-        // - When io.WantCaptureKeyboard is true, do not dispatch keyboard input data to your main application.
-        // Generally you may always pass all inputs to dear imgui, and hide them from your application based on those two flags.
-        // PS: In this Win32 handler, we use the capture API (GetCapture/SetCapture/ReleaseCapture) to be able to read mouse coordinates when dragging mouse outside of our window bounds.
-        // PS: We treat DBLCLK messages as regular mouse down messages, so this code will work on windows classes that have the CS_DBLCLKS flag set. Our own example app code doesn't set this flag.
+        // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui
+        // wants to use your inputs.
+        // - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main
+        // application.
+        // - When io.WantCaptureKeyboard is true, do not dispatch keyboard input data to your main
+        // application. Generally you may always pass all inputs to dear imgui, and hide them from
+        // your application based on those two flags. PS: In this Win32 handler, we use the capture
+        // API (GetCapture/SetCapture/ReleaseCapture) to be able to read mouse coordinates when
+        // dragging mouse outside of our window bounds. PS: We treat DBLCLK messages as regular
+        // mouse down messages, so this code will work on windows classes that have the CS_DBLCLKS
+        // flag set. Our own example app code doesn't set this flag.
 
         if (ImGui::GetCurrentContext() == NULL)
             return 0;
 
-        static char doubleByte[2] {};
+        static char doubleByte[2]{};
         static bool isDoubleByte = false;
 
         ImGuiIO& io = ImGui::GetIO();
@@ -531,30 +545,33 @@ namespace Gui {
         // Setup back-end capabilities flags
         g_hWnd = (HWND)hwnd;
         ImGuiIO& io = ImGui::GetIO();
-        io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors; // We can honor GetMouseCursor() values (optional)
-        io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos; // We can honor io.WantSetMousePos requests (optional, rarely used)
+        io.BackendFlags |=
+            ImGuiBackendFlags_HasMouseCursors; // We can honor GetMouseCursor() values (optional)
+        io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos; // We can honor io.WantSetMousePos
+                                                             // requests (optional, rarely used)
         io.BackendPlatformName = "thprac_gui_impl_win32";
-        //io.ImeWindowHandle = hwnd;
+        // io.ImeWindowHandle = hwnd;
 
-        // Keyboard mapping. ImGui will use those indices to peek into the io.KeysDown[] array that we will update during the application lifetime.
+        // Keyboard mapping. ImGui will use those indices to peek into the io.KeysDown[] array that
+        // we will update during the application lifetime.
         /*
-			io.KeyMap[ImGuiKey_Tab] = VK_TAB;
-			io.KeyMap[ImGuiKey_UpArrow] = VK_UP;
-			io.KeyMap[ImGuiKey_DownArrow] = VK_DOWN;
-			io.KeyMap[ImGuiKey_PageUp] = VK_PRIOR;
-			io.KeyMap[ImGuiKey_PageDown] = VK_NEXT;
-			io.KeyMap[ImGuiKey_Home] = VK_HOME;
-			io.KeyMap[ImGuiKey_Escape] = VK_ESCAPE;
-			io.KeyMap[ImGuiKey_End] = VK_END;
-			io.KeyMap[ImGuiKey_Insert] = VK_INSERT;
-			io.KeyMap[ImGuiKey_Space] = VK_SPACE;
-			io.KeyMap[ImGuiKey_A] = 'A';
-			io.KeyMap[ImGuiKey_C] = 'C';
-			io.KeyMap[ImGuiKey_V] = 'V';
-			io.KeyMap[ImGuiKey_X] = 'X';
-			io.KeyMap[ImGuiKey_Y] = 'Y';
-			io.KeyMap[ImGuiKey_Z] = 'Z';
-			*/
+            io.KeyMap[ImGuiKey_Tab] = VK_TAB;
+            io.KeyMap[ImGuiKey_UpArrow] = VK_UP;
+            io.KeyMap[ImGuiKey_DownArrow] = VK_DOWN;
+            io.KeyMap[ImGuiKey_PageUp] = VK_PRIOR;
+            io.KeyMap[ImGuiKey_PageDown] = VK_NEXT;
+            io.KeyMap[ImGuiKey_Home] = VK_HOME;
+            io.KeyMap[ImGuiKey_Escape] = VK_ESCAPE;
+            io.KeyMap[ImGuiKey_End] = VK_END;
+            io.KeyMap[ImGuiKey_Insert] = VK_INSERT;
+            io.KeyMap[ImGuiKey_Space] = VK_SPACE;
+            io.KeyMap[ImGuiKey_A] = 'A';
+            io.KeyMap[ImGuiKey_C] = 'C';
+            io.KeyMap[ImGuiKey_V] = 'V';
+            io.KeyMap[ImGuiKey_X] = 'X';
+            io.KeyMap[ImGuiKey_Y] = 'Y';
+            io.KeyMap[ImGuiKey_Z] = 'Z';
+            */
         io.KeyMap[ImGuiKey_LeftArrow] = VK_LEFT;
         io.KeyMap[ImGuiKey_RightArrow] = VK_RIGHT;
         io.KeyMap[ImGuiKey_Backspace] = VK_BACK;
@@ -575,7 +592,11 @@ namespace Gui {
     void ImplWin32NewFrame(bool mouseMapping)
     {
         ImGuiIO& io = ImGui::GetIO();
-        IM_ASSERT(io.Fonts->IsBuilt() && "Font atlas not built! It is generally built by the renderer back-end. Missing call to renderer _NewFrame() function? e.g. ImGui_ImplOpenGL3_NewFrame().");
+        IM_ASSERT(
+            io.Fonts->IsBuilt()
+            && "Font atlas not built! It is generally built by the renderer back-end. Missing call "
+               "to renderer _NewFrame() function? e.g. ImGui_ImplOpenGL3_NewFrame()."
+        );
 
         // Setup time step
         INT64 current_time = 0;
@@ -587,7 +608,8 @@ namespace Gui {
         ImplWin32UpdateMousePos(mouseMapping);
 
         // Update OS mouse cursor with the cursor requested by imgui
-        ImGuiMouseCursor mouse_cursor = io.MouseDrawCursor ? ImGuiMouseCursor_None : ImGui::GetMouseCursor();
+        ImGuiMouseCursor mouse_cursor =
+            io.MouseDrawCursor ? ImGuiMouseCursor_None : ImGui::GetMouseCursor();
         if (g_LastMouseCursor != mouse_cursor) {
             g_LastMouseCursor = mouse_cursor;
             ImplWin32UpdateMouseCursor();
@@ -603,7 +625,8 @@ namespace Gui {
     {
         g_wndNoClose_ = noClose ? 1 : 0;
     }
-    static LRESULT CALLBACK __ThImGui_WndProc_HookFunc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+    static LRESULT CALLBACK
+    __ThImGui_WndProc_HookFunc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
         typedef decltype(__ThImGui_WndProc_HookFunc)* PWndProc;
 

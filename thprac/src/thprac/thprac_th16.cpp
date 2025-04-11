@@ -1,7 +1,6 @@
 ﻿#include "thprac_games.h"
 #include "thprac_utils.h"
 
-
 namespace THPrac {
 namespace TH16 {
     using std::pair;
@@ -97,7 +96,7 @@ namespace TH16 {
             ReturnJson();
         }
     };
-    THPracParam thPracParam {};
+    THPracParam thPracParam{};
     int32_t thSubSeasonB = -1;
 
     class THGuiPrac : public Gui::GameGuiWnd {
@@ -116,8 +115,8 @@ namespace TH16 {
             OnLocaleChange();
         }
         SINGLETON(THGuiPrac);
-    public:
 
+    public:
         __declspec(noinline) void State(int state)
         {
             switch (state) {
@@ -197,7 +196,9 @@ namespace TH16 {
         const th_glossary_t* SpellPhase()
         {
             auto section = CalcSection();
-            if (section == TH16_ST6_SPRING_FINAL || section == TH16_ST6_SUMMER_FINAL || section == TH16_ST6_AUTUMN_FINAL || section == TH16_ST6_WINTER_FINAL || section == TH16_ST7_END_S10) {
+            if (section == TH16_ST6_SPRING_FINAL || section == TH16_ST6_SUMMER_FINAL
+                || section == TH16_ST6_AUTUMN_FINAL || section == TH16_ST6_WINTER_FINAL
+                || section == TH16_ST7_END_S10) {
                 return TH_SPELL_PHASE2;
             }
             return nullptr;
@@ -278,7 +279,7 @@ namespace TH16 {
         }
         void SectionWidget()
         {
-            static char chapterStr[256] {};
+            static char chapterStr[256]{};
             auto& chapterCounts = mChapterSetup[*mStage];
 
             switch (*mWarp) {
@@ -297,18 +298,22 @@ namespace TH16 {
                 break;
             case 2:
             case 3: // Mid boss & End boss
-                if (mSection(TH_WARP_SELECT[*mWarp],
+                if (mSection(
+                        TH_WARP_SELECT[*mWarp],
                         th_sections_cba[*mStage][*mWarp - 2],
-                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
+                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]
+                    ))
                     *mPhase = 0;
                 if (SectionHasDlg(th_sections_cba[*mStage][*mWarp - 2][*mSection]))
                     mDlg();
                 break;
             case 4:
             case 5: // Non-spell & Spellcard
-                if (mSection(TH_WARP_SELECT[*mWarp],
+                if (mSection(
+                        TH_WARP_SELECT[*mWarp],
                         th_sections_cbt[*mStage][*mWarp - 4],
-                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
+                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]
+                    ))
                     *mPhase = 0;
                 if (SectionHasDlg(th_sections_cbt[*mStage][*mWarp - 4][*mSection]))
                     mDlg();
@@ -318,38 +323,53 @@ namespace TH16 {
             }
         }
 
-        Gui::GuiCombo mMode { TH_MODE, TH_MODE_SELECT };
-        Gui::GuiCombo mStage { TH_STAGE, TH_STAGE_SELECT };
-        Gui::GuiCombo mWarp { TH_WARP, TH_WARP_SELECT };
-        Gui::GuiCombo mSection { TH_MODE };
-        Gui::GuiCombo mPhase { TH_PHASE };
-        Gui::GuiCheckBox mDlg { TH_DLG };
+        Gui::GuiCombo mMode{TH_MODE, TH_MODE_SELECT};
+        Gui::GuiCombo mStage{TH_STAGE, TH_STAGE_SELECT};
+        Gui::GuiCombo mWarp{TH_WARP, TH_WARP_SELECT};
+        Gui::GuiCombo mSection{TH_MODE};
+        Gui::GuiCombo mPhase{TH_PHASE};
+        Gui::GuiCheckBox mDlg{TH_DLG};
 
-        Gui::GuiSlider<int, ImGuiDataType_S32> mChapter { TH_CHAPTER, 0, 0 };
-        Gui::GuiDrag<int64_t, ImGuiDataType_S64> mScore { TH_SCORE, 0, 9999999990, 10, 100000000 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mLife { TH_LIFE, 0, 8 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mBomb { TH_BOMB, 0, 8 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mBombFragment { TH_BOMB_FRAGMENT, 0, 4 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mSeasonGauge { TH16_SEASON_GAUGE, 0, 6 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mPower { TH_POWER, 100, 400 };
-        Gui::GuiDrag<int, ImGuiDataType_S32> mValue { TH_VALUE, 0, 999990, 10, 100000 };
-        Gui::GuiDrag<int, ImGuiDataType_S32> mGraze { TH_GRAZE, 0, 999999, 1, 100000 };
+        Gui::GuiSlider<int, ImGuiDataType_S32> mChapter{TH_CHAPTER, 0, 0};
+        Gui::GuiDrag<int64_t, ImGuiDataType_S64> mScore{TH_SCORE, 0, 9999999990, 10, 100000000};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mLife{TH_LIFE, 0, 8};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mBomb{TH_BOMB, 0, 8};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mBombFragment{TH_BOMB_FRAGMENT, 0, 4};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mSeasonGauge{TH16_SEASON_GAUGE, 0, 6};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mPower{TH_POWER, 100, 400};
+        Gui::GuiDrag<int, ImGuiDataType_S32> mValue{TH_VALUE, 0, 999990, 10, 100000};
+        Gui::GuiDrag<int, ImGuiDataType_S32> mGraze{TH_GRAZE, 0, 999999, 1, 100000};
 
-        Gui::GuiNavFocus mNavFocus { TH_STAGE, TH_MODE, TH_WARP, TH_DLG,
-            TH_MID_STAGE, TH_END_STAGE, TH_NONSPELL, TH_SPELL, TH_PHASE, TH_CHAPTER,
-            TH_SCORE, TH_LIFE, TH_BOMB, TH_BOMB_FRAGMENT, TH16_SEASON_GAUGE,
-            TH_POWER, TH_VALUE, TH_GRAZE };
-
-        int mChapterSetup[7][2] {
-            { 2, 2 },
-            { 4, 0 },
-            { 4, 2 },
-            { 3, 3 },
-            { 5, 3 },
-            { 3, 0 },
-            { 4, 4 },
+        Gui::GuiNavFocus mNavFocus{
+            TH_STAGE,
+            TH_MODE,
+            TH_WARP,
+            TH_DLG,
+            TH_MID_STAGE,
+            TH_END_STAGE,
+            TH_NONSPELL,
+            TH_SPELL,
+            TH_PHASE,
+            TH_CHAPTER,
+            TH_SCORE,
+            TH_LIFE,
+            TH_BOMB,
+            TH_BOMB_FRAGMENT,
+            TH16_SEASON_GAUGE,
+            TH_POWER,
+            TH_VALUE,
+            TH_GRAZE
         };
 
+        int mChapterSetup[7][2]{
+            {2, 2},
+            {4, 0},
+            {4, 2},
+            {3, 3},
+            {5, 3},
+            {3, 0},
+            {4, 4},
+        };
 
         int mDiffculty = 0;
     };
@@ -361,8 +381,8 @@ namespace TH16 {
             mAppdataPath = appdata;
         }
         SINGLETON(THGuiRep);
-    public:
 
+    public:
         void CheckReplay()
         {
             uint32_t index = GetMemContent(0x4a6f20, 0x5b48);
@@ -413,12 +433,15 @@ namespace TH16 {
             SetPos(10.0f, 10.0f);
             SetSize(0.0f, 0.0f);
             SetWndFlag(
-                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0);
+                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove
+                | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
+                | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0
+            );
             OnLocaleChange();
         }
         SINGLETON(THOverlay);
-    public:
 
+    public:
     protected:
         virtual void OnLocaleChange() override
         {
@@ -471,23 +494,25 @@ namespace TH16 {
             }
         }
 
-        Gui::GuiHotKey mMenu { "ModMenuToggle", "BACKSPACE", VK_BACK };
-        Gui::GuiHotKey mMuteki { TH_MUTEKI, "F1", VK_F1, {
-            new HookCtx(0x443fe1, "\x01", 1) } };
-        Gui::GuiHotKey mInfLives { TH_INFLIVES, "F2", VK_F2, {
-            new HookCtx(0x443d39, "\x90", 1) } };
-        Gui::GuiHotKey mInfBombs { TH_INFBOMBS, "F3", VK_F3, {
-            new HookCtx(0x40db83, "\x90\x90\x90", 3) } };
-        Gui::GuiHotKey mInfPower { TH_INFPOWER, "F4", VK_F4, {
-            new HookCtx(0x442749, "\x90\x90\x90\x90\x90\x90", 6) } };
-        Gui::GuiHotKey mTimeLock { TH_TIMELOCK, "F5", VK_F5, {
-            new HookCtx(0x417965, "\xeb", 1),
-            new HookCtx(0x41d4ef, "\x05\x8d", 2) } };
-        Gui::GuiHotKey mAutoBomb { TH_AUTOBOMB, "F6", VK_F6, {
-            new HookCtx(0x4427a1, "\xc6", 1) } };
+        Gui::GuiHotKey mMenu{"ModMenuToggle", "BACKSPACE", VK_BACK};
+        Gui::GuiHotKey mMuteki{TH_MUTEKI, "F1", VK_F1, {new HookCtx(0x443fe1, "\x01", 1)}};
+        Gui::GuiHotKey mInfLives{TH_INFLIVES, "F2", VK_F2, {new HookCtx(0x443d39, "\x90", 1)}};
+        Gui::GuiHotKey mInfBombs{
+            TH_INFBOMBS, "F3", VK_F3, {new HookCtx(0x40db83, "\x90\x90\x90", 3)}
+        };
+        Gui::GuiHotKey mInfPower{
+            TH_INFPOWER, "F4", VK_F4, {new HookCtx(0x442749, "\x90\x90\x90\x90\x90\x90", 6)}
+        };
+        Gui::GuiHotKey mTimeLock{
+            TH_TIMELOCK,
+            "F5",
+            VK_F5,
+            {new HookCtx(0x417965, "\xeb", 1), new HookCtx(0x41d4ef, "\x05\x8d", 2)}
+        };
+        Gui::GuiHotKey mAutoBomb{TH_AUTOBOMB, "F6", VK_F6, {new HookCtx(0x4427a1, "\xc6", 1)}};
 
     public:
-        Gui::GuiHotKey mElBgm { TH_EL_BGM, "F7", VK_F7 };
+        Gui::GuiHotKey mElBgm{TH_EL_BGM, "F7", VK_F7};
     };
     class THGuiSP : public Gui::GameGuiWnd {
         THGuiSP() noexcept
@@ -501,8 +526,8 @@ namespace TH16 {
             OnLocaleChange();
         }
         SINGLETON(THGuiSP);
-    public:
 
+    public:
         __declspec(noinline) void State(int state)
         {
             uint32_t spell_id;
@@ -608,12 +633,12 @@ namespace TH16 {
 
         unsigned int mSpellId = UINT_MAX;
 
-        Gui::GuiCombo mSubSeason { TH16_SUBSEASON };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mSeasonGauge { TH16_SEASON_GAUGE_ALT, 0, 6 };
-        Gui::GuiCheckBox mBugFix { TH16_BUGFIX };
-        Gui::GuiCombo mPhase { TH_PHASE };
+        Gui::GuiCombo mSubSeason{TH16_SUBSEASON};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mSeasonGauge{TH16_SEASON_GAUGE_ALT, 0, 6};
+        Gui::GuiCheckBox mBugFix{TH16_BUGFIX};
+        Gui::GuiCombo mPhase{TH_PHASE};
 
-        Gui::GuiNavFocus mNavFocus { TH16_SUBSEASON, TH16_SEASON_GAUGE_ALT, TH16_BUGFIX, TH_PHASE };
+        Gui::GuiNavFocus mNavFocus{TH16_SUBSEASON, TH16_SEASON_GAUGE_ALT, TH16_BUGFIX, TH_PHASE};
     };
 
     class THAdvOptWnd : public Gui::PPGuiWnd {
@@ -641,6 +666,7 @@ namespace TH16 {
                 pCtx->Eip = 0x42e245;
             }
         }
+
     private:
         void FpsInit()
         {
@@ -675,15 +701,15 @@ namespace TH16 {
 
         THAdvOptWnd() noexcept
         {
-            SetWndFlag(ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
+            SetWndFlag(
+                ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse
+                | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove
+            );
             SetFade(0.8f, 0.8f);
             SetStyle(ImGuiStyleVar_WindowRounding, 0.0f);
             SetStyle(ImGuiStyleVar_WindowBorderSize, 0.0f);
 
-            InitUpdFunc([&]() { ContentUpdate(); },
-                [&]() { LocaleUpdate(); },
-                [&]() {},
-                []() {});
+            InitUpdFunc([&]() { ContentUpdate(); }, [&]() { LocaleUpdate(); }, [&]() {}, []() {});
 
             OnLocaleChange();
             FpsInit();
@@ -759,7 +785,9 @@ namespace TH16 {
         adv_opt_ctx mOptCtx;
     };
 
-    void ECLJump(ECLHelper& ecl, unsigned int start, unsigned int dest, int at_frame, int ecl_time = 0)
+    void ECLJump(
+        ECLHelper& ecl, unsigned int start, unsigned int dest, int at_frame, int ecl_time = 0
+    )
     {
         ecl.SetPos(start);
         ecl << ecl_time << 0x0018000C << 0x02ff0000 << 0x00000000 << dest - start << at_frame;
@@ -781,9 +809,8 @@ namespace TH16 {
 
             ecl << 0 << 0x00140154 << 0x01ff0001 << 0 << -9923;
 
-            ecl << 0 << 0x00340141 << 0x06ff0000 << 0
-                << 12 << "MapleEnemy3" << '\0'
-                << 0 << 0 << 100 << 1000 << 0;
+            ecl << 0 << 0x00340141 << 0x06ff0000 << 0 << 12 << "MapleEnemy3" << '\0' << 0 << 0
+                << 100 << 1000 << 0;
 
             ecl << 0 << 0x0014002a << 0x01ff0000 << 0 << 0;
             ecl << 0 << 0x0014002b << 0x01ff0001 << 0 << -9923;
@@ -799,18 +826,16 @@ namespace TH16 {
 
             ecl << 0 << 0x00140154 << 0x01ff0001 << 0 << -9923;
 
-            ecl << 0 << 0x00340141 << 0x06ff0000 << 0
-                << 12 << "MapleEnemy3" << '\0'
-                << 0 << 0 << 100 << 1000 << 0;
+            ecl << 0 << 0x00340141 << 0x06ff0000 << 0 << 12 << "MapleEnemy3" << '\0' << 0 << 0
+                << 100 << 1000 << 0;
 
             ecl << 0 << 0x0014002a << 0x01ff0000 << 0 << 0;
             ecl << 0 << 0x0014002b << 0x01ff0001 << 0 << -9923;
 
             ecl << 0 << 0x00140276 << 0x01ff0000 << 0 << ((ordinal == 4) ? 4 : 3);
 
-            ecl << 0 << 0x00340141 << 0x06ff0000 << 0
-                << 12 << "MapleEnemy" << ((ordinal == 4) ? '5' : '4') << '\0'
-                << 0 << 0 << 100 << 1000 << 0;
+            ecl << 0 << 0x00340141 << 0x06ff0000 << 0 << 12 << "MapleEnemy"
+                << ((ordinal == 4) ? '5' : '4') << '\0' << 0 << 0 << 100 << 1000 << 0;
 
             ecl << 0 << 0x0014002a << 0x01ff0001 << 0 << -9931;
             ecl << 0 << 0x0014002b << 0x01ff0001 << 0 << -9923;
@@ -824,12 +849,10 @@ namespace TH16 {
 
             ecl << 0 << 0x00140154 << 0x01ff0001 << 0 << -9923;
 
-            ecl << 0 << 0x00340141 << 0x06ff0000 << 0
-                << 12 << "MapleEnemy6" << '\0'
-                << 0 << 0 << 100 << 1000 << 0;
-            ecl << 0 << 0x00340141 << 0x06ff0000 << 0
-                << 12 << "MapleEnemy7" << '\0'
-                << 0 << 0 << 100 << 1000 << 0;
+            ecl << 0 << 0x00340141 << 0x06ff0000 << 0 << 12 << "MapleEnemy6" << '\0' << 0 << 0
+                << 100 << 1000 << 0;
+            ecl << 0 << 0x00340141 << 0x06ff0000 << 0 << 12 << "MapleEnemy7" << '\0' << 0 << 0
+                << 100 << 1000 << 0;
 
             ecl << 0 << 0x0014002a << 0x01ff0001 << 0 << -9931;
             ecl << 0 << 0x0014002b << 0x01ff0001 << 0 << -9923;
@@ -840,8 +863,7 @@ namespace TH16 {
             break;
         }
 
-        ecl << 0 << 0x00140017 << 0x01ff0000 << 0 << 101
-            << 0 << 0x0014012e << 0x01ff0000 << 0 << 3;
+        ecl << 0 << 0x00140017 << 0x01ff0000 << 0 << 101 << 0 << 0x0014012e << 0x01ff0000 << 0 << 3;
         ECLJump(ecl, ecl.GetPos(), 0x4dc, 0);
     }
     __declspec(noinline) void THStageWarp(ECLHelper& ecl, int stage, int portion)
@@ -1089,7 +1111,8 @@ namespace TH16 {
 
             ecl << pair{0x67c, (int8_t)0x32}; // Change Nonspell
             ecl << pair{0xe28, (int16_t)0} << pair{0xf74, (int16_t)0}; // Disable Item Drops & SE
-            ecl << pair{0x10ec, 59} << pair{0x1138, 0} << pair{0xd5c, 60}; // Change Move Time, Wait Time & Inv. Time
+            ecl << pair{0x10ec, 59} << pair{0x1138, 0}
+                << pair{0xd5c, 60}; // Change Move Time, Wait Time & Inv. Time
             break;
         case THPrac::TH16::TH16_ST2_BOSS4:
             ECLJump(ecl, 0x77c8, 0x7a88, 60);
@@ -1273,12 +1296,14 @@ namespace TH16 {
             // Boss A
             ecl << pair(0x4bc, -64.0f) << pair{0x4c0, 128.0f}; // Spawn Pos
             ecl << pair{0x22f0, (int16_t)0} << pair{0x3dfc, (int16_t)0}; // Disable Item Drops & SE
-            ecl << pair{0x3fc4, (int16_t)0} << pair{0x4000, 0} << pair{0x3cd8, 0}; // Void Move, Change Wait Time & Inv. Time
+            ecl << pair{0x3fc4, (int16_t)0} << pair{0x4000, 0}
+                << pair{0x3cd8, 0}; // Void Move, Change Wait Time & Inv. Time
 
             // Boss B
             ecl << pair{0x6b24, 64.0f} << pair{0x6b28, 128.0f}; // Spawn Pos
             ecl << pair{0x2eb0, (int16_t)0}; // Disable SE
-            ecl << pair{0x3078, (int16_t)0} << pair{0x30b4, 0} << pair{0x2d8c, 0}; // Void Move, Change Wait Time & Inv. Time
+            ecl << pair{0x3078, (int16_t)0} << pair{0x30b4, 0}
+                << pair{0x2d8c, 0}; // Void Move, Change Wait Time & Inv. Time
             break;
         case THPrac::TH16::TH16_ST5_BOSS4A:
             ECLJump(ecl, 0x9070, 0x9378, 60);
@@ -1320,13 +1345,15 @@ namespace TH16 {
             ecl << pair{0x668, (int16_t)0}; // Disable 504
             ecl << pair{0x4bc, 0.0f} << pair{0x4c0, 144.0f}; // Spawn Pos
             ecl << pair{0x42d0, (int16_t)0} << pair{0x5d9c, (int16_t)0}; // Disable Item Drops & SE
-            ecl << pair{0x5f64, (int16_t)0} << pair{0x5fa0, 0} << pair{0x5c78, 0}; // Void Move, Change Wait Time & Inv. Time
+            ecl << pair{0x5f64, (int16_t)0} << pair{0x5fa0, 0}
+                << pair{0x5c78, 0}; // Void Move, Change Wait Time & Inv. Time
 
             // Boss B
             ecl << pair{0x6cb0, (int16_t)0}; // Disable 504
             ecl << pair{0x6b24, 0.0f} << pair{0x6b28, 64.0f}; // Spawn Pos
             ecl << pair{0x4e40, (int16_t)0}; // Disable SE
-            ecl << pair{0x5008, (int16_t)0} << pair{0x5044, 0} << pair{0x4d1c, 0}; // Void Move, Change Wait Time & Inv. Time
+            ecl << pair{0x5008, (int16_t)0} << pair{0x5044, 0}
+                << pair{0x4d1c, 0}; // Void Move, Change Wait Time & Inv. Time
             break;
         case THPrac::TH16::TH16_ST5_BOSS6:
             ECLJump(ecl, 0x9070, 0x9378, 60);
@@ -1610,8 +1637,8 @@ namespace TH16 {
                 ECLJump(ecl, 0x1f0, 0x720, 0);
                 ecl.SetPos(0x720);
                 ecl << 0 << 0x00140203 << 0x01ff0000 << 0 << 101;
-                ecl << 0 << 0x0014002a << 0x01ff0000 << 0 << 0
-                    << 0 << 0x0014002b << 0x01ff0001 << 0 << -9949;
+                ecl << 0 << 0x0014002a << 0x01ff0000 << 0 << 0 << 0 << 0x0014002b << 0x01ff0001 << 0
+                    << -9949;
                 ECLJump(ecl, ecl.GetPos(), 0x218, 0);
                 ECLJump(ecl, 0x458, 0x4a8, 0);
                 ECLJump(ecl, 0x4bc, 0x50c, 0);
@@ -1621,8 +1648,8 @@ namespace TH16 {
                 ECLJump(ecl, 0x7e0, 0xc40, 0);
                 ecl.SetPos(0xc40);
                 ecl << 0 << 0x00140203 << 0x01ff0000 << 0 << 101;
-                ecl << 0 << 0x0014002a << 0x01ff0001 << 0 << -9914
-                    << 0 << 0x0014002b << 0x01ff0001 << 0 << -9925;
+                ecl << 0 << 0x0014002a << 0x01ff0001 << 0 << -9914 << 0 << 0x0014002b << 0x01ff0001
+                    << 0 << -9925;
                 ECLJump(ecl, ecl.GetPos(), 0x808, 0);
                 ECLJump(ecl, 0x978, 0x9c8, 0);
                 ECLJump(ecl, 0x9dc, 0xa2c, 0);
@@ -1636,8 +1663,8 @@ namespace TH16 {
             ECLJump(ecl, 0x1f0, 0x720, 0);
             ecl.SetPos(0x720);
             ecl << 0 << 0x00140203 << 0x01ff0000 << 0 << 101;
-            ecl << 0 << 0x0014002a << 0x01ff0000 << 0 << 0
-                << 0 << 0x0014002b << 0x01ff0001 << 0 << -9949;
+            ecl << 0 << 0x0014002a << 0x01ff0000 << 0 << 0 << 0 << 0x0014002b << 0x01ff0001 << 0
+                << -9949;
             ECLJump(ecl, ecl.GetPos(), 0x218, 0);
             ECLJump(ecl, 0x458, 0x4a8, 0);
             ECLJump(ecl, 0x4bc, 0x5a8, 0);
@@ -1647,8 +1674,8 @@ namespace TH16 {
             ECLJump(ecl, 0x7e0, 0xc40, 0);
             ecl.SetPos(0xc40);
             ecl << 0 << 0x00140203 << 0x01ff0000 << 0 << 101;
-            ecl << 0 << 0x0014002a << 0x01ff0001 << 0 << -9914
-                << 0 << 0x0014002b << 0x01ff0001 << 0 << -9925;
+            ecl << 0 << 0x0014002a << 0x01ff0001 << 0 << -9914 << 0 << 0x0014002b << 0x01ff0001 << 0
+                << -9925;
             ECLJump(ecl, ecl.GetPos(), 0x808, 0);
             ECLJump(ecl, 0x978, 0x9c8, 0);
             ECLJump(ecl, 0x9dc, 0xac8, 0);
@@ -1661,8 +1688,8 @@ namespace TH16 {
             ECLJump(ecl, 0x1f0, 0x720, 0);
             ecl.SetPos(0x720);
             ecl << 0 << 0x00140203 << 0x01ff0000 << 0 << 101;
-            ecl << 0 << 0x0014002a << 0x01ff0000 << 0 << 0
-                << 0 << 0x0014002b << 0x01ff0001 << 0 << -9949;
+            ecl << 0 << 0x0014002a << 0x01ff0000 << 0 << 0 << 0 << 0x0014002b << 0x01ff0001 << 0
+                << -9949;
             ECLJump(ecl, ecl.GetPos(), 0x218, 0);
             ECLJump(ecl, 0x458, 0x4a8, 0);
             ECLJump(ecl, 0x4bc, 0x644, 0);
@@ -1672,8 +1699,8 @@ namespace TH16 {
             ECLJump(ecl, 0x7e0, 0xc40, 0);
             ecl.SetPos(0xc40);
             ecl << 0 << 0x00140203 << 0x01ff0000 << 0 << 101;
-            ecl << 0 << 0x0014002a << 0x01ff0001 << 0 << -9914
-                << 0 << 0x0014002b << 0x01ff0001 << 0 << -9925;
+            ecl << 0 << 0x0014002a << 0x01ff0001 << 0 << -9914 << 0 << 0x0014002b << 0x01ff0001 << 0
+                << -9925;
             ECLJump(ecl, ecl.GetPos(), 0x808, 0);
             ECLJump(ecl, 0x978, 0x9c8, 0);
             ECLJump(ecl, 0x9dc, 0xb64, 0);
@@ -1698,7 +1725,8 @@ namespace TH16 {
             ecl.SetFile(4);
             ecl << pair{0xf58, (int8_t)0x32}; // Change Nonspell
             ecl << pair{0x19bc, (int16_t)0} << pair{0x1aec, (int16_t)0}; // Disable Item Drops & SE
-            ecl << pair{0x1c80, 59} << pair{0x1ca0, 0} << pair{0x18e4, 0}; // Change Move Time, Wait Time & Inv. Time
+            ecl << pair{0x1c80, 59} << pair{0x1ca0, 0}
+                << pair{0x18e4, 0}; // Change Move Time, Wait Time & Inv. Time
             break;
         case THPrac::TH16::TH16_ST7_END_S2:
             ECLJump(ecl, 0x988c, 0x9c9c, 60);
@@ -1714,7 +1742,8 @@ namespace TH16 {
             ecl.SetFile(4);
             ecl << pair{0xf58, (int8_t)0x33}; // Change Nonspell
             ecl << pair{0x21cc, (int16_t)0} << pair{0x22fc, (int16_t)0}; // Disable Item Drops & SE
-            ecl << pair{0x2490, 59} << pair{0x24b0, 0} << pair{0x20f4, 0}; // Change Move Time, Wait Time & Inv. Time
+            ecl << pair{0x2490, 59} << pair{0x24b0, 0}
+                << pair{0x20f4, 0}; // Change Move Time, Wait Time & Inv. Time
             break;
         case THPrac::TH16::TH16_ST7_END_S3:
             ECLJump(ecl, 0x988c, 0x9c9c, 60);
@@ -1730,7 +1759,8 @@ namespace TH16 {
             ecl.SetFile(4);
             ecl << pair{0xf58, (int8_t)0x34}; // Change Nonspell
             ecl << pair{0x29dc, (int16_t)0} << pair{0x2b0c, (int16_t)0}; // Disable Item Drops & SE
-            ecl << pair{0x2ca0, 59} << pair{0x2cd0, 0} << pair{0x2904, 0}; // Change Move Time, Wait Time & Inv. Time
+            ecl << pair{0x2ca0, 59} << pair{0x2cd0, 0}
+                << pair{0x2904, 0}; // Change Move Time, Wait Time & Inv. Time
             break;
         case THPrac::TH16::TH16_ST7_END_S4:
             ECLJump(ecl, 0x988c, 0x9c9c, 60);
@@ -1763,7 +1793,8 @@ namespace TH16 {
             ecl.SetFile(4);
             ecl << pair{0xf58, (int8_t)0x36}; // Change Nonspell
             ecl << pair{0x3d94, (int16_t)0} << pair{0x3ec4, (int16_t)0}; // Disable Item Drops & SE
-            ecl << pair{0x4058, 59} << pair{0x4088, 0} << pair{0x3cbc, 0}; // Change Move Time, Wait Time & Inv. Time
+            ecl << pair{0x4058, 59} << pair{0x4088, 0}
+                << pair{0x3cbc, 0}; // Change Move Time, Wait Time & Inv. Time
             break;
         case THPrac::TH16::TH16_ST7_END_S6:
             ECLJump(ecl, 0x988c, 0x9c9c, 60);
@@ -1779,7 +1810,8 @@ namespace TH16 {
             ecl.SetFile(4);
             ecl << pair{0xf58, (int8_t)0x37}; // Change Nonspell
             ecl << pair{0x45b4, (int16_t)0} << pair{0x46e4, (int16_t)0}; // Disable Item Drops & SE
-            ecl << pair{0x4878, 59} << pair{0x48a8, 0} << pair{0x44dc, 0}; // Change Move Time, Wait Time & Inv. Time
+            ecl << pair{0x4878, 59} << pair{0x48a8, 0}
+                << pair{0x44dc, 0}; // Change Move Time, Wait Time & Inv. Time
             break;
         case THPrac::TH16::TH16_ST7_END_S7:
             ECLJump(ecl, 0x988c, 0x9c9c, 60);
@@ -1795,7 +1827,8 @@ namespace TH16 {
             ecl.SetFile(4);
             ecl << pair{0xf58, (int8_t)0x38}; // Change Nonspell
             ecl << pair{0x4dd4, (int16_t)0} << pair{0x4f04, (int16_t)0}; // Disable Item Drops & SE
-            ecl << pair{0x5098, 59} << pair{0x50c8, 0} << pair{0x4cfc, 0}; // Change Move Time, Wait Time & Inv. Time
+            ecl << pair{0x5098, 59} << pair{0x50c8, 0}
+                << pair{0x4cfc, 0}; // Change Move Time, Wait Time & Inv. Time
             break;
         case THPrac::TH16::TH16_ST7_END_S8:
             ECLJump(ecl, 0x988c, 0x9c9c, 60);
@@ -2049,46 +2082,38 @@ namespace TH16 {
     }
 
     unsigned char th16_spbugfix_ecl1[448] = {
-        0x00, 0x00, 0x00, 0x00, 0x2A, 0x00, 0x14, 0x00, 0x01, 0x00, 0xFF, 0x01,
-        0x00, 0x00, 0x00, 0x00, 0x3D, 0xD9, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00,
-        0x2A, 0x00, 0x14, 0x00, 0x00, 0x00, 0xFF, 0x01, 0x00, 0x00, 0x00, 0x00,
-        0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3D, 0x00, 0x10, 0x00,
-        0x00, 0x00, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-        0x0D, 0x00, 0x18, 0x00, 0x00, 0x00, 0xFF, 0x02, 0x00, 0x00, 0x00, 0x00,
-        0x68, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-        0x2A, 0x00, 0x14, 0x00, 0x01, 0x00, 0xFF, 0x01, 0x00, 0x00, 0x00, 0x00,
-        0x46, 0xD9, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x2A, 0x00, 0x14, 0x00,
-        0x01, 0x00, 0xFF, 0x01, 0x00, 0x00, 0x00, 0x00, 0x3B, 0xD9, 0xFF, 0xFF,
-        0x00, 0x00, 0x00, 0x00, 0x3B, 0x00, 0x10, 0x00, 0x00, 0x00, 0xFF, 0x00,
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0D, 0x00, 0x18, 0x00,
-        0x00, 0x00, 0xFF, 0x02, 0x00, 0x00, 0x00, 0x00, 0x7C, 0x00, 0x00, 0x00,
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x2A, 0x00, 0x14, 0x00,
-        0x00, 0x00, 0xFF, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00,
-        0x00, 0x00, 0x00, 0x00, 0x2B, 0x00, 0x14, 0x00, 0x01, 0x00, 0xFF, 0x01,
-        0x00, 0x00, 0x00, 0x00, 0x3D, 0xD9, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00,
-        0x20, 0x03, 0x24, 0x00, 0x01, 0x00, 0xFF, 0x02, 0x00, 0x00, 0x00, 0x00,
-        0x3A, 0xD9, 0xFF, 0xFF, 0x0C, 0x00, 0x00, 0x00, 0x42, 0x6F, 0x73, 0x73,
-        0x45, 0x73, 0x63, 0x61, 0x70, 0x65, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-        0x0C, 0x00, 0x18, 0x00, 0x00, 0x00, 0xFF, 0x02, 0x00, 0x00, 0x00, 0x00,
-        0xB4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-        0x2A, 0x00, 0x14, 0x00, 0x01, 0x00, 0xFF, 0x01, 0x00, 0x00, 0x00, 0x00,
-        0x46, 0xD9, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x2A, 0x00, 0x14, 0x00,
-        0x01, 0x00, 0xFF, 0x01, 0x00, 0x00, 0x00, 0x00, 0x3A, 0xD9, 0xFF, 0xFF,
-        0x00, 0x00, 0x00, 0x00, 0x3B, 0x00, 0x10, 0x00, 0x00, 0x00, 0xFF, 0x00,
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0D, 0x00, 0x18, 0x00,
-        0x00, 0x00, 0xFF, 0x02, 0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00,
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x2A, 0x00, 0x14, 0x00,
-        0x00, 0x00, 0xFF, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00,
-        0x00, 0x00, 0x00, 0x00, 0x2B, 0x00, 0x14, 0x00, 0x01, 0x00, 0xFF, 0x01,
-        0x00, 0x00, 0x00, 0x00, 0x3D, 0xD9, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00,
-        0x20, 0x03, 0x24, 0x00, 0x01, 0x00, 0xFF, 0x02, 0x00, 0x00, 0x00, 0x00,
-        0x3B, 0xD9, 0xFF, 0xFF, 0x0C, 0x00, 0x00, 0x00, 0x42, 0x6F, 0x73, 0x73,
-        0x45, 0x73, 0x63, 0x61, 0x70, 0x65, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-        0x0B, 0x02, 0x10, 0x00, 0x00, 0x00, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00,
-        0x00, 0x00, 0x00, 0x00, 0xF9, 0x01, 0x10, 0x00, 0x00, 0x00, 0xFF, 0x00,
-        0x00, 0x00, 0x00, 0x00
+        0x00, 0x00, 0x00, 0x00, 0x2A, 0x00, 0x14, 0x00, 0x01, 0x00, 0xFF, 0x01, 0x00, 0x00, 0x00,
+        0x00, 0x3D, 0xD9, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x2A, 0x00, 0x14, 0x00, 0x00, 0x00,
+        0xFF, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3D,
+        0x00, 0x10, 0x00, 0x00, 0x00, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x0D, 0x00, 0x18, 0x00, 0x00, 0x00, 0xFF, 0x02, 0x00, 0x00, 0x00, 0x00, 0x68, 0x01, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x2A, 0x00, 0x14, 0x00, 0x01, 0x00,
+        0xFF, 0x01, 0x00, 0x00, 0x00, 0x00, 0x46, 0xD9, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x2A,
+        0x00, 0x14, 0x00, 0x01, 0x00, 0xFF, 0x01, 0x00, 0x00, 0x00, 0x00, 0x3B, 0xD9, 0xFF, 0xFF,
+        0x00, 0x00, 0x00, 0x00, 0x3B, 0x00, 0x10, 0x00, 0x00, 0x00, 0xFF, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x0D, 0x00, 0x18, 0x00, 0x00, 0x00, 0xFF, 0x02, 0x00, 0x00,
+        0x00, 0x00, 0x7C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x2A,
+        0x00, 0x14, 0x00, 0x00, 0x00, 0xFF, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x2B, 0x00, 0x14, 0x00, 0x01, 0x00, 0xFF, 0x01, 0x00, 0x00, 0x00,
+        0x00, 0x3D, 0xD9, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x20, 0x03, 0x24, 0x00, 0x01, 0x00,
+        0xFF, 0x02, 0x00, 0x00, 0x00, 0x00, 0x3A, 0xD9, 0xFF, 0xFF, 0x0C, 0x00, 0x00, 0x00, 0x42,
+        0x6F, 0x73, 0x73, 0x45, 0x73, 0x63, 0x61, 0x70, 0x65, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x0C, 0x00, 0x18, 0x00, 0x00, 0x00, 0xFF, 0x02, 0x00, 0x00, 0x00, 0x00, 0xB4, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x2A, 0x00, 0x14, 0x00, 0x01, 0x00,
+        0xFF, 0x01, 0x00, 0x00, 0x00, 0x00, 0x46, 0xD9, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x2A,
+        0x00, 0x14, 0x00, 0x01, 0x00, 0xFF, 0x01, 0x00, 0x00, 0x00, 0x00, 0x3A, 0xD9, 0xFF, 0xFF,
+        0x00, 0x00, 0x00, 0x00, 0x3B, 0x00, 0x10, 0x00, 0x00, 0x00, 0xFF, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x0D, 0x00, 0x18, 0x00, 0x00, 0x00, 0xFF, 0x02, 0x00, 0x00,
+        0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x2A,
+        0x00, 0x14, 0x00, 0x00, 0x00, 0xFF, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x2B, 0x00, 0x14, 0x00, 0x01, 0x00, 0xFF, 0x01, 0x00, 0x00, 0x00,
+        0x00, 0x3D, 0xD9, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x20, 0x03, 0x24, 0x00, 0x01, 0x00,
+        0xFF, 0x02, 0x00, 0x00, 0x00, 0x00, 0x3B, 0xD9, 0xFF, 0xFF, 0x0C, 0x00, 0x00, 0x00, 0x42,
+        0x6F, 0x73, 0x73, 0x45, 0x73, 0x63, 0x61, 0x70, 0x65, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x0B, 0x02, 0x10, 0x00, 0x00, 0x00, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0xF9, 0x01, 0x10, 0x00, 0x00, 0x00, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00
     };
-    static char th16_spbugfix_str1[] { "BossDeadB" };
+    static char th16_spbugfix_str1[]{"BossDeadB"};
     __declspec(noinline) int TH16SPEclPatch(char* sub_str)
     {
         int signal = 0;
@@ -2140,7 +2165,8 @@ namespace TH16 {
         sub_str += 0x20;
 
         signal = 0;
-        if (thPracParam.bug_fix && (*((int32_t*)0x4a5bec) & 0x30) == 32 && *((int32_t*)0x4a5790) == 5) {
+        if (thPracParam.bug_fix && (*((int32_t*)0x4a5bec) & 0x30) == 32
+            && *((int32_t*)0x4a5790) == 5) {
             signal = TH16SPEclPatch(sub_str);
             if (signal == 1) {
                 *(DWORD*)(pCtx->Ebp - 0x420) = pCtx->Eax;
@@ -2169,10 +2195,12 @@ namespace TH16 {
         bool is_practice;
         bool result;
 
-        el_switch = *(THOverlay::singleton().mElBgm) && !THGuiRep::singleton().mRepStatus && (thPracParam.mode == 1) && thPracParam.section;
+        el_switch = *(THOverlay::singleton().mElBgm) && !THGuiRep::singleton().mRepStatus
+            && (thPracParam.mode == 1) && thPracParam.section;
         is_practice = (*((int32_t*)0x4a5bec) & 0x1);
         result = ElBgmTest<0x43c423, 0x42d6b9, 0x43f199, 0x4409c0, 0xffffffff>(
-            el_switch, is_practice, retn_addr, bgm_cmd, bgm_id, 0xffffffff);
+            el_switch, is_practice, retn_addr, bgm_cmd, bgm_id, 0xffffffff
+        );
 
         if (result) {
             pCtx->Eip = 0x45ed93;
@@ -2338,12 +2366,9 @@ namespace TH16 {
     EHOOK_DY(th16_rep_save, 0x448be4)
     {
         char* repName = (char*)(pCtx->Esp + 0x38);
-        if (thPracParam.mode == 1)
-        {
+        if (thPracParam.mode == 1) {
             THSaveReplay(repName);
-        }
-        else if (thPracParam.mode == 2)
-        {
+        } else if (thPracParam.mode == 2) {
             if (thPracParam.season_gauge != 3 || thPracParam.phase || thPracParam.bug_fix)
                 THSaveReplay(repName);
         }
@@ -2403,7 +2428,8 @@ namespace TH16 {
         THGuiRep::singleton().Update();
         THOverlay::singleton().Update();
         THGuiSP::singleton().Update();
-        bool drawCursor = THAdvOptWnd::StaticUpdate() || THGuiPrac::singleton().IsOpen() || THGuiSP::singleton().IsOpen();
+        bool drawCursor = THAdvOptWnd::StaticUpdate() || THGuiPrac::singleton().IsOpen()
+            || THGuiSP::singleton().IsOpen();
         GameGuiEnd(drawCursor);
     }
     EHOOK_DY(th16_render, 0x40168a)
@@ -2416,9 +2442,17 @@ namespace TH16 {
     static __declspec(noinline) void THGuiCreate()
     {
         // Init
-        GameGuiInit(IMPL_WIN32_DX9, 0x4c10d8, 0x4d7ce0, 0x45a450,
-            Gui::INGAGME_INPUT_GEN2, 0x4a50bc, 0x4a50b8, 0,
-            (*((int32_t*)0x4d9d1c) >> 2) & 0xf);
+        GameGuiInit(
+            IMPL_WIN32_DX9,
+            0x4c10d8,
+            0x4d7ce0,
+            0x45a450,
+            Gui::INGAGME_INPUT_GEN2,
+            0x4a50bc,
+            0x4a50b8,
+            0,
+            (*((int32_t*)0x4d9d1c) >> 2) & 0xf
+        );
 
         // Gui components creation
         THGuiPrac::singleton();

@@ -1,9 +1,9 @@
 ﻿#include "thprac_main.h"
 #include "thprac_games.h"
 #include "thprac_gui_locale.h"
-#include "thprac_launcher_wnd.h"
-#include "thprac_launcher_games.h"
 #include "thprac_launcher_cfg.h"
+#include "thprac_launcher_games.h"
+#include "thprac_launcher_wnd.h"
 #include "thprac_load_exe.h"
 #include "thprac_utils.h"
 #include "utils/wininternal.h"
@@ -39,7 +39,10 @@ bool CheckMutex(const char* mutex_name)
 
 bool CheckIfAnyGame()
 {
-    if (CheckMutex("Touhou Koumakyou App") || CheckMutex("Touhou YouYouMu App") || CheckMutex("Touhou 08 App") || CheckMutex("Touhou 10 App") || CheckMutex("Touhou 11 App") || CheckMutex("Touhou 12 App") || CheckMutex("th17 App") || CheckMutex("th18 App") || CheckMutex("th185 App") || CheckMutex("th19 App"))
+    if (CheckMutex("Touhou Koumakyou App") || CheckMutex("Touhou YouYouMu App")
+        || CheckMutex("Touhou 08 App") || CheckMutex("Touhou 10 App") || CheckMutex("Touhou 11 App")
+        || CheckMutex("Touhou 12 App") || CheckMutex("th17 App") || CheckMutex("th18 App")
+        || CheckMutex("th185 App") || CheckMutex("th19 App"))
         return true;
     return false;
 }
@@ -64,10 +67,18 @@ bool PromptUser(thprac_prompt_t info, THGameSig* gameSig = nullptr)
     case THPrac::PR_FAILED:
         return true;
     case THPrac::PR_INFO_ATTACHED:
-        MsgBox(S(THPRAC_PR_COMPLETE), S(THPRAC_PR_INFO_ATTACHED), MB_ICONASTERISK | MB_OK | MB_SYSTEMMODAL);
+        MsgBox(
+            S(THPRAC_PR_COMPLETE),
+            S(THPRAC_PR_INFO_ATTACHED),
+            MB_ICONASTERISK | MB_OK | MB_SYSTEMMODAL
+        );
         return true;
     case THPrac::PR_INFO_NO_GAME_FOUND:
-        MsgBoxWnd(S(THPRAC_PR_COMPLETE), S(THPRAC_PR_ERR_NO_GAME), MB_ICONASTERISK | MB_OK | MB_SYSTEMMODAL);
+        MsgBoxWnd(
+            S(THPRAC_PR_COMPLETE),
+            S(THPRAC_PR_ERR_NO_GAME),
+            MB_ICONASTERISK | MB_OK | MB_SYSTEMMODAL
+        );
         return true;
     case THPrac::PR_ASK_IF_ATTACH: {
         if (!gameSig) {
@@ -75,13 +86,19 @@ bool PromptUser(thprac_prompt_t info, THGameSig* gameSig = nullptr)
         }
         char gameExeStr[256];
         sprintf_s(gameExeStr, S(THPRAC_PR_ASK_ATTACH), gameSig->idStr);
-        if (MsgBox(S(THPRAC_PR_APPLY), gameExeStr, MB_YESNO | MB_ICONQUESTION | MB_SYSTEMMODAL) == IDYES) {
+        if (MsgBox(S(THPRAC_PR_APPLY), gameExeStr, MB_YESNO | MB_ICONQUESTION | MB_SYSTEMMODAL)
+            == IDYES) {
             return true;
         }
         return false;
     }
     case THPrac::PR_ASK_IF_CONTINUE:
-        if (MsgBox(S(THPRAC_PR_CONTINUE), S(THPRAC_PR_ASK_CONTINUE), MB_YESNO | MB_ICONQUESTION | MB_SYSTEMMODAL) == IDYES) {
+        if (MsgBox(
+                S(THPRAC_PR_CONTINUE),
+                S(THPRAC_PR_ASK_CONTINUE),
+                MB_YESNO | MB_ICONQUESTION | MB_SYSTEMMODAL
+            )
+            == IDYES) {
             return true;
         }
         return false;
@@ -104,7 +121,7 @@ bool PromptUser(thprac_prompt_t info, THGameSig* gameSig = nullptr)
 THGameSig* CheckOngoingGame(PROCESSENTRY32W& proc, uintptr_t* base, HANDLE* pOutHandle = nullptr)
 {
     // Eliminate impossible process
-    if ( wcscmp(L"東方紅魔郷.exe", proc.szExeFile) && wcscmp(L"alcostg.exe", proc.szExeFile)) {
+    if (wcscmp(L"東方紅魔郷.exe", proc.szExeFile) && wcscmp(L"alcostg.exe", proc.szExeFile)) {
         if (proc.szExeFile[0] != L't' || proc.szExeFile[1] != L'h')
             return nullptr;
         if (proc.szExeFile[2] < L'0' || proc.szExeFile[2] > L'9')
@@ -126,10 +143,12 @@ THGameSig* CheckOngoingGame(PROCESSENTRY32W& proc, uintptr_t* base, HANDLE* pOut
 
     // Open the related process
     auto hProc = OpenProcess(
-        //PROCESS_SUSPEND_RESUME |
-        PROCESS_QUERY_INFORMATION | PROCESS_CREATE_THREAD | PROCESS_VM_OPERATION | PROCESS_VM_READ | PROCESS_VM_WRITE,
+        // PROCESS_SUSPEND_RESUME |
+        PROCESS_QUERY_INFORMATION | PROCESS_CREATE_THREAD | PROCESS_VM_OPERATION | PROCESS_VM_READ
+            | PROCESS_VM_WRITE,
         FALSE,
-        proc.th32ProcessID);
+        proc.th32ProcessID
+    );
     if (!hProc)
         return nullptr;
 
@@ -159,7 +178,8 @@ THGameSig* CheckOngoingGame(PROCESSENTRY32W& proc, uintptr_t* base, HANDLE* pOut
             if (gameDef.catagory != CAT_MAIN && gameDef.catagory != CAT_SPINOFF_STG) {
                 continue;
             }
-            if (gameDef.exeSig.textSize != sig.textSize || gameDef.exeSig.timeStamp != sig.timeStamp) {
+            if (gameDef.exeSig.textSize != sig.textSize
+                || gameDef.exeSig.timeStamp != sig.timeStamp) {
                 continue;
             }
             if (pOutHandle) {
@@ -229,21 +249,49 @@ bool RunGameWithTHPrac(THGameSig& gameSig, const wchar_t* const name, bool withV
     PROCESS_INFORMATION proc_info;
     memset(&startup_info, 0, sizeof(startup_info));
     startup_info.cb = sizeof(startup_info);
-    CreateProcessW(name, nullptr, nullptr, nullptr, false, CREATE_SUSPENDED, nullptr, nullptr, &startup_info, &proc_info);
+    CreateProcessW(
+        name,
+        nullptr,
+        nullptr,
+        nullptr,
+        false,
+        CREATE_SUSPENDED,
+        nullptr,
+        nullptr,
+        &startup_info,
+        &proc_info
+    );
     uintptr_t base = GetGameModuleBase(proc_info.hProcess);
 
     if (isVpatchValid) {
         auto vpNameLength = (wcslen(gameSig.vPatchStr) + 1) * sizeof(wchar_t);
         auto pLoadLibrary = ::LoadLibraryW;
-        if (auto remoteStr = VirtualAllocEx(proc_info.hProcess, nullptr, vpNameLength, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE)) {
-            WriteProcessMemory(proc_info.hProcess, remoteStr, gameSig.vPatchStr, vpNameLength, nullptr);
-            if (auto t = CreateRemoteThread(proc_info.hProcess, nullptr, 0, (LPTHREAD_START_ROUTINE)pLoadLibrary, remoteStr, 0, nullptr))
+        if (auto remoteStr = VirtualAllocEx(
+                proc_info.hProcess,
+                nullptr,
+                vpNameLength,
+                MEM_COMMIT | MEM_RESERVE,
+                PAGE_EXECUTE_READWRITE
+            )) {
+            WriteProcessMemory(
+                proc_info.hProcess, remoteStr, gameSig.vPatchStr, vpNameLength, nullptr
+            );
+            if (auto t = CreateRemoteThread(
+                    proc_info.hProcess,
+                    nullptr,
+                    0,
+                    (LPTHREAD_START_ROUTINE)pLoadLibrary,
+                    remoteStr,
+                    0,
+                    nullptr
+                ))
                 WaitForSingleObject(t, INFINITE);
             VirtualFreeEx(proc_info.hProcess, remoteStr, 0, MEM_RELEASE);
         }
     }
 
-    auto result = (WriteTHPracSig(proc_info.hProcess, base) && THPrac::LoadSelf(proc_info.hProcess));
+    auto result =
+        (WriteTHPracSig(proc_info.hProcess, base) && THPrac::LoadSelf(proc_info.hProcess));
     if (!result)
         TerminateThread(proc_info.hThread, ERROR_FUNCTION_FAILED);
     else
@@ -269,7 +317,7 @@ bool FindOngoingGame(bool prompt)
                 HANDLE hProc = 0;
                 if (!(gameSig = CheckOngoingGame(entry, &base, &hProc)))
                     continue;
-                
+
                 hasPrompted = true;
                 if (!PromptUser(PR_ASK_IF_ATTACH, gameSig))
                     continue;
@@ -283,7 +331,7 @@ bool FindOngoingGame(bool prompt)
                     CloseHandle(snapshot);
                     return true;
                 }
-                
+
             } while (Process32NextW(snapshot, &entry));
         }
     }
@@ -303,7 +351,11 @@ bool FindAndRunGame(bool prompt)
             if (prompt) {
                 char gameExeStr[256];
                 sprintf_s(gameExeStr, S(THPRAC_EXISTING_GAME_CONFIRMATION), sig.idStr);
-                auto msgBoxResult = MsgBox(S(THPRAC_EXISTING_GAME_CONFIRMATION_TITLE), gameExeStr, MB_YESNOCANCEL | MB_ICONINFORMATION | MB_SYSTEMMODAL);
+                auto msgBoxResult = MsgBox(
+                    S(THPRAC_EXISTING_GAME_CONFIRMATION_TITLE),
+                    gameExeStr,
+                    MB_YESNOCANCEL | MB_ICONINFORMATION | MB_SYSTEMMODAL
+                );
                 if (msgBoxResult == IDNO) {
                     return false;
                 } else if (msgBoxResult != IDYES) {

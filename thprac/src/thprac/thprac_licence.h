@@ -31,7 +31,8 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
 ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.)COPYING";
-static constexpr const char COPYING_FreeType[] = R"COPYING(                    The FreeType Project LICENSE
+static constexpr const char COPYING_FreeType[] =
+    R"COPYING(                    The FreeType Project LICENSE
                     ----------------------------
 
                             2006-Jan-27
@@ -222,7 +223,8 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.)COPYING";
-static constexpr const char COPYING_MetroHash[] = R"COPYING(                                 Apache License
+static constexpr const char COPYING_MetroHash[] =
+    R"COPYING(                                 Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
 
@@ -424,7 +426,8 @@ static constexpr const char COPYING_MetroHash[] = R"COPYING(                    
    See the License for the specific language governing permissions and
    limitations under the License.
 )COPYING";
-static constexpr const char COPYING_rapidjson[] = R"COPYING(Copyright (C) 2015 THL A29 Limited, a Tencent company, and Milo Yip.  All rights reserved.
+static constexpr const char COPYING_rapidjson[] =
+    R"COPYING(Copyright (C) 2015 THL A29 Limited, a Tencent company, and Milo Yip.  All rights reserved.
 
 Terms of the MIT License:
 --------------------------------------------------------------------

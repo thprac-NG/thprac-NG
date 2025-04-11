@@ -2,7 +2,6 @@
 #include "thprac_utils.h"
 #include <list>
 
-
 namespace THPrac {
 namespace TH14 {
     using std::pair;
@@ -95,7 +94,7 @@ namespace TH14 {
             ReturnJson();
         }
     };
-    THPracParam thPracParam {};
+    THPracParam thPracParam{};
 
     class THGuiPrac : public Gui::GameGuiWnd {
         THGuiPrac() noexcept
@@ -112,8 +111,8 @@ namespace TH14 {
             OnLocaleChange();
         }
         SINGLETON(THGuiPrac);
-    public:
 
+    public:
         __declspec(noinline) void State(int state)
         {
             switch (state) {
@@ -278,7 +277,7 @@ namespace TH14 {
             int st_offset = 0;
             if (*mStage == 3)
                 st_offset = 4 + mShotType;
-            static char chapterStr[256] {};
+            static char chapterStr[256]{};
             auto& chapterCounts = mChapterSetup[*mStage];
 
             switch (*mWarp) {
@@ -297,18 +296,22 @@ namespace TH14 {
                 break;
             case 2:
             case 3: // Mid boss & End boss
-                if (mSection(TH_WARP_SELECT[*mWarp],
+                if (mSection(
+                        TH_WARP_SELECT[*mWarp],
                         th_sections_cba[*mStage + st_offset][*mWarp - 2],
-                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
+                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]
+                    ))
                     *mPhase = 0;
                 if (SectionHasDlg(th_sections_cba[*mStage][*mWarp - 2][*mSection]))
                     mDlg();
                 break;
             case 4:
             case 5: // Non-spell & Spellcard
-                if (mSection(TH_WARP_SELECT[*mWarp],
+                if (mSection(
+                        TH_WARP_SELECT[*mWarp],
                         th_sections_cbt[*mStage + st_offset][*mWarp - 4],
-                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
+                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]
+                    ))
                     *mPhase = 0;
                 if (SectionHasDlg(th_sections_cbt[*mStage][*mWarp - 4][*mSection]))
                     mDlg();
@@ -318,37 +321,54 @@ namespace TH14 {
             }
         }
 
-        Gui::GuiCombo mMode { TH_MODE, TH_MODE_SELECT };
-        Gui::GuiCombo mStage { TH_STAGE, TH_STAGE_SELECT };
-        Gui::GuiCombo mWarp { TH_WARP, TH_WARP_SELECT };
-        Gui::GuiCombo mSection { TH_MODE };
-        Gui::GuiCombo mPhase { TH_PHASE };
-        Gui::GuiCheckBox mDlg { TH_DLG };
-        Gui::GuiCombo mCycle { TH14_CYCLE, TH14_CYCLE_LIST };
+        Gui::GuiCombo mMode{TH_MODE, TH_MODE_SELECT};
+        Gui::GuiCombo mStage{TH_STAGE, TH_STAGE_SELECT};
+        Gui::GuiCombo mWarp{TH_WARP, TH_WARP_SELECT};
+        Gui::GuiCombo mSection{TH_MODE};
+        Gui::GuiCombo mPhase{TH_PHASE};
+        Gui::GuiCheckBox mDlg{TH_DLG};
+        Gui::GuiCombo mCycle{TH14_CYCLE, TH14_CYCLE_LIST};
 
-        Gui::GuiSlider<int, ImGuiDataType_S32> mChapter { TH_CHAPTER, 0, 0 };
-        Gui::GuiDrag<int64_t, ImGuiDataType_S64> mScore { TH_SCORE, 0, 9999999990, 10, 100000000 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mLife { TH_LIFE, 0, 8 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mLifeFragment { TH_LIFE_FRAGMENT, 0, 2 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mBomb { TH_BOMB, 0, 8 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mBombFragment { TH_BOMB_FRAGMENT, 0, 7 };
-        Gui::GuiSlider<int, ImGuiDataType_S32> mPower { TH_POWER, 100, 400 };
-        Gui::GuiDrag<int, ImGuiDataType_S32> mValue { TH_VALUE, 0, 999990, 10, 100000 };
-        Gui::GuiDrag<int, ImGuiDataType_S32> mGraze { TH_GRAZE, 0, 999999, 1, 100000 };
+        Gui::GuiSlider<int, ImGuiDataType_S32> mChapter{TH_CHAPTER, 0, 0};
+        Gui::GuiDrag<int64_t, ImGuiDataType_S64> mScore{TH_SCORE, 0, 9999999990, 10, 100000000};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mLife{TH_LIFE, 0, 8};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mLifeFragment{TH_LIFE_FRAGMENT, 0, 2};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mBomb{TH_BOMB, 0, 8};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mBombFragment{TH_BOMB_FRAGMENT, 0, 7};
+        Gui::GuiSlider<int, ImGuiDataType_S32> mPower{TH_POWER, 100, 400};
+        Gui::GuiDrag<int, ImGuiDataType_S32> mValue{TH_VALUE, 0, 999990, 10, 100000};
+        Gui::GuiDrag<int, ImGuiDataType_S32> mGraze{TH_GRAZE, 0, 999999, 1, 100000};
 
-        Gui::GuiNavFocus mNavFocus { TH_STAGE, TH_MODE, TH_WARP, TH_DLG,
-            TH_MID_STAGE, TH_END_STAGE, TH_NONSPELL, TH_SPELL, TH_PHASE, TH_CHAPTER,
-            TH_SCORE, TH_LIFE, TH_LIFE_FRAGMENT, TH_BOMB, TH_BOMB_FRAGMENT, TH14_CYCLE,
-            TH_POWER, TH_VALUE, TH_GRAZE };
+        Gui::GuiNavFocus mNavFocus{
+            TH_STAGE,
+            TH_MODE,
+            TH_WARP,
+            TH_DLG,
+            TH_MID_STAGE,
+            TH_END_STAGE,
+            TH_NONSPELL,
+            TH_SPELL,
+            TH_PHASE,
+            TH_CHAPTER,
+            TH_SCORE,
+            TH_LIFE,
+            TH_LIFE_FRAGMENT,
+            TH_BOMB,
+            TH_BOMB_FRAGMENT,
+            TH14_CYCLE,
+            TH_POWER,
+            TH_VALUE,
+            TH_GRAZE
+        };
 
-        int mChapterSetup[7][2] {
-            { 3, 2 },
-            { 3, 3 },
-            { 3, 3 },
-            { 4, 3 },
-            { 4, 2 },
-            { 4, 0 },
-            { 4, 5 },
+        int mChapterSetup[7][2]{
+            {3, 2},
+            {3, 3},
+            {3, 3},
+            {4, 3},
+            {4, 2},
+            {4, 0},
+            {4, 5},
         };
 
         int mDiffculty = 0;
@@ -362,8 +382,8 @@ namespace TH14 {
             mAppdataPath = appdata;
         }
         SINGLETON(THGuiRep);
-    public:
 
+    public:
         void CheckReplay()
         {
             uint32_t index = GetMemContent(0x4db6a4, 0x5aec);
@@ -414,12 +434,15 @@ namespace TH14 {
             SetPos(10.0f, 10.0f);
             SetSize(0.0f, 0.0f);
             SetWndFlag(
-                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0);
+                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove
+                | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
+                | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0
+            );
             OnLocaleChange();
         }
         SINGLETON(THOverlay);
-    public:
 
+    public:
     protected:
         virtual void OnLocaleChange() override
         {
@@ -472,24 +495,30 @@ namespace TH14 {
             }
         }
 
-        Gui::GuiHotKey mMenu { "ModMenuToggle", "BACKSPACE", VK_BACK };
-        Gui::GuiHotKey mMuteki { TH_MUTEKI, "F1", VK_F1, {
-            new HookCtx(0x44F877, "\x01", 1) } };
-        Gui::GuiHotKey mInfLives { TH_INFLIVES, "F2", VK_F2, {
-            new HookCtx(0x44F617, "\x90", 1) } };
-        Gui::GuiHotKey mInfBombs { TH_INFBOMBS, "F3", VK_F3, {
-            new HookCtx(0x412173, "\x90", 1) } };
-        Gui::GuiHotKey mInfPower { TH_INFPOWER, "F4", VK_F4, {
-            new HookCtx(0x44DDA5, "\x58", 1) } };
-        Gui::GuiHotKey mTimeLock { TH_TIMELOCK, "F5", VK_F5, {
-            new HookCtx(0x41C5DD, "\xeb", 1),
-            new HookCtx(0x424ACA, "\x90", 1) } };
-        Gui::GuiHotKey mAutoBomb { TH_AUTOBOMB, "F6", VK_F6, {
-            new HookCtx(0x44DEC4, "\xE9\x07\x31\x06\x00\x90\x90", 8),
-            new HookCtx(0x4b0fd0, "\xA1\x2C\xB5\x4D\x00\x83\xC0\x40\x8B\x00\x85\xC0\x0F\x84\xEF\xCE\xF9\xFF\xE9\xEA\xCF\xF9\xFF\x90", 25) } };
+        Gui::GuiHotKey mMenu{"ModMenuToggle", "BACKSPACE", VK_BACK};
+        Gui::GuiHotKey mMuteki{TH_MUTEKI, "F1", VK_F1, {new HookCtx(0x44F877, "\x01", 1)}};
+        Gui::GuiHotKey mInfLives{TH_INFLIVES, "F2", VK_F2, {new HookCtx(0x44F617, "\x90", 1)}};
+        Gui::GuiHotKey mInfBombs{TH_INFBOMBS, "F3", VK_F3, {new HookCtx(0x412173, "\x90", 1)}};
+        Gui::GuiHotKey mInfPower{TH_INFPOWER, "F4", VK_F4, {new HookCtx(0x44DDA5, "\x58", 1)}};
+        Gui::GuiHotKey mTimeLock{
+            TH_TIMELOCK,
+            "F5",
+            VK_F5,
+            {new HookCtx(0x41C5DD, "\xeb", 1), new HookCtx(0x424ACA, "\x90", 1)}
+        };
+        Gui::GuiHotKey mAutoBomb{
+            TH_AUTOBOMB,
+            "F6",
+            VK_F6,
+            {new HookCtx(0x44DEC4, "\xE9\x07\x31\x06\x00\x90\x90", 8),
+              new HookCtx(
+                 0x4b0fd0, "\xA1\x2C\xB5\x4D\x00\x83\xC0\x40\x8B\x00\x85\xC0\x0F\x84\xEF\xCE\xF9\xFF\xE9\xEA"
+              "\xCF\xF9\xFF\x90", 25
+             )}
+        };
 
     public:
-        Gui::GuiHotKey mElBgm {
+        Gui::GuiHotKey mElBgm{
             TH_EL_BGM,
             "F7",
             VK_F7,
@@ -506,8 +535,8 @@ namespace TH14 {
             OnLocaleChange();
         }
         SINGLETON(THGuiSP);
-    public:
 
+    public:
         int mState = 0;
         __declspec(noinline) int State()
         {
@@ -613,9 +642,9 @@ namespace TH14 {
 
         unsigned int mSpellId = UINT_MAX;
 
-        Gui::GuiCheckBox mBugFix { TH16_BUGFIX };
-        Gui::GuiCombo mPhase { TH_PHASE };
-        Gui::GuiNavFocus mNavFocus { TH_PHASE };
+        Gui::GuiCheckBox mBugFix{TH16_BUGFIX};
+        Gui::GuiCombo mPhase{TH_PHASE};
+        Gui::GuiNavFocus mNavFocus{TH_PHASE};
     };
 
     class THMarisaLaser {
@@ -637,8 +666,7 @@ namespace TH14 {
                 , ordinal(0)
                 , value(0.0f)
                 , fix(0)
-            {
-            }
+            { }
             record_t(float _value)
             {
                 stage = *(uint32_t*)0x4f58a4;
@@ -698,7 +726,7 @@ namespace TH14 {
         std::list<record_t> mRecordsNormal;
         std::list<record_t> mRecordsPlayback;
         std::list<record_t> mRecordsRecover;
-        record_t mPrevRecord {};
+        record_t mPrevRecord{};
 
         void MergePbAndRec()
         {
@@ -775,9 +803,7 @@ namespace TH14 {
         }
         float AccessPlayback(record_t& current)
         {
-            for (auto it = mRecordsPlayback.begin();
-                 it != mRecordsPlayback.end();
-                 ++it) {
+            for (auto it = mRecordsPlayback.begin(); it != mRecordsPlayback.end(); ++it) {
                 if (*it == current)
                     return GetAltValue(*it, current.value);
             }
@@ -824,7 +850,8 @@ namespace TH14 {
     class THAdvOptWnd : public Gui::PPGuiWnd {
         EHOOK_ST(th14_marisa_laser, 0x45286f)
         {
-            *(uint32_t*)(pCtx->Esp + 0x2c) = THMarisaLaser::singleton().Access(*(uint32_t*)(pCtx->Esp + 0x2c));
+            *(uint32_t*)(pCtx->Esp + 0x2c) =
+                THMarisaLaser::singleton().Access(*(uint32_t*)(pCtx->Esp + 0x2c));
         }
         EHOOK_ST(th14_all_clear_bonus_1, 0x43708a)
         {
@@ -851,6 +878,7 @@ namespace TH14 {
                 pCtx->Eip = 0x43708f;
             }
         }
+
     private:
         // Option Related Functions
         void FpsInit()
@@ -860,16 +888,26 @@ namespace TH14 {
                 uint64_t hash[2];
                 CalcFileHash(L"vpatch_th14.dll", hash);
 
-                bool vp_valid = hash[0] == 16763243947833835441ll && hash[1] == 14013686233300952408ll;
+                bool vp_valid =
+                    hash[0] == 16763243947833835441ll && hash[1] == 14013686233300952408ll;
                 if (hash[0] == 5864489015760801383ll && hash[1] == 8525349857717864816ll) {
                     vp_valid = true;
                     if (MessageBoxW(
                             *(HWND*)0x4f5a18,
-                            L"Old version of vpatch detected. Do you want to download the newest version?",
+                            L"Old version of vpatch detected. Do you want to download the newest "
+                            L"version?",
                             L"thprac: warning",
-                            MB_ICONWARNING | MB_YESNO)
+                            MB_ICONWARNING | MB_YESNO
+                        )
                         == IDYES) {
-                        ShellExecuteW(NULL, NULL, L"https://maribelhearn.com/mirror/VsyncPatch.zip", NULL, NULL, SW_SHOW);
+                        ShellExecuteW(
+                            NULL,
+                            NULL,
+                            L"https://maribelhearn.com/mirror/VsyncPatch.zip",
+                            NULL,
+                            NULL,
+                            SW_SHOW
+                        );
                     }
                 }
 
@@ -929,7 +967,13 @@ namespace TH14 {
             ImGui::PushItemWidth(GetRelWidth(0.25f));
             if (mLock)
                 ImGui::BeginDisabled();
-            ImGui::ComboSectionsDefault(S(TH14_MODE), &(thMarisaLaser->mState), TH14_MODE_COMBO, Gui::LocaleGetCurrentGlossary(), "");
+            ImGui::ComboSectionsDefault(
+                S(TH14_MODE),
+                &(thMarisaLaser->mState),
+                TH14_MODE_COMBO,
+                Gui::LocaleGetCurrentGlossary(),
+                ""
+            );
             if (ImGui::IsPopupOpen(S(TH14_MODE))) {
                 wndFocus = false;
             }
@@ -954,11 +998,26 @@ namespace TH14 {
                             int tempFix = record.fix & 0x0000ffff;
                             int tempE = (record.fix & 0xffff0000) >> 16;
 
-                            if (TH14_CORRECTION[tempFix] == TH14_CORRECTION_E_POSITIVE || TH14_CORRECTION[tempFix] == TH14_CORRECTION_E_NEGATIVE) {
-                                ImGui::Text(S(TH14_RECORD_E), i++, record.stage, record.frame, *(uint32_t*)&(record.value),
-                                    TH14_CORRECTION[tempFix] == TH14_CORRECTION_E_POSITIVE ? "" : "-", tempE);
+                            if (TH14_CORRECTION[tempFix] == TH14_CORRECTION_E_POSITIVE
+                                || TH14_CORRECTION[tempFix] == TH14_CORRECTION_E_NEGATIVE) {
+                                ImGui::Text(
+                                    S(TH14_RECORD_E),
+                                    i++,
+                                    record.stage,
+                                    record.frame,
+                                    *(uint32_t*)&(record.value),
+                                    TH14_CORRECTION[tempFix] == TH14_CORRECTION_E_POSITIVE ? ""
+                                                                                           : "-",
+                                    tempE
+                                );
                             } else {
-                                ImGui::Text(S(TH14_RECORD), i++, record.stage, record.frame, *(uint32_t*)&(record.value));
+                                ImGui::Text(
+                                    S(TH14_RECORD),
+                                    i++,
+                                    record.stage,
+                                    record.frame,
+                                    *(uint32_t*)&(record.value)
+                                );
                                 ImGui::SameLine(0.0f, 0.0f);
                                 ImGui::TextUnformatted(S(TH14_CORRECTION[record.fix]));
                             }
@@ -1000,26 +1059,33 @@ namespace TH14 {
                 else {
                     int i = 1;
                     for (; it != thMarisaLaser->mRecordsRecover.end(); ++i) {
-                        ImGui::Text(S(TH14_RECORD), i, it->stage, it->frame, *(uint32_t*)&(it->value));
+                        ImGui::Text(
+                            S(TH14_RECORD), i, it->stage, it->frame, *(uint32_t*)&(it->value)
+                        );
 
                         int tempFix = it->fix & 0x0000ffff;
                         int tempE = (it->fix & 0xffff0000) >> 16;
 
                         ImGui::SameLine();
-                        auto needInputBox = TH14_CORRECTION[tempFix] == TH14_CORRECTION_E_POSITIVE || TH14_CORRECTION[tempFix] == TH14_CORRECTION_E_NEGATIVE;
+                        auto needInputBox = TH14_CORRECTION[tempFix] == TH14_CORRECTION_E_POSITIVE
+                            || TH14_CORRECTION[tempFix] == TH14_CORRECTION_E_NEGATIVE;
                         if (needInputBox)
                             ImGui::PushItemWidth(GetRelWidth(0.13f));
                         else
                             ImGui::PushItemWidth(GetRelWidth(0.27f));
                         sprintf_s(mTempStr, "##%s_%d", S(TH14_CORRECTION_VALUE), i);
-                        ImGui::ComboSectionsDefault(mTempStr, &tempFix, TH14_CORRECTION, Gui::LocaleGetCurrentGlossary(), "");
+                        ImGui::ComboSectionsDefault(
+                            mTempStr, &tempFix, TH14_CORRECTION, Gui::LocaleGetCurrentGlossary(), ""
+                        );
                         if (ImGui::IsPopupOpen(mTempStr)) {
                             wndFocus = false;
                         }
                         if (needInputBox) {
                             ImGui::SameLine();
                             sprintf_s(mTempStr, "##e_%d", i);
-                            ImGui::InputInt(mTempStr, &tempE, 1, 1, ImGuiInputTextFlags_CharsDecimal);
+                            ImGui::InputInt(
+                                mTempStr, &tempE, 1, 1, ImGuiInputTextFlags_CharsDecimal
+                            );
                             if (tempE > 38)
                                 tempE = 38;
                             else if (tempE < 0)
@@ -1043,7 +1109,10 @@ namespace TH14 {
         }
         // TODO: Remove title parameter?
         // TODO: Use utf8_to_utf16() instead?
-        void MsgBox(UINT type, [[maybe_unused]] const wchar_t* title, const wchar_t* msg, const wchar_t* msg2 = nullptr)
+        void MsgBox(
+            UINT type, [[maybe_unused]] const wchar_t* title, const wchar_t* msg,
+            const wchar_t* msg2 = nullptr
+        )
         {
             std::wstring finalMessage = msg;
             if (msg2) {
@@ -1062,13 +1131,20 @@ namespace TH14 {
                 MultiByteToWideChar(CP_UTF8, 0, msg2, -1, msg2_wchar, 256);
             }
             MsgBox(type, title_wchar, msg_wchar, msg2 ? msg2_wchar : nullptr);
-
         }
         bool LoadReplayInternal(const wchar_t* rep_path)
         {
             auto thMarisaLaser = &THMarisaLaser::singleton();
             DWORD repMagic, bytesRead;
-            auto repFile = CreateFileW(rep_path, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+            auto repFile = CreateFileW(
+                rep_path,
+                GENERIC_READ,
+                FILE_SHARE_READ,
+                nullptr,
+                OPEN_EXISTING,
+                FILE_ATTRIBUTE_NORMAL,
+                nullptr
+            );
             if (repFile == INVALID_HANDLE_VALUE)
                 return false;
             defer(CloseHandle(repFile));
@@ -1078,26 +1154,34 @@ namespace TH14 {
             if (ReadFile(repFile, &repMagic, 4, &bytesRead, nullptr) && bytesRead == 4) {
                 DWORD userPtr, userMagic, userLength, userNo;
                 SetFilePointer(repFile, 12, nullptr, FILE_BEGIN);
-                if (ReadFile(repFile, &userPtr, 4, &bytesRead, nullptr)  && bytesRead == 4) {
+                if (ReadFile(repFile, &userPtr, 4, &bytesRead, nullptr) && bytesRead == 4) {
                     SetFilePointer(repFile, userPtr, nullptr, FILE_BEGIN);
                     while (true) {
-                        if (!ReadFile(repFile, &userMagic, 4, &bytesRead, nullptr) || bytesRead != 4 || userMagic != 'RESU')
+                        if (!ReadFile(repFile, &userMagic, 4, &bytesRead, nullptr) || bytesRead != 4
+                            || userMagic != 'RESU')
                             break;
-                        if (!ReadFile(repFile, &userLength, 4, &bytesRead, nullptr) || bytesRead != 4)
+                        if (!ReadFile(repFile, &userLength, 4, &bytesRead, nullptr)
+                            || bytesRead != 4)
                             break;
                         if (!ReadFile(repFile, &userNo, 4, &bytesRead, nullptr) || bytesRead != 4)
                             break;
 
                         if (userNo == 'RCER') {
-                            if (userLength - 12 > 0 && (userLength - 12) % sizeof(THMarisaLaser::record_t) == 0) {
+                            if (userLength - 12 > 0
+                                && (userLength - 12) % sizeof(THMarisaLaser::record_t) == 0) {
                                 void* dataBuffer = malloc(userLength - 12);
                                 if (!dataBuffer)
                                     return false;
                                 defer(free(dataBuffer));
                                 memset(dataBuffer, 0, userLength - 12);
-                                if (ReadFile(repFile, dataBuffer, userLength - 12, &bytesRead, nullptr) && (bytesRead == userLength - 12)) {
-                                    THMarisaLaser::record_t* p_rec = (THMarisaLaser::record_t*)dataBuffer;
-                                    size_t count = (userLength - 12) / sizeof(THMarisaLaser::record_t);
+                                if (ReadFile(
+                                        repFile, dataBuffer, userLength - 12, &bytesRead, nullptr
+                                    )
+                                    && (bytesRead == userLength - 12)) {
+                                    THMarisaLaser::record_t* p_rec =
+                                        (THMarisaLaser::record_t*)dataBuffer;
+                                    size_t count =
+                                        (userLength - 12) / sizeof(THMarisaLaser::record_t);
                                     thMarisaLaser->mRecordsPlayback.clear();
                                     for (size_t i = 0; i < count; ++i, ++p_rec)
                                         thMarisaLaser->mRecordsPlayback.push_back(*p_rec);
@@ -1117,7 +1201,15 @@ namespace TH14 {
         {
             auto thMarisaLaser = &THMarisaLaser::singleton();
             DWORD bytesProcessed;
-            auto repFile = CreateFileW(rep_path, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+            auto repFile = CreateFileW(
+                rep_path,
+                GENERIC_READ,
+                FILE_SHARE_READ,
+                nullptr,
+                OPEN_EXISTING,
+                FILE_ATTRIBUTE_NORMAL,
+                nullptr
+            );
             if (repFile == INVALID_HANDLE_VALUE) {
                 MsgBox(MB_ICONERROR | MB_OK, S(TH14_ERROR), S(TH14_ERROR_SRC));
                 return false;
@@ -1135,7 +1227,9 @@ namespace TH14 {
             }
             CloseHandle(repFile);
 
-            std::list<THMarisaLaser::record_t>* records = (thMarisaLaser->mState == 3) ? &thMarisaLaser->mRecordsRecover : &thMarisaLaser->mRecordsNormal;
+            std::list<THMarisaLaser::record_t>* records = (thMarisaLaser->mState == 3)
+                ? &thMarisaLaser->mRecordsRecover
+                : &thMarisaLaser->mRecordsNormal;
             auto dataSize = records->size() * sizeof(THMarisaLaser::record_t) + 12;
             auto dataBuffer = malloc(dataSize);
             if (!dataBuffer)
@@ -1165,7 +1259,15 @@ namespace TH14 {
             ofn.lpstrDefExt = L".rpy";
             ofn.Flags = OFN_OVERWRITEPROMPT;
             if (GetSaveFileNameW(&ofn)) {
-                auto outputFile = CreateFileW(szFile, GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+                auto outputFile = CreateFileW(
+                    szFile,
+                    GENERIC_READ | GENERIC_WRITE,
+                    0,
+                    nullptr,
+                    OPEN_ALWAYS,
+                    FILE_ATTRIBUTE_NORMAL,
+                    nullptr
+                );
                 if (outputFile == INVALID_HANDLE_VALUE) {
                     MsgBox(MB_ICONERROR | MB_OK, S(TH14_ERROR), S(TH14_ERROR_DEST));
                     return false;
@@ -1177,7 +1279,12 @@ namespace TH14 {
                     WriteFile(outputFile, dataBuffer, dataSize, &bytesProcessed, nullptr);
                 CloseHandle(outputFile);
 
-                MsgBox(MB_ICONINFORMATION | MB_OK, utf8_to_utf16(S(TH14_SUCCESS)).c_str(), utf8_to_utf16(S(TH14_SUCCESS_SAVED)).c_str(), szFile);
+                MsgBox(
+                    MB_ICONINFORMATION | MB_OK,
+                    utf8_to_utf16(S(TH14_SUCCESS)).c_str(),
+                    utf8_to_utf16(S(TH14_SUCCESS_SAVED)).c_str(),
+                    szFile
+                );
             }
 
             return true;
@@ -1185,15 +1292,15 @@ namespace TH14 {
 
         THAdvOptWnd() noexcept
         {
-            SetWndFlag(ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
+            SetWndFlag(
+                ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse
+                | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove
+            );
             SetFade(0.8f, 0.8f);
             SetStyle(ImGuiStyleVar_WindowRounding, 0.0f);
             SetStyle(ImGuiStyleVar_WindowBorderSize, 0.0f);
 
-            InitUpdFunc([&]() { ContentUpdate(); },
-                [&]() { LocaleUpdate(); },
-                [&]() {},
-                []() {});
+            InitUpdFunc([&]() { ContentUpdate(); }, [&]() { LocaleUpdate(); }, [&]() {}, []() {});
 
             OnLocaleChange();
             FpsInit();
@@ -1231,7 +1338,8 @@ namespace TH14 {
         __declspec(noinline) void SelectReplay()
         {
             uint32_t index = GetMemContent(0x4db6a4, 0x5aec);
-            std::wstring repName = mb_to_utf16((char*)GetMemAddr(0x4db6a4, index * 4 + 0x5af4, 0x220), 932);
+            std::wstring repName =
+                mb_to_utf16((char*)GetMemAddr(0x4db6a4, index * 4 + 0x5af4, 0x220), 932);
             wcscpy_s(mRepName, repName.c_str());
 
             std::wstring rep = mRepDir;
@@ -1247,7 +1355,8 @@ namespace TH14 {
         __declspec(noinline) void SaveReplay(const wchar_t* rep_path)
         {
             auto thMarisaLaser = &THMarisaLaser::singleton();
-            if (thMarisaLaser->mState == 1 && *(int32_t*)0x4f5828 == 1 && thMarisaLaser->mRecordsNormal.size())
+            if (thMarisaLaser->mState == 1 && *(int32_t*)0x4f5828 == 1
+                && thMarisaLaser->mRecordsNormal.size())
                 SaveReplayInternal(rep_path);
         }
 
@@ -1301,7 +1410,8 @@ namespace TH14 {
                 EndOptGroup();
             }
 
-            AboutOpt("Plus & InceRabbit (for making the video about Marisa's replay desync bug, and for sharing the replay)\n......and you!");
+            AboutOpt("Plus & InceRabbit (for making the video about Marisa's replay desync bug, "
+                     "and for sharing the replay)\n......and you!");
             ImGui::EndChild();
             if (wndFocus)
                 ImGui::SetWindowFocus();
@@ -1319,7 +1429,9 @@ namespace TH14 {
         wchar_t _msg2[256];
     };
 
-    void ECLJump(ECLHelper& ecl, unsigned int start, unsigned int dest, int at_frame, int ecl_time = 0)
+    void ECLJump(
+        ECLHelper& ecl, unsigned int start, unsigned int dest, int at_frame, int ecl_time = 0
+    )
     {
         ecl.SetPos(start);
         ecl << ecl_time << 0x0018000C << 0x02ff0000 << 0x00000000 << dest - start << at_frame;
@@ -1642,8 +1754,10 @@ namespace TH14 {
             ECLJump(ecl, 0x648c, 0x67d0, 60);
             ecl.SetFile(3);
             ecl << pair{0x774, (int8_t)0x32}; // Change Nonspell
-            ecl << pair{0xe7c, (int16_t)0} << pair{0xfc0, (int16_t)0} << pair{0x1134, (int16_t)0}; // Disable Item Drops & SE
-            ecl << pair{0x10b0, 59} << pair{0x1154, 20} << pair{0x112c, 0}; // Change Move Time, Wait Time & Inv. Time
+            ecl << pair{0xe7c, (int16_t)0} << pair{0xfc0, (int16_t)0}
+                << pair{0x1134, (int16_t)0}; // Disable Item Drops & SE
+            ecl << pair{0x10b0, 59} << pair{0x1154, 20}
+                << pair{0x112c, 0}; // Change Move Time, Wait Time & Inv. Time
             break;
         case THPrac::TH14::TH14_ST3_BOSS4:
             ECLJump(ecl, 0x648c, 0x67d0, 60);
@@ -1657,8 +1771,10 @@ namespace TH14 {
             ECLJump(ecl, 0x648c, 0x67d0, 60);
             ecl.SetFile(3);
             ecl << pair{0x774, (int8_t)0x33}; // Change Nonspell
-            ecl << pair{0x1790, (int16_t)0} << pair{0x18d4, (int16_t)0} << pair{0x1a48, (int16_t)0}; // Disable Item Drops & SE
-            ecl << pair{0x19c4, 59} << pair{0x1a68, 20} << pair{0x1a40, 0}; // Change Move Time, Wait Time & Inv. Time
+            ecl << pair{0x1790, (int16_t)0} << pair{0x18d4, (int16_t)0}
+                << pair{0x1a48, (int16_t)0}; // Disable Item Drops & SE
+            ecl << pair{0x19c4, 59} << pair{0x1a68, 20}
+                << pair{0x1a40, 0}; // Change Move Time, Wait Time & Inv. Time
             break;
         case THPrac::TH14::TH14_ST3_BOSS6:
             ECLJump(ecl, 0x648c, 0x67d0, 60);
@@ -1738,8 +1854,10 @@ namespace TH14 {
             ECLJump(ecl, 0x4dcc, 0x4f30, 0); // Skip Dummy Boss
             ecl << pair{0x358, 0}; // Cancel Msg Invi.
             ecl << pair{0x775, (int8_t)0x32}; // Change Nonspell
-            ecl << pair{0xf0c, (int16_t)0} << pair{0x1050, (int16_t)0} << pair{0x11e4, (int16_t)0}; // Disable Item Drops & SE
-            ecl << pair{0x1140, 59} << pair{0x1204, 0} << pair{0x11dc, 0}; // Change Move Time, Wait Time & Inv. Time
+            ecl << pair{0xf0c, (int16_t)0} << pair{0x1050, (int16_t)0}
+                << pair{0x11e4, (int16_t)0}; // Disable Item Drops & SE
+            ecl << pair{0x1140, 59} << pair{0x1204, 0}
+                << pair{0x11dc, 0}; // Change Move Time, Wait Time & Inv. Time
             break;
         case THPrac::TH14::TH14_ST4_BOSS4:
             ECLJump(ecl, 0x97f8, 0x9b74, 60);
@@ -1776,8 +1894,10 @@ namespace TH14 {
             ECLJump(ecl, 0x4dcc, 0x4f30, 0); // Skip Dummy Boss
             ecl << pair{0x358, 0}; // Cancel Msg Invi.
             ecl << pair{0x775, (int8_t)0x33}; // Change Nonspell
-            ecl << pair{0x1678, (int16_t)0} << pair{0x17dc, (int16_t)0} << pair{0x1950, (int16_t)0}; // Disable Item Drops & SE
-            ecl << pair{0x18cc, 59} << pair{0x1948, 0} << pair{0x1970, 0}; // Change Move Time, Wait Time & Inv. Time
+            ecl << pair{0x1678, (int16_t)0} << pair{0x17dc, (int16_t)0}
+                << pair{0x1950, (int16_t)0}; // Disable Item Drops & SE
+            ecl << pair{0x18cc, 59} << pair{0x1948, 0}
+                << pair{0x1970, 0}; // Change Move Time, Wait Time & Inv. Time
             break;
         case THPrac::TH14::TH14_ST4_BOSS6:
             ECLJump(ecl, 0x97f8, 0x9b74, 60);
@@ -1825,8 +1945,10 @@ namespace TH14 {
             ECLJump(ecl, 0x8654, 0x89e4, 60);
             ecl.SetFile(3);
             ecl << pair{0x83c, (int8_t)0x32}; // Change Nonspell
-            ecl << pair{0x14b8, (int16_t)0} << pair{0x1638, (int16_t)0} << pair{0x17ac, (int16_t)0}; // Disable Item Drops & SE
-            ecl << pair{0x1728, 59} << pair{0x17cc, 20} << pair{0x17a4, 0}; // Change Move Time, Wait Time & Inv. Time
+            ecl << pair{0x14b8, (int16_t)0} << pair{0x1638, (int16_t)0}
+                << pair{0x17ac, (int16_t)0}; // Disable Item Drops & SE
+            ecl << pair{0x1728, 59} << pair{0x17cc, 20}
+                << pair{0x17a4, 0}; // Change Move Time, Wait Time & Inv. Time
             break;
         case THPrac::TH14::TH14_ST5_BOSS4:
             ECLJump(ecl, 0x8654, 0x89e4, 60);
@@ -1840,8 +1962,10 @@ namespace TH14 {
             ECLJump(ecl, 0x8654, 0x89e4, 60);
             ecl.SetFile(3);
             ecl << pair{0x83c, (int8_t)0x33}; // Change Nonspell
-            ecl << pair{0x239c, (int16_t)0} << pair{0x2530, (int16_t)0} << pair{0x26c0, (int16_t)0}; // Disable Item Drops & SE
-            ecl << pair{0x2620, 59} << pair{0x26e0, 20} << pair{0x26b8, 0}; // Change Move Time, Wait Time & Inv. Time
+            ecl << pair{0x239c, (int16_t)0} << pair{0x2530, (int16_t)0}
+                << pair{0x26c0, (int16_t)0}; // Disable Item Drops & SE
+            ecl << pair{0x2620, 59} << pair{0x26e0, 20}
+                << pair{0x26b8, 0}; // Change Move Time, Wait Time & Inv. Time
             break;
         case THPrac::TH14::TH14_ST5_BOSS6:
             ECLJump(ecl, 0x8654, 0x89e4, 60);
@@ -1861,8 +1985,10 @@ namespace TH14 {
             ecl << pair{0x534, 2700}; // Set Health
             ecl << pair{0x554, (int8_t)0x34}; // Set Spell Ordinal
 
-            ecl << pair{0x604c, (int16_t)0} << pair{0x5f3c, (int16_t)0} << pair{0x6168, (int16_t)0}; // Disable Item Drops & SE
-            ecl << pair{0x6094, 59} << pair{0x60c8, 0} << pair{0x60b4, 0}; // Change Move Time, Wait Time & Inv. Time
+            ecl << pair{0x604c, (int16_t)0} << pair{0x5f3c, (int16_t)0}
+                << pair{0x6168, (int16_t)0}; // Disable Item Drops & SE
+            ecl << pair{0x6094, 59} << pair{0x60c8, 0}
+                << pair{0x60b4, 0}; // Change Move Time, Wait Time & Inv. Time
             ecl << pair{0x3b0, (int16_t)0}; // Disable 504
             break;
         case THPrac::TH14::TH14_ST6_MID1:
@@ -1872,8 +1998,10 @@ namespace TH14 {
             ECLJump(ecl, 0x79d0, 0x7bd8, 60);
             ecl.SetFile(2);
             ecl << pair{0x3d5, (int8_t)0x32}; // Change Nonspell
-            ecl << pair{0xda0, (int16_t)0} << pair{0xee4, (int16_t)0} << pair{0x103c, (int16_t)0}; // Disable Item Drops & SE
-            ecl << pair{0xfd4, 59} << pair{0x105c, 20} << pair{0x1034, 0}; // Change Move Time, Wait Time & Inv. Time
+            ecl << pair{0xda0, (int16_t)0} << pair{0xee4, (int16_t)0}
+                << pair{0x103c, (int16_t)0}; // Disable Item Drops & SE
+            ecl << pair{0xfd4, 59} << pair{0x105c, 20}
+                << pair{0x1034, 0}; // Change Move Time, Wait Time & Inv. Time
             break;
         case THPrac::TH14::TH14_ST6_BOSS1:
             if (thPracParam.dlg)
@@ -1891,8 +2019,10 @@ namespace TH14 {
         case THPrac::TH14::TH14_ST6_BOSS3:
             st6_boss(3);
             ecl << pair{0xb3c, (int8_t)0x32}; // Change Nonspell
-            ecl << pair{0x166c, (int16_t)0} << pair{0x17e0, (int16_t)0} << pair{0x1940, (int16_t)0}; // Disable Item Drops & SE
-            ecl << pair{0x18d0, 59} << pair{0x1960, 0} << pair{0x1938, 60}; // Change Move Time, Wait Time & Inv. Time
+            ecl << pair{0x166c, (int16_t)0} << pair{0x17e0, (int16_t)0}
+                << pair{0x1940, (int16_t)0}; // Disable Item Drops & SE
+            ecl << pair{0x18d0, 59} << pair{0x1960, 0}
+                << pair{0x1938, 60}; // Change Move Time, Wait Time & Inv. Time
             ecl << pair{0x16c4, (int16_t)0}; // Disable 630
             break;
         case THPrac::TH14::TH14_ST6_BOSS4:
@@ -1905,8 +2035,10 @@ namespace TH14 {
         case THPrac::TH14::TH14_ST6_BOSS5:
             st6_boss(4);
             ecl << pair{0xb3c, (int8_t)0x33}; // Change Nonspell
-            ecl << pair{0x27cc, (int16_t)0} << pair{0x2924, (int16_t)0} << pair{0x2a98, (int16_t)0}; // Disable Item Drops & SE
-            ecl << pair{0x2a14, 59} << pair{0x2ab8, 0} << pair{0x2a90, 60}; // Change Move Time, Wait Time & Inv. Time
+            ecl << pair{0x27cc, (int16_t)0} << pair{0x2924, (int16_t)0}
+                << pair{0x2a98, (int16_t)0}; // Disable Item Drops & SE
+            ecl << pair{0x2a14, 59} << pair{0x2ab8, 0}
+                << pair{0x2a90, 60}; // Change Move Time, Wait Time & Inv. Time
             ecl << pair{0x2808, (int16_t)0}; // Disable 630
             break;
         case THPrac::TH14::TH14_ST6_BOSS6:
@@ -1917,8 +2049,10 @@ namespace TH14 {
         case THPrac::TH14::TH14_ST6_BOSS7:
             st6_boss(4);
             ecl << pair{0xb3c, (int8_t)0x34}; // Change Nonspell
-            ecl << pair{0x37f8, (int16_t)0} << pair{0x3970, (int16_t)0} << pair{0x3ae4, (int16_t)0}; // Disable Item Drops & SE
-            ecl << pair{0x3a60, 59} << pair{0x3b04, 0} << pair{0x3adc, 60}; // Change Move Time, Wait Time & Inv. Time
+            ecl << pair{0x37f8, (int16_t)0} << pair{0x3970, (int16_t)0}
+                << pair{0x3ae4, (int16_t)0}; // Disable Item Drops & SE
+            ecl << pair{0x3a60, 59} << pair{0x3b04, 0}
+                << pair{0x3adc, 60}; // Change Move Time, Wait Time & Inv. Time
             ecl << pair{0x3834, (int16_t)0}; // Disable 630
             ecl << pair{0x385c, (int16_t)0}; // Disable BossCupEnd
             break;
@@ -2030,8 +2164,10 @@ namespace TH14 {
             ECLJump(ecl, 0x7778, 0x7b38, 60);
             ecl.SetFile(3);
             ecl << pair{0xf08, (int8_t)0x32}; // Change Nonspell
-            ecl << pair{0x190c, (int16_t)0} << pair{0x1ab0, (int16_t)0} << pair{0x1c48, (int16_t)0}; // Disable Item Drops & SE
-            ecl << pair{0x1ba0, 59} << pair{0x1c68, 0} << pair{0x1c40, 60}; // Change Move Time, Wait Time & Inv. Time
+            ecl << pair{0x190c, (int16_t)0} << pair{0x1ab0, (int16_t)0}
+                << pair{0x1c48, (int16_t)0}; // Disable Item Drops & SE
+            ecl << pair{0x1ba0, 59} << pair{0x1c68, 0}
+                << pair{0x1c40, 60}; // Change Move Time, Wait Time & Inv. Time
             break;
         case THPrac::TH14::TH14_ST7_END_S2:
             ECLJump(ecl, 0x7778, 0x7b38, 60);
@@ -2045,8 +2181,10 @@ namespace TH14 {
             ECLJump(ecl, 0x7778, 0x7b38, 60);
             ecl.SetFile(3);
             ecl << pair{0xf08, (int8_t)0x33}; // Change Nonspell
-            ecl << pair{0x22b4, (int16_t)0} << pair{0x2460, (int16_t)0} << pair{0x25f8, (int16_t)0}; // Disable Item Drops & SE
-            ecl << pair{0x2550, 59} << pair{0x2618, 0} << pair{0x25f0, 60}; // Change Move Time, Wait Time & Inv. Time
+            ecl << pair{0x22b4, (int16_t)0} << pair{0x2460, (int16_t)0}
+                << pair{0x25f8, (int16_t)0}; // Disable Item Drops & SE
+            ecl << pair{0x2550, 59} << pair{0x2618, 0}
+                << pair{0x25f0, 60}; // Change Move Time, Wait Time & Inv. Time
             break;
         case THPrac::TH14::TH14_ST7_END_S3:
             ECLJump(ecl, 0x7778, 0x7b38, 60);
@@ -2060,8 +2198,10 @@ namespace TH14 {
             ECLJump(ecl, 0x7778, 0x7b38, 60);
             ecl.SetFile(3);
             ecl << pair{0xf08, (int8_t)0x34}; // Change Nonspell
-            ecl << pair{0x2c00, (int16_t)0} << pair{0x2da4, (int16_t)0} << pair{0x2f3c, (int16_t)0}; // Disable Item Drops & SE
-            ecl << pair{0x2e94, 59} << pair{0x2f5c, 0} << pair{0x2f34, 60}; // Change Move Time, Wait Time & Inv. Time
+            ecl << pair{0x2c00, (int16_t)0} << pair{0x2da4, (int16_t)0}
+                << pair{0x2f3c, (int16_t)0}; // Disable Item Drops & SE
+            ecl << pair{0x2e94, 59} << pair{0x2f5c, 0}
+                << pair{0x2f34, 60}; // Change Move Time, Wait Time & Inv. Time
             break;
         case THPrac::TH14::TH14_ST7_END_S4:
             ECLJump(ecl, 0x7778, 0x7b38, 60);
@@ -2075,8 +2215,10 @@ namespace TH14 {
             ECLJump(ecl, 0x7778, 0x7b38, 60);
             ecl.SetFile(3);
             ecl << pair{0xf08, (int8_t)0x35}; // Change Nonspell
-            ecl << pair{0x34ec, (int16_t)0} << pair{0x3690, (int16_t)0} << pair{0x3828, (int16_t)0}; // Disable Item Drops & SE
-            ecl << pair{0x3780, 59} << pair{0x3848, 0} << pair{0x3820, 60}; // Change Move Time, Wait Time & Inv. Time
+            ecl << pair{0x34ec, (int16_t)0} << pair{0x3690, (int16_t)0}
+                << pair{0x3828, (int16_t)0}; // Disable Item Drops & SE
+            ecl << pair{0x3780, 59} << pair{0x3848, 0}
+                << pair{0x3820, 60}; // Change Move Time, Wait Time & Inv. Time
             break;
         case THPrac::TH14::TH14_ST7_END_S5:
             ECLJump(ecl, 0x7778, 0x7b38, 60);
@@ -2090,8 +2232,10 @@ namespace TH14 {
             ECLJump(ecl, 0x7778, 0x7b38, 60);
             ecl.SetFile(3);
             ecl << pair{0xf08, (int8_t)0x36}; // Change Nonspell
-            ecl << pair{0x4300, (int16_t)0} << pair{0x44ac, (int16_t)0} << pair{0x4644, (int16_t)0}; // Disable Item Drops & SE
-            ecl << pair{0x459c, 59} << pair{0x4664, 0} << pair{0x463c, 60}; // Change Move Time, Wait Time & Inv. Time
+            ecl << pair{0x4300, (int16_t)0} << pair{0x44ac, (int16_t)0}
+                << pair{0x4644, (int16_t)0}; // Disable Item Drops & SE
+            ecl << pair{0x459c, 59} << pair{0x4664, 0}
+                << pair{0x463c, 60}; // Change Move Time, Wait Time & Inv. Time
             break;
         case THPrac::TH14::TH14_ST7_END_S6:
             ECLJump(ecl, 0x7778, 0x7b38, 60);
@@ -2105,8 +2249,10 @@ namespace TH14 {
             ECLJump(ecl, 0x7778, 0x7b38, 60);
             ecl.SetFile(3);
             ecl << pair{0xf08, (int8_t)0x37}; // Change Nonspell
-            ecl << pair{0x4c3c, (int16_t)0} << pair{0x4de0, (int16_t)0} << pair{0x4f78, (int16_t)0}; // Disable Item Drops & SE
-            ecl << pair{0x4ed0, 59} << pair{0x4f98, 0} << pair{0x4f70, 60}; // Change Move Time, Wait Time & Inv. Time
+            ecl << pair{0x4c3c, (int16_t)0} << pair{0x4de0, (int16_t)0}
+                << pair{0x4f78, (int16_t)0}; // Disable Item Drops & SE
+            ecl << pair{0x4ed0, 59} << pair{0x4f98, 0}
+                << pair{0x4f70, 60}; // Change Move Time, Wait Time & Inv. Time
             break;
         case THPrac::TH14::TH14_ST7_END_S7:
             ECLJump(ecl, 0x7778, 0x7b38, 60);
@@ -2120,8 +2266,10 @@ namespace TH14 {
             ECLJump(ecl, 0x7778, 0x7b38, 60);
             ecl.SetFile(3);
             ecl << pair{0xf08, (int8_t)0x38}; // Change Nonspell
-            ecl << pair{0x5938, (int16_t)0} << pair{0x5ae4, (int16_t)0} << pair{0x5c7c, (int16_t)0}; // Disable Item Drops & SE
-            ecl << pair{0x5bd4, 59} << pair{0x5c9c, 0} << pair{0x5c74, 60}; // Change Move Time, Wait Time & Inv. Time
+            ecl << pair{0x5938, (int16_t)0} << pair{0x5ae4, (int16_t)0}
+                << pair{0x5c7c, (int16_t)0}; // Disable Item Drops & SE
+            ecl << pair{0x5bd4, 59} << pair{0x5c9c, 0}
+                << pair{0x5c74, 60}; // Change Move Time, Wait Time & Inv. Time
             break;
         case THPrac::TH14::TH14_ST7_END_S8:
             ECLJump(ecl, 0x7778, 0x7b38, 60);
@@ -2285,10 +2433,12 @@ namespace TH14 {
         bool is_practice;
         bool result;
 
-        el_switch = *(THOverlay::singleton().mElBgm) && !THGuiRep::singleton().mRepStatus && thPracParam.mode == 1 && thPracParam.section;
+        el_switch = *(THOverlay::singleton().mElBgm) && !THGuiRep::singleton().mRepStatus
+            && thPracParam.mode == 1 && thPracParam.section;
         is_practice = (*((int32_t*)0x4f58b8) & 0x1); // is restarting
         result = ElBgmTest<0x445743, 0x436526, 0x448e91, 0x44908a, 0xffffffff>(
-            el_switch, is_practice, retn_addr, bgm_cmd, bgm_id, 0xffffffff);
+            el_switch, is_practice, retn_addr, bgm_cmd, bgm_id, 0xffffffff
+        );
 
         if (result) {
             pCtx->Eip = 0x46f022;
@@ -2416,7 +2566,8 @@ namespace TH14 {
         THGuiRep::singleton().Update();
         THOverlay::singleton().Update();
         THGuiSP::singleton().Update();
-        bool drawCursor = THAdvOptWnd::StaticUpdate() || THGuiPrac::singleton().IsOpen() || THGuiSP::singleton().IsOpen();
+        bool drawCursor = THAdvOptWnd::StaticUpdate() || THGuiPrac::singleton().IsOpen()
+            || THGuiSP::singleton().IsOpen();
 
         GameGuiEnd(drawCursor);
     }
@@ -2430,9 +2581,17 @@ namespace TH14 {
     static __declspec(noinline) void THGuiCreate()
     {
         // Init
-        GameGuiInit(IMPL_WIN32_DX9, 0x4d8f68, 0x4f5a18, 0x469eb0,
-            Gui::INGAGME_INPUT_GEN2, 0x4d6884, 0x4d6880, 0,
-            (*((int32_t*)0x4f7a54) >> 2) & 0xf);
+        GameGuiInit(
+            IMPL_WIN32_DX9,
+            0x4d8f68,
+            0x4f5a18,
+            0x469eb0,
+            Gui::INGAGME_INPUT_GEN2,
+            0x4d6884,
+            0x4d6880,
+            0,
+            (*((int32_t*)0x4f7a54) >> 2) & 0xf
+        );
 
         // Gui components creation
         THGuiPrac::singleton();

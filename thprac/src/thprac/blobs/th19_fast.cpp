@@ -1,16 +1,16 @@
 // Use both of these commands to rebuild th19_fast_msvc.obj and th19_fast_llvm.obj
 //
-// clang++ -m32 -msse -msse2 -mfpmath=sse -std=c++20 -ffast-math -O3 -c th19_fast.cpp -o th19_fast_llvm.obj
-// cl /arch:SSE2 /fp:fast /std:c++20 /O2 /c /Fo"th19_fast_msvc.obj" th19_fast.cpp
-// 
-// If you are using MSVC or choose to define _NO_REGCALL, find every instance of ret 14 (c2 14 00) in the compiled
-// .obj files, and replace it with ret followed by a 2 byte nop (c3 66 90)
+// clang++ -m32 -msse -msse2 -mfpmath=sse -std=c++20 -ffast-math -O3 -c th19_fast.cpp -o
+// th19_fast_llvm.obj cl /arch:SSE2 /fp:fast /std:c++20 /O2 /c /Fo"th19_fast_msvc.obj" th19_fast.cpp
+//
+// If you are using MSVC or choose to define _NO_REGCALL, find every instance of ret 14 (c2 14 00)
+// in the compiled .obj files, and replace it with ret followed by a 2 byte nop (c3 66 90)
 //
 
 #define elementsof(a) (sizeof(a) / sizeof(a[0]))
 
-#include <stdint.h>
 #include <intrin.h>
+#include <stdint.h>
 
 #include <algorithm>
 #include <bit>
@@ -22,7 +22,8 @@ constexpr const float M_PI = std::bit_cast<float, uint32_t>(0x40490FDB);
 __m128 __vectorcall sincos(float x) asm("___libm_sse2_sincosf_");
 #elif _MSC_VER
 extern "C" __m128 __cdecl __libm_sse2_sincosf_(float x);
-static __forceinline __m128 __vectorcall sincos(float x) {
+static __forceinline __m128 __vectorcall sincos(float x)
+{
     return ((__m128(__vectorcall*)(float))&__libm_sse2_sincosf_)(x);
 }
 #endif
@@ -74,17 +75,17 @@ struct CPUHitInf {
 
 // Inlining this function instead of using what the game has because of calling conventions
 inline bool line_segments_intersect_2d(
-    float a1, float a2,
-    float a3, float a4,
-    float a5, float a6,
-    float a7, float a8)
+    float a1, float a2, float a3, float a4, float a5, float a6, float a7, float a8
+)
 {
     float v19 = ((a1 - a3) * (a6 - a2)) + ((a2 - a4) * (a1 - a5));
     float v13 = ((a1 - a3) * (a8 - a2)) + ((a2 - a4) * (a1 - a7));
 
     if ((v13 * v19) <= 0.0) {
         if (v19 != 0.0 || v13 != 0.0)
-            return ((((a4 - a6) * (a5 - a7)) + ((a5 - a3) * (a6 - a8))) * (((a5 - a1) * (a6 - a8)) + ((a2 - a6) * (a5 - a7)))) <= 0.0;
+            return ((((a4 - a6) * (a5 - a7)) + ((a5 - a3) * (a6 - a8)))
+                    * (((a5 - a1) * (a6 - a8)) + ((a2 - a6) * (a5 - a7))))
+                <= 0.0;
         if (a1 > a3) {
             std::swap(a1, a3);
             std::swap(a2, a4);
@@ -98,8 +99,9 @@ inline bool line_segments_intersect_2d(
     }
     return 0;
 }
-template<typename T>
-T __forceinline square(T val) {
+template <typename T>
+T __forceinline square(T val)
+{
     return val * val;
 }
 
@@ -110,22 +112,32 @@ T __forceinline square(T val) {
 #endif
 
 // Code written by Khangaroo (https://github.com/khang06)
-extern "C" uint32_t* __vectorcall CPUHitInf_CheckColliders(CPUHitInf* self, int, uint32_t* hit_flags_ptr, float, float, float radius) {
+extern "C" uint32_t* __vectorcall CPUHitInf_CheckColliders(
+    CPUHitInf* self, int, uint32_t* hit_flags_ptr, float, float, float radius
+)
+{
 #ifdef __clang__
-    __m128 temp = _mm_cvtepi32_ps(_mm_loadu_si128((__m128i*)&self->game_side_ptr->player_ptr->unfocused_linear_speed)) * (1.0f / 128.0f);
+    __m128 temp =
+        _mm_cvtepi32_ps(
+            _mm_loadu_si128((__m128i*)&self->game_side_ptr->player_ptr->unfocused_linear_speed)
+        )
+        * (1.0f / 128.0f);
     float unfocused_linear_px = temp[0];
     float focused_linear_px = temp[1];
     float unfocused_diagonal_px = temp[2];
     float focused_diagonal_px = temp[3];
 #elif defined(_MSC_VER)
     // MSVC doesn't overload operator * on __m128, needs explicit _mm_mul_ps
-    __m128 mult = { .m128_f32 {
-        (1.0f / 128.0f),
-        (1.0f / 128.0f),
-        (1.0f / 128.0f),
-        (1.0f / 128.0f) } };
+    __m128 mult = {
+        .m128_f32{(1.0f / 128.0f), (1.0f / 128.0f), (1.0f / 128.0f), (1.0f / 128.0f)}
+    };
 
-    __m128 temp = _mm_mul_ps(_mm_cvtepi32_ps(_mm_loadu_si128((__m128i*)&self->game_side_ptr->player_ptr->unfocused_linear_speed)), mult);
+    __m128 temp = _mm_mul_ps(
+        _mm_cvtepi32_ps(
+            _mm_loadu_si128((__m128i*)&self->game_side_ptr->player_ptr->unfocused_linear_speed)
+        ),
+        mult
+    );
 
     float unfocused_linear_px = temp.m128_f32[0];
     float focused_linear_px = temp.m128_f32[1];
@@ -135,7 +147,7 @@ extern "C" uint32_t* __vectorcall CPUHitInf_CheckColliders(CPUHitInf* self, int,
 
     Float2 check_pos_list[18];
     for (size_t i = 0; i < elementsof(check_pos_list); i++)
-         check_pos_list[i] = Float2 { self->pos.x, self->pos.y };
+        check_pos_list[i] = Float2{self->pos.x, self->pos.y};
     // I don't feel like trying to make this more readable
     check_pos_list[1].y = check_pos_list[1].y - unfocused_linear_px;
     check_pos_list[2].y = check_pos_list[2].y + unfocused_linear_px;
@@ -179,8 +191,8 @@ extern "C" uint32_t* __vectorcall CPUHitInf_CheckColliders(CPUHitInf* self, int,
                 float y_diff = check_pos_list[j].y - collider->pos.y;
                 if (total_dist > (y_diff * y_diff) + (x_diff * x_diff))
                     hit_flags |= 1 << j;
-              }
-         } else {
+            }
+        } else {
             auto angle_sincos = sincos(-collider->angle);
             float half_size_x = collider->size.x * 0.5f;
             float half_size_y = collider->size.y * 0.5f;
@@ -197,12 +209,10 @@ extern "C" uint32_t* __vectorcall CPUHitInf_CheckColliders(CPUHitInf* self, int,
                 float y_sq2 = square(half_size_y + rot_y);
                 if ((half_size_x + radius) >= fabs(rot_x) && half_size_y >= fabs(rot_y)
                     || half_size_x >= fabs(rot_x) && (half_size_y + radius) >= fabs(rot_y)
-                    || radius_sq > x_sq1 + y_sq1
-                    || radius_sq > x_sq2 + y_sq1
-                    || radius_sq > x_sq1 + y_sq2
-                    || radius_sq > x_sq2 + y_sq2) {
-                        hit_flags |= 1 << j;
-                    }
+                    || radius_sq > x_sq1 + y_sq1 || radius_sq > x_sq2 + y_sq1
+                    || radius_sq > x_sq1 + y_sq2 || radius_sq > x_sq2 + y_sq2) {
+                    hit_flags |= 1 << j;
+                }
             }
         }
     }
@@ -222,11 +232,10 @@ inline float angle_normalize(float angle)
     return angle;
 }
 
-__forceinline bool _RxD1E00_fast_impl (
-    int a1,
-    float a2, float a3, float a4, float a5,
-    float a6, float a7, float a8, float a9,
-    float a10)
+__forceinline bool _RxD1E00_fast_impl(
+    int a1, float a2, float a3, float a4, float a5, float a6, float a7, float a8, float a9,
+    float a10
+)
 {
     __m128 sincos_a10_2 = sincos(a10);
 
@@ -242,34 +251,43 @@ __forceinline bool _RxD1E00_fast_impl (
         sincos_a10_2 = sincos(a10);
 
         if (line_segments_intersect_2d(
-            (A(sincos_a10_1)[1] * v13) + a6,
-            (A(sincos_a10_1)[0] * v13) + a7,
+                (A(sincos_a10_1)[1] * v13) + a6,
+                (A(sincos_a10_1)[0] * v13) + a7,
 
-            (A(sincos_a10_2)[1] * v13) + a6,
-            (A(sincos_a10_2)[0] * v13) + a7,
-            a2, a3, a4, a5)) {
-                return true;
-            }
+                (A(sincos_a10_2)[1] * v13) + a6,
+                (A(sincos_a10_2)[0] * v13) + a7,
+                a2,
+                a3,
+                a4,
+                a5
+            )) {
+            return true;
+        }
     }
     return false;
 }
 
 #if defined(__clang__) && !defined(_NO_REGCALL)
-extern "C" bool __regcall _RxD1E00_fast (
-    int eax_, int ecx_, int edx_, int edi_, int esi_,
-    float xmm0, float xmm1, float xmm2, float xmm3, float xmm4, float xmm5, float xmm6, float xmm7,
+extern "C" bool __regcall _RxD1E00_fast(
+    int eax_, int ecx_, int edx_, int edi_, int esi_, float xmm0, float xmm1, float xmm2,
+    float xmm3, float xmm4, float xmm5, float xmm6, float xmm7,
 
     uint32_t stack0, uint32_t stack1, uint32_t stack2, uint32_t stack3, uint32_t stack4
 ) asm("_RxD1E00_fast@@52");
 // Name mangling inside an asm statement to match with the name that the MSVC version will have
-extern "C" bool __regcall _RxD1E00_fast (
-    int eax_, int ecx_, int edx_, int edi_, int esi_,
-    float xmm0, float xmm1, float xmm2, float xmm3, float xmm4, float xmm5, float xmm6, float xmm7,
+extern "C" bool __regcall _RxD1E00_fast(
+    int eax_, int ecx_, int edx_, int edi_, int esi_, float xmm0, float xmm1, float xmm2,
+    float xmm3, float xmm4, float xmm5, float xmm6, float xmm7,
 
     uint32_t stack0, uint32_t stack1, uint32_t stack2, uint32_t stack3, uint32_t stack4
-) {
+)
+{
     bool res = _RxD1E00_fast_impl(
-        ecx_, xmm0, xmm1, xmm2, xmm3,
+        ecx_,
+        xmm0,
+        xmm1,
+        xmm2,
+        xmm3,
         std::bit_cast<float>(stack0),
         std::bit_cast<float>(stack1),
         std::bit_cast<float>(stack2),
@@ -284,16 +302,20 @@ extern "C" bool __regcall _RxD1E00_fast (
 }
 #else
 extern "C" bool __vectorcall _RxD1E00_fast(
-    uint32_t ecx, uint32_t edx,
-    float xmm0, float xmm1, float xmm2, float xmm3, float xmm4, float xmm5,
-    uint32_t stack0, uint32_t stack1, uint32_t stack2, uint32_t stack3, uint32_t stack4
-) {
+    uint32_t ecx, uint32_t edx, float xmm0, float xmm1, float xmm2, float xmm3, float xmm4,
+    float xmm5, uint32_t stack0, uint32_t stack1, uint32_t stack2, uint32_t stack3, uint32_t stack4
+)
+{
     // Declaring stack params as int to ensure Clang compatibility
     // Clang, when it runs out of xmm registers to put float parameters in
     // will use the next available slots for int parameters (ecx, edx, stack)
     // to pass pointers to floats.
     return _RxD1E00_fast_impl(
-        ecx, xmm0, xmm1, xmm2, xmm3,
+        ecx,
+        xmm0,
+        xmm1,
+        xmm2,
+        xmm3,
         std::bit_cast<float>(stack0),
         std::bit_cast<float>(stack1),
         std::bit_cast<float>(stack2),

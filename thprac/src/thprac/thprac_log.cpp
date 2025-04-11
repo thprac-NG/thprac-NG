@@ -1,7 +1,7 @@
-#include <Windows.h>
-#include <Shlwapi.h>
 #include "thprac_log.h"
 #include "thprac_launcher_cfg.h"
+#include <Shlwapi.h>
+#include <Windows.h>
 
 namespace THPrac {
 
@@ -37,7 +37,7 @@ void log_init(bool launcher, bool console)
     if (launcher) {
         memcpy(fn_rot_temp_1, fn_rot_launcher, wcslen(fn_rot_launcher) * sizeof(wchar_t));
     } else {
-        memcpy(fn_rot_temp_1, fn_rot_ingame, wcslen(fn_rot_ingame) * sizeof(wchar_t)); 
+        memcpy(fn_rot_temp_1, fn_rot_ingame, wcslen(fn_rot_ingame) * sizeof(wchar_t));
     }
 
     const unsigned int rot_num_off = launcher ? 20 : 11;
@@ -54,12 +54,15 @@ void log_init(bool launcher, bool console)
     }
 
     MoveFileW(fn, fn_rot_temp_1);
-    hLog = CreateFileW(fn, GENERIC_WRITE, FILE_SHARE_READ, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-    
-    // Attach to existing console if it exists, open new console if no console exists but console is set to true
-    // I wonder if this is gonna make command prompt appear for a millisecond for some people
+    hLog = CreateFileW(
+        fn, GENERIC_WRITE, FILE_SHARE_READ, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL
+    );
+
+    // Attach to existing console if it exists, open new console if no console exists but console is
+    // set to true I wonder if this is gonna make command prompt appear for a millisecond for some
+    // people
     BOOL console_success = AllocConsole();
-    
+
     if (console_success && !console) {
         FreeConsole();
     } else if (!console_success) {
