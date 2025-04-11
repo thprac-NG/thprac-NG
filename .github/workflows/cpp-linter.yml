@@ -25,6 +25,7 @@ jobs:
           tidy-checks: ''  # disable clang-tidy checks. 
           step-summary: true  # Append summary to the Action pages
           format-review: true  # Use clang-format to review PRs
+          files-changed-only: false  # Check all files
           thread-comments: update  # Update the comment to prevent multiple notifications
 
       - name: Fail fast?!
