@@ -3,10 +3,10 @@ name: cpp-linter
 on:
   pull_request:
     branches: [main, master, DONT-MERGE-format-test]
-    paths: ['**.c', '**.cpp', '**.h', '**.hpp']
+    paths: ['thprac/src/thprac/**.c', 'thprac/src/thprac/**.cpp', 'thprac/src/thprac/**.h', 'thprac/src/thprac/**.hpp']
   push:
     branches: [main, master, DONT-MERGE-format-test]
-    paths: ['**.c', '**.cpp', '**.h', '**.hpp']
+    paths: ['thprac/src/thprac/**.c', 'thprac/src/thprac/**.cpp', 'thprac/src/thprac/**.h', 'thprac/src/thprac/**.hpp']
 
 jobs:
   cpp-linter:
