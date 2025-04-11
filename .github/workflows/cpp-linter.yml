@@ -22,7 +22,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           style: 'file'  # Use .clang-format config file. 
-          tidy-checks: '-*' # disable clang-tidy checks. 
+          tidy-checks: '-*'  # disable clang-tidy checks. 
+          step-summary: true  # Append summary to the Action pages
+          format-review: true  # Use clang-format to review PRs
+          thread-comments: update  # Update the comment to prevent multiple notifications
 
       - name: Fail fast?!
         if: steps.linter.outputs.clang-format-checks-failed > 0
