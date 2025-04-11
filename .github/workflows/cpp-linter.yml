@@ -1,6 +1,13 @@
+# Modified from https://github.com/cpp-linter/cpp-linter-action/blob/main/.github/workflows/cpp-linter.yml
 name: cpp-linter
 
-on: [push, pull_request]
+on: 
+  push:
+    paths:
+      - "thprac/src/thprac/*"
+  pull_request:
+    paths:
+      - "thprac/src/thprac/*"
 
 jobs:
   cpp-linter:
