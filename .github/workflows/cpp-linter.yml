@@ -21,7 +21,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          style: 'file'  # Use .clang-format config file. 
+          ignore: '.github|thprac/src/3rdParties'
+          style: 'llvm'  # Use .clang-format config file. 
           tidy-checks: ''  # disable clang-tidy checks. 
           step-summary: true  # Append summary to the Action pages
           format-review: true  # Use clang-format to review PRs
