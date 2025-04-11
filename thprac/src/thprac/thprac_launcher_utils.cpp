@@ -104,10 +104,7 @@ bool GuiButtonYesNo(const char* buttonText1, const char* buttonText2, float butt
     return false;
 }
 
-bool GuiButtonAndModalYesNo(
-    const char* buttonText, const char* modalTitle, const char* modalText, float buttonSize,
-    const char* buttonText1, const char* buttonText2
-)
+bool GuiButtonAndModalYesNo(const char* buttonText, const char* modalTitle, const char* modalText, float buttonSize, const char* buttonText1, const char* buttonText2)
 {
     bool result = false;
 

@@ -22,11 +22,7 @@ void LauncherGamesGuiSwitch(const char* idStr);
 void LauncherGamesForceReload();
 bool LauncherGamesThcrapTest(std::wstring& dir);
 bool LauncherGamesThcrapSetup();
-void LauncherGamesThcrapCfgGet(
-    std::vector<std::pair<std::string, bool>>& cfgVec, std::vector<GameRoll> gameVec[4]
-);
-void LauncherGamesThcrapAdd(
-    const char* gameId, const std::string& cfg, bool use_thprac, bool flush = false
-);
+void LauncherGamesThcrapCfgGet(std::vector<std::pair<std::string, bool>>& cfgVec, std::vector<GameRoll> gameVec[4]);
+void LauncherGamesThcrapAdd(const char* gameId, const std::string& cfg, bool use_thprac, bool flush = false);
 bool LauncherGamesThcrapLaunch();
 }

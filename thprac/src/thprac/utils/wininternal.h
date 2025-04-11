@@ -225,9 +225,7 @@ typedef enum _PROCESSINFOCLASS {
 } PROCESSINFOCLASS;
 
 extern "C" __kernel_entry NTSTATUS NTAPI NtQueryInformationProcess(
-    IN HANDLE ProcessHandle, IN PROCESSINFOCLASS ProcessInformationClass,
-    OUT PVOID ProcessInformation, IN ULONG ProcessInformationLength,
-    OUT PULONG ReturnLength OPTIONAL
+    IN HANDLE ProcessHandle, IN PROCESSINFOCLASS ProcessInformationClass, OUT PVOID ProcessInformation, IN ULONG ProcessInformationLength, OUT PULONG ReturnLength OPTIONAL
 );
 
 // KUSER_SHARED_DATA struct definition so that we don't have to depend on the WDK just for ntddk.h

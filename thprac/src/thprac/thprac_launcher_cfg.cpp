@@ -59,8 +59,7 @@ void LauncherAquireDataDirVar()
     } else {
         gCfgIsLocalDir = 0;
         wchar_t appDataPath[MAX_PATH];
-        if (SHGetFolderPathW(nullptr, CSIDL_APPDATA, nullptr, SHGFP_TYPE_CURRENT, appDataPath)
-            == S_OK) {
+        if (SHGetFolderPathW(nullptr, CSIDL_APPDATA, nullptr, SHGFP_TYPE_CURRENT, appDataPath) == S_OK) {
             path = appDataPath;
             path += L"\\thprac\\";
         } else {
@@ -110,15 +109,7 @@ bool LauncherCfgInit(bool noCreate)
 
     DWORD openFlag = noCreate ? OPEN_EXISTING : OPEN_ALWAYS;
     DWORD openAccess = noCreate ? GENERIC_READ : GENERIC_READ | GENERIC_WRITE;
-    gCfgHnd = CreateFileW(
-        jsonPath.c_str(),
-        openAccess,
-        FILE_SHARE_READ | FILE_SHARE_WRITE,
-        nullptr,
-        openFlag,
-        FILE_ATTRIBUTE_NORMAL,
-        nullptr
-    );
+    gCfgHnd = CreateFileW(jsonPath.c_str(), openAccess, FILE_SHARE_READ | FILE_SHARE_WRITE, nullptr, openFlag, FILE_ATTRIBUTE_NORMAL, nullptr);
     if (gCfgHnd == INVALID_HANDLE_VALUE) {
         return false;
     }
@@ -645,14 +636,7 @@ public:
 
                 for (auto& download : mUpdDownloads) {
                     if (CenteredButton(download.first.c_str())) {
-                        ShellExecuteW(
-                            nullptr,
-                            nullptr,
-                            utf8_to_utf16(download.second.c_str()).c_str(),
-                            nullptr,
-                            nullptr,
-                            SW_SHOW
-                        );
+                        ShellExecuteW(nullptr, nullptr, utf8_to_utf16(download.second.c_str()).c_str(), nullptr, nullptr, SW_SHOW);
                     }
                 }
             }
@@ -714,8 +698,7 @@ public:
         mUpdateThread.Wait();
         mInterruptSignal = false;
         mUpdateThread.Stop();
-        auto isUpdateAvailable =
-            mChkUpdStatus == STATUS_UPDATE_PROMPT || mChkUpdStatus == STATUS_UPD_ABLE_OR_FINISHED;
+        auto isUpdateAvailable = mChkUpdStatus == STATUS_UPDATE_PROMPT || mChkUpdStatus == STATUS_UPD_ABLE_OR_FINISHED;
         if (mChkUpdStatus == STATUS_UPDATE_PROMPT) {
             mChkUpdStatus = STATUS_UPD_ABLE_OR_FINISHED;
         } else if (mChkUpdStatus == STATUS_CHKING_OR_UPDATING) {
@@ -725,21 +708,15 @@ public:
         if (mUpdDialogHnd && isUpdateAvailable) {
             auto updateTitleStr = utf8_to_utf16(S(THPRAC_UPDATE_DIALOG_TITLE));
             auto textStr = utf8_to_utf16(S(THPRAC_UPDATE_DIALOG_TEXT));
-            if (confirmation
-                || MessageBoxW(
-                       nullptr, textStr.c_str(), updateTitleStr.c_str(), MB_YESNO | MB_SETFOREGROUND
-                   ) == IDYES) {
+            if (confirmation || MessageBoxW(nullptr, textStr.c_str(), updateTitleStr.c_str(), MB_YESNO | MB_SETFOREGROUND) == IDYES) {
                 mAutoUpdateThread.Stop();
                 mUpdPercentage = 0.0f;
                 mAutoUpdateThread.Start();
 
                 updateTitleStr = utf8_to_utf16(S(THPRAC_UPDATE_DIALOG_UPDATING));
                 SetWindowText(hDialog, updateTitleStr.c_str());
-                LONG_PTR updateStyle =
-                    GetWindowLongPtr(GetDlgItem(hDialog, IDC_PROGRESS1), GWL_STYLE);
-                SetWindowLongPtr(
-                    GetDlgItem(hDialog, IDC_PROGRESS1), GWL_STYLE, updateStyle & (~PBS_MARQUEE)
-                );
+                LONG_PTR updateStyle = GetWindowLongPtr(GetDlgItem(hDialog, IDC_PROGRESS1), GWL_STYLE);
+                SetWindowLongPtr(GetDlgItem(hDialog, IDC_PROGRESS1), GWL_STYLE, updateStyle & (~PBS_MARQUEE));
                 ShowWindow(hDialog, SW_SHOW);
                 MovWndToTop(hDialog);
 
@@ -747,9 +724,7 @@ public:
                     if (!mUpdDialogHnd) {
                         break;
                     }
-                    SendMessage(
-                        GetDlgItem(hDialog, IDC_PROGRESS1), PBM_SETPOS, (int)mUpdPercentage, 0
-                    );
+                    SendMessage(GetDlgItem(hDialog, IDC_PROGRESS1), PBM_SETPOS, (int)mUpdPercentage, 0);
                     Sleep(30);
                 }
                 if (mUpdDialogHnd) {
@@ -778,8 +753,7 @@ public:
     }
     static DWORD WINAPI UpdateDialogCtrlFunc([[maybe_unused]] _In_ LPVOID lpParameter)
     {
-        auto hDialog =
-            CreateDialog(nullptr, MAKEINTRESOURCE(IDD_DIALOG1), nullptr, UpdateDialogProc);
+        auto hDialog = CreateDialog(nullptr, MAKEINTRESOURCE(IDD_DIALOG1), nullptr, UpdateDialogProc);
         THUpdate::singleton().mUpdDialogHnd = hDialog;
 
         MSG msg;
@@ -797,9 +771,7 @@ public:
 
         return 0;
     }
-    static INT_PTR __stdcall UpdateDialogProc(
-        [[maybe_unused]] HWND hDialog, UINT msg, WPARAM wParam, [[maybe_unused]] LPARAM lParam
-    )
+    static INT_PTR __stdcall UpdateDialogProc([[maybe_unused]] HWND hDialog, UINT msg, WPARAM wParam, [[maybe_unused]] LPARAM lParam)
     {
         switch (msg) {
         case WM_INITDIALOG:
@@ -862,8 +834,7 @@ private:
         for (auto& desc : cfgGui.mUpdDesc) {
             desc = "";
         }
-        if (versionJson.HasMember("description") && versionJson["description"].IsArray()
-            && versionJson["description"].Size() == 3) {
+        if (versionJson.HasMember("description") && versionJson["description"].IsArray() && versionJson["description"].Size() == 3) {
             auto& descJson = versionJson["description"];
             for (int i = 0; i < 3; ++i) {
                 if (descJson[i].IsString()) {
@@ -877,12 +848,10 @@ private:
     static void CheckUpdateJson(const char* jsonStr, size_t jsonSize = 0)
     {
         rapidjson::Document versionJson;
-        if (!versionJson.Parse(jsonStr, jsonSize ? jsonSize : strlen(jsonStr) + 1)
-                 .HasParseError()) {
+        if (!versionJson.Parse(jsonStr, jsonSize ? jsonSize : strlen(jsonStr) + 1).HasParseError()) {
             if (versionJson.HasMember("version")) {
                 auto& version = versionJson["version"];
-                if (version.IsArray() && version.Size() == 4 && version[0].IsInt()
-                    && version[1].IsInt() && version[2].IsInt() && version[3].IsInt()) {
+                if (version.IsArray() && version.Size() == 4 && version[0].IsInt() && version[1].IsInt() && version[2].IsInt() && version[3].IsInt()) {
                     for (int i = 0; i < 4; ++i) {
                         int versionNum = version[i].GetInt();
                         if (versionNum > GetVersionInt()[i]) {
@@ -898,10 +867,7 @@ private:
         THUpdate::singleton().mChkUpdStatus = STATUS_NO_UPDATE;
         return;
     }
-    static bool ParseURL_X(
-        std::string url, std::wstring& serverNameOut, std::wstring& objectNameOut,
-        std::wstring& fileNameOut, bool& isHttpsOut
-    )
+    static bool ParseURL_X(std::string url, std::wstring& serverNameOut, std::wstring& objectNameOut, std::wstring& fileNameOut, bool& isHttpsOut)
     {
         bool isHttps = true;
         if (url.find("https://") == 0) {
@@ -1066,40 +1032,25 @@ private:
         return version;
     }
 
-    static DWORD DownloadSingleFile(
-        const wchar_t* url, std::vector<uint8_t>& out,
-        std::function<void(DWORD, DWORD)> progressCallback = [](DWORD, DWORD) { }
-    )
+    static DWORD DownloadSingleFile(const wchar_t* url, std::vector<uint8_t>& out, std::function<void(DWORD, DWORD)> progressCallback = [](DWORD, DWORD) { })
     {
         static HINTERNET hInternet = nullptr;
         DWORD byteRet = sizeof(DWORD);
         if (!hInternet) {
-            hInternet = InternetOpenW(
-                (std::wstring(L"thprac ") + GetVersionWcs() + L" on " + windows_version()).c_str(),
-                INTERNET_OPEN_TYPE_PRECONFIG,
-                nullptr,
-                nullptr,
-                0
-            );
+            hInternet = InternetOpenW((std::wstring(L"thprac ") + GetVersionWcs() + L" on " + windows_version()).c_str(), INTERNET_OPEN_TYPE_PRECONFIG, nullptr, nullptr, 0);
             if (!hInternet)
                 return ERROR_INTERNET_NOT_INITIALIZED;
             DWORD ignore = 1;
-            if (!InternetSetOptionW(
-                    hInternet, INTERNET_OPTION_IGNORE_OFFLINE, &ignore, sizeof(DWORD)
-                ))
+            if (!InternetSetOptionW(hInternet, INTERNET_OPTION_IGNORE_OFFLINE, &ignore, sizeof(DWORD)))
                 return ERROR_INTERNET_INVALID_OPTION;
         }
-        HINTERNET hFile = InternetOpenUrlW(
-            hInternet, url, nullptr, 0, INTERNET_FLAG_RELOAD | INTERNET_FLAG_KEEP_CONNECTION, 0
-        );
+        HINTERNET hFile = InternetOpenUrlW(hInternet, url, nullptr, 0, INTERNET_FLAG_RELOAD | INTERNET_FLAG_KEEP_CONNECTION, 0);
         if (!hFile)
             return GetLastError();
         defer(InternetCloseHandle(hFile));
 
         DWORD fileSize = 0;
-        if (!HttpQueryInfoW(
-                hFile, HTTP_QUERY_FLAG_NUMBER | HTTP_QUERY_CONTENT_LENGTH, &fileSize, &byteRet, 0
-            ))
+        if (!HttpQueryInfoW(hFile, HTTP_QUERY_FLAG_NUMBER | HTTP_QUERY_CONTENT_LENGTH, &fileSize, &byteRet, 0))
             return ERROR_HTTP_INVALID_QUERY_REQUEST;
 
         std::vector<uint8_t> buffer;
@@ -1130,10 +1081,7 @@ private:
         updObj.mChkUpdStatus = STATUS_CHKING_OR_UPDATING;
 
         std::vector<uint8_t> updateJson;
-        DWORD status = DownloadSingleFile(
-            L"https://raw.githubusercontent.com/touhouworldcup/thprac/master/thprac_version.json",
-            updateJson
-        );
+        DWORD status = DownloadSingleFile(L"https://raw.githubusercontent.com/touhouworldcup/thprac/master/thprac_version.json", updateJson);
         if (status)
             updObj.mChkUpdStatus = STATUS_INTERNET_ERROR;
         else
@@ -1146,13 +1094,9 @@ private:
         updObj.mAutoUpdStatus = STATUS_CHKING_OR_UPDATING;
 
         std::vector<uint8_t> newFile;
-        DWORD status = DownloadSingleFile(
-            utf8_to_utf16(updObj.mUpdDirectLink.c_str()).c_str(),
-            newFile,
-            [&](DWORD remSize, DWORD fileSize) {
-                updObj.mUpdPercentage = (fileSize - remSize) * 100 / (float)fileSize;
-            }
-        );
+        DWORD status = DownloadSingleFile(utf8_to_utf16(updObj.mUpdDirectLink.c_str()).c_str(), newFile, [&](DWORD remSize, DWORD fileSize) {
+            updObj.mUpdPercentage = (fileSize - remSize) * 100 / (float)fileSize;
+        });
         if (status) {
             updObj.mAutoUpdStatus = STATUS_INTERNET_ERROR;
             return status;
@@ -1172,15 +1116,7 @@ private:
         GetTempPath(MAX_PATH, tmpPath);
         localFileName = tmpPath;
         localFileName += remoteFileName;
-        localeFileHnd = CreateFileW(
-            localFileName.c_str(),
-            GENERIC_READ | GENERIC_WRITE,
-            0,
-            nullptr,
-            CREATE_ALWAYS,
-            FILE_ATTRIBUTE_NORMAL,
-            nullptr
-        );
+        localeFileHnd = CreateFileW(localFileName.c_str(), GENERIC_READ | GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
         if (localeFileHnd == INVALID_HANDLE_VALUE) {
             return 1;
         }
@@ -1191,14 +1127,7 @@ private:
         WriteFile(localeFileHnd, newFile.data(), newFile.size(), &byteRet, nullptr);
 
         CloseHandle(localeFileHnd);
-        ShellExecuteW(
-            nullptr,
-            nullptr,
-            localFileName.c_str(),
-            (std::wstring(L"--update-launcher-1 ") + exePathCstr).c_str(),
-            tmpPath,
-            SW_SHOW
-        );
+        ShellExecuteW(nullptr, nullptr, localFileName.c_str(), (std::wstring(L"--update-launcher-1 ") + exePathCstr).c_str(), tmpPath, SW_SHOW);
         updObj.mAutoUpdStatus = STATUS_UPD_ABLE_OR_FINISHED;
         return 0;
     }
@@ -1252,8 +1181,7 @@ public:
         LauncherCfgClose();
         if (mCfgResetFlag == 1) {
             wchar_t appDataPath[MAX_PATH];
-            if (SHGetFolderPathW(nullptr, CSIDL_APPDATA, nullptr, SHGFP_TYPE_CURRENT, appDataPath)
-                == S_OK) {
+            if (SHGetFolderPathW(nullptr, CSIDL_APPDATA, nullptr, SHGFP_TYPE_CURRENT, appDataPath) == S_OK) {
                 std::wstring jsonPath = appDataPath;
                 jsonPath += L"\\thprac";
                 jsonPath += L"\\thprac.json";
@@ -1277,11 +1205,7 @@ public:
                     dest.push_back('\0');
                     if (mCfgDirChgGlobalParam == 1 || mCfgDirChgGlobalParam == 2) {
                         FileOperateWrapper(FO_DELETE, dest.c_str(), nullptr);
-                        FileOperateWrapper(
-                            mCfgDirChgGlobalParam == 1 ? FO_MOVE : FO_COPY,
-                            globalPath.c_str(),
-                            dest.c_str()
-                        );
+                        FileOperateWrapper(mCfgDirChgGlobalParam == 1 ? FO_MOVE : FO_COPY, globalPath.c_str(), dest.c_str());
                     } else if (mCfgDirChgLocalParam == 1) {
                         auto src = localPath + L".thprac_data_backup";
                         MoveFileW(src.c_str(), dest.c_str());
@@ -1299,11 +1223,7 @@ public:
                         if (mCfgDirChgLocalParam == 1) {
                             FileOperateWrapper(FO_DELETE, globalPath.c_str(), nullptr);
                         }
-                        FileOperateWrapper(
-                            mCfgDirChgLocalParam == 1 ? FO_MOVE : FO_DELETE,
-                            src.c_str(),
-                            mCfgDirChgLocalParam == 1 ? globalPath.c_str() : nullptr
-                        );
+                        FileOperateWrapper(mCfgDirChgLocalParam == 1 ? FO_MOVE : FO_DELETE, src.c_str(), mCfgDirChgLocalParam == 1 ? globalPath.c_str() : nullptr);
                     }
                 }
             }
@@ -1455,8 +1375,7 @@ private:
                     ImGui::CloseCurrentPopup();
                 }
             } else {
-                auto retnValue =
-                    GuiCornerButton(S(THPRAC_APPLY), S(THPRAC_CANCEL), ImVec2(1.0f, 0.0f), true);
+                auto retnValue = GuiCornerButton(S(THPRAC_APPLY), S(THPRAC_CANCEL), ImVec2(1.0f, 0.0f), true);
                 if (retnValue == 1) {
                     ImGui::CloseCurrentPopup();
                     confirmModalFlag = true;
@@ -1493,20 +1412,11 @@ private:
 
         ImGui::SameLine();
         if (ImGui::Button(S(THPRAC_DATADIR_OPEN))) {
-            ShellExecuteW(
-                nullptr, L"open", LauncherGetDataDir().c_str(), nullptr, nullptr, SW_SHOW
-            );
+            ShellExecuteW(nullptr, L"open", LauncherGetDataDir().c_str(), nullptr, nullptr, SW_SHOW);
         }
 
         ImGui::SameLine();
-        if (GuiButtonAndModalYesNo(
-                S(THPRAC_RESET_LAUNCHER),
-                S(THPRAC_RESET_LAUNCHER_MODAL),
-                S(THPRAC_RESET_LAUNCHER_WARNING),
-                -1.0f,
-                S(THPRAC_YES),
-                S(THPRAC_NO)
-            )) {
+        if (GuiButtonAndModalYesNo(S(THPRAC_RESET_LAUNCHER), S(THPRAC_RESET_LAUNCHER_MODAL), S(THPRAC_RESET_LAUNCHER_WARNING), -1.0f, S(THPRAC_YES), S(THPRAC_NO))) {
             GuiLauncherMainTrigger(LAUNCHER_RESET);
             mCfgResetFlag = 1;
         }
@@ -1635,9 +1545,7 @@ private:
                             for (auto& game : gameType) {
                                 if (game.playerSelect && game.selected) {
                                     gameSize++;
-                                    LauncherGamesThcrapAdd(
-                                        game.name, cfg.first, mCfgThpracDefault.Get()
-                                    );
+                                    LauncherGamesThcrapAdd(game.name, cfg.first, mCfgThpracDefault.Get());
                                 }
                             }
                         }
@@ -1667,9 +1575,7 @@ private:
         if (mThcrap.Get() == "") {
             ImGui::TextUnformatted(S(THPRAC_THCRAP_NOTYET));
             if (ImGui::Button("Get thcrap")) {
-                ShellExecuteW(
-                    nullptr, L"open", L"https://www.thpatch.net/", nullptr, nullptr, SW_SHOW
-                );
+                ShellExecuteW(nullptr, L"open", L"https://www.thpatch.net/", nullptr, nullptr, SW_SHOW);
             }
             ImGui::SameLine();
             if (ImGui::Button(S(THPRAC_THCRAP_SET))) {
@@ -1688,14 +1594,7 @@ private:
             }
         } else {
             ImGui::Text(S(THPRAC_THCRAP_LOCATION), mThcrap.Get().c_str());
-            if (GuiButtonAndModalYesNo(
-                    S(THPRAC_THCRAP_UNSET),
-                    S(THPRAC_THCRAP_UNSET_MODAL),
-                    S(THPRAC_THCRAP_UNSET_TXT),
-                    -1.0f,
-                    S(THPRAC_YES),
-                    S(THPRAC_NO)
-                )) {
+            if (GuiButtonAndModalYesNo(S(THPRAC_THCRAP_UNSET), S(THPRAC_THCRAP_UNSET_MODAL), S(THPRAC_THCRAP_UNSET_TXT), -1.0f, S(THPRAC_YES), S(THPRAC_NO))) {
                 mThcrap.Set(std::string(""));
                 mThcrapHintTime = 0.0f;
             }
@@ -1765,9 +1664,7 @@ private:
         HANDLE hFind = FindFirstFileW((LauncherGetDataDir() + L"themes\\*.json").c_str(), &find);
         if (hFind != INVALID_HANDLE_VALUE) {
             do {
-                userThemes.push_back(
-                    {_strdup(utf16_to_utf8(find.cFileName).c_str()), _wcsdup(find.cFileName)}
-                );
+                userThemes.push_back({_strdup(utf16_to_utf8(find.cFileName).c_str()), _wcsdup(find.cFileName)});
             } while (FindNextFileW(hFind, &find));
         }
     }
@@ -1777,9 +1674,7 @@ private:
         ImGui::TextUnformatted(S(THPRAC_LAUNCH_BEHAVIOR));
         ImGui::Separator();
         mAdminRights.Gui(S(THPRAC_ADMIN_RIGHTS));
-        mExistingGameAction.Gui(
-            S(THPRAC_EXISTING_GAME_ACTION), S(THPRAC_EXISTING_GAME_ACTION_OPTION)
-        );
+        mExistingGameAction.Gui(S(THPRAC_EXISTING_GAME_ACTION), S(THPRAC_EXISTING_GAME_ACTION_OPTION));
         mDontSearchOngoingGame.Gui(S(THPRAC_DONT_SEARCH_ONGOING));
         ImGui::BeginDisabled();
         mReflectiveLaunch.Gui(S(THPRAC_REFLECTIVE_LAUNCH));
@@ -1807,8 +1702,7 @@ private:
                 themeIsUser = false;
             }
         }
-        if (themeIsUser && userThemes.size() != 0
-            && ImGui ::BeginCombo("##themes_user", userThemes[userThemeIdx].utf8)) {
+        if (themeIsUser && userThemes.size() != 0 && ImGui ::BeginCombo("##themes_user", userThemes[userThemeIdx].utf8)) {
             for (size_t i = 0; i < userThemes.size(); i++) {
                 bool selected = i == userThemeIdx;
                 if (ImGui::Selectable(userThemes[i].utf8, selected)) {
@@ -1825,12 +1719,8 @@ private:
 
         mCfgAfterLaunch.Gui(S(THPRAC_AFTER_LAUNCH), S(THPRAC_AFTER_LAUNCH_OPTION));
         mAutoDefLaunch.Gui(S(THPRAC_AUTO_DEFAULT_LAUNCH), S(THPRAC_AUTO_DEFAULT_LAUNCH_DESC));
-        mCfgThpracDefault.Gui(
-            S(THPRAC_APPLY_THPRAC_DEFAULT), S(THPRAC_APPLY_THPRAC_DEFAULT_OPTION)
-        );
-        mCfgFilterDefault.Gui(
-            S(THPRAC_FILTER_DEFAULT), S(THPRAC_FILTER_DEFAULT_OPTION), S(THPRAC_FILTER_DEFAULT_DESC)
-        );
+        mCfgThpracDefault.Gui(S(THPRAC_APPLY_THPRAC_DEFAULT), S(THPRAC_APPLY_THPRAC_DEFAULT_OPTION));
+        mCfgFilterDefault.Gui(S(THPRAC_FILTER_DEFAULT), S(THPRAC_FILTER_DEFAULT_OPTION), S(THPRAC_FILTER_DEFAULT_DESC));
         PathAndDirSettings();
         ImGui::NewLine();
 
@@ -1862,9 +1752,7 @@ private:
         } else {
             mUpdateWithoutConfirm.Gui(S(THPRAC_UPDATE_WITHOUT_CONFIRMATION));
         }
-        mFilenameAfterUpdate.Gui(
-            S(THPRAC_FILENAME_AFTER_UPDATE), S(THPRAC_FILENAME_AFTER_UPDATE_OPTION)
-        );
+        mFilenameAfterUpdate.Gui(S(THPRAC_FILENAME_AFTER_UPDATE), S(THPRAC_FILENAME_AFTER_UPDATE_OPTION));
         if (THUpdate::singleton().IsCheckingUpdate()) {
             ImGui::BeginDisabled();
             ImGui::Button(S(THPRAC_CHECK_UPDATE_NOW));
@@ -1981,8 +1869,7 @@ void LauncherPeekUpd()
 bool DeleteFileLoop(const wchar_t* fileName, size_t timeout = 0)
 {
     auto attr = GetFileAttributesW(fileName);
-    if (attr == INVALID_FILE_ATTRIBUTES || attr & FILE_ATTRIBUTE_DIRECTORY
-        || attr & FILE_ATTRIBUTE_READONLY) {
+    if (attr == INVALID_FILE_ATTRIBUTES || attr & FILE_ATTRIBUTE_DIRECTORY || attr & FILE_ATTRIBUTE_READONLY) {
         return false;
     }
 
@@ -2051,20 +1938,12 @@ bool LauncherPreUpdate(wchar_t* pCmdLine)
                 finalPath = GetDirFromFullPath(cmd) + L"thprac.exe";
                 break;
             default:
-                finalPath =
-                    GetDirFromFullPath(cmd) + GetNameFromFullPath(std::wstring(exePathCstr));
+                finalPath = GetDirFromFullPath(cmd) + GetNameFromFullPath(std::wstring(exePathCstr));
                 break;
             }
 
             CopyFile(exePathCstr, finalPath.c_str(), FALSE);
-            ShellExecuteW(
-                nullptr,
-                nullptr,
-                finalPath.c_str(),
-                (std::wstring(L"--update-launcher-2 ") + exePathCstr).c_str(),
-                finalDir.c_str(),
-                SW_SHOW
-            );
+            ShellExecuteW(nullptr, nullptr, finalPath.c_str(), (std::wstring(L"--update-launcher-2 ") + exePathCstr).c_str(), finalDir.c_str(), SW_SHOW);
 
             return true;
         }

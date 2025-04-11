@@ -31,8 +31,7 @@ void RemoteInit()
         if (gameDef.catagory != CAT_MAIN && gameDef.catagory != CAT_SPINOFF_STG) {
             continue;
         }
-        if (gameDef.exeSig.textSize != exeSig.textSize
-            || gameDef.exeSig.timeStamp != exeSig.timeStamp) {
+        if (gameDef.exeSig.textSize != exeSig.textSize || gameDef.exeSig.timeStamp != exeSig.timeStamp) {
             continue;
         }
         if (gameDef.initFunc) {

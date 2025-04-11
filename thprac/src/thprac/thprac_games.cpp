@@ -16,10 +16,7 @@ DWORD* g_gameGuiDevice = nullptr;
 DWORD* g_gameGuiHwnd = nullptr;
 HIMC g_gameIMCCtx = 0;
 
-void GameGuiInit(
-    game_gui_impl impl, int device, int hwnd, int wndproc_addr, Gui::ingame_input_gen_t input_gen,
-    int reg1, int reg2, int reg3, int wnd_size_flag, float x, float y
-)
+void GameGuiInit(game_gui_impl impl, int device, int hwnd, int wndproc_addr, Gui::ingame_input_gen_t input_gen, int reg1, int reg2, int reg3, int wnd_size_flag, float x, float y)
 {
     ingame_mb_init();
     ::ImGui::CreateContext();
@@ -95,23 +92,14 @@ void GameGuiInit(
 
     if (LauncherCfgInit(true)) {
         bool resizable_window;
-        if (LauncherSettingGet("resizable_window", resizable_window) && resizable_window
-            && !Gui::ImplWin32CheckFullScreen()) {
+        if (LauncherSettingGet("resizable_window", resizable_window) && resizable_window && !Gui::ImplWin32CheckFullScreen()) {
             RECT wndRect;
             GetClientRect(*(HWND*)hwnd, &wndRect);
             auto frameSize = GetSystemMetrics(SM_CXSIZEFRAME) * 2;
             auto captionSize = GetSystemMetrics(SM_CYCAPTION);
             auto longPtr = GetWindowLongW(*(HWND*)hwnd, GWL_STYLE);
             SetWindowLongW(*(HWND*)hwnd, GWL_STYLE, longPtr | WS_SIZEBOX);
-            SetWindowPos(
-                *(HWND*)hwnd,
-                HWND_NOTOPMOST,
-                0,
-                0,
-                wndRect.right + frameSize,
-                wndRect.bottom + frameSize + captionSize,
-                SWP_NOMOVE | SWP_NOZORDER | SWP_FRAMECHANGED
-            );
+            SetWindowPos(*(HWND*)hwnd, HWND_NOTOPMOST, 0, 0, wndRect.right + frameSize, wndRect.bottom + frameSize + captionSize, SWP_NOMOVE | SWP_NOZORDER | SWP_FRAMECHANGED);
         }
         int theme;
         if (LauncherSettingGet("theme", theme)) {
@@ -265,9 +253,7 @@ void HelpMarker(const char* desc)
     }
 }
 
-int FPSHelper(
-    adv_opt_ctx& ctx, bool repStatus, bool vpFast, bool vpSlow, FPSHelperCallback* callback
-)
+int FPSHelper(adv_opt_ctx& ctx, bool repStatus, bool vpFast, bool vpSlow, FPSHelperCallback* callback)
 {
     static bool isDebugAccActive = false;
     int res = 0;
@@ -282,9 +268,7 @@ int FPSHelper(
         if (ctx.fps_status == 2) {
             callback(repStatus ? 9999 : (ctx.fps_replay_fast > 1200 ? 9999 : ctx.fps_replay_fast));
         } else if (ctx.fps_status == 1) {
-            ctx.fps_dbl = 1.0
-                / (repStatus ? 9999.0
-                             : (ctx.fps_replay_fast > 1200 ? 9999.0 : (double)ctx.fps_replay_fast));
+            ctx.fps_dbl = 1.0 / (repStatus ? 9999.0 : (ctx.fps_replay_fast > 1200 ? 9999.0 : (double)ctx.fps_replay_fast));
         }
     } else if (ctx.fps_status == 2) {
         if (isDebugAccActive) {
@@ -309,8 +293,7 @@ int FPSHelper(
         }
         if (repStatus) {
             if (Gui::ImplWin32GetKeyFrame(VK_CONTROL)) {
-                ctx.fps_dbl =
-                    1.0 / (ctx.fps_replay_fast > 1200 ? 9999.0 : (double)ctx.fps_replay_fast);
+                ctx.fps_dbl = 1.0 / (ctx.fps_replay_fast > 1200 ? 9999.0 : (double)ctx.fps_replay_fast);
             } else if (Gui::ImplWin32GetKeyFrame(VK_SHIFT)) {
                 ctx.fps_dbl = 1.0 / (double)ctx.fps_replay_slow;
             } else {
@@ -445,8 +428,7 @@ bool GameFPSOpt(adv_opt_ctx& ctx, bool replay)
     ImGui::SameLine();
     HelpMarker("Blah");
 
-    if (fpsStatic != fps || fpsSlowStatic != ctx.fps_replay_slow
-        || fpsFastStatic != ctx.fps_replay_fast / 60 || fpsDebugAcc != ctx.fps_debug_acc) {
+    if (fpsStatic != fps || fpsSlowStatic != ctx.fps_replay_slow || fpsFastStatic != ctx.fps_replay_fast / 60 || fpsDebugAcc != ctx.fps_debug_acc) {
         ImGui::SameLine();
         if (ImGui::Button(S(TH_ADV_OPT_APPLY))) {
             clickedApply = true;
@@ -514,21 +496,12 @@ void AboutOpt(const char* thanks_text)
 
 bool ReplaySaveParam(const wchar_t* rep_path, const std::string& param)
 {
-    auto repFile = CreateFileW(
-        rep_path,
-        GENERIC_READ | GENERIC_WRITE,
-        FILE_SHARE_READ,
-        nullptr,
-        OPEN_EXISTING,
-        FILE_ATTRIBUTE_NORMAL,
-        nullptr
-    );
+    auto repFile = CreateFileW(rep_path, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
     if (repFile == INVALID_HANDLE_VALUE)
         return false;
     defer(CloseHandle(repFile));
     DWORD repMagic = 0, bytesRead = 0;
-    if ((SetFilePointer(repFile, 0, nullptr, FILE_BEGIN) != INVALID_SET_FILE_POINTER)
-        && (ReadFile(repFile, &repMagic, sizeof(LONG), &bytesRead, nullptr))) {
+    if ((SetFilePointer(repFile, 0, nullptr, FILE_BEGIN) != INVALID_SET_FILE_POINTER) && (ReadFile(repFile, &repMagic, sizeof(LONG), &bytesRead, nullptr))) {
         if (repMagic == 'PR6T' || repMagic == 'PR7T') {
             auto paramSize = param.size();
             for (paramSize++; paramSize % 4; paramSize++)
@@ -552,9 +525,7 @@ bool ReplaySaveParam(const wchar_t* rep_path, const std::string& param)
                 return false;
             defer(free(repBuf));
             SetFilePointer(repFile, repMagic == 'PR6T' ? 14 : 13, nullptr, FILE_BEGIN);
-            if (!ReadFile(
-                    repFile, repBuf, repSize - (repMagic == 'PR6T' ? 14 : 13), &bytesRead, nullptr
-                ))
+            if (!ReadFile(repFile, repBuf, repSize - (repMagic == 'PR6T' ? 14 : 13), &bytesRead, nullptr))
                 return false;
 
             uint8_t key = *repBuf;
@@ -596,15 +567,7 @@ bool ReplayLoadParam(const wchar_t* rep_path, std::string& param)
 {
     DWORD repMagic = 0, bytesRead = 0;
 
-    auto repFile = CreateFileW(
-        rep_path,
-        GENERIC_READ,
-        FILE_SHARE_READ,
-        nullptr,
-        OPEN_EXISTING,
-        FILE_ATTRIBUTE_NORMAL,
-        nullptr
-    );
+    auto repFile = CreateFileW(rep_path, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
     if (repFile == INVALID_HANDLE_VALUE)
         return false;
     defer(CloseHandle(repFile));
@@ -616,14 +579,12 @@ bool ReplayLoadParam(const wchar_t* rep_path, std::string& param)
             DWORD repSize = GetFileSize(repFile, nullptr);
 
             SetFilePointer(repFile, -4, nullptr, FILE_END);
-            if (ReadFile(repFile, &magic, 4, &bytesRead, nullptr) && bytesRead == 4
-                && magic == 'CARP') {
+            if (ReadFile(repFile, &magic, 4, &bytesRead, nullptr) && bytesRead == 4 && magic == 'CARP') {
                 SetFilePointer(repFile, -8, nullptr, FILE_CURRENT);
                 if (!ReadFile(repFile, &paramLength, 4, &bytesRead, nullptr))
                     return false;
 
-                if (bytesRead == 4 && paramLength > 0 && paramLength < repSize
-                    && paramLength < 512) {
+                if (bytesRead == 4 && paramLength > 0 && paramLength < repSize && paramLength < 512) {
                     SetFilePointer(repFile, ~paramLength - 3, nullptr, FILE_CURRENT);
                     char* buf = (char*)malloc(paramLength + 1);
                     if (!buf)
@@ -631,8 +592,7 @@ bool ReplayLoadParam(const wchar_t* rep_path, std::string& param)
                     defer(free(buf));
                     memset(buf, 0, paramLength + 1);
 
-                    if (ReadFile(repFile, buf, paramLength, &bytesRead, nullptr)
-                        && bytesRead == paramLength)
+                    if (ReadFile(repFile, buf, paramLength, &bytesRead, nullptr) && bytesRead == paramLength)
                         param = std::string(buf, paramLength);
 
                     return (bytesRead == paramLength);
@@ -645,8 +605,7 @@ bool ReplayLoadParam(const wchar_t* rep_path, std::string& param)
             if (ReadFile(repFile, &userPtr, 4, &bytesRead, nullptr) && bytesRead == 4) {
                 SetFilePointer(repFile, userPtr, nullptr, FILE_BEGIN);
                 while (true) {
-                    if (!ReadFile(repFile, &userMagic, 4, &bytesRead, nullptr) || bytesRead != 4
-                        || userMagic != 'RESU')
+                    if (!ReadFile(repFile, &userMagic, 4, &bytesRead, nullptr) || bytesRead != 4 || userMagic != 'RESU')
                         break;
                     if (!ReadFile(repFile, &userLength, 4, &bytesRead, nullptr) || bytesRead != 4)
                         break;
@@ -659,8 +618,7 @@ bool ReplayLoadParam(const wchar_t* rep_path, std::string& param)
                             break;
                         defer(free(buf));
                         memset(buf, 0, userLength - 12 + 1);
-                        if (ReadFile(repFile, buf, userLength - 12, &bytesRead, nullptr)
-                            && bytesRead == userLength - 12)
+                        if (ReadFile(repFile, buf, userLength - 12, &bytesRead, nullptr) && bytesRead == userLength - 12)
                             param = std::string((char*)buf, userLength - 12 + 1);
 
                         return (bytesRead == userLength - 12);
@@ -743,25 +701,16 @@ namespace THSnapshot {
             dir[13] = static_cast<wchar_t>(i % 10) + L'0';
             dir[12] = static_cast<wchar_t>((i % 100 - i % 10) / 10) + L'0';
             dir[11] = static_cast<wchar_t>((i - i % 100) / 100) + L'0';
-            hFile = CreateFileW(
-                dir,
-                GENERIC_READ | GENERIC_WRITE,
-                0,
-                nullptr,
-                CREATE_NEW,
-                FILE_ATTRIBUTE_NORMAL,
-                nullptr
-            );
+            hFile = CreateFileW(dir, GENERIC_READ | GENERIC_WRITE, 0, nullptr, CREATE_NEW, FILE_ATTRIBUTE_NORMAL, nullptr);
             if (hFile != INVALID_HANDLE_VALUE)
                 break;
         }
         if (hFile == INVALID_HANDLE_VALUE)
             return;
 
-        auto header =
-            "\x42\x4d\x36\x10\x0e\x00\x00\x00\x00\x00\x36\x00\x00\x00\x28\x00\x00\x00\x80\x02\x00"
-            "\x00\xe0\x01\x00\x00\x01\x00\x18\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-            "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
+        auto header = "\x42\x4d\x36\x10\x0e\x00\x00\x00\x00\x00\x36\x00\x00\x00\x28\x00\x00\x00\x80\x02\x00"
+                      "\x00\xe0\x01\x00\x00\x01\x00\x18\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+                      "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
         void* bmp = GetSnapshotData(d3d8);
         DWORD bytesRead;
         WriteFile(hFile, header, 0x36, &bytesRead, nullptr);
@@ -788,13 +737,7 @@ void StageWarpsRender(stage_warps_t& warps, std::vector<unsigned int>& out_warp,
 
     switch (warps.type) {
     case stage_warps_t::TYPE_SLIDER:
-        ImGui::SliderInt(
-            warps.label,
-            (int*)&out_warp[level],
-            0,
-            warps.section_param.size() - 1,
-            warps.section_param[out_warp[level]].label
-        );
+        ImGui::SliderInt(warps.label, (int*)&out_warp[level], 0, warps.section_param.size() - 1, warps.section_param[out_warp[level]].label);
         break;
     case stage_warps_t::TYPE_COMBO:
         if (ImGui::BeginCombo(warps.label, warps.section_param[out_warp[level]].label)) {
@@ -847,10 +790,7 @@ uint8_t* ThModern_ECLGetSub(const char* name, uintptr_t param)
     return subs->data;
 };
 
-void StageWarpsApply(
-    stage_warps_t& warps, std::vector<unsigned int>& in_warp, ecl_get_sub_t* ECLGetSub,
-    uintptr_t ecl_get_sub_param, size_t level
-)
+void StageWarpsApply(stage_warps_t& warps, std::vector<unsigned int>& in_warp, ecl_get_sub_t* ECLGetSub, uintptr_t ecl_get_sub_param, size_t level)
 {
     if (!in_warp.size())
         return;
@@ -872,9 +812,7 @@ void StageWarpsApply(
             };
 
             i32b ecl_time = jmp.ecl_time;
-            uint8_t instr[] = {
-                0x0c, 0x00, 0x18, 0x00, 0x00, 0x00, 0xff, 0x2c, 0x00, 0x00, 0x00, 0x00
-            };
+            uint8_t instr[] = {0x0c, 0x00, 0x18, 0x00, 0x00, 0x00, 0xff, 0x2c, 0x00, 0x00, 0x00, 0x00};
             i32b dest = jmp.dest - jmp.off;
             i32b at_frame = jmp.at_frame;
 

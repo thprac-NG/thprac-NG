@@ -151,42 +151,15 @@ namespace TH13 {
             SetTitle(S(TH_MENU));
             switch (Gui::LocaleGet()) {
             case Gui::LOCALE_ZH_CN:
-                AutoSize(
-                    ImVec2(0.0f, 0.0f),
-                    XSSS(3)[TH13_ST7_END_S1],
-                    nullptr,
-                    S(TH_BOMB_FRAGMENT),
-                    nullptr,
-                    15.5f,
-                    ImVec2(-1.0f, 450.0f),
-                    ImVec2(370.0f, -1.0f)
-                );
+                AutoSize(ImVec2(0.0f, 0.0f), XSSS(3)[TH13_ST7_END_S1], nullptr, S(TH_BOMB_FRAGMENT), nullptr, 15.5f, ImVec2(-1.0f, 450.0f), ImVec2(370.0f, -1.0f));
                 AutoPos(0.9f, 0.65f);
                 break;
             case Gui::LOCALE_EN_US:
-                AutoSize(
-                    ImVec2(0.0f, 0.0f),
-                    XSSS(3)[TH13_ST1_BOSS2],
-                    nullptr,
-                    S(TH13_TRANCE_METER),
-                    nullptr,
-                    15.5f,
-                    ImVec2(-1.0f, 450.0f),
-                    ImVec2(-1.0f, -1.0f)
-                );
+                AutoSize(ImVec2(0.0f, 0.0f), XSSS(3)[TH13_ST1_BOSS2], nullptr, S(TH13_TRANCE_METER), nullptr, 15.5f, ImVec2(-1.0f, 450.0f), ImVec2(-1.0f, -1.0f));
                 AutoPos(0.9f, 0.65f);
                 break;
             case Gui::LOCALE_JA_JP:
-                AutoSize(
-                    ImVec2(0.0f, 0.0f),
-                    XSSS(3)[TH13_ST1_BOSS4],
-                    nullptr,
-                    S(TH13_EXTEND),
-                    nullptr,
-                    15.5f,
-                    ImVec2(-1.0f, 450.0f),
-                    ImVec2(370.0f, -1.0f)
-                );
+                AutoSize(ImVec2(0.0f, 0.0f), XSSS(3)[TH13_ST1_BOSS4], nullptr, S(TH13_EXTEND), nullptr, 15.5f, ImVec2(-1.0f, 450.0f), ImVec2(370.0f, -1.0f));
                 AutoPos(0.9f, 0.65f);
                 break;
             default:
@@ -309,22 +282,14 @@ namespace TH13 {
                 break;
             case 2:
             case 3: // Mid boss & End boss
-                if (mSection(
-                        TH_WARP_SELECT[*mWarp],
-                        th_sections_cba[*mStage][*mWarp - 2],
-                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]
-                    ))
+                if (mSection(TH_WARP_SELECT[*mWarp], th_sections_cba[*mStage][*mWarp - 2], th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
                     *mPhase = 0;
                 if (SectionHasDlg(th_sections_cba[*mStage][*mWarp - 2][*mSection]))
                     mDlg();
                 break;
             case 4:
             case 5: // Non-spell & Spellcard
-                if (mSection(
-                        TH_WARP_SELECT[*mWarp],
-                        th_sections_cbt[*mStage][*mWarp - 4],
-                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]
-                    ))
+                if (mSection(TH_WARP_SELECT[*mWarp], th_sections_cbt[*mStage][*mWarp - 4], th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
                     *mPhase = 0;
                 if (SectionHasDlg(th_sections_cbt[*mStage][*mWarp - 4][*mSection]))
                     mDlg();
@@ -354,13 +319,9 @@ namespace TH13 {
         Gui::GuiDrag<int, ImGuiDataType_S32> mValue{TH_VALUE, 0, 999990, 10, 100000};
         Gui::GuiDrag<int, ImGuiDataType_S32> mGraze{TH_GRAZE, 0, 999999, 1, 100000};
 
-        Gui::GuiNavFocus mNavFocus{TH_STAGE,         TH_MODE,           TH_WARP,
-                                   TH_DLG,           TH_MID_STAGE,      TH_END_STAGE,
-                                   TH_NONSPELL,      TH_SPELL,          TH_PHASE,
-                                   TH_CHAPTER,       TH_SCORE,          TH_LIFE,
-                                   TH13_EXTEND,      TH_LIFE_FRAGMENT,  TH_BOMB,
-                                   TH_BOMB_FRAGMENT, TH_POWER,          TH_VALUE,
-                                   TH_GRAZE,         TH13_TRANCE_METER, TH13_SPIRIT_SIDE};
+        Gui::GuiNavFocus mNavFocus{TH_STAGE, TH_MODE,          TH_WARP,    TH_DLG,   TH_MID_STAGE, TH_END_STAGE,      TH_NONSPELL,
+                                   TH_SPELL, TH_PHASE,         TH_CHAPTER, TH_SCORE, TH_LIFE,      TH13_EXTEND,       TH_LIFE_FRAGMENT,
+                                   TH_BOMB,  TH_BOMB_FRAGMENT, TH_POWER,   TH_VALUE, TH_GRAZE,     TH13_TRANCE_METER, TH13_SPIRIT_SIDE};
 
         int mChapterSetup[7][2]{
             {3, 2},
@@ -434,8 +395,7 @@ namespace TH13 {
             SetPos(10.0f, 10.0f);
             SetSize(0.0f, 0.0f);
             SetWndFlag(
-                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove
-                | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
+                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
                 | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0
             );
             OnLocaleChange();
@@ -501,10 +461,7 @@ namespace TH13 {
         Gui::GuiHotKey mInfBombs{TH_INFBOMBS, "F3", VK_F3, {new HookCtx(0x40A402, "\x66\x90", 2)}};
         Gui::GuiHotKey mInfPower{TH_INFPOWER, "F4", VK_F4, {new HookCtx(0x445A2D, "\xe8", 1)}};
         Gui::GuiHotKey mTimeLock{
-            TH_TIMELOCK,
-            "F5",
-            VK_F5,
-            {new HookCtx(0x412D36, "\xeb", 1), new HookCtx(0x41AABF, "\x0F\x1F\x44\x00\x00", 5)}
+            TH_TIMELOCK, "F5", VK_F5, {new HookCtx(0x412D36, "\xeb", 1), new HookCtx(0x41AABF, "\x0F\x1F\x44\x00\x00", 5)}
         };
         Gui::GuiHotKey mAutoBomb{TH_AUTOBOMB, "F6", VK_F6, {new HookCtx(0x443525, "\xc6", 1)}};
 
@@ -552,8 +509,7 @@ namespace TH13 {
                     *(uint64_t*)(mOptCtx.vpatch_base + 0x18f08) = PerformanceCount.QuadPart;
                 }
             }
-            *(int32_t*)(mOptCtx.vpatch_base + 0x1a034) =
-                *(int32_t*)(mOptCtx.vpatch_base + 0x16a8c) = FPS;
+            *(int32_t*)(mOptCtx.vpatch_base + 0x1a034) = *(int32_t*)(mOptCtx.vpatch_base + 0x16a8c) = FPS;
         }
         void FpsInit()
         {
@@ -605,10 +561,7 @@ namespace TH13 {
 
         THAdvOptWnd() noexcept
         {
-            SetWndFlag(
-                ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse
-                | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove
-            );
+            SetWndFlag(ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
             SetFade(0.8f, 0.8f);
             SetStyle(ImGuiStyleVar_WindowRounding, 0.0f);
             SetStyle(ImGuiStyleVar_WindowBorderSize, 0.0f);
@@ -624,10 +577,7 @@ namespace TH13 {
     public:
         void FpsUpd()
         {
-            auto res =
-                FPSHelper(mOptCtx, THGuiRep::singleton().mRepStatus, false, true, [](int32_t fps) {
-                    THAdvOptWnd::singleton().VPResetFPS(fps);
-                });
+            auto res = FPSHelper(mOptCtx, THGuiRep::singleton().mRepStatus, false, true, [](int32_t fps) { THAdvOptWnd::singleton().VPResetFPS(fps); });
             if (res) { }
         }
 
@@ -699,9 +649,7 @@ namespace TH13 {
         adv_opt_ctx mOptCtx;
     };
 
-    void ECLJump(
-        ECLHelper& ecl, unsigned int start, unsigned int dest, int at_frame, int ecl_time = 0
-    )
+    void ECLJump(ECLHelper& ecl, unsigned int start, unsigned int dest, int at_frame, int ecl_time = 0)
     {
         if (start) {
             ecl.SetPos(start);
@@ -914,8 +862,7 @@ namespace TH13 {
         auto st4_boss = [&]() {
             ECLJump(ecl, 0x8554, 0x8678, 60);
             ecl << pair{0x8694, 0};
-            ecl << pair{0x3be0, 144.0f} << pair(0x3be4, -16.0f) << pair(0x3c24, -144.0f)
-                << pair(0x3c28, -16.0f);
+            ecl << pair{0x3be0, 144.0f} << pair(0x3be4, -16.0f) << pair(0x3c24, -144.0f) << pair(0x3c28, -16.0f);
             ecl.SetFile(3);
             ecl << pair{0x498, 60} << pair{0x4e4, 61};
         };
@@ -1113,8 +1060,7 @@ namespace TH13 {
             ecl << pair{0x4a4, 0.0f} << pair{0x4a8, 96.0f}; // Change Movement
 
             // Miyako
-            ecl << pair{0x4924, 0.0f} << pair{0x4928, 260.0f}
-                << pair{0x497c, (int16_t)0}; // Change Pos & Void 504
+            ecl << pair{0x4924, 0.0f} << pair{0x4928, 260.0f} << pair{0x497c, (int16_t)0}; // Change Pos & Void 504
             ECLJump(ecl, 0x4a04, 0x4a6c, 0); // Stall Miyako
             ecl << pair{0x51ec, 70}; // Change Wait Time
             break;
@@ -1137,8 +1083,7 @@ namespace TH13 {
             ecl << pair{0x4a4, 0.0f} << pair{0x4a8, 96.0f}; // Change Movement
 
             // Miyako
-            ecl << pair{0x4924, 0.0f} << pair{0x4928, 160.0f}
-                << pair{0x497c, (int16_t)0}; // Change Pos & Void 504
+            ecl << pair{0x4924, 0.0f} << pair{0x4928, 160.0f} << pair{0x497c, (int16_t)0}; // Change Pos & Void 504
             ECLJump(ecl, 0x4a04, 0x4a6c, 0); // Stall Miyako
             ecl << pair{0x5a14, (int16_t)0}; // Void 401;
             ecl << pair{0x5a40, 70}; // Change Wait Time
@@ -1539,15 +1484,7 @@ namespace TH13 {
         fileNameDump += L".dump";
 
         DWORD bytesProcessed;
-        auto hFile = CreateFileW(
-            fileNameDump.c_str(),
-            GENERIC_READ | GENERIC_WRITE,
-            FILE_SHARE_READ,
-            NULL,
-            OPEN_ALWAYS,
-            FILE_ATTRIBUTE_NORMAL,
-            NULL
-        );
+        auto hFile = CreateFileW(fileNameDump.c_str(), GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
         SetFilePointer(hFile, 0, NULL, FILE_BEGIN);
         SetEndOfFile(hFile);
         WriteFile(hFile, filePtr, fileSize, &bytesProcessed, NULL);
@@ -1574,8 +1511,7 @@ namespace TH13 {
         if (bgm_cmd == 9)
             th13ElBgmTranceFlag = !th13ElBgmTranceFlag;
 
-        el_switch = *(THOverlay::singleton().mElBgm) && !THGuiRep::singleton().mRepStatus
-            && thPracParam.mode == 1 && thPracParam.section && !th13ElBgmTranceFlag;
+        el_switch = *(THOverlay::singleton().mElBgm) && !THGuiRep::singleton().mRepStatus && thPracParam.mode == 1 && thPracParam.section && !th13ElBgmTranceFlag;
         is_practice = (*((int32_t*)0x4be830) & 0x1);
 
         if (th13ElBgmTranceFlag && bgm_cmd == 3) {
@@ -1583,9 +1519,7 @@ namespace TH13 {
             el_switch = false;
         }
 
-        result = ElBgmTest<0x43ae75, 0x42c444, 0x43e555, 0x43e738, 0xffffffff>(
-            el_switch, is_practice, retn_addr, bgm_cmd, bgm_id, 0xffffffff
-        );
+        result = ElBgmTest<0x43ae75, 0x42c444, 0x43e555, 0x43e738, 0xffffffff>(el_switch, is_practice, retn_addr, bgm_cmd, bgm_id, 0xffffffff);
 
         if (result && retn_addr == 0x42c444) {
             th13ElBgmFlag = true;
@@ -1700,17 +1634,7 @@ namespace TH13 {
     static __declspec(noinline) void THGuiCreate()
     {
         // Init
-        GameGuiInit(
-            IMPL_WIN32_DX9,
-            0x4dc6a8,
-            0x4dd0a8,
-            0x45cb40,
-            Gui::INGAGME_INPUT_GEN2,
-            0x4e49fc,
-            0x4e49f8,
-            0,
-            -1
-        );
+        GameGuiInit(IMPL_WIN32_DX9, 0x4dc6a8, 0x4dd0a8, 0x45cb40, Gui::INGAGME_INPUT_GEN2, 0x4e49fc, 0x4e49f8, 0, -1);
 
         // Gui components creation
         THGuiPrac::singleton();

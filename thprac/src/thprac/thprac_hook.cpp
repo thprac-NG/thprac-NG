@@ -263,11 +263,7 @@ bool HookCtx::Setup(void* target, const char* patch, size_t patch_size)
     if (!buffer)
         return false;
     memcpy(buffer, patch, patch_size);
-    memcpy(
-        (void*)((size_t)buffer + patch_size),
-        (void*)((uintptr_t)target + ingame_image_base),
-        patch_size
-    );
+    memcpy((void*)((size_t)buffer + patch_size), (void*)((uintptr_t)target + ingame_image_base), patch_size);
 
     mTarget = target;
     mIsPatch = true;
@@ -284,16 +280,9 @@ bool HookCtx::Enable()
 
     if (mIsPatch) {
         DWORD oldProtect;
-        VirtualProtect(
-            (LPVOID)((uintptr_t)mTarget + ingame_image_base),
-            mPatchSize,
-            PAGE_EXECUTE_READWRITE,
-            &oldProtect
-        );
+        VirtualProtect((LPVOID)((uintptr_t)mTarget + ingame_image_base), mPatchSize, PAGE_EXECUTE_READWRITE, &oldProtect);
         memcpy((void*)((uintptr_t)mTarget + ingame_image_base), mPatch, mPatchSize);
-        VirtualProtect(
-            (LPVOID)((uintptr_t)mTarget + ingame_image_base), mPatchSize, oldProtect, &oldProtect
-        );
+        VirtualProtect((LPVOID)((uintptr_t)mTarget + ingame_image_base), mPatchSize, oldProtect, &oldProtect);
     } else {
         VEHHookEnable(mTarget);
     }
@@ -308,20 +297,9 @@ bool HookCtx::Disable()
 
     if (mIsPatch) {
         DWORD oldProtect;
-        VirtualProtect(
-            (LPVOID)((uintptr_t)mTarget + ingame_image_base),
-            mPatchSize,
-            PAGE_EXECUTE_READWRITE,
-            &oldProtect
-        );
-        memcpy(
-            (void*)((uintptr_t)mTarget + ingame_image_base),
-            (void*)((size_t)mPatch + mPatchSize),
-            mPatchSize
-        );
-        VirtualProtect(
-            (LPVOID)((uintptr_t)mTarget + ingame_image_base), mPatchSize, oldProtect, &oldProtect
-        );
+        VirtualProtect((LPVOID)((uintptr_t)mTarget + ingame_image_base), mPatchSize, PAGE_EXECUTE_READWRITE, &oldProtect);
+        memcpy((void*)((uintptr_t)mTarget + ingame_image_base), (void*)((size_t)mPatch + mPatchSize), mPatchSize);
+        VirtualProtect((LPVOID)((uintptr_t)mTarget + ingame_image_base), mPatchSize, oldProtect, &oldProtect);
     } else {
         VEHHookDisable(mTarget);
     }

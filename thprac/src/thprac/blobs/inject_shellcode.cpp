@@ -26,8 +26,7 @@ __forceinline void string_copy(char* out, char* in)
 }
 
 #define MakePointer(t, p, offset) ((t)((PUINT8)(p) + offset))
-extern "C" __declspec(safebuffers) __declspec(dllexport) InjectResult WINAPI
-InjectShellcode(remote_param* param)
+extern "C" __declspec(safebuffers) __declspec(dllexport) InjectResult WINAPI InjectShellcode(remote_param* param)
 {
     union // MemModule base
     {
@@ -53,56 +52,38 @@ InjectShellcode(remote_param* param)
                                   B A S E    R E L O C A T I O N
         -------------------------------------------------------------------------------*/
 
-    PIMAGE_NT_HEADERS pImageNtHeader =
-        MakePointer(PIMAGE_NT_HEADERS, pe.pImageDosHeader, pe.pImageDosHeader->e_lfanew);
+    PIMAGE_NT_HEADERS pImageNtHeader = MakePointer(PIMAGE_NT_HEADERS, pe.pImageDosHeader, pe.pImageDosHeader->e_lfanew);
 
     // Get the delta of the real image base with the predefined
     UINT_PTR lBaseDelta = ((PUINT8)pe.iBase - (PUINT8)pImageNtHeader->OptionalHeader.ImageBase);
 
     // This module has been loaded to the ImageBase, no need to do relocation
     if (0 != lBaseDelta) {
-        if (!(0
-                  == pImageNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_BASERELOC]
-                         .VirtualAddress
-              || 0
-                  == pImageNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_BASERELOC]
-                         .Size)) {
+        if (!(0 == pImageNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_BASERELOC].VirtualAddress
+              || 0 == pImageNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_BASERELOC].Size)) {
 
-            PIMAGE_BASE_RELOCATION pImageBaseRelocation = MakePointer(
-                PIMAGE_BASE_RELOCATION,
-                pe.lpBase,
-                pImageNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_BASERELOC]
-                    .VirtualAddress
-            );
+            PIMAGE_BASE_RELOCATION pImageBaseRelocation =
+                MakePointer(PIMAGE_BASE_RELOCATION, pe.lpBase, pImageNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_BASERELOC].VirtualAddress);
 
             if (NULL == pImageBaseRelocation)
                 return {InjectResult::RelocationError, 0};
 
-            while (0 != (pImageBaseRelocation->VirtualAddress + pImageBaseRelocation->SizeOfBlock)
-            ) {
-                PWORD pRelocationData =
-                    MakePointer(PWORD, pImageBaseRelocation, sizeof(IMAGE_BASE_RELOCATION));
+            while (0 != (pImageBaseRelocation->VirtualAddress + pImageBaseRelocation->SizeOfBlock)) {
+                PWORD pRelocationData = MakePointer(PWORD, pImageBaseRelocation, sizeof(IMAGE_BASE_RELOCATION));
 
-                int NumberOfRelocationData =
-                    (pImageBaseRelocation->SizeOfBlock - sizeof(IMAGE_BASE_RELOCATION))
-                    / sizeof(WORD);
+                int NumberOfRelocationData = (pImageBaseRelocation->SizeOfBlock - sizeof(IMAGE_BASE_RELOCATION)) / sizeof(WORD);
 
                 for (int i = 0; i < NumberOfRelocationData; i++) {
                     if (IMAGE_REL_BASED_HIGHLOW == (pRelocationData[i] >> 12)) {
-                        PDWORD pAddress = (PDWORD)(pe.iBase + pImageBaseRelocation->VirtualAddress
-                                                   + (pRelocationData[i] & 0x0FFF));
+                        PDWORD pAddress = (PDWORD)(pe.iBase + pImageBaseRelocation->VirtualAddress + (pRelocationData[i] & 0x0FFF));
 
-                        pVirtualProtect(
-                            pAddress, sizeof(DWORD), PAGE_EXECUTE_READWRITE, &lOldProtect
-                        );
+                        pVirtualProtect(pAddress, sizeof(DWORD), PAGE_EXECUTE_READWRITE, &lOldProtect);
                         *pAddress += (DWORD)lBaseDelta;
                         pVirtualProtect(pAddress, sizeof(DWORD), lOldProtect, &lOldProtect);
                     }
                 }
 
-                pImageBaseRelocation = MakePointer(
-                    PIMAGE_BASE_RELOCATION, pImageBaseRelocation, pImageBaseRelocation->SizeOfBlock
-                );
+                pImageBaseRelocation = MakePointer(PIMAGE_BASE_RELOCATION, pImageBaseRelocation, pImageBaseRelocation->SizeOfBlock);
             }
         }
     }
@@ -110,17 +91,11 @@ InjectShellcode(remote_param* param)
     /*-------------------------------------------------------------------------------
                                   I M P O R T    R E S O L V E
         -------------------------------------------------------------------------------*/
-    if (!(pImageNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress
-              == 0
-          || pImageNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].Size == 0
-        )) {
+    if (!(pImageNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress == 0
+          || pImageNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].Size == 0)) {
 
-        PIMAGE_IMPORT_DESCRIPTOR pImageImportDescriptor = MakePointer(
-            PIMAGE_IMPORT_DESCRIPTOR,
-            pe.lpBase,
-            pImageNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT]
-                .VirtualAddress
-        );
+        PIMAGE_IMPORT_DESCRIPTOR pImageImportDescriptor =
+            MakePointer(PIMAGE_IMPORT_DESCRIPTOR, pe.lpBase, pImageNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress);
 
         for (; pImageImportDescriptor->Name; pImageImportDescriptor++) {
             // Get the dependent module name
@@ -138,38 +113,27 @@ InjectShellcode(remote_param* param)
             // Original thunk
             PIMAGE_THUNK_DATA pOriginalThunk = NULL;
             if (pImageImportDescriptor->OriginalFirstThunk)
-                pOriginalThunk = MakePointer(
-                    PIMAGE_THUNK_DATA, pe.lpBase, pImageImportDescriptor->OriginalFirstThunk
-                );
+                pOriginalThunk = MakePointer(PIMAGE_THUNK_DATA, pe.lpBase, pImageImportDescriptor->OriginalFirstThunk);
             else
-                pOriginalThunk =
-                    MakePointer(PIMAGE_THUNK_DATA, pe.lpBase, pImageImportDescriptor->FirstThunk);
+                pOriginalThunk = MakePointer(PIMAGE_THUNK_DATA, pe.lpBase, pImageImportDescriptor->FirstThunk);
 
             // IAT thunk
-            PIMAGE_THUNK_DATA pIATThunk =
-                MakePointer(PIMAGE_THUNK_DATA, pe.lpBase, pImageImportDescriptor->FirstThunk);
+            PIMAGE_THUNK_DATA pIATThunk = MakePointer(PIMAGE_THUNK_DATA, pe.lpBase, pImageImportDescriptor->FirstThunk);
 
             for (; pOriginalThunk->u1.AddressOfData; pOriginalThunk++, pIATThunk++) {
                 FARPROC lpFunction = NULL;
                 if (IMAGE_SNAP_BY_ORDINAL(pOriginalThunk->u1.Ordinal)) {
-                    lpFunction =
-                        pGetProcAddress(hMod, (LPCSTR)IMAGE_ORDINAL(pOriginalThunk->u1.Ordinal));
+                    lpFunction = pGetProcAddress(hMod, (LPCSTR)IMAGE_ORDINAL(pOriginalThunk->u1.Ordinal));
                 } else {
-                    PIMAGE_IMPORT_BY_NAME pImageImportByName = MakePointer(
-                        PIMAGE_IMPORT_BY_NAME, pe.lpBase, pOriginalThunk->u1.AddressOfData
-                    );
+                    PIMAGE_IMPORT_BY_NAME pImageImportByName = MakePointer(PIMAGE_IMPORT_BY_NAME, pe.lpBase, pOriginalThunk->u1.AddressOfData);
 
                     lpFunction = pGetProcAddress(hMod, (LPCSTR) & (pImageImportByName->Name));
                 }
 
                 // Write into IAT
-                pVirtualProtect(
-                    &(pIATThunk->u1.Function), sizeof(DWORD), PAGE_EXECUTE_READWRITE, &lOldProtect
-                );
+                pVirtualProtect(&(pIATThunk->u1.Function), sizeof(DWORD), PAGE_EXECUTE_READWRITE, &lOldProtect);
                 pIATThunk->u1.Function = (DWORD)lpFunction;
-                pVirtualProtect(
-                    &(pIATThunk->u1.Function), sizeof(DWORD), lOldProtect, &lOldProtect
-                );
+                pVirtualProtect(&(pIATThunk->u1.Function), sizeof(DWORD), lOldProtect, &lOldProtect);
             }
         }
     }
@@ -179,8 +143,7 @@ InjectShellcode(remote_param* param)
     PIMAGE_TLS_DIRECTORY tls;
     PIMAGE_TLS_CALLBACK* callback;
 
-    PIMAGE_DATA_DIRECTORY directory =
-        GET_HEADER_DICTIONARY(pImageNtHeader, IMAGE_DIRECTORY_ENTRY_TLS);
+    PIMAGE_DATA_DIRECTORY directory = GET_HEADER_DICTIONARY(pImageNtHeader, IMAGE_DIRECTORY_ENTRY_TLS);
     if (directory->VirtualAddress == 0) {
         return {InjectResult::Ok, 0};
     }
@@ -201,8 +164,7 @@ InjectShellcode(remote_param* param)
     }
 
     PExeMain* pfnModuleEntry = NULL;
-    pfnModuleEntry =
-        MakePointer(PExeMain*, pe.lpBase, pImageNtHeader->OptionalHeader.AddressOfEntryPoint);
+    pfnModuleEntry = MakePointer(PExeMain*, pe.lpBase, pImageNtHeader->OptionalHeader.AddressOfEntryPoint);
     if (pfnModuleEntry) {
         pfnModuleEntry();
     }

@@ -13,9 +13,7 @@
 #pragma warning(default : 4091)
 
 typedef HRESULT(WINAPI* PSetProcessDpiAwareness)(DWORD value);
-typedef HRESULT(WINAPI* PGetDpiForMonitor)(
-    HMONITOR hmonitor, DWORD dpiType, UINT* dpiX, UINT* dpiY
-);
+typedef HRESULT(WINAPI* PGetDpiForMonitor)(HMONITOR hmonitor, DWORD dpiType, UINT* dpiX, UINT* dpiY);
 
 namespace THPrac {
 namespace Gui {
@@ -41,8 +39,7 @@ bool D3DCreateDevice(HWND hWnd, unsigned int width, unsigned int height)
     auto d3d9Lib = LoadLibraryW(L"d3d9.dll");
     if (!d3d9Lib)
         return false;
-    decltype(Direct3DCreate9)* d3dCreate9 =
-        (decltype(Direct3DCreate9)*)GetProcAddress(d3d9Lib, "Direct3DCreate9");
+    decltype(Direct3DCreate9)* d3dCreate9 = (decltype(Direct3DCreate9)*)GetProcAddress(d3d9Lib, "Direct3DCreate9");
     if (!d3dCreate9 || (g_pD3D = d3dCreate9(D3D_SDK_VERSION)) == nullptr)
         return false;
 
@@ -56,15 +53,7 @@ bool D3DCreateDevice(HWND hWnd, unsigned int width, unsigned int height)
     g_d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_ONE; // Present with vsync
     g_d3dpp.BackBufferWidth = width;
     g_d3dpp.BackBufferHeight = height;
-    if (g_pD3D->CreateDevice(
-            D3DADAPTER_DEFAULT,
-            D3DDEVTYPE_HAL,
-            hWnd,
-            D3DCREATE_HARDWARE_VERTEXPROCESSING,
-            &g_d3dpp,
-            &g_pd3dDevice
-        )
-        < 0)
+    if (g_pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_HARDWARE_VERTEXPROCESSING, &g_d3dpp, &g_pd3dDevice) < 0)
         return false;
 
     return true;
@@ -97,19 +86,10 @@ void ResizeWindow(HWND hwnd, ImVec2& wndPos, ImVec2& wndSize)
 {
     RECT wndRect;
     ::GetWindowRect(hwnd, &wndRect);
-    if ((LONG)wndSize.x != wndRect.right - wndRect.left
-        || (LONG)wndSize.y != wndRect.bottom - wndRect.top) {
+    if ((LONG)wndSize.x != wndRect.right - wndRect.left || (LONG)wndSize.y != wndRect.bottom - wndRect.top) {
         RECT rect = {0, 0, (LONG)wndSize.x, (LONG)wndSize.y};
         ::AdjustWindowRectEx(&rect, WS_POPUP, FALSE, WS_EX_APPWINDOW); // Client to Screen
-        ::SetWindowPos(
-            hwnd,
-            nullptr,
-            wndRect.left + (LONG)wndPos.x,
-            wndRect.top + (LONG)wndPos.y,
-            rect.right - rect.left,
-            rect.bottom - rect.top,
-            SWP_NOZORDER | SWP_NOACTIVATE
-        );
+        ::SetWindowPos(hwnd, nullptr, wndRect.left + (LONG)wndPos.x, wndRect.top + (LONG)wndPos.y, rect.right - rect.left, rect.bottom - rect.top, SWP_NOZORDER | SWP_NOACTIVATE);
 
         ImGuiIO& io = ImGui::GetIO();
         io.DisplaySize.x = (float)wndSize.x;
@@ -178,10 +158,7 @@ void GetDesktopResolution(int& horizontal, int& vertical)
     vertical = desktop.bottom;
 }
 
-int LauncherWndInit(
-    unsigned int width, unsigned int height, unsigned int maxWidth, unsigned int maxHeight,
-    unsigned int widthCurrent, unsigned int heightCurrent
-)
+int LauncherWndInit(unsigned int width, unsigned int height, unsigned int maxWidth, unsigned int maxHeight, unsigned int widthCurrent, unsigned int heightCurrent)
 {
     if (__thprac_lc_hasInited)
         return 0;
@@ -202,33 +179,10 @@ int LauncherWndInit(
     // Create application window
     auto windowTitle = utf8_to_utf16(Gui::LocaleGetStr(THPRAC_LAUNCHER));
     auto icon = LoadIcon(GetModuleHandle(nullptr), MAKEINTRESOURCE(IDI_ICON1));
-    __thprac_lc_wc = {
-        sizeof(WNDCLASSEX),
-        CS_CLASSDC,
-        WndProc,
-        0L,
-        0L,
-        GetModuleHandle(nullptr),
-        icon,
-        nullptr,
-        nullptr,
-        nullptr,
-        _T("thprac launcher window"),
-        nullptr
-    };
+    __thprac_lc_wc = {sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(nullptr), icon, nullptr, nullptr, nullptr, _T("thprac launcher window"), nullptr};
     ::RegisterClassEx(&__thprac_lc_wc);
     __thprac_lc_hwnd = ::CreateWindow(
-        __thprac_lc_wc.lpszClassName,
-        windowTitle.c_str(),
-        WS_POPUP | WS_SYSMENU | WS_MINIMIZEBOX,
-        0,
-        0,
-        width,
-        height,
-        nullptr,
-        nullptr,
-        __thprac_lc_wc.hInstance,
-        nullptr
+        __thprac_lc_wc.lpszClassName, windowTitle.c_str(), WS_POPUP | WS_SYSMENU | WS_MINIMIZEBOX, 0, 0, width, height, nullptr, nullptr, __thprac_lc_wc.hInstance, nullptr
     );
 
     // DPI handling
@@ -237,16 +191,13 @@ int LauncherWndInit(
     auto displayX = devMod.dmPelsWidth;
     auto displayY = devMod.dmPelsHeight;
     if (auto shcore = GetModuleHandleW(L"shcore.dll")) {
-        auto setProcDpiAwareness =
-            (PSetProcessDpiAwareness)GetProcAddress(shcore, "SetProcessDpiAwareness");
+        auto setProcDpiAwareness = (PSetProcessDpiAwareness)GetProcAddress(shcore, "SetProcessDpiAwareness");
         auto getDpiForMonitor = (PGetDpiForMonitor)GetProcAddress(shcore, "GetDpiForMonitor");
         if (setProcDpiAwareness && getDpiForMonitor) {
             UINT dpiX;
             UINT dpiY;
             setProcDpiAwareness(1);
-            getDpiForMonitor(
-                MonitorFromWindow(__thprac_lc_hwnd, MONITOR_DEFAULTTONEAREST), 0, &dpiX, &dpiY
-            );
+            getDpiForMonitor(MonitorFromWindow(__thprac_lc_hwnd, MONITOR_DEFAULTTONEAREST), 0, &dpiX, &dpiY);
             if (dpiX != 96) {
                 __thprac_lc_scale = (float)dpiX / 96.0f;
                 width = (unsigned int)((float)width * __thprac_lc_scale);
@@ -277,9 +228,7 @@ int LauncherWndInit(
     ImGui::CreateContext();
     Gui::ImplWin32Init(__thprac_lc_hwnd);
     Gui::ImplDX9Init(g_pd3dDevice);
-    Gui::LocaleCreateMergeFont(
-        Gui::LocaleGet(), 20.0f * __thprac_lc_scale
-    ); // 30.0f LOCALE_ZH_CN LOCALE_EN_US LOCALE_JA_JP
+    Gui::LocaleCreateMergeFont(Gui::LocaleGet(), 20.0f * __thprac_lc_scale); // 30.0f LOCALE_ZH_CN LOCALE_EN_US LOCALE_JA_JP
     if (__thprac_lc_scale != 1.0f) {
         ImGui::GetStyle().ScaleAllSizes(__thprac_lc_scale);
     }
@@ -327,8 +276,7 @@ bool LauncherWndNewFrame()
     while (IsIconic(__thprac_lc_hwnd)) {
         HRESULT result = g_pd3dDevice->Present(nullptr, nullptr, nullptr, nullptr);
         // Handle loss of D3D9 device
-        if (result == D3DERR_DEVICELOST
-            && g_pd3dDevice->TestCooperativeLevel() == D3DERR_DEVICENOTRESET)
+        if (result == D3DERR_DEVICELOST && g_pd3dDevice->TestCooperativeLevel() == D3DERR_DEVICENOTRESET)
             D3DResetDevice();
         if (!WndMsgUpdate())
             return false;
@@ -355,28 +303,16 @@ bool LauncherWndEndFrame(ImVec2& wndPos, ImVec2& wndSize, bool canMove)
 
     RECT wndRect;
     ::GetWindowRect(__thprac_lc_hwnd, &wndRect);
-    if ((LONG)wndSize.x != wndRect.right - wndRect.left
-        || (LONG)wndSize.y != wndRect.bottom - wndRect.top) {
+    if ((LONG)wndSize.x != wndRect.right - wndRect.left || (LONG)wndSize.y != wndRect.bottom - wndRect.top) {
         moved = true;
         RECT rect = {0, 0, (LONG)wndSize.x, (LONG)wndSize.y};
         ::AdjustWindowRectEx(&rect, WS_POPUP, FALSE, WS_EX_APPWINDOW); // Client to Screen
         ::SetWindowPos(
-            __thprac_lc_hwnd,
-            nullptr,
-            wndRect.left + (LONG)wndPos.x,
-            wndRect.top + (LONG)wndPos.y,
-            rect.right - rect.left,
-            rect.bottom - rect.top,
-            SWP_NOZORDER | SWP_NOACTIVATE
+            __thprac_lc_hwnd, nullptr, wndRect.left + (LONG)wndPos.x, wndRect.top + (LONG)wndPos.y, rect.right - rect.left, rect.bottom - rect.top, SWP_NOZORDER | SWP_NOACTIVATE
         );
     }
     ::GetClientRect(__thprac_lc_hwnd, &wndRect);
-    RECT renderRect = {
-        (LONG)wndPos.x,
-        (LONG)wndPos.y,
-        (LONG)(wndSize.x) + (LONG)(wndPos.x),
-        (LONG)(wndSize.y) + (LONG)(wndPos.y)
-    };
+    RECT renderRect = {(LONG)wndPos.x, (LONG)wndPos.y, (LONG)(wndSize.x) + (LONG)(wndPos.x), (LONG)(wndSize.y) + (LONG)(wndPos.y)};
 
     ImGui::EndFrame();
 
@@ -386,12 +322,7 @@ bool LauncherWndEndFrame(ImVec2& wndPos, ImVec2& wndSize, bool canMove)
     g_pd3dDevice->SetRenderState(D3DRS_SCISSORTESTENABLE, false);
 
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-    D3DCOLOR clear_col_dx = D3DCOLOR_RGBA(
-        (int)(clear_color.x * 255.0f),
-        (int)(clear_color.y * 255.0f),
-        (int)(clear_color.z * 255.0f),
-        (int)(clear_color.w * 255.0f)
-    );
+    D3DCOLOR clear_col_dx = D3DCOLOR_RGBA((int)(clear_color.x * 255.0f), (int)(clear_color.y * 255.0f), (int)(clear_color.z * 255.0f), (int)(clear_color.w * 255.0f));
     g_pd3dDevice->Clear(0, nullptr, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, clear_col_dx, 1.0f, 0);
 
     if (g_pd3dDevice->BeginScene() >= 0) {
@@ -402,8 +333,7 @@ bool LauncherWndEndFrame(ImVec2& wndPos, ImVec2& wndSize, bool canMove)
 
     HRESULT result = g_pd3dDevice->Present(&renderRect, nullptr, nullptr, nullptr);
     // Handle loss of D3D9 device
-    if (result == D3DERR_DEVICELOST
-        && g_pd3dDevice->TestCooperativeLevel() == D3DERR_DEVICENOTRESET)
+    if (result == D3DERR_DEVICELOST && g_pd3dDevice->TestCooperativeLevel() == D3DERR_DEVICENOTRESET)
         D3DResetDevice();
 
     if (moved) {
@@ -458,8 +388,7 @@ typedef struct {
     int attempts;
 } initial_path_t;
 
-int CALLBACK
-SetInitialBrowsePathProc(HWND hWnd, UINT uMsg, [[maybe_unused]] LPARAM lp, LPARAM pData)
+int CALLBACK SetInitialBrowsePathProc(HWND hWnd, UINT uMsg, [[maybe_unused]] LPARAM lp, LPARAM pData)
 {
     initial_path_t* ip = (initial_path_t*)pData;
     if (ip) {
@@ -519,25 +448,19 @@ struct ComRAII {
     }
 };
 
-static int SelectFolderVista(
-    HWND owner, PIDLIST_ABSOLUTE initial_path, PIDLIST_ABSOLUTE& pidl, const wchar_t* window_title
-)
+static int SelectFolderVista(HWND owner, PIDLIST_ABSOLUTE initial_path, PIDLIST_ABSOLUTE& pidl, const wchar_t* window_title)
 {
     // Those two functions are absent in XP, so we have to load them dynamically
     HMODULE shell32 = LoadLibraryW(L"Shell32.dll");
     if (!shell32)
         return -1;
-    auto pSHCreateItemFromIDList = (HRESULT(WINAPI*)(PCIDLIST_ABSOLUTE, REFIID, void**)
-    )GetProcAddress(shell32, "SHCreateItemFromIDList");
-    auto pSHGetIDListFromObject = (HRESULT(WINAPI*)(IUnknown*, PIDLIST_ABSOLUTE*)
-    )GetProcAddress(shell32, "SHGetIDListFromObject");
+    auto pSHCreateItemFromIDList = (HRESULT(WINAPI*)(PCIDLIST_ABSOLUTE, REFIID, void**))GetProcAddress(shell32, "SHCreateItemFromIDList");
+    auto pSHGetIDListFromObject = (HRESULT(WINAPI*)(IUnknown*, PIDLIST_ABSOLUTE*))GetProcAddress(shell32, "SHGetIDListFromObject");
     if (!pSHCreateItemFromIDList || !pSHGetIDListFromObject)
         return -1;
 
     ComRAII<IFileDialog> pfd;
-    if (FAILED(CoCreateInstance(
-            CLSID_FileOpenDialog, nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&pfd)
-        )))
+    if (FAILED(CoCreateInstance(CLSID_FileOpenDialog, nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&pfd))))
         return -1;
     if (!pfd)
         return -1;
@@ -550,10 +473,7 @@ static int SelectFolderVista(
         pfd->SetDefaultFolder(psi);
     }
 
-    pfd->SetOptions(
-        FOS_NOCHANGEDIR | FOS_PICKFOLDERS | FOS_FORCEFILESYSTEM | FOS_PATHMUSTEXIST
-        | FOS_FILEMUSTEXIST | FOS_DONTADDTORECENT
-    );
+    pfd->SetOptions(FOS_NOCHANGEDIR | FOS_PICKFOLDERS | FOS_FORCEFILESYSTEM | FOS_PATHMUSTEXIST | FOS_FILEMUSTEXIST | FOS_DONTADDTORECENT);
     pfd->SetTitle(window_title);
     HRESULT hr = pfd->Show(owner);
     ComRAII<IShellItem> psi;
@@ -567,9 +487,7 @@ static int SelectFolderVista(
     return -1;
 }
 
-static int SelectFolderXP(
-    HWND owner, PIDLIST_ABSOLUTE initial_path, PIDLIST_ABSOLUTE& pidl, const wchar_t* window_title
-)
+static int SelectFolderXP(HWND owner, PIDLIST_ABSOLUTE initial_path, PIDLIST_ABSOLUTE& pidl, const wchar_t* window_title)
 {
     BROWSEINFOW bi = {0};
     initial_path_t ip = {0};

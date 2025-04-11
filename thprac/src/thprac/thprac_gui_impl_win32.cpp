@@ -545,8 +545,7 @@ namespace Gui {
         // Setup back-end capabilities flags
         g_hWnd = (HWND)hwnd;
         ImGuiIO& io = ImGui::GetIO();
-        io.BackendFlags |=
-            ImGuiBackendFlags_HasMouseCursors; // We can honor GetMouseCursor() values (optional)
+        io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors; // We can honor GetMouseCursor() values (optional)
         io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos; // We can honor io.WantSetMousePos
                                                              // requests (optional, rarely used)
         io.BackendPlatformName = "thprac_gui_impl_win32";
@@ -608,8 +607,7 @@ namespace Gui {
         ImplWin32UpdateMousePos(mouseMapping);
 
         // Update OS mouse cursor with the cursor requested by imgui
-        ImGuiMouseCursor mouse_cursor =
-            io.MouseDrawCursor ? ImGuiMouseCursor_None : ImGui::GetMouseCursor();
+        ImGuiMouseCursor mouse_cursor = io.MouseDrawCursor ? ImGuiMouseCursor_None : ImGui::GetMouseCursor();
         if (g_LastMouseCursor != mouse_cursor) {
             g_LastMouseCursor = mouse_cursor;
             ImplWin32UpdateMouseCursor();
@@ -625,8 +623,7 @@ namespace Gui {
     {
         g_wndNoClose_ = noClose ? 1 : 0;
     }
-    static LRESULT CALLBACK
-    __ThImGui_WndProc_HookFunc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+    static LRESULT CALLBACK __ThImGui_WndProc_HookFunc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
         typedef decltype(__ThImGui_WndProc_HookFunc)* PWndProc;
 

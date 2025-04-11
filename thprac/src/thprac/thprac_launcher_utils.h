@@ -31,12 +31,8 @@
 
 namespace THPrac {
 
-#define JsonAddMember(json, key, value, alloc) \
-    json.AddMember(rapidjson::Value(key, alloc).Move(), rapidjson::Value(value).Move(), alloc);
-#define JsonAddMemberA(json, key, value, alloc)                                           \
-    json.AddMember(                                                                       \
-        rapidjson::Value(key, alloc).Move(), rapidjson::Value(value, alloc).Move(), alloc \
-    );
+#define JsonAddMember(json, key, value, alloc) json.AddMember(rapidjson::Value(key, alloc).Move(), rapidjson::Value(value).Move(), alloc);
+#define JsonAddMemberA(json, key, value, alloc) json.AddMember(rapidjson::Value(key, alloc).Move(), rapidjson::Value(value, alloc).Move(), alloc);
 
 class GuiThread {
 public:
@@ -144,17 +140,13 @@ void GuiColumnText(const char* text);
 
 inline void GuiCenteredText(const char* text)
 {
-    ImGui::SetCursorPosX(
-        (ImGui::GetWindowWidth() - ImGui::CalcTextSize(text, 0, false, 0.0f).x) / 2.0f
-    );
+    ImGui::SetCursorPosX((ImGui::GetWindowWidth() - ImGui::CalcTextSize(text, 0, false, 0.0f).x) / 2.0f);
     ImGui::TextWrapped("%s", text);
 }
 
 inline void GuiSetPosXText(const char* text, float offset = 0.0f)
 {
-    ImGui::SetCursorPosX(
-        (ImGui::GetWindowWidth() - ImGui::CalcTextSize(text, 0, false, 0.0f).x) / 2.0f - offset
-    );
+    ImGui::SetCursorPosX((ImGui::GetWindowWidth() - ImGui::CalcTextSize(text, 0, false, 0.0f).x) / 2.0f - offset);
 }
 
 inline void GuiSetPosYRel(float rel)
@@ -163,10 +155,7 @@ inline void GuiSetPosYRel(float rel)
 }
 
 void GuiHelpMarker(const char* desc);
-int GuiCornerButton(
-    const char* text, const char* text2 = nullptr, const ImVec2& offset = ImVec2(1.5f, 0.5f),
-    bool useCurrentY = false
-);
+int GuiCornerButton(const char* text, const char* text2 = nullptr, const ImVec2& offset = ImVec2(1.5f, 0.5f), bool useCurrentY = false);
 
 inline bool GuiButtonRelCentered(const char* buttonText, float posYRel, const ImVec2& sizeRel)
 {
@@ -194,9 +183,7 @@ inline bool GuiModal(const char* modalTitle, ImVec2 sizeRel = ImVec2(0.0f, 0.0f)
     if (sizeRel.x != 0.0f || sizeRel.y != 0.0f) {
         ImGui::SetNextWindowSize(sizeRel, ImGuiCond_Always);
     }
-    return ImGui::BeginPopupModal(
-        modalTitle, nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoMove
-    );
+    return ImGui::BeginPopupModal(modalTitle, nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoMove);
 }
 
 inline bool GuiModalFullScreen(const char* modalTitle)
@@ -204,11 +191,7 @@ inline bool GuiModalFullScreen(const char* modalTitle)
     auto wndSize = LauncherWndGetSize();
     ImGui::SetNextWindowPos(ImVec2(0.0f, 0.0f), ImGuiCond_Appearing);
     ImGui::SetNextWindowSize(wndSize, ImGuiCond_Appearing);
-    return ImGui::BeginPopupModal(
-        modalTitle,
-        nullptr,
-        ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize
-    );
+    return ImGui::BeginPopupModal(modalTitle, nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
 }
 
 inline bool GuiButtonModal(const char* buttonText, const char* modalTitle)
@@ -220,12 +203,9 @@ inline bool GuiButtonModal(const char* buttonText, const char* modalTitle)
     return false;
 }
 
-bool GuiButtonYesNo(
-    const char* buttonText1 = "OK", const char* buttonText2 = "Cancel", float buttonSize = -1.0f
-);
+bool GuiButtonYesNo(const char* buttonText1 = "OK", const char* buttonText2 = "Cancel", float buttonSize = -1.0f);
 bool GuiButtonAndModalYesNo(
-    const char* buttonText, const char* modalTitle, const char* modalText, float buttonSize = 6.0f,
-    const char* buttonText1 = "OK", const char* buttonText2 = "Cancel"
+    const char* buttonText, const char* modalTitle, const char* modalText, float buttonSize = 6.0f, const char* buttonText1 = "OK", const char* buttonText2 = "Cancel"
 );
 
 }

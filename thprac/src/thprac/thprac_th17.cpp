@@ -355,22 +355,14 @@ namespace TH17 {
                 break;
             case 2:
             case 3: // Mid boss & End boss
-                if (mSection(
-                        TH_WARP_SELECT[*mWarp],
-                        th_sections_cba[*mStage][*mWarp - 2],
-                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]
-                    ))
+                if (mSection(TH_WARP_SELECT[*mWarp], th_sections_cba[*mStage][*mWarp - 2], th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
                     *mPhase = 0;
                 if (SectionHasDlg(th_sections_cba[*mStage][*mWarp - 2][*mSection]))
                     mDlg();
                 break;
             case 4:
             case 5: // Non-spell & Spellcard
-                if (mSection(
-                        TH_WARP_SELECT[*mWarp],
-                        th_sections_cbt[*mStage][*mWarp - 4],
-                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]
-                    ))
+                if (mSection(TH_WARP_SELECT[*mWarp], th_sections_cbt[*mStage][*mWarp - 4], th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
                     *mPhase = 0;
                 if (SectionHasDlg(th_sections_cbt[*mStage][*mWarp - 4][*mSection]))
                     mDlg();
@@ -402,12 +394,9 @@ namespace TH17 {
         Gui::GuiDrag<int, ImGuiDataType_S32> mValue{TH_VALUE, 0, 999990, 10, 100000};
         Gui::GuiDrag<int, ImGuiDataType_S32> mGraze{TH_GRAZE, 0, 999999, 1, 100000};
 
-        Gui::GuiNavFocus mNavFocus{TH_STAGE,         TH_MODE,      TH_WARP,          TH_DLG,
-                                   TH_MID_STAGE,     TH_END_STAGE, TH_NONSPELL,      TH_SPELL,
-                                   TH_PHASE,         TH_CHAPTER,   TH_SCORE,         TH_LIFE,
-                                   TH_LIFE_FRAGMENT, TH_BOMB,      TH_BOMB_FRAGMENT, TH17_GOAST_1,
-                                   TH17_GOAST_2,     TH17_GOAST_3, TH17_GOAST_4,     TH17_GOAST_5,
-                                   TH_POWER,         TH_VALUE,     TH_GRAZE};
+        Gui::GuiNavFocus mNavFocus{TH_STAGE,     TH_MODE,      TH_WARP,      TH_DLG,       TH_MID_STAGE,     TH_END_STAGE, TH_NONSPELL,      TH_SPELL,
+                                   TH_PHASE,     TH_CHAPTER,   TH_SCORE,     TH_LIFE,      TH_LIFE_FRAGMENT, TH_BOMB,      TH_BOMB_FRAGMENT, TH17_GOAST_1,
+                                   TH17_GOAST_2, TH17_GOAST_3, TH17_GOAST_4, TH17_GOAST_5, TH_POWER,         TH_VALUE,     TH_GRAZE};
 
         int mChapterSetup[7][2]{
             {2, 2},
@@ -481,8 +470,7 @@ namespace TH17 {
             SetPos(10.0f, 10.0f);
             SetSize(0.0f, 0.0f);
             SetWndFlag(
-                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove
-                | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
+                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
                 | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0
             );
             OnLocaleChange();
@@ -546,29 +534,16 @@ namespace TH17 {
         Gui::GuiHotKey mMenu{"ModMenuToggle", "BACKSPACE", VK_BACK};
         Gui::GuiHotKey mMuteki{TH_MUTEKI, "F1", VK_F1, {new HookCtx(0x44956a, "\x01", 1)}};
         Gui::GuiHotKey mInfLives{TH_INFLIVES, "F2", VK_F2, {new HookCtx(0x44921a, "\x90", 1)}};
-        Gui::GuiHotKey mInfBombs{
-            TH_INFBOMBS, "F3", VK_F3, {new HookCtx(0x411c96, "\x90\x90\x90", 3)}
-        };
-        Gui::GuiHotKey mInfPower{
-            TH_INFPOWER, "F4", VK_F4, {new HookCtx(0x447b84, "\x31\xf6\x90\x90\x90\x90", 6)}
-        };
+        Gui::GuiHotKey mInfBombs{TH_INFBOMBS, "F3", VK_F3, {new HookCtx(0x411c96, "\x90\x90\x90", 3)}};
+        Gui::GuiHotKey mInfPower{TH_INFPOWER, "F4", VK_F4, {new HookCtx(0x447b84, "\x31\xf6\x90\x90\x90\x90", 6)}};
         Gui::GuiHotKey mTimeLock{
-            TH_TIMELOCK,
-            "F5",
-            VK_F5,
-            {new HookCtx(0x41a8cf, "\xeb", 1), new HookCtx(0x420a1e, "\x05\x8d", 2)}
+            TH_TIMELOCK, "F5", VK_F5, {new HookCtx(0x41a8cf, "\xeb", 1), new HookCtx(0x420a1e, "\x05\x8d", 2)}
         };
-        Gui::GuiHotKey mAutoBomb{
-            TH_AUTOBOMB, "F6", VK_F6, {new HookCtx(0x447c20, "\x90\x90\x90\x90\x90\x90", 6)}
-        };
+        Gui::GuiHotKey mAutoBomb{TH_AUTOBOMB, "F6", VK_F6, {new HookCtx(0x447c20, "\x90\x90\x90\x90\x90\x90", 6)}};
 
     public:
-        Gui::GuiHotKey mInfRoaring{
-            TH17_INF_ROARING, "F7", VK_F7, {new HookCtx(0x40ef6a, "\x00", 1)}
-        };
-        Gui::GuiHotKey mNoGoast{
-            TH17_NO_GOAST, "F8", VK_F8, {new HookCtx(0x4347af, "\xe9\x03\x01\x00\x00", 5)}
-        };
+        Gui::GuiHotKey mInfRoaring{TH17_INF_ROARING, "F7", VK_F7, {new HookCtx(0x40ef6a, "\x00", 1)}};
+        Gui::GuiHotKey mNoGoast{TH17_NO_GOAST, "F8", VK_F8, {new HookCtx(0x4347af, "\xe9\x03\x01\x00\x00", 5)}};
         Gui::GuiHotKey mElBgm{TH_EL_BGM, "F9", VK_F9};
     };
     class THGuiSP : public Gui::GameGuiWnd {
@@ -760,10 +735,7 @@ namespace TH17 {
 
         THAdvOptWnd() noexcept
         {
-            SetWndFlag(
-                ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse
-                | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove
-            );
+            SetWndFlag(ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
             SetFade(0.8f, 0.8f);
             SetStyle(ImGuiStyleVar_WindowRounding, 0.0f);
             SetStyle(ImGuiStyleVar_WindowBorderSize, 0.0f);
@@ -827,12 +799,7 @@ namespace TH17 {
                 return;
             }
 
-            Gui::ComboSelect(
-                mSelectedGoast,
-                (th_glossary_t*)TH17_GOAST_SELECT_TOKENS,
-                elementsof(TH17_GOAST_SELECT_TOKENS) - 1,
-                S(TH17_GOAST)
-            );
+            Gui::ComboSelect(mSelectedGoast, (th_glossary_t*)TH17_GOAST_SELECT_TOKENS, elementsof(TH17_GOAST_SELECT_TOKENS) - 1, S(TH17_GOAST));
 
             if (!mSelectedGoast) {
                 ImGui::BeginDisabled();
@@ -925,9 +892,7 @@ namespace TH17 {
             ecl.SetPos(start);
         ecl << ecl_time << 0x00140276 << 0x01ff0000 << 0x00000000 << std_id;
     }
-    void ECLJump(
-        ECLHelper& ecl, unsigned int start, unsigned int dest, int at_frame, int ecl_time = 0
-    )
+    void ECLJump(ECLHelper& ecl, unsigned int start, unsigned int dest, int at_frame, int ecl_time = 0)
     {
         if (start)
             ecl.SetPos(start);
@@ -1452,8 +1417,7 @@ namespace TH17 {
             ecl.SetFile(2);
             ecl << pair{0x454, (int16_t)0};
             ecl << pair{0xda4, (int8_t)0x34}; // Change Nonspell
-            ecl << pair{0x4888, (int16_t)0} << pair{0x48c0, (int16_t)0}
-                << pair{0x48f8, (int16_t)0}; // Disable Item Drops
+            ecl << pair{0x4888, (int16_t)0} << pair{0x48c0, (int16_t)0} << pair{0x48f8, (int16_t)0}; // Disable Item Drops
             ecl << pair{0x4a3c, (int16_t)0}; // Disable Item Drops & SE
             ecl << pair{0x4ba0, 0} << pair{0x4794, 30};
             ecl << pair{0x4854, (int16_t)0};
@@ -1568,8 +1532,7 @@ namespace TH17 {
             ECLJump(ecl, 0, 0xa7d8, 60);
             ecl.SetFile(2);
             ecl << pair{0x1180, (int8_t)0x32}; // Change Nonspell
-            ecl << pair{0x1cf0, (int16_t)0} << pair{0x1d28, (int16_t)0} << pair{0x1d60, (int16_t)0}
-                << pair{0x1d98, (int16_t)0} << pair{0x1dd0, (int16_t)0}; // Disable Item Drops
+            ecl << pair{0x1cf0, (int16_t)0} << pair{0x1d28, (int16_t)0} << pair{0x1d60, (int16_t)0} << pair{0x1d98, (int16_t)0} << pair{0x1dd0, (int16_t)0}; // Disable Item Drops
             ecl << pair{0x1efc, (int16_t)0}; // Disable Item Drops & SE
             break;
         case THPrac::TH17::TH17_ST7_END_S2:
@@ -1583,8 +1546,7 @@ namespace TH17 {
             ECLJump(ecl, 0, 0xa7d8, 60);
             ecl.SetFile(2);
             ecl << pair{0x1180, (int8_t)0x33}; // Change Nonspell
-            ecl << pair{0x25b0, (int16_t)0} << pair{0x25e8, (int16_t)0} << pair{0x2620, (int16_t)0}
-                << pair{0x2658, (int16_t)0} << pair{0x2690, (int16_t)0}; // Disable Item Drops
+            ecl << pair{0x25b0, (int16_t)0} << pair{0x25e8, (int16_t)0} << pair{0x2620, (int16_t)0} << pair{0x2658, (int16_t)0} << pair{0x2690, (int16_t)0}; // Disable Item Drops
             ecl << pair{0x27bc, (int16_t)0}; // Disable Item Drops & SE
             ecl << pair{0x24d8, 0} << pair{0x2954, 0};
             break;
@@ -1599,8 +1561,7 @@ namespace TH17 {
             ECLJump(ecl, 0, 0xa7d8, 60);
             ecl.SetFile(2);
             ecl << pair{0x1180, (int8_t)0x34}; // Change Nonspell
-            ecl << pair{0x2eac, (int16_t)0} << pair{0x2ee4, (int16_t)0} << pair{0x2f1c, (int16_t)0}
-                << pair{0x2f54, (int16_t)0} << pair{0x2f8c, (int16_t)0}; // Disable Item Drops
+            ecl << pair{0x2eac, (int16_t)0} << pair{0x2ee4, (int16_t)0} << pair{0x2f1c, (int16_t)0} << pair{0x2f54, (int16_t)0} << pair{0x2f8c, (int16_t)0}; // Disable Item Drops
             ecl << pair{0x30b8, (int16_t)0}; // Disable Item Drops & SE
             ecl << pair{0x2dd4, 0} << pair{0x3260, 0};
             break;
@@ -1615,8 +1576,7 @@ namespace TH17 {
             ECLJump(ecl, 0, 0xa7d8, 60);
             ecl.SetFile(2);
             ecl << pair{0x1180, (int8_t)0x35}; // Change Nonspell
-            ecl << pair{0x37e4, (int16_t)0} << pair{0x381c, (int16_t)0} << pair{0x3854, (int16_t)0}
-                << pair{0x388c, (int16_t)0} << pair{0x38c4, (int16_t)0}; // Disable Item Drops
+            ecl << pair{0x37e4, (int16_t)0} << pair{0x381c, (int16_t)0} << pair{0x3854, (int16_t)0} << pair{0x388c, (int16_t)0} << pair{0x38c4, (int16_t)0}; // Disable Item Drops
             ecl << pair{0x39f0, (int16_t)0}; // Disable Item Drops & SE
             ecl << pair{0x370c, 0} << pair{0x3b88, 0};
             break;
@@ -1631,8 +1591,7 @@ namespace TH17 {
             ECLJump(ecl, 0, 0xa7d8, 60);
             ecl.SetFile(2);
             ecl << pair{0x1180, (int8_t)0x36}; // Change Nonspell
-            ecl << pair{0x4110, (int16_t)0} << pair{0x4148, (int16_t)0} << pair{0x4180, (int16_t)0}
-                << pair{0x41b8, (int16_t)0} << pair{0x41f0, (int16_t)0}; // Disable Item Drops
+            ecl << pair{0x4110, (int16_t)0} << pair{0x4148, (int16_t)0} << pair{0x4180, (int16_t)0} << pair{0x41b8, (int16_t)0} << pair{0x41f0, (int16_t)0}; // Disable Item Drops
             ecl << pair{0x431c, (int16_t)0}; // Disable Item Drops & SE
             ecl << pair{0x4008, 0} << pair{0x44c4, 0};
             break;
@@ -1647,8 +1606,7 @@ namespace TH17 {
             ECLJump(ecl, 0, 0xa7d8, 60);
             ecl.SetFile(2);
             ecl << pair{0x1180, (int8_t)0x37}; // Change Nonspell
-            ecl << pair{0x4a48, (int16_t)0} << pair{0x4a80, (int16_t)0} << pair{0x4ab8, (int16_t)0}
-                << pair{0x4af0, (int16_t)0} << pair{0x4b28, (int16_t)0}; // Disable Item Drops
+            ecl << pair{0x4a48, (int16_t)0} << pair{0x4a80, (int16_t)0} << pair{0x4ab8, (int16_t)0} << pair{0x4af0, (int16_t)0} << pair{0x4b28, (int16_t)0}; // Disable Item Drops
             ecl << pair{0x4c54, (int16_t)0}; // Disable Item Drops & SE
             ecl << pair{0x4970, 0} << pair{0x4dfc, 0};
             break;
@@ -1663,8 +1621,7 @@ namespace TH17 {
             ECLJump(ecl, 0, 0xa7d8, 60);
             ecl.SetFile(2);
             ecl << pair{0x1180, (int8_t)0x38}; // Change Nonspell
-            ecl << pair{0x5380, (int16_t)0} << pair{0x53b8, (int16_t)0} << pair{0x53f0, (int16_t)0}
-                << pair{0x5428, (int16_t)0} << pair{0x5460, (int16_t)0}; // Disable Item Drops
+            ecl << pair{0x5380, (int16_t)0} << pair{0x53b8, (int16_t)0} << pair{0x53f0, (int16_t)0} << pair{0x5428, (int16_t)0} << pair{0x5460, (int16_t)0}; // Disable Item Drops
             ecl << pair{0x558c, (int16_t)0}; // Disable Item Drops & SE
             ecl << pair{0x52a8, 0} << pair{0x5734, 0};
             break;
@@ -1842,14 +1799,12 @@ namespace TH17 {
     }
     EHOOK_DY(th17_goast_bugfix, 0x430080)
     {
-        if (THAdvOptWnd::singleton().mGoastBugfix && *(uint32_t*)0x4b59dc == *(uint32_t*)0x4b59e0
-            && GetMemContent(0x4b76b0, 0xa8) == 0)
+        if (THAdvOptWnd::singleton().mGoastBugfix && *(uint32_t*)0x4b59dc == *(uint32_t*)0x4b59e0 && GetMemContent(0x4b76b0, 0xa8) == 0)
             *(uint32_t*)0x4b5ac4 &= 0xfffffffd;
     }
     EHOOK_DY(th17_goast_repfix, 0x430c97)
     {
-        if (THAdvOptWnd::singleton().mGoastRepfix && *(uint32_t*)0x4b59dc == *(uint32_t*)0x4b59e0
-            && GetMemContent(0x4b76b0, 0xa8) == 1) {
+        if (THAdvOptWnd::singleton().mGoastRepfix && *(uint32_t*)0x4b59dc == *(uint32_t*)0x4b59e0 && GetMemContent(0x4b76b0, 0xa8) == 1) {
             uint32_t repStart = 1;
             uint32_t repData = GetMemContent(0x4b77d8);
 
@@ -1880,12 +1835,9 @@ namespace TH17 {
         bool is_practice;
         bool result;
 
-        el_switch = *(THOverlay::singleton().mElBgm) && !THGuiRep::singleton().mRepStatus
-            && (thPracParam.mode == 1) && thPracParam.section;
+        el_switch = *(THOverlay::singleton().mElBgm) && !THGuiRep::singleton().mRepStatus && (thPracParam.mode == 1) && thPracParam.section;
         is_practice = (*((int32_t*)0x4b59c8) & 0x1);
-        result = ElBgmTestTemp<0x4420f3, 0x42eab2, 0x4311f0, 0x443bbd, 0x445f12, 0xffffffff>(
-            el_switch, is_practice, retn_addr, bgm_cmd, bgm_id, 0xffffffff
-        );
+        result = ElBgmTestTemp<0x4420f3, 0x42eab2, 0x4311f0, 0x443bbd, 0x445f12, 0xffffffff>(el_switch, is_practice, retn_addr, bgm_cmd, bgm_id, 0xffffffff);
 
         if (result) {
             pCtx->Eip = 0x466376;
@@ -2031,8 +1983,7 @@ namespace TH17 {
         THGuiPrac::singleton().Update();
         THOverlay::singleton().Update();
         THGuiSP::singleton().Update();
-        bool drawCursor = THAdvOptWnd::StaticUpdate() || THGuiPrac::singleton().IsOpen()
-            || THGuiSP::singleton().IsOpen();
+        bool drawCursor = THAdvOptWnd::StaticUpdate() || THGuiPrac::singleton().IsOpen() || THGuiSP::singleton().IsOpen();
         GameGuiEnd(drawCursor);
     }
     EHOOK_DY(th17_render, 0x4014d0)
@@ -2046,17 +1997,7 @@ namespace TH17 {
     {
 
         // Init
-        GameGuiInit(
-            IMPL_WIN32_DX9,
-            0x4b5ae8,
-            0x5226c0,
-            0x4617d0,
-            Gui::INGAGME_INPUT_GEN2,
-            0x4b323c,
-            0x4b3238,
-            0,
-            (*((int32_t*)0x524700) >> 2) & 0xf
-        );
+        GameGuiInit(IMPL_WIN32_DX9, 0x4b5ae8, 0x5226c0, 0x4617d0, Gui::INGAGME_INPUT_GEN2, 0x4b323c, 0x4b3238, 0, (*((int32_t*)0x524700) >> 2) & 0xf);
 
         // Gui components creation
         THGuiPrac::singleton();

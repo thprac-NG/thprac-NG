@@ -186,8 +186,7 @@ namespace Gui {
         ImGuiIO& io = ImGui::GetIO();
         auto itemSpacing = GetStyleIt(ImGuiStyleVar_ItemSpacing);
         if (mViewport) {
-            itemSpacing->value =
-                ImVec2(x_prop * (float)mViewport->Width, y_prop * (float)mViewport->Height);
+            itemSpacing->value = ImVec2(x_prop * (float)mViewport->Width, y_prop * (float)mViewport->Height);
         } else {
             itemSpacing->value = ImVec2(x_prop * io.DisplaySize.x, y_prop * io.DisplaySize.y);
         }
@@ -198,18 +197,14 @@ namespace Gui {
             ImGuiIO& io = ImGui::GetIO();
             if (mViewport) {
                 auto framePadding = GetStyleIt(ImGuiStyleVar_FramePadding);
-                framePadding->value =
-                    ImVec2(0.00625f * (float)mViewport->Width, 0.00625f * (float)mViewport->Height);
+                framePadding->value = ImVec2(0.00625f * (float)mViewport->Width, 0.00625f * (float)mViewport->Height);
                 auto itemSpacing = GetStyleIt(ImGuiStyleVar_ItemSpacing);
-                itemSpacing->value =
-                    ImVec2(0.0125f * (float)mViewport->Width, 0.00833f * (float)mViewport->Height);
+                itemSpacing->value = ImVec2(0.0125f * (float)mViewport->Width, 0.00833f * (float)mViewport->Height);
             } else {
                 auto framePadding = GetStyleIt(ImGuiStyleVar_FramePadding);
-                framePadding->value =
-                    ImVec2(0.00625f * io.DisplaySize.x, 0.00625f * io.DisplaySize.y);
+                framePadding->value = ImVec2(0.00625f * io.DisplaySize.x, 0.00625f * io.DisplaySize.y);
                 auto itemSpacing = GetStyleIt(ImGuiStyleVar_ItemSpacing);
-                itemSpacing->value =
-                    ImVec2(0.0125f * io.DisplaySize.x, 0.00833f * io.DisplaySize.y);
+                itemSpacing->value = ImVec2(0.0125f * io.DisplaySize.x, 0.00833f * io.DisplaySize.y);
             }
         } else {
             auto framePadding = GetStyleIt(ImGuiStyleVar_FramePadding);
@@ -219,8 +214,7 @@ namespace Gui {
         }
     }
     void GameGuiWnd::AutoSize(
-        ImVec2 size, const char* content_1, const char* content_2, const char* label_1,
-        const char* label_2, float widiget_counts, ImVec2 size_max, ImVec2 size_min
+        ImVec2 size, const char* content_1, const char* content_2, const char* label_1, const char* label_2, float widiget_counts, ImVec2 size_max, ImVec2 size_min
     )
     {
         auto& io = ImGui::GetIO();
@@ -242,8 +236,7 @@ namespace Gui {
             auto content_size_1 = ImGui::CalcTextSize(content_1);
             if (content_2) {
                 auto content_size_2 = ImGui::CalcTextSize(content_2);
-                content_size =
-                    content_size_1.x > content_size_2.x ? content_size_1 : content_size_2;
+                content_size = content_size_1.x > content_size_2.x ? content_size_1 : content_size_2;
             } else
                 content_size = content_size_1;
         }
@@ -284,9 +277,7 @@ namespace Gui {
 
         mSizeFlag = true;
     }
-    void GameGuiWnd::AutoSize(
-        float x, float y, const char* content, const char* label, float widigit_counts, float max_y
-    )
+    void GameGuiWnd::AutoSize(float x, float y, const char* content, const char* label, float widigit_counts, float max_y)
     {
         auto& io = ImGui::GetIO();
         auto& style = ImGui::GetStyle();
@@ -296,8 +287,7 @@ namespace Gui {
         } else if (x > 0.0f) {
             mSize.x = io.DisplaySize.x * x;
         } else if (x == 0.0f && content && label) {
-            mSize.x = ImGui::CalcTextSize(content).x + ImGui::CalcTextSize(label).x
-                + ImGui::GetFrameHeight() * 3;
+            mSize.x = ImGui::CalcTextSize(content).x + ImGui::CalcTextSize(label).x + ImGui::GetFrameHeight() * 3;
         }
 
         if (y > 1.0001f) {
@@ -374,13 +364,7 @@ namespace Gui {
         auto size = ImGui::GetWindowSize();
         auto& io = ImGui::GetIO();
 
-        ImGui::Text(
-            "Size: %f (%f), %f (%f)",
-            size.x,
-            size.x / io.DisplaySize.x,
-            size.y,
-            size.y / io.DisplaySize.y
-        );
+        ImGui::Text("Size: %f (%f), %f (%f)", size.x, size.x / io.DisplaySize.x, size.y, size.y / io.DisplaySize.y);
         ImGui::Text("Pos X: %f (%f)", pos.x, pos.x / (io.DisplaySize.x - size.x));
         ImGui::Text("Pos Y: %f (%f)", pos.y, pos.y / (io.DisplaySize.y - size.y));
     }
@@ -562,13 +546,9 @@ namespace Gui {
         if (mForceFocusId)
             ImGui::SetItemFocusAlt(LocaleGetStr(static_cast<th_glossary_t>(mForceFocusId)), true);
         else if (mFocusId)
-            ImGui::SetItemFocusAlt(
-                LocaleGetStr(static_cast<th_glossary_t>(mFocusId)), locale_changed
-            );
+            ImGui::SetItemFocusAlt(LocaleGetStr(static_cast<th_glossary_t>(mFocusId)), locale_changed);
         else
-            ImGui::SetItemFocusAlt(
-                LocaleGetStr(static_cast<th_glossary_t>(mNavId[0])), locale_changed
-            );
+            ImGui::SetItemFocusAlt(LocaleGetStr(static_cast<th_glossary_t>(mNavId[0])), locale_changed);
 
         if (mForceFocusId) {
             mFocusId = mForceFocusId;
@@ -576,9 +556,7 @@ namespace Gui {
         }
     }
 
-    void ComboSelect(
-        size_t& out, const char* const* choices, const size_t choices_count, const char* label
-    )
+    void ComboSelect(size_t& out, const char* const* choices, const size_t choices_count, const char* label)
     {
         if (ImGui::BeginCombo(label, choices[out])) {
             for (size_t i = 0; i < choices_count; i++) {
@@ -607,9 +585,7 @@ namespace Gui {
         }
     }
 
-    void ComboSelect(
-        size_t& out, th_glossary_t* choices, const size_t choices_count, const char* label
-    )
+    void ComboSelect(size_t& out, th_glossary_t* choices, const size_t choices_count, const char* label)
     {
         if (ImGui::BeginCombo(label, S(choices[out]))) {
             for (size_t i = 0; i < choices_count; i++) {
@@ -638,10 +614,7 @@ namespace Gui {
         }
     }
 
-    void MultiComboSelectImpl(
-        std::vector<size_t>& out, const char* const* choices, const size_t choices_count,
-        const char* format, size_t level
-    )
+    void MultiComboSelectImpl(std::vector<size_t>& out, const char* const* choices, const size_t choices_count, const char* format, size_t level)
     {
         if (out.size() <= level)
             out.resize(level + 1);
@@ -662,10 +635,7 @@ namespace Gui {
         delete[] labelStr;
     }
 
-    void MultiComboSelect(
-        std::vector<size_t>& out, const char* const* choices, const size_t choices_count,
-        const char* format
-    )
+    void MultiComboSelect(std::vector<size_t>& out, const char* const* choices, const size_t choices_count, const char* format)
     {
         MultiComboSelectImpl(out, choices, choices_count, format, 0);
     }

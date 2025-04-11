@@ -38,9 +38,8 @@ namespace Gui {
             mLocale = (locale_t)-1;
         }
 
-        static constexpr ImGuiWindowFlags STYLE_DEFAULT = ImGuiWindowFlags_NoResize
-            | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove
-            | ImGuiWindowFlags_NoBringToFrontOnFocus | 0;
+        static constexpr ImGuiWindowFlags STYLE_DEFAULT =
+            ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBringToFrontOnFocus | 0;
 
         void Update();
 
@@ -61,15 +60,10 @@ namespace Gui {
         void SetItemSpacingRel(float x_prop, float y_prop);
         void SetAutoSpacing(bool toggle);
         void AutoSize(
-            ImVec2 size, const char* content_1 = nullptr, const char* content_2 = nullptr,
-            const char* label_1 = nullptr, const char* label_2 = nullptr,
-            float widiget_counts = 0.0f, ImVec2 size_max = {-1.0f, -1.0f},
-            ImVec2 size_min = {-1.0f, -1.0f}
+            ImVec2 size, const char* content_1 = nullptr, const char* content_2 = nullptr, const char* label_1 = nullptr, const char* label_2 = nullptr,
+            float widiget_counts = 0.0f, ImVec2 size_max = {-1.0f, -1.0f}, ImVec2 size_min = {-1.0f, -1.0f}
         );
-        void AutoSize(
-            float x, float y, const char* content = nullptr, const char* label = nullptr,
-            float widigit_counts = 0.0f, float max_y = 0.0f
-        );
+        void AutoSize(float x, float y, const char* content = nullptr, const char* label = nullptr, float widigit_counts = 0.0f, float max_y = 0.0f);
         void AutoPos(float x, float y);
         void AutoItemWidth(const char* label);
 
@@ -111,8 +105,7 @@ namespace Gui {
     class PPGuiWnd : public GameGuiWnd {
     protected:
         void InitUpdFunc(
-            std::function<void(void)>&& contentUpdFunc, std::function<void(void)>&& localeUpdFunc,
-            std::function<void(void)>&& preUpdFunc, std::function<void(void)>&& postUpdFunc
+            std::function<void(void)>&& contentUpdFunc, std::function<void(void)>&& localeUpdFunc, std::function<void(void)>&& preUpdFunc, std::function<void(void)>&& postUpdFunc
         )
         {
             mContentUpdFuncTmp = mContentUpdFunc = contentUpdFunc;
@@ -187,10 +180,7 @@ namespace Gui {
         T mStepX = 1;
 
     public:
-        GuiSlider(
-            const char* label, const T&& minimum, const T&& maximum, T step_min = 1, T step_max = 1,
-            T step_x = 10
-        )
+        GuiSlider(const char* label, const T&& minimum, const T&& maximum, T step_min = 1, T step_max = 1, T step_x = 10)
             : mLabel(const_cast<char*>(label))
             , mValueMin(minimum)
             , mValueMax(maximum)
@@ -200,10 +190,7 @@ namespace Gui {
             , mStepX(step_x)
         { }
 
-        GuiSlider(
-            th_glossary_t label_ref, const T&& minimum, const T&& maximum, T step_min = 1,
-            T step_max = 1, T step_x = 10
-        )
+        GuiSlider(th_glossary_t label_ref, const T&& minimum, const T&& maximum, T step_min = 1, T step_max = 1, T step_x = 10)
             : mLabelRef(label_ref)
             , mValueMin(minimum)
             , mValueMax(maximum)
@@ -270,8 +257,7 @@ namespace Gui {
             bool isFocused;
             const char* label = mLabel ? mLabel : LocaleGetStr(mLabelRef);
 
-            auto hasChanged =
-                ImGui::SliderScalar(label, type, &mValue, &mValueMin, &mValueMax, format);
+            auto hasChanged = ImGui::SliderScalar(label, type, &mValue, &mValueMin, &mValueMax, format);
             isFocused = ImGui::IsItemFocused();
 
             if (isFocused) {
@@ -318,10 +304,7 @@ namespace Gui {
         T mStepX = 1;
 
     public:
-        GuiDrag(
-            const char* label, const T&& minimum, const T&& maximum, T step_min = 1, T step_max = 1,
-            T step_x = 10
-        )
+        GuiDrag(const char* label, const T&& minimum, const T&& maximum, T step_min = 1, T step_max = 1, T step_x = 10)
             : mLabel(const_cast<char*>(label))
             , mValueMin(minimum)
             , mValueMax(maximum)
@@ -331,10 +314,7 @@ namespace Gui {
             , mStepX(step_x)
         { }
 
-        GuiDrag(
-            th_glossary_t label_ref, const T&& minimum, const T&& maximum, T step_min = 1,
-            T step_max = 1, T step_x = 10
-        )
+        GuiDrag(th_glossary_t label_ref, const T&& minimum, const T&& maximum, T step_min = 1, T step_max = 1, T step_x = 10)
             : mLabelRef(label_ref)
             , mValueMin(minimum)
             , mValueMax(maximum)
@@ -395,9 +375,7 @@ namespace Gui {
             bool isFocused;
             const char* label = mLabel ? mLabel : LocaleGetStr(mLabelRef);
 
-            ImGui::DragScalar(
-                label, type, &mValue, (float)(mStep * 2), &mValueMin, &mValueMax, format
-            );
+            ImGui::DragScalar(label, type, &mValue, (float)(mStep * 2), &mValueMin, &mValueMax, format);
             isFocused = ImGui::IsItemFocused();
 
             if (mValue > mValueMax)
@@ -457,10 +435,7 @@ namespace Gui {
             return (*this)(-1);
         }
         template <typename T>
-        bool operator()(
-            th_glossary_t new_label_ref, T* selector,
-            const char** items = LocaleGetCurrentGlossary()
-        )
+        bool operator()(th_glossary_t new_label_ref, T* selector, const char** items = LocaleGetCurrentGlossary())
         {
             if (selector == nullptr || items == nullptr)
                 return false;
@@ -616,10 +591,7 @@ namespace Gui {
         bool OnWidgetUpdate();
 
     public:
-        GuiHotKey(
-            th_glossary_t text_ref, const char* key_text, int vkey,
-            std::initializer_list<HookCtx*> hooks = {}
-        )
+        GuiHotKey(th_glossary_t text_ref, const char* key_text, int vkey, std::initializer_list<HookCtx*> hooks = {})
             : mTextRef(text_ref)
             , mKeyText(key_text)
             , mKey(vkey)
@@ -630,10 +602,7 @@ namespace Gui {
             }
         }
 
-        GuiHotKey(
-            const char* text, const char* key_text, int vkey,
-            std::initializer_list<HookCtx*> hooks = {}
-        )
+        GuiHotKey(const char* text, const char* key_text, int vkey, std::initializer_list<HookCtx*> hooks = {})
             : mText(text)
             , mKeyText(key_text)
             , mKey(vkey)
@@ -644,10 +613,7 @@ namespace Gui {
             }
         }
 
-        GuiHotKey(
-            th_glossary_t text_ref, const char* key_text, int vkey, float x_offset_1,
-            float x_offset_2, bool use_rel_offset, std::initializer_list<HookCtx*> hooks = {}
-        )
+        GuiHotKey(th_glossary_t text_ref, const char* key_text, int vkey, float x_offset_1, float x_offset_2, bool use_rel_offset, std::initializer_list<HookCtx*> hooks = {})
             : mTextRef(text_ref)
             , mKeyText(key_text)
             , mKey(vkey)
@@ -774,16 +740,9 @@ namespace Gui {
         }
     }
 
-    void ComboSelect(
-        size_t& out, th_glossary_t* choices, const size_t choices_count, const char* label
-    );
-    void ComboSelect(
-        size_t& out, const char* const* choices, const size_t choices_count, const char* label
-    );
+    void ComboSelect(size_t& out, th_glossary_t* choices, const size_t choices_count, const char* label);
+    void ComboSelect(size_t& out, const char* const* choices, const size_t choices_count, const char* label);
 
-    void MultiComboSelect(
-        std::vector<size_t>& out, const char* const* choices, const size_t choices_count,
-        const char* format = "%d"
-    );
+    void MultiComboSelect(std::vector<size_t>& out, const char* const* choices, const size_t choices_count, const char* format = "%d");
 }
 }
