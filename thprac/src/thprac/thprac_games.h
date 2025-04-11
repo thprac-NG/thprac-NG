@@ -53,8 +53,8 @@ enum game_gui_impl {
 };
 
 void GameGuiInit(
-    game_gui_impl impl, int device, int hwnd, int wndproc_addr, Gui::ingame_input_gen_t input_gen, int reg1, int reg2, int reg3 = 0, int wnd_size_flag = -1, float x = 640.0f,
-    float y = 480.0f
+    game_gui_impl impl, int device, int hwnd, int wndproc_addr, Gui::ingame_input_gen_t input_gen,
+    int reg1, int reg2, int reg3 = 0, int wnd_size_flag = -1, float x = 640.0f, float y = 480.0f
 );
 extern int GameGuiProgress;
 void GameGuiBegin(game_gui_impl impl, bool game_nav = true);
@@ -98,7 +98,9 @@ inline void EndOptGroup()
     ImGui::Unindent();
 }
 typedef void __stdcall FPSHelperCallback(int32_t);
-int FPSHelper(adv_opt_ctx& ctx, bool repStatus, bool vpFast, bool vpSlow, FPSHelperCallback* callback);
+int FPSHelper(
+    adv_opt_ctx& ctx, bool repStatus, bool vpFast, bool vpSlow, FPSHelperCallback* callback
+);
 bool GameFPSOpt(adv_opt_ctx& ctx, bool replay = true);
 bool GameplayOpt(adv_opt_ctx& ctx);
 void AboutOpt(const char* thanks_text = nullptr);
@@ -108,8 +110,13 @@ void AboutOpt(const char* thanks_text = nullptr);
 #pragma region Game BGM
 
 // TODO: Should bgm_cmd be removed?
-template <uintptr_t play_addr, uintptr_t stop_addr, uintptr_t pause_addr, uintptr_t resume_addr, uintptr_t caller_addr>
-static bool ElBgmTest(bool hotkey_status, bool practice_status, uintptr_t retn_addr, [[maybe_unused]] int32_t bgm_cmd, int32_t bgm_param, uintptr_t caller)
+template <
+    uintptr_t play_addr, uintptr_t stop_addr, uintptr_t pause_addr, uintptr_t resume_addr,
+    uintptr_t caller_addr>
+static bool ElBgmTest(
+    bool hotkey_status, bool practice_status, uintptr_t retn_addr, [[maybe_unused]] int32_t bgm_cmd,
+    int32_t bgm_param, uintptr_t caller
+)
 {
     static bool mElStatus{false};
     static int mLockBgmId{-1};
@@ -167,8 +174,13 @@ static bool ElBgmTest(bool hotkey_status, bool practice_status, uintptr_t retn_a
 }
 
 // TODO: Should bgm_cmd be removed?
-template <uintptr_t play_addr, uintptr_t play_addr_2, uintptr_t stop_addr, uintptr_t pause_addr, uintptr_t resume_addr, uintptr_t caller_addr>
-static bool ElBgmTestTemp(bool hotkey_status, bool practice_status, uintptr_t retn_addr, [[maybe_unused]] int32_t bgm_cmd, int32_t bgm_param, uintptr_t caller)
+template <
+    uintptr_t play_addr, uintptr_t play_addr_2, uintptr_t stop_addr, uintptr_t pause_addr,
+    uintptr_t resume_addr, uintptr_t caller_addr>
+static bool ElBgmTestTemp(
+    bool hotkey_status, bool practice_status, uintptr_t retn_addr, [[maybe_unused]] int32_t bgm_cmd,
+    int32_t bgm_param, uintptr_t caller
+)
 {
     static bool mElStatus{false};
     static int mLockBgmId{-1};
@@ -517,7 +529,10 @@ typedef uint8_t* ecl_get_sub_t(const char* name, uintptr_t user_param);
 uint8_t* ThModern_ECLGetSub(const char* name, uintptr_t param);
 
 void StageWarpsRender(stage_warps_t& warps, std::vector<unsigned int>& out_warp, size_t level);
-void StageWarpsApply(stage_warps_t& warps, std::vector<unsigned int>& in_warp, ecl_get_sub_t* ecl_get_sub, uintptr_t ecl_get_sub_param, size_t level);
+void StageWarpsApply(
+    stage_warps_t& warps, std::vector<unsigned int>& in_warp, ecl_get_sub_t* ecl_get_sub,
+    uintptr_t ecl_get_sub_param, size_t level
+);
 #pragma endregion
 
 #pragma region Game State

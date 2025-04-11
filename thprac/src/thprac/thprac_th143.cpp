@@ -11,7 +11,8 @@ namespace TH143 {
             SetPos(10.0f, 10.0f);
             SetSize(0.0f, 0.0f);
             SetWndFlag(
-                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
+                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove
+                | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
                 | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0
             );
             OnLocaleChange();
@@ -89,7 +90,10 @@ namespace TH143 {
               new HookCtx(0x45CE94, "\x0F\x1F\x00", 3)}
         };
         Gui::GuiHotKey mTimeLock{
-            TH_TIMELOCK, "F3", VK_F3, {new HookCtx(0x41894d, "\xeb", 1), new HookCtx(0x4215C8, "\x90", 1)}
+            TH_TIMELOCK,
+            "F3",
+            VK_F3,
+            {new HookCtx(0x41894d, "\xeb", 1), new HookCtx(0x4215C8, "\x90", 1)}
         };
 
     public:
@@ -125,7 +129,10 @@ namespace TH143 {
     public:
         THAdvOptWnd() noexcept
         {
-            SetWndFlag(ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
+            SetWndFlag(
+                ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse
+                | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove
+            );
             SetFade(0.8f, 0.8f);
             SetStyle(ImGuiStyleVar_WindowRounding, 0.0f);
             SetStyle(ImGuiStyleVar_WindowBorderSize, 0.0f);
@@ -227,7 +234,17 @@ namespace TH143 {
     static __declspec(noinline) void THGuiCreate()
     {
         // Init
-        GameGuiInit(IMPL_WIN32_DX9, 0x4e47d8, 0x5390a0, 0x46e770, Gui::INGAGME_INPUT_GEN2, 0x4e19dc, 0x4e19d8, 0, (*((int32_t*)0x53b0dc) >> 2) & 0xf);
+        GameGuiInit(
+            IMPL_WIN32_DX9,
+            0x4e47d8,
+            0x5390a0,
+            0x46e770,
+            Gui::INGAGME_INPUT_GEN2,
+            0x4e19dc,
+            0x4e19d8,
+            0,
+            (*((int32_t*)0x53b0dc) >> 2) & 0xf
+        );
 
         // Gui components creation
         THOverlay::singleton();

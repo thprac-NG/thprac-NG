@@ -54,7 +54,9 @@ void log_init(bool launcher, bool console)
     }
 
     MoveFileW(fn, fn_rot_temp_1);
-    hLog = CreateFileW(fn, GENERIC_WRITE, FILE_SHARE_READ, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+    hLog = CreateFileW(
+        fn, GENERIC_WRITE, FILE_SHARE_READ, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL
+    );
 
     // Attach to existing console if it exists, open new console if no console exists but console is
     // set to true I wonder if this is gonna make command prompt appear for a millisecond for some

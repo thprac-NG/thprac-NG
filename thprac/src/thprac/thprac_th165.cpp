@@ -11,7 +11,8 @@ namespace TH165 {
             SetPos(10.0f, 10.0f);
             SetSize(0.0f, 0.0f);
             SetWndFlag(
-                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
+                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove
+                | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
                 | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0
             );
             OnLocaleChange();
@@ -65,7 +66,9 @@ namespace TH165 {
 
         Gui::GuiHotKey mMenu{"ModMenuToggle", "BACKSPACE", VK_BACK};
         Gui::GuiHotKey mMuteki{TH_MUTEKI, "F1", VK_F1, {new HookCtx(0x446a80, "\x01", 1)}};
-        Gui::GuiHotKey mInfCharge{TH_INFCHARGE, "F2", VK_F2, {new HookCtx(0x44c5f8, "\x90\x90", 2)}};
+        Gui::GuiHotKey mInfCharge{
+            TH_INFCHARGE, "F2", VK_F2, {new HookCtx(0x44c5f8, "\x90\x90", 2)}
+        };
 
     private:
         Gui::GuiHotKey mTimeLock{TH_TIMELOCK, "F3", VK_F3, {new HookCtx(0x419a78, "\xeb\x63", 2)}};
@@ -103,7 +106,10 @@ namespace TH165 {
     public:
         THAdvOptWnd() noexcept
         {
-            SetWndFlag(ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
+            SetWndFlag(
+                ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse
+                | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove
+            );
             SetFade(0.8f, 0.8f);
             SetStyle(ImGuiStyleVar_WindowRounding, 0.0f);
             SetStyle(ImGuiStyleVar_WindowBorderSize, 0.0f);
@@ -224,7 +230,17 @@ namespace TH165 {
     static __declspec(noinline) void THGuiCreate()
     {
         // Init
-        GameGuiInit(IMPL_WIN32_DX9, 0x4b3b18, 0x507b70, 0x460950, Gui::INGAGME_INPUT_GEN2, 0x4b0ffc, 0x4b0ff8, 0, (*((int32_t*)0x509bac) >> 2) & 0xf);
+        GameGuiInit(
+            IMPL_WIN32_DX9,
+            0x4b3b18,
+            0x507b70,
+            0x460950,
+            Gui::INGAGME_INPUT_GEN2,
+            0x4b0ffc,
+            0x4b0ff8,
+            0,
+            (*((int32_t*)0x509bac) >> 2) & 0xf
+        );
 
         // Gui components creation
         THOverlay::singleton();

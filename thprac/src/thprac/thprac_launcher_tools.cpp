@@ -22,8 +22,9 @@ public:
         mRndTextGen = GetRndGenerator(1u, 20u);
 
         if (mRndSeedGen() % 32 == 0 && strcmp(gGameRoll[32].name, "th19") == 0) {
-            gGameRoll[32].playerSelect = "Reimu\0Marisa\0Sanae\0Ran\0Aunn\0Nazrin\0Seiran\0Orin\0Tsukasa\0Mamizou\0Yachie\0S"
-                                         "aki\0Yuuma\0Suika\0Goku\0Enoko\0Chiyari\0Hisami\0Zanmu\0\0";
+            gGameRoll[32].playerSelect =
+                "Reimu\0Marisa\0Sanae\0Ran\0Aunn\0Nazrin\0Seiran\0Orin\0Tsukasa\0Mamizou\0Yachie\0S"
+                "aki\0Yuuma\0Suika\0Goku\0Enoko\0Chiyari\0Hisami\0Zanmu\0\0";
         }
 
         for (auto& game : gGameRoll) {
@@ -89,7 +90,9 @@ public:
         GuiCenteredText(S(THPRAC_TOOLS_RND_PLAYER));
         ImGui::Separator();
 
-        if (ImGui::BeginCombo(S(THPRAC_TOOLS_RND_PLAYER_GAME), mGameOption[mGameSelected].name, 0)) // The second parameter is the label previewed before opening the combo.
+        if (ImGui::BeginCombo(
+                S(THPRAC_TOOLS_RND_PLAYER_GAME), mGameOption[mGameSelected].name, 0
+            )) // The second parameter is the label previewed before opening the combo.
         {
             for (size_t n = 0; n < mGameOption.size(); n++) {
                 bool is_selected = (mGameSelected == n);

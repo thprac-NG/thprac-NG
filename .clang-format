@@ -71,14 +71,14 @@ BraceWrapping:
 # BreakAfterAttributes: Never
 BreakBeforeBinaryOperators: NonAssignment
 # BreakBeforeConceptDeclarations: Always
-# BreakBeforeInlineASMColon: OnlyMultiline   # Not available in GitHub Action, since it only supports clang-format v14
+BreakBeforeInlineASMColon: OnlyMultiline
 # BreakBeforeTernaryOperators: true
 # BreakConstructorInitializers: BeforeComma
 # BreakInheritanceList: BeforeColon
 # BreakStringLiterals: true
-ColumnLimit: 180 # TODO: Set this to something more reasonable - maybe 100?
+ColumnLimit: 100 # (original: 180) TODO: Set this to something more reasonable - maybe 100?
 Cpp11BracedListStyle: true
-# InsertNewlineAtEOF: true  # Not available in GitHub Action, since it only supports clang-format v14
+InsertNewlineAtEOF: true
 # SpaceAfterCStyleCast: false
 # SpaceAfterLogicalNot: false
 # SpaceAfterTemplateKeyword: true

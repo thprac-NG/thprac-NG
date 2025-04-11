@@ -39,7 +39,15 @@ struct MappedFile {
 
     MappedFile(const wchar_t* fn, size_t max_size = -1)
     {
-        hFile = CreateFileW(fn, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+        hFile = CreateFileW(
+            fn,
+            GENERIC_READ,
+            FILE_SHARE_READ,
+            nullptr,
+            OPEN_EXISTING,
+            FILE_ATTRIBUTE_NORMAL,
+            nullptr
+        );
         if (hFile == INVALID_HANDLE_VALUE) {
             return;
         }

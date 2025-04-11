@@ -34,7 +34,10 @@
 #ifndef _DEBUG
 extern "C" {
 uint32_t* __vectorcall CPUHitInf_CheckColliders(void*, int, uint32_t*, float, float, float);
-bool __vectorcall _RxD1E00_fast(uint32_t, uint32_t, float, float, float, float, float, float, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t);
+bool __vectorcall _RxD1E00_fast(
+    uint32_t, uint32_t, float, float, float, float, float, float, uint32_t, uint32_t, uint32_t,
+    uint32_t, uint32_t
+);
 }
 #endif
 
@@ -95,7 +98,9 @@ namespace TH19 {
             0xcc,
         };
 
-        HookCtx th19_patch_cpu_check_colliders(0xF8F60, (char*)cpu_check_collider_patch_code, sizeof(cpu_check_collider_patch_code));
+        HookCtx th19_patch_cpu_check_colliders(
+            0xF8F60, (char*)cpu_check_collider_patch_code, sizeof(cpu_check_collider_patch_code)
+        );
         HookCtx th19_patch_RxD1E00(0xD1E00, (char*)patch_RxD1E00_code, sizeof(patch_RxD1E00_code));
 #endif
 
@@ -108,7 +113,9 @@ namespace TH19 {
                     mOptCtx.fps_status = 1;
 
                     DWORD oldProtect;
-                    VirtualProtect((void*)RVA(FPS_USE_IN_CODE), 4, PAGE_EXECUTE_READWRITE, &oldProtect);
+                    VirtualProtect(
+                        (void*)RVA(FPS_USE_IN_CODE), 4, PAGE_EXECUTE_READWRITE, &oldProtect
+                    );
                     *(double**)RVA(FPS_USE_IN_CODE) = &mOptCtx.fps_dbl;
                     mOptCtx.fps_dbl = 60.0;
                     VirtualProtect((void*)RVA(FPS_USE_IN_CODE), 4, oldProtect, &oldProtect);
@@ -131,7 +138,10 @@ namespace TH19 {
         public:
             THAdvOptWnd() noexcept
             {
-                SetWndFlag(ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
+                SetWndFlag(
+                    ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse
+                    | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove
+                );
                 SetFade(0.8f, 0.8f);
                 SetStyle(ImGuiStyleVar_WindowRounding, 0.0f);
                 SetStyle(ImGuiStyleVar_WindowBorderSize, 0.0f);
@@ -182,7 +192,9 @@ namespace TH19 {
 
 #ifndef _DEBUG
                 if (BeginOptGroup<TH_PERFORMANCE>()) {
-                    if (ImGui::Checkbox("Replace certain functions with faster variants", &this->perf_fix)) {
+                    if (ImGui::Checkbox(
+                            "Replace certain functions with faster variants", &this->perf_fix
+                        )) {
                         if (this->perf_fix) {
                             th19_patch_cpu_check_colliders.Enable();
                             th19_patch_RxD1E00.Enable();
@@ -289,7 +301,9 @@ namespace TH19 {
 
                 ImGui::TextUnformatted(S(TH_LIFE));
 
-                if (ImGui::SliderInt("P1##lives_p1", &globals.side[0].lives, 1, globals.side[0].max_lives)) {
+                if (ImGui::SliderInt(
+                        "P1##lives_p1", &globals.side[0].lives, 1, globals.side[0].max_lives
+                    )) {
                     Gui__UpdateHearts(gui + 0x10);
                 }
                 ImGui::SameLine();
@@ -297,7 +311,9 @@ namespace TH19 {
                 ImGui::Checkbox(S(TH09_LOCK), &p1_lives_lock);
                 ImGui::PopID();
 
-                if (ImGui::SliderInt("P2##lives_p2", &globals.side[1].lives, 1, globals.side[1].max_lives)) {
+                if (ImGui::SliderInt(
+                        "P2##lives_p2", &globals.side[1].lives, 1, globals.side[1].max_lives
+                    )) {
                     Gui__UpdateHearts(gui + 0x7C);
                 }
                 ImGui::SameLine();
@@ -325,65 +341,70 @@ namespace TH19 {
 
                 ImGui::TextUnformatted(S(TH09_CHARGE_GAUGE));
 
-                auto chargegauge = [](GlobalsSide& side, bool& lock, const char* format, int& gauge_store) {
-                    float bsize = ImGui::GetFrameHeight();
-                    ImGuiStyle& style = ImGui::GetStyle();
-                    const ImVec2 backup_frame_padding = style.FramePadding;
-                    style.FramePadding.x = style.FramePadding.y;
+                auto chargegauge =
+                    [](GlobalsSide& side, bool& lock, const char* format, int& gauge_store) {
+                        float bsize = ImGui::GetFrameHeight();
+                        ImGuiStyle& style = ImGui::GetStyle();
+                        const ImVec2 backup_frame_padding = style.FramePadding;
+                        style.FramePadding.x = style.FramePadding.y;
 
-                    ImGui::PushID(format);
+                        ImGui::PushID(format);
 
-                    if (!lock) {
-                        gauge_store = side.gauge;
-                    }
-                    ImGui::SliderInt("##_gauge", &gauge_store, 0, 2500, format);
-
-                    ImGui::SameLine(0, style.ItemInnerSpacing.x);
-                    if (ImGui::Button("-##_gauge_subtract", ImVec2(bsize, bsize))) {
-                        if (gauge_store > side.c4_threshold) {
-                            gauge_store = side.c4_threshold;
-                        } else if (gauge_store > side.c3_threshold) {
-                            gauge_store = side.c3_threshold;
-                        } else if (gauge_store > side.c2_threshold) {
-                            gauge_store = side.c2_threshold;
-                        } else if (gauge_store > side.c1_threshold) {
-                            gauge_store = side.c1_threshold;
-                        } else {
-                            gauge_store = 0;
+                        if (!lock) {
+                            gauge_store = side.gauge;
                         }
-                    }
-                    ImGui::SameLine(0, style.ItemInnerSpacing.x);
-                    if (ImGui::Button("+##_gauge_add", ImVec2(bsize, bsize))) {
-                        if (gauge_store < side.c1_threshold) {
-                            gauge_store = side.c1_threshold;
-                        } else if (gauge_store < side.c2_threshold) {
-                            gauge_store = side.c2_threshold;
-                        } else if (gauge_store < side.c3_threshold) {
-                            gauge_store = side.c3_threshold;
-                        } else if (gauge_store < side.c4_threshold) {
-                            gauge_store = side.c4_threshold;
-                        } else {
-                            gauge_store = 2500;
+                        ImGui::SliderInt("##_gauge", &gauge_store, 0, 2500, format);
+
+                        ImGui::SameLine(0, style.ItemInnerSpacing.x);
+                        if (ImGui::Button("-##_gauge_subtract", ImVec2(bsize, bsize))) {
+                            if (gauge_store > side.c4_threshold) {
+                                gauge_store = side.c4_threshold;
+                            } else if (gauge_store > side.c3_threshold) {
+                                gauge_store = side.c3_threshold;
+                            } else if (gauge_store > side.c2_threshold) {
+                                gauge_store = side.c2_threshold;
+                            } else if (gauge_store > side.c1_threshold) {
+                                gauge_store = side.c1_threshold;
+                            } else {
+                                gauge_store = 0;
+                            }
                         }
-                    }
-                    style.FramePadding = backup_frame_padding;
-                    ImGui::SameLine();
-                    ImGui::Checkbox("##_gauge_lock", &lock);
-                    ImGui::PopID();
-                    if (ImGui::IsItemHovered()) {
-                        ImGui::BeginTooltip();
-                        ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
-                        ImGui::TextUnformatted(S(TH09_LOCK));
-                        ImGui::PopTextWrapPos();
-                        ImGui::EndTooltip();
-                    }
-                    side.gauge = gauge_store;
-                };
+                        ImGui::SameLine(0, style.ItemInnerSpacing.x);
+                        if (ImGui::Button("+##_gauge_add", ImVec2(bsize, bsize))) {
+                            if (gauge_store < side.c1_threshold) {
+                                gauge_store = side.c1_threshold;
+                            } else if (gauge_store < side.c2_threshold) {
+                                gauge_store = side.c2_threshold;
+                            } else if (gauge_store < side.c3_threshold) {
+                                gauge_store = side.c3_threshold;
+                            } else if (gauge_store < side.c4_threshold) {
+                                gauge_store = side.c4_threshold;
+                            } else {
+                                gauge_store = 2500;
+                            }
+                        }
+                        style.FramePadding = backup_frame_padding;
+                        ImGui::SameLine();
+                        ImGui::Checkbox("##_gauge_lock", &lock);
+                        ImGui::PopID();
+                        if (ImGui::IsItemHovered()) {
+                            ImGui::BeginTooltip();
+                            ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
+                            ImGui::TextUnformatted(S(TH09_LOCK));
+                            ImGui::PopTextWrapPos();
+                            ImGui::EndTooltip();
+                        }
+                        side.gauge = gauge_store;
+                    };
 
                 chargegauge(globals.side[0], p1_gauge_lock, "P1: %d", p1_gauge_stored);
                 chargegauge(globals.side[1], p2_gauge_lock, "P2: %d", p2_gauge_stored);
 
-                auto c3c4 = [](GlobalsSide& side, int& c3_level_stored, int& c4_level_stored, bool& c3_level_lock, bool& c4_level_lock) {
+                auto c3c4 = [](GlobalsSide& side,
+                               int& c3_level_stored,
+                               int& c4_level_stored,
+                               bool& c3_level_lock,
+                               bool& c4_level_lock) {
                     ImGui::PushID((int)&side);
 
                     if (!c3_level_lock) {
@@ -414,10 +435,22 @@ namespace TH19 {
                 };
 
                 ImGui::TextUnformatted(S(TH19_C_RANK_P1));
-                c3c4(globals.side[0], p1_c3_level_stored, p1_c4_level_stored, p1_c3_level_lock, p1_c4_level_lock);
+                c3c4(
+                    globals.side[0],
+                    p1_c3_level_stored,
+                    p1_c4_level_stored,
+                    p1_c3_level_lock,
+                    p1_c4_level_lock
+                );
 
                 ImGui::TextUnformatted(S(TH19_C_RANK_P2));
-                c3c4(globals.side[1], p2_c3_level_stored, p2_c4_level_stored, p2_c3_level_lock, p2_c4_level_lock);
+                c3c4(
+                    globals.side[1],
+                    p2_c3_level_stored,
+                    p2_c4_level_stored,
+                    p2_c3_level_lock,
+                    p2_c4_level_lock
+                );
 
                 ImGui::TextUnformatted(S(TH09_CPU_CHARGE));
 
@@ -536,7 +569,8 @@ namespace TH19 {
         EHOOK_DY(th19_invincible, 0x145EE3)
         {
             TH19Tools& t = TH19Tools::singleton();
-            if (((pCtx->Edi == *(DWORD*)RVA(P1_PTR)) && t.p1_invincible) || ((pCtx->Edi == *(DWORD*)RVA(P2_PTR)) && t.p2_invincible)) {
+            if (((pCtx->Edi == *(DWORD*)RVA(P1_PTR)) && t.p1_invincible)
+                || ((pCtx->Edi == *(DWORD*)RVA(P2_PTR)) && t.p2_invincible)) {
                 pCtx->Eip = RVA(0x145EF0);
             }
         }
@@ -546,7 +580,8 @@ namespace TH19 {
             TH19Tools& t = TH19Tools::singleton();
             DWORD p = pCtx->Ecx - 0x18;
 
-            if (((p == *(DWORD*)RVA(P1_PTR)) && t.p1_invincible) || ((p == *(DWORD*)RVA(P2_PTR)) && t.p2_invincible)) {
+            if (((p == *(DWORD*)RVA(P1_PTR)) && t.p1_invincible)
+                || ((p == *(DWORD*)RVA(P2_PTR)) && t.p2_invincible)) {
                 pCtx->Eax = 0;
                 pCtx->Eip = PopHelper32(pCtx);
             }
@@ -557,7 +592,8 @@ namespace TH19 {
             Globals& globals = *(Globals*)RVA(GLOBALS);
             TH19Tools& t = TH19Tools::singleton();
 
-            if (((pCtx->Edi == (uintptr_t)&globals.side[0]) && t.p1_lives_lock) || ((pCtx->Edi == (uintptr_t)&globals.side[1]) && t.p2_lives_lock)) {
+            if (((pCtx->Edi == (uintptr_t)&globals.side[0]) && t.p1_lives_lock)
+                || ((pCtx->Edi == (uintptr_t)&globals.side[1]) && t.p2_lives_lock)) {
                 pCtx->Eip++;
             }
         }
@@ -576,7 +612,8 @@ namespace TH19 {
                 }
             };
 
-            if ((CHK(P1_CPU_PTR) && t.p1_cpu_next_charge_lock) || (CHK(P2_CPU_PTR) && t.p2_cpu_next_charge_lock)) {
+            if ((CHK(P1_CPU_PTR) && t.p1_cpu_next_charge_lock)
+                || (CHK(P2_CPU_PTR) && t.p2_cpu_next_charge_lock)) {
                 pCtx->Eip = RVA(0xFA728);
             }
         }
@@ -690,7 +727,9 @@ namespace TH19 {
                 mStage();
                 ImGui::Separator();
                 ImGui::TextUnformatted("Additonal cards");
-                Gui::MultiComboSelect(mAdditionalCards, cards, elementsof(cards), S(TH18_CARD_FORMAT));
+                Gui::MultiComboSelect(
+                    mAdditionalCards, cards, elementsof(cards), S(TH18_CARD_FORMAT)
+                );
             }
         };
 
@@ -737,7 +776,10 @@ namespace TH19 {
                 t.Update();
             }
 #endif
-            GameGuiEnd(UpdateAdvOptWindow() || THVSSelect::singleton().IsOpen() || THGuiPrac::singleton().IsOpen() || t.IsOpen());
+            GameGuiEnd(
+                UpdateAdvOptWindow() || THVSSelect::singleton().IsOpen()
+                || THGuiPrac::singleton().IsOpen() || t.IsOpen()
+            );
         }
 
         EHOOK_DY(th19_render, 0xD72C0)
@@ -850,8 +892,10 @@ namespace TH19 {
         HOOKSET_DEFINE(THInitHook)
         static __declspec(noinline) void THGuiCreate()
         {
-            *(uintptr_t*)(cpu_check_collider_patch_code + 1) = (uintptr_t)&CPUHitInf_CheckColliders - RVA((uintptr_t)th19_patch_cpu_check_colliders.mTarget + 5);
-            *(uintptr_t*)(patch_RxD1E00_code + 1) = (uintptr_t)&_RxD1E00_fast - RVA((uintptr_t)th19_patch_RxD1E00.mTarget + 5);
+            *(uintptr_t*)(cpu_check_collider_patch_code + 1) = (uintptr_t)&CPUHitInf_CheckColliders
+                - RVA((uintptr_t)th19_patch_cpu_check_colliders.mTarget + 5);
+            *(uintptr_t*)(patch_RxD1E00_code + 1) =
+                (uintptr_t)&_RxD1E00_fast - RVA((uintptr_t)th19_patch_RxD1E00.mTarget + 5);
 
             th19_vs_mode_disable_movement.Setup();
             th19_charsel_disable_movement.Setup();

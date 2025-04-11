@@ -303,14 +303,22 @@ namespace TH11 {
                 break;
             case 2:
             case 3: // Mid boss & End boss
-                if (mSection(TH_WARP_SELECT[*mWarp], th_sections_cba[*mStage][*mWarp - 2], th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
+                if (mSection(
+                        TH_WARP_SELECT[*mWarp],
+                        th_sections_cba[*mStage][*mWarp - 2],
+                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]
+                    ))
                     *mPhase = 0;
                 if (SectionHasDlg(th_sections_cba[*mStage][*mWarp - 2][*mSection]))
                     mDlg();
                 break;
             case 4:
             case 5: // Non-spell & Spellcard
-                if (mSection(TH_WARP_SELECT[*mWarp], th_sections_cbt[*mStage][*mWarp - 4], th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
+                if (mSection(
+                        TH_WARP_SELECT[*mWarp],
+                        th_sections_cbt[*mStage][*mWarp - 4],
+                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]
+                    ))
                     *mPhase = 0;
                 if (SectionHasDlg(th_sections_cbt[*mStage][*mWarp - 4][*mSection]))
                     mDlg();
@@ -424,7 +432,8 @@ namespace TH11 {
             SetPos(10.0f, 10.0f);
             SetSize(0.0f, 0.0f);
             SetWndFlag(
-                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
+                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove
+                | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
                 | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0
             );
             OnLocaleChange();
@@ -484,14 +493,27 @@ namespace TH11 {
 
         Gui::GuiHotKey mMenu{"ModMenuToggle", "BACKSPACE", VK_BACK};
         Gui::GuiHotKey mMuteki{
-            TH_MUTEKI, "F1", VK_F1, {new HookCtx(0x432AA4, "\x01", 1), new HookCtx(0x431205, "\xeb", 1), new HookCtx(0x432ae7, "\x83\xc4\x0c\x90\x90", 5)}
+            TH_MUTEKI,
+            "F1",
+            VK_F1,
+            {new HookCtx(0x432AA4, "\x01", 1),
+              new HookCtx(0x431205, "\xeb", 1),
+              new HookCtx(0x432ae7, "\x83\xc4\x0c\x90\x90", 5)}
         };
         Gui::GuiHotKey mInfLives{TH_INFLIVES, "F2", VK_F2, {new HookCtx(0x4327EC, "\x90", 1)}};
         Gui::GuiHotKey mInfPower{
-            TH_INFPOWER, "F3", VK_F3, {new HookCtx(0x4311EB, "\xeb\x0a", 2), new HookCtx(0x431298, "\xeb\x09", 2), new HookCtx(0x4312E0, "\x0f\x1f\x44\x00", 4)}
+            TH_INFPOWER,
+            "F3",
+            VK_F3,
+            {new HookCtx(0x4311EB, "\xeb\x0a", 2),
+              new HookCtx(0x431298, "\xeb\x09", 2),
+              new HookCtx(0x4312E0, "\x0f\x1f\x44\x00", 4)}
         };
         Gui::GuiHotKey mTimeLock{
-            TH_TIMELOCK, "F4", VK_F4, {new HookCtx(0x40C0DD, "\xeb", 1), new HookCtx(0x41278C, "\x90", 1)}
+            TH_TIMELOCK,
+            "F4",
+            VK_F4,
+            {new HookCtx(0x40C0DD, "\xeb", 1), new HookCtx(0x41278C, "\x90", 1)}
         };
         Gui::GuiHotKey mAutoBomb{TH_AUTOBOMB, "F5", VK_F5, {new HookCtx(0x431279, "\xc6", 1)}};
 
@@ -568,7 +590,10 @@ namespace TH11 {
 
         THAdvOptWnd() noexcept
         {
-            SetWndFlag(ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
+            SetWndFlag(
+                ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse
+                | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove
+            );
             SetFade(0.8f, 0.8f);
             SetStyle(ImGuiStyleVar_WindowRounding, 0.0f);
             SetStyle(ImGuiStyleVar_WindowBorderSize, 0.0f);
@@ -656,8 +681,10 @@ namespace TH11 {
         VFile std;
         std.SetFile(buffer, 999999);
         std.SetPos(0x328);
-        std << 0 << 0x0010000e << 0 << 2 << 0 << 0x00140008 << 0xff000000 << 0x44480000 << 0x44960000 << 0 << 0x000c0011 << 2 << 0 << 0x00140002 << 0 << 0xc4e04000 << 0xc4960000
-            << 0x8000 << 0x00100001 << 0x234 << 0 << 0xffffffff << 0xffffffff << 0xffffffff << 0xffffffff << 0xffffffff;
+        std << 0 << 0x0010000e << 0 << 2 << 0 << 0x00140008 << 0xff000000 << 0x44480000
+            << 0x44960000 << 0 << 0x000c0011 << 2 << 0 << 0x00140002 << 0 << 0xc4e04000
+            << 0xc4960000 << 0x8000 << 0x00100001 << 0x234 << 0 << 0xffffffff << 0xffffffff
+            << 0xffffffff << 0xffffffff << 0xffffffff;
 
         return nullptr;
     }
@@ -675,12 +702,16 @@ namespace TH11 {
         return nullptr;
     }
 
-    void ECLJump(ECLHelper& ecl, unsigned int start, unsigned int dest, int delay = 0, int ecl_time = 0)
+    void ECLJump(
+        ECLHelper& ecl, unsigned int start, unsigned int dest, int delay = 0, int ecl_time = 0
+    )
     {
         ecl.SetPos(start);
         ecl << ecl_time << 0x0018000C << 0x02ff0000 << 0x00000000 << dest - start << delay;
     }
-    void ECLTimeFix(ECLHelper& ecl, size_t pos, int32_t delta_time, unsigned int ins_count = 0xFFFFFFFF)
+    void ECLTimeFix(
+        ECLHelper& ecl, size_t pos, int32_t delta_time, unsigned int ins_count = 0xFFFFFFFF
+    )
     {
         ecl.SetPos(pos);
         int32_t ecl_time;
@@ -701,7 +732,9 @@ namespace TH11 {
             ecl.SetPos(p);
         }
     }
-    void ECLSetHealth(ECLHelper& ecl, size_t pos, int32_t health, int32_t ecl_time = 0, bool stall = true)
+    void ECLSetHealth(
+        ECLHelper& ecl, size_t pos, int32_t health, int32_t ecl_time = 0, bool stall = true
+    )
     {
         ecl.SetPos(pos);
         ecl << ecl_time << 0x0014014b << 0x01ff0000 << 0 << health;
@@ -720,7 +753,8 @@ namespace TH11 {
     void ECLSatoriJump(ECLHelper& ecl, int shot_type)
     {
         ECLJump(ecl, 0xf764, 0xfa04);
-        ecl << pair{0x1108, 0x10} << pair{0x1110, 0x64726143} << pair{0x1114, 0x67734d32} << pair{0x1118, 0};
+        ecl << pair{0x1108, 0x10} << pair{0x1110, 0x64726143} << pair{0x1114, 0x67734d32}
+            << pair{0x1118, 0};
         ecl << pair{0x10fe, (int16_t)0x2c};
         ECLVoid(ecl, 0x5568, 0x55b4, 0x5704, 0x5618, 0x5664);
         switch (shot_type) {
@@ -941,7 +975,8 @@ namespace TH11 {
         case THPrac::TH11::TH11_ST1_MID3_HL:
             ECLJump(ecl, 0x10a90, 0x10bb0);
             ECLJump(ecl, 0x10a90, 0x10bb0);
-            ecl << pair{0x10bb0, 0} << pair{0x7214, 4300} << pair{0x7228, 900} << pair{0x72d0, 4300} << pair{0x7348, 900};
+            ecl << pair{0x10bb0, 0} << pair{0x7214, 4300} << pair{0x7228, 900} << pair{0x72d0, 4300}
+                << pair{0x7348, 900};
             ECLVoid(ecl, 0x7714, 0x7818);
             ECLVoid(ecl, 0x7714, 0x7e78, 0x8570, 0x7f54);
             break;
@@ -993,7 +1028,8 @@ namespace TH11 {
             break;
         case THPrac::TH11::TH11_ST2_BOSS2:
             ECLJump(ecl, 0xf1b4, 0xf360);
-            ecl << pair{0xf360, 0} << pair{0xc80, 1500} << pair{0xc94, 1500} << pair{0x24c0, (int16_t)0};
+            ecl << pair{0xf360, 0} << pair{0xc80, 1500} << pair{0xc94, 1500}
+                << pair{0x24c0, (int16_t)0};
             break;
         case THPrac::TH11::TH11_ST2_BOSS3:
             ECLJump(ecl, 0xf1b4, 0xf360);
@@ -1009,7 +1045,8 @@ namespace TH11 {
         case THPrac::TH11::TH11_ST2_BOSS5:
             ECLJump(ecl, 0xf1b4, 0xf360);
             ECLTimeFix(ecl, 0xcf8, -60);
-            ecl << pair{0xf360, 0} << pair{0xd78, 12} << pair{0xd80, 0x64726143} << pair{0xd84, 0x33} // Str
+            ecl << pair{0xf360, 0} << pair{0xd78, 12} << pair{0xd80, 0x64726143}
+                << pair{0xd84, 0x33} // Str
                 << pair{0xc80, 1500} << pair{0xc94, 1500};
             ECLVoid(ecl, 0xd08, 0x5538, 0x5548);
             break;
@@ -1070,7 +1107,8 @@ namespace TH11 {
             break;
         case THPrac::TH11::TH11_ST4_MID1:
             ECLJump(ecl, 0xf764, 0xf7c0);
-            ecl << pair{0x95f0, (int16_t)0} << pair{0x7b74, (int16_t)0} << pair{0x7af4, (int16_t)0} << pair{0xf7f0, 900};
+            ecl << pair{0x95f0, (int16_t)0} << pair{0x7b74, (int16_t)0} << pair{0x7af4, (int16_t)0}
+                << pair{0xf7f0, 900};
             break;
         case THPrac::TH11::TH11_ST4_MID2:
             ECLJump(ecl, 0xf764, 0xf8b0);
@@ -1239,7 +1277,8 @@ namespace TH11 {
             ecl << 0 << 0x00200142 << 0x01ff0000 << 0 << 65;
             ecl.SetPos(0xd1c);
             ecl << 3 << 0x00140143 << 0x01ff0000 << 0 << 1;
-            ecl << 0 << 0x002c014e << 0x04ff0000 << 0 << 0 << 1500 << 3000 << 0xc << 0x73736f42 << 0x64726143 << 0x31;
+            ecl << 0 << 0x002c014e << 0x04ff0000 << 0 << 0 << 1500 << 3000 << 0xc << 0x73736f42
+                << 0x64726143 << 0x31;
             ecl << 9999 << 0x00100000 << 0x00ff0000 << 0;
             ecl << pair{0x1dac, 0x43960000} << pair{0x1dc0, 2};
             ECLVoid(ecl, 0x15d0, 0x1570);
@@ -1408,14 +1447,16 @@ namespace TH11 {
                 ECLJump(ecl, 0x9260, 0x9318);
                 ECLJump(ecl, 0x9354, 0x940c);
                 ECLJump(ecl, 0x946c, 0x9524);
-                ecl << pair{0x9344, (int16_t)0} << pair{0x9438, (int16_t)0} << pair{0x9550, (int16_t)0};
+                ecl << pair{0x9344, (int16_t)0} << pair{0x9438, (int16_t)0}
+                    << pair{0x9550, (int16_t)0};
                 break;
             case 4:
                 ecl << pair{0x8cb0, 1499};
                 ECLJump(ecl, 0x9260, 0x9318);
                 ECLJump(ecl, 0x9354, 0x940c);
                 ECLJump(ecl, 0x946c, 0x9524);
-                ecl << pair{0x9344, (int16_t)0} << pair{0x9438, (int16_t)0} << pair{0x9550, (int16_t)0};
+                ecl << pair{0x9344, (int16_t)0} << pair{0x9438, (int16_t)0}
+                    << pair{0x9550, (int16_t)0};
                 ecl << pair{0x9f70, 2181}; // 2180
                 ecl << pair{0xa08c, (int16_t)0};
                 break;
@@ -1683,9 +1724,12 @@ namespace TH11 {
         bool is_practice;
         bool result;
 
-        el_switch = *(THOverlay::singleton().mElBgm) && !THGuiRep::singleton().mRepStatus && thPracParam.mode && thPracParam.section;
+        el_switch = *(THOverlay::singleton().mElBgm) && !THGuiRep::singleton().mRepStatus
+            && thPracParam.mode && thPracParam.section;
         is_practice = (*((int32_t*)0x4a5758) & 0x1);
-        result = ElBgmTest<0x42a183, 0x42028f, 0x42c72a, 0x42c8af, 0xffffffff>(el_switch, is_practice, retn_addr, bgm_cmd, bgm_id, 0xffffffff);
+        result = ElBgmTest<0x42a183, 0x42028f, 0x42c72a, 0x42c8af, 0xffffffff>(
+            el_switch, is_practice, retn_addr, bgm_cmd, bgm_id, 0xffffffff
+        );
 
         if (result) {
             pCtx->Eip = 0x44aa54;
@@ -1750,7 +1794,8 @@ namespace TH11 {
     EHOOK_DY(th11_disable_logo, 0x41a7ef)
     {
         if (thPracParam.mode == 1 && thPracParam.section) {
-            if (thPracParam.section <= 10000 || thPracParam.section >= 20000 || thPracParam.section % 100 != 1) {
+            if (thPracParam.section <= 10000 || thPracParam.section >= 20000
+                || thPracParam.section % 100 != 1) {
                 pCtx->Eip = 0x41a8cf;
             }
         }
@@ -1832,7 +1877,17 @@ namespace TH11 {
     static __declspec(noinline) void THGuiCreate()
     {
         // Init
-        GameGuiInit(IMPL_WIN32_DX9, 0x4c3288, 0x4c3d88, 0x445e00, Gui::INGAGME_INPUT_GEN2, 0x4c92b4, 0x4c92b0, 0, -1);
+        GameGuiInit(
+            IMPL_WIN32_DX9,
+            0x4c3288,
+            0x4c3d88,
+            0x445e00,
+            Gui::INGAGME_INPUT_GEN2,
+            0x4c92b4,
+            0x4c92b0,
+            0,
+            -1
+        );
 
         // Gui components creation
         THGuiPrac::singleton();

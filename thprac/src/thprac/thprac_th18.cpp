@@ -312,7 +312,8 @@ namespace TH18 {
                 pair.second.second = false;
 
             uint32_t* list = nullptr;
-            for (uint32_t* i = (uint32_t*)GetMemContent(ABILTIY_MANAGER_PTR, 0x1c); i; i = (uint32_t*)i[1]) {
+            for (uint32_t* i = (uint32_t*)GetMemContent(ABILTIY_MANAGER_PTR, 0x1c); i;
+                 i = (uint32_t*)i[1]) {
                 list = i;
                 auto cardId = ((uint32_t**)list)[0][1];
 
@@ -477,14 +478,22 @@ namespace TH18 {
                 break;
             case 2:
             case 3: // Mid boss & End boss
-                if (mSection(TH_WARP_SELECT[*mWarp], th_sections_cba[*mStage][*mWarp - 2], th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
+                if (mSection(
+                        TH_WARP_SELECT[*mWarp],
+                        th_sections_cba[*mStage][*mWarp - 2],
+                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]
+                    ))
                     *mPhase = 0;
                 if (SectionHasDlg(th_sections_cba[*mStage][*mWarp - 2][*mSection]))
                     mDlg();
                 break;
             case 4:
             case 5: // Non-spell & Spellcard
-                if (mSection(TH_WARP_SELECT[*mWarp], th_sections_cbt[*mStage][*mWarp - 4], th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
+                if (mSection(
+                        TH_WARP_SELECT[*mWarp],
+                        th_sections_cbt[*mStage][*mWarp - 4],
+                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]
+                    ))
                     *mPhase = 0;
                 if (SectionHasDlg(th_sections_cbt[*mStage][*mWarp - 4][*mSection]))
                     mDlg();
@@ -528,25 +537,30 @@ namespace TH18 {
         Gui::GuiSlider<int, ImGuiDataType_S32> mRiceball{TH18_RICEBALL_CD, 0, 10000, 1, 1000};
         Gui::GuiSlider<int, ImGuiDataType_S32> mMukade{TH18_MUKADE, 0, 800, 1, 100};
 
-        std::unordered_map<int, std::pair<Gui::GuiSlider<int, ImGuiDataType_S32>*, bool>> mCardToggles = {
-            {KOZUCHI,   {&mKozuchi, false}  },
-            {KANAME,    {&mKaname, false}   },
-            {MOON,      {&mMoon, false}     },
-            {MIKOFLASH, {&mMikoflash, false}},
-            {VAMPIRE,   {&mVampire, false}  },
-            {SUN,       {&mSun, false}      },
-            {LILY,      {&mLilyCD, false}   },
-            {BASSDRUM,  {&mBassdrum, false} },
-            {PSYCO,     {&mPsyco, false}    },
-            {CYLINDER,  {&mCylinder, false} },
-            {RICEBALL,  {&mRiceball, false} },
-            {MUKADE,    {&mMukade, false}   },
+        std::unordered_map<int, std::pair<Gui::GuiSlider<int, ImGuiDataType_S32>*, bool>>
+            mCardToggles = {
+                {KOZUCHI,   {&mKozuchi, false}  },
+                {KANAME,    {&mKaname, false}   },
+                {MOON,      {&mMoon, false}     },
+                {MIKOFLASH, {&mMikoflash, false}},
+                {VAMPIRE,   {&mVampire, false}  },
+                {SUN,       {&mSun, false}      },
+                {LILY,      {&mLilyCD, false}   },
+                {BASSDRUM,  {&mBassdrum, false} },
+                {PSYCO,     {&mPsyco, false}    },
+                {CYLINDER,  {&mCylinder, false} },
+                {RICEBALL,  {&mRiceball, false} },
+                {MUKADE,    {&mMukade, false}   },
         };
 
-        Gui::GuiNavFocus mNavFocus{TH_STAGE,        TH_MODE,      TH_WARP,          TH_DLG,         TH_MID_STAGE,     TH_END_STAGE,      TH_NONSPELL,      TH_SPELL,
-                                   TH_PHASE,        TH_CHAPTER,   TH_SCORE,         TH_LIFE,        TH_LIFE_FRAGMENT, TH_BOMB,           TH_BOMB_FRAGMENT, TH_POWER,
-                                   TH18_FUNDS,      TH18_MUKADE,  TH18_KOZUCHI_CD,  TH18_KANAME_CD, TH18_MOON_CD,     TH18_MIKOFLASH_CD, TH18_VAMPIRE_CD,  TH18_SUN_CD,
-                                   TH18_LILY_COUNT, TH18_LILY_CD, TH18_BASSDRUM_CD, TH18_PSYCO_CD,  TH18_CYLINDER_CD, TH18_RICEBALL_CD};
+        Gui::GuiNavFocus mNavFocus{
+            TH_STAGE,     TH_MODE,           TH_WARP,          TH_DLG,           TH_MID_STAGE,
+            TH_END_STAGE, TH_NONSPELL,       TH_SPELL,         TH_PHASE,         TH_CHAPTER,
+            TH_SCORE,     TH_LIFE,           TH_LIFE_FRAGMENT, TH_BOMB,          TH_BOMB_FRAGMENT,
+            TH_POWER,     TH18_FUNDS,        TH18_MUKADE,      TH18_KOZUCHI_CD,  TH18_KANAME_CD,
+            TH18_MOON_CD, TH18_MIKOFLASH_CD, TH18_VAMPIRE_CD,  TH18_SUN_CD,      TH18_LILY_COUNT,
+            TH18_LILY_CD, TH18_BASSDRUM_CD,  TH18_PSYCO_CD,    TH18_CYLINDER_CD, TH18_RICEBALL_CD
+        };
 
         int mChapterSetup[7][2]{
             {3, 2},
@@ -641,7 +655,8 @@ namespace TH18 {
             uint32_t* list = nullptr;
             uint8_t cardIdArray[64];
             memset(cardIdArray, 0, 64);
-            for (uint32_t* i = (uint32_t*)GetMemContent(ABILTIY_MANAGER_PTR, 0x1c); i; i = (uint32_t*)i[1]) {
+            for (uint32_t* i = (uint32_t*)GetMemContent(ABILTIY_MANAGER_PTR, 0x1c); i;
+                 i = (uint32_t*)i[1]) {
                 list = i;
                 auto cardId = ((uint32_t**)list)[0][1];
                 cardIdArray[cardId] += 1;
@@ -660,7 +675,8 @@ namespace TH18 {
             SetPos(10.0f, 10.0f);
             SetSize(0.0f, 0.0f);
             SetWndFlag(
-                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
+                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove
+                | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
                 | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0
             );
             OnLocaleChange();
@@ -803,7 +819,8 @@ namespace TH18 {
                             uint32_t cardsCount = GetMemContent(ABILITY_SHOP_PTR, 0xa2c);
                             uint32_t cardsSrcIndex = (i - 1) * cardsCount + 1;
                             uint32_t cardsSrcOffset = (CARD_DESC_LIST + 0x34 * cardsSrcIndex);
-                            uint32_t* cardsDestOffset = (uint32_t*)GetMemAddr(ABILITY_SHOP_PTR, 0xa30);
+                            uint32_t* cardsDestOffset =
+                                (uint32_t*)GetMemAddr(ABILITY_SHOP_PTR, 0xa30);
 
                             for (uint32_t _ = 0; _ < cardsCount; ++_) {
                                 if (cardsSrcIndex >= 55) {
@@ -859,7 +876,9 @@ namespace TH18 {
             TH_INFBOMBS,
             "F3",
             VK_F3,
-            {new HookCtx(0x4574d3, "\x90\x90\x90\x90", 4), new HookCtx(0x40a3ed, "\x90\x90\x90\x90\x90\x90", 6), new HookCtx(0x40a42c, "\x90\x90\x90\x90\x90\x90", 6)}
+            {new HookCtx(0x4574d3, "\x90\x90\x90\x90", 4),
+              new HookCtx(0x40a3ed, "\x90\x90\x90\x90\x90\x90", 6),
+              new HookCtx(0x40a42c, "\x90\x90\x90\x90\x90\x90", 6)}
         };
         Gui::GuiHotKey mInfPower{TH_INFPOWER, "F4", VK_F4, {new HookCtx(0x45748e, "\x90\x90", 2)}};
         Gui::GuiHotKey mInfFunds{
@@ -872,9 +891,14 @@ namespace TH18 {
               new HookCtx(0x418465, "\x90\x90", 2)}
         };
         Gui::GuiHotKey mTimeLock{
-            TH_TIMELOCK, "F6", VK_F6, {new HookCtx(0x429eef, "\xeb", 1), new HookCtx(0x43021b, "\x05\x8d", 2)}
+            TH_TIMELOCK,
+            "F6",
+            VK_F6,
+            {new HookCtx(0x429eef, "\xeb", 1), new HookCtx(0x43021b, "\x05\x8d", 2)}
         };
-        Gui::GuiHotKey mAutoBomb{TH_AUTOBOMB, "F7", VK_F7, {new HookCtx(0x45c2bd, "\x90\x90\x90\x90\x90\x90", 6)}};
+        Gui::GuiHotKey mAutoBomb{
+            TH_AUTOBOMB, "F7", VK_F7, {new HookCtx(0x45c2bd, "\x90\x90\x90\x90\x90\x90", 6)}
+        };
         Gui::GuiHotKey mZeroCD{TH18_ZERO_CD, "F8", VK_F8, {new HookCtx(0x45c0e3, [](PCONTEXT pCtx) {
                                    struct Timer {
                                        int32_t prev;
@@ -1019,8 +1043,9 @@ namespace TH18 {
     static const char* scoreDispFmt = "%s  %.8u%u";
 
     uint32_t scoreUncapOffsetNew[] = {
-        0x419e70, 0x42a7fd, 0x42a80f, 0x430eab, 0x430eb6, 0x44476b, 0x44477a, 0x444ad9, 0x444ade, 0x444c00, 0x444c05, 0x4462eb,
-        0x446302, 0x4463a1, 0x4463b1, 0x44656e, 0x446578, 0x446ac6, 0x446ad7, 0x446d09, 0x446d1a, 0x45f2c4, 0x45f2cf,
+        0x419e70, 0x42a7fd, 0x42a80f, 0x430eab, 0x430eb6, 0x44476b, 0x44477a, 0x444ad9,
+        0x444ade, 0x444c00, 0x444c05, 0x4462eb, 0x446302, 0x4463a1, 0x4463b1, 0x44656e,
+        0x446578, 0x446ac6, 0x446ad7, 0x446d09, 0x446d1a, 0x45f2c4, 0x45f2cf,
     };
     HookCtx scoreUncapStageTrFix[2];
     HookCtx scoreUncapHooks[elementsof(scoreUncapOffsetNew)];
@@ -1029,12 +1054,20 @@ namespace TH18 {
     private:
         THAdvOptWnd() noexcept
         {
-            SetWndFlag(ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
+            SetWndFlag(
+                ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse
+                | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove
+            );
             SetFade(0.8f, 0.8f);
             SetStyle(ImGuiStyleVar_WindowRounding, 0.0f);
             SetStyle(ImGuiStyleVar_WindowBorderSize, 0.0f);
 
-            InitUpdFunc([&]() { ContentUpdate(); }, [&]() { LocaleUpdate(); }, [&]() { PreUpdate(); }, []() {});
+            InitUpdFunc(
+                [&]() { ContentUpdate(); },
+                [&]() { LocaleUpdate(); },
+                [&]() { PreUpdate(); },
+                []() {}
+            );
 
             OnLocaleChange();
             FpsInit();
@@ -1149,7 +1182,8 @@ namespace TH18 {
         }
         EHOOK_ST(th18_scroll_fix, 0x407e05)
         {
-            if (GetMemContent(GAME_THREAD_PTR) && GetMemContent(GAME_THREAD_PTR, 0xd0) && *(uint32_t*)(pCtx->Esp + 0x18) == 0x417955
+            if (GetMemContent(GAME_THREAD_PTR) && GetMemContent(GAME_THREAD_PTR, 0xd0)
+                && *(uint32_t*)(pCtx->Esp + 0x18) == 0x417955
                 && *(uint32_t*)(pCtx->Esp + 0x3c) == 0x417d39) {
                 pCtx->Eip = 0x407e0f;
             }
@@ -1213,7 +1247,9 @@ namespace TH18 {
                 }
             }
         }
-        __declspec(noinline) void MsgBox(UINT type, const wchar_t* title, const wchar_t* msg, const wchar_t* msg2 = nullptr)
+        __declspec(noinline) void MsgBox(
+            UINT type, const wchar_t* title, const wchar_t* msg, const wchar_t* msg2 = nullptr
+        )
         {
             std::wstring _msg = msg;
             if (msg2) {
@@ -1221,7 +1257,9 @@ namespace TH18 {
             }
             MessageBoxW(*(HWND*)0x568c30, _msg.c_str(), title, type);
         }
-        __declspec(noinline) void MsgBox(UINT type, const char* title, const char* msg, const char* msg2 = nullptr)
+        __declspec(noinline) void MsgBox(
+            UINT type, const char* title, const char* msg, const char* msg2 = nullptr
+        )
         {
             wchar_t _title[256];
             wchar_t _msg[256];
@@ -1242,10 +1280,14 @@ namespace TH18 {
             }
         }
 
-#define ThEncrypt(data, size1, param1, param2, param3, size2) asm_call<0x401f50, Fastcall>(data, size1, param1, param2, param3, size2)
-#define ThDecrypt(data, size1, param1, param2, param3, size2) asm_call<0x401e40, Fastcall>(data, size1, param1, param2, param3, size2)
-#define ThUnlzss(dataBuffer, dataSize, outBuffer, outSize) asm_call<0x46f840, Fastcall>(dataBuffer, dataSize, outBuffer, outSize)
-#define ThLzss(dataBuffer, dataSize, outSize) asm_call<0x46f5b0, Fastcall, void*>(dataBuffer, dataSize, outSize)
+#define ThEncrypt(data, size1, param1, param2, param3, size2) \
+    asm_call<0x401f50, Fastcall>(data, size1, param1, param2, param3, size2)
+#define ThDecrypt(data, size1, param1, param2, param3, size2) \
+    asm_call<0x401e40, Fastcall>(data, size1, param1, param2, param3, size2)
+#define ThUnlzss(dataBuffer, dataSize, outBuffer, outSize) \
+    asm_call<0x46f840, Fastcall>(dataBuffer, dataSize, outBuffer, outSize)
+#define ThLzss(dataBuffer, dataSize, outSize) \
+    asm_call<0x46f5b0, Fastcall, void*>(dataBuffer, dataSize, outSize)
 #define _builtin_free(buffer) asm_call<0x491a3f, Cdecl>(buffer)
 
         __declspec(noinline) void UnloadReplay()
@@ -1350,7 +1392,15 @@ namespace TH18 {
             ofn.lpstrDefExt = L".rpy";
             ofn.Flags = OFN_OVERWRITEPROMPT;
             if (GetSaveFileNameW(&ofn)) {
-                auto outputFile = CreateFileW(szFile, GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+                auto outputFile = CreateFileW(
+                    szFile,
+                    GENERIC_READ | GENERIC_WRITE,
+                    0,
+                    nullptr,
+                    OPEN_ALWAYS,
+                    FILE_ATTRIBUTE_NORMAL,
+                    nullptr
+                );
                 if (outputFile == INVALID_HANDLE_VALUE) {
                     MsgBox(MB_ICONERROR | MB_OK, S(TH14_ERROR), S(TH14_ERROR_DEST));
                     goto end;
@@ -1362,7 +1412,12 @@ namespace TH18 {
                 WriteFile(outputFile, mRepExtraData, mRepExtraDataSize, &bytesProcessed, nullptr);
                 CloseHandle(outputFile);
 
-                MsgBox(MB_ICONINFORMATION | MB_OK, utf8_to_utf16(S(TH14_SUCCESS)).c_str(), utf8_to_utf16(S(TH14_SUCCESS_SAVED)).c_str(), szFile);
+                MsgBox(
+                    MB_ICONINFORMATION | MB_OK,
+                    utf8_to_utf16(S(TH14_SUCCESS)).c_str(),
+                    utf8_to_utf16(S(TH14_SUCCESS_SAVED)).c_str(),
+                    szFile
+                );
             }
 
         end:
@@ -1386,7 +1441,11 @@ namespace TH18 {
             mRepExtraDataSize = file.fileSize - mRepHeader[3];
             mRepExtraData = malloc(mRepExtraDataSize);
             memcpy(mRepDataRaw, (void*)((uint32_t)file.fileMapView + 0x24), mRepHeader[7]);
-            memcpy(mRepExtraData, (void*)((uint32_t)file.fileMapView + mRepHeader[3]), mRepExtraDataSize);
+            memcpy(
+                mRepExtraData,
+                (void*)((uint32_t)file.fileMapView + mRepHeader[3]),
+                mRepExtraDataSize
+            );
             ThDecrypt(mRepDataRaw, mRepHeader[7], 0x5c, 0xe1, 0x400, mRepHeader[7]);
             ThDecrypt(mRepDataRaw, mRepHeader[7], 0x7d, 0x3a, 0x100, mRepHeader[7]);
             ThUnlzss(mRepDataRaw, mRepHeader[7], mRepDataDecoded, mRepHeader[8]);
@@ -1411,7 +1470,9 @@ namespace TH18 {
             if (GetMemContent(GAME_THREAD_PTR) && !GetMemContent(GAME_THREAD_PTR, 0xd0)) {
                 return false;
             }
-            if (repMenu.mRepStatus && (repMenu.mRepMetroHash[0] != mRepMetroHash[0] || repMenu.mRepMetroHash[1] != mRepMetroHash[1])) {
+            if (repMenu.mRepStatus
+                && (repMenu.mRepMetroHash[0] != mRepMetroHash[0]
+                    || repMenu.mRepMetroHash[1] != mRepMetroHash[1])) {
                 return false;
             }
             return true;
@@ -1438,7 +1499,9 @@ namespace TH18 {
 
                 if (!mRepDataDecoded) {
                     if (THGuiRep::singleton().mRepSelected) {
-                        ImGui::Text(S(TH18_REPFIX_SELECTED), THGuiRep::singleton().mRepName.c_str());
+                        ImGui::Text(
+                            S(TH18_REPFIX_SELECTED), THGuiRep::singleton().mRepName.c_str()
+                        );
 
                         if (!mRepDataDecoded) {
                             ImGui::SameLine();
@@ -1477,7 +1540,13 @@ namespace TH18 {
 
                             sprintf_s(comboId, "##active_card_idx_st%d", data.stage);
                             ImGui::PushItemWidth(fontSize * 10.0f);
-                            ImGui::ComboSectionsDefault(comboId, &data.activeCardComboIdx, data.activeCardLabelVec.data(), Gui::LocaleGetCurrentGlossary(), "");
+                            ImGui::ComboSectionsDefault(
+                                comboId,
+                                &data.activeCardComboIdx,
+                                data.activeCardLabelVec.data(),
+                                Gui::LocaleGetCurrentGlossary(),
+                                ""
+                            );
                             if (ImGui::IsPopupOpen(comboId)) {
                                 wndFocus = false;
                             }
@@ -1504,14 +1573,16 @@ namespace TH18 {
                     uint32_t* list = nullptr;
                     uint8_t cardIdArray[64];
                     memset(cardIdArray, 0, 64);
-                    for (uint32_t* i = (uint32_t*)GetMemContent(ABILTIY_MANAGER_PTR, 0x1c); i; i = (uint32_t*)i[1]) {
+                    for (uint32_t* i = (uint32_t*)GetMemContent(ABILTIY_MANAGER_PTR, 0x1c); i;
+                         i = (uint32_t*)i[1]) {
                         list = i;
                         auto cardId = ((uint32_t**)list)[0][1];
                         cardIdArray[cardId] += 1;
                     }
 
                     for (int i = 0; i < 56; ++i) {
-                        *(uint32_t*)GetMemAddr(ABILTIY_MANAGER_PTR, 0xc84 + i * 4) = cardIdArray[i] ? 1 : 0;
+                        *(uint32_t*)GetMemAddr(ABILTIY_MANAGER_PTR, 0xc84 + i * 4) =
+                            cardIdArray[i] ? 1 : 0;
                     }
                 }
             }
@@ -1734,7 +1805,9 @@ namespace TH18 {
             ecl.SetPos(start);
         ecl << ecl_time << 0x00140276 << 0x01ff0000 << 0x00000000 << std_id;
     }
-    void ECLJump(ECLHelper& ecl, unsigned int start, unsigned int dest, int at_frame, int ecl_time = 0)
+    void ECLJump(
+        ECLHelper& ecl, unsigned int start, unsigned int dest, int at_frame, int ecl_time = 0
+    )
     {
         if (start)
             ecl.SetPos(start);
@@ -2316,7 +2389,8 @@ namespace TH18 {
             ECLJump(ecl, 0x488, 0x504, 2); // Skip dialogue
             ecl << pair{0xc64, (int8_t)0x32}; // Change Nonspell
             ecl << pair{0x1db0, (int16_t)30}; // Disable Invincible
-            ecl << pair{0x1e70, (int16_t)0} << pair{0x1ec8, (int16_t)0} << pair{0x2008, (int16_t)0}; // Disable Item Drops & SE
+            ecl << pair{0x1e70, (int16_t)0} << pair{0x1ec8, (int16_t)0}
+                << pair{0x2008, (int16_t)0}; // Disable Item Drops & SE
             ecl << pair{0x216c, (int16_t)0};
             break;
         case THPrac::TH18::TH18_ST6_BOSS4:
@@ -2769,9 +2843,12 @@ namespace TH18 {
         bool is_practice;
         bool result;
 
-        el_switch = *(THOverlay::singleton().mElBgm) && !THGuiRep::singleton().mRepStatus && (thPracParam.mode == 1) && thPracParam.section;
+        el_switch = *(THOverlay::singleton().mElBgm) && !THGuiRep::singleton().mRepStatus
+            && (thPracParam.mode == 1) && thPracParam.section;
         is_practice = (*((int32_t*)0x4cccc8) & 0x1);
-        result = ElBgmTest<0x4546d3, 0x443762, 0x45873a, 0x45a24e, 0xffffffff>(el_switch, is_practice, retn_addr, bgm_cmd, bgm_id, 0xffffffff);
+        result = ElBgmTest<0x4546d3, 0x443762, 0x45873a, 0x45a24e, 0xffffffff>(
+            el_switch, is_practice, retn_addr, bgm_cmd, bgm_id, 0xffffffff
+        );
 
         if (result) {
             pCtx->Eip = 0x477ae6;
@@ -2817,8 +2894,10 @@ namespace TH18 {
         if (thPracParam.mode != 1)
             return;
 
-#define R(name)                                                                                                                 \
-    card->_recharge_timer.current = static_cast<int32_t>(card->recharge_time * (static_cast<float>(thPracParam.name) / 10000)); \
+#define R(name)                                                              \
+    card->_recharge_timer.current = static_cast<int32_t>(                    \
+        card->recharge_time * (static_cast<float>(thPracParam.name) / 10000) \
+    );                                                                       \
     card->_recharge_timer.current_f = card->recharge_time * (thPracParam.name / 10000.0f)
 
         *(int32_t*)(0x4cccfc) = (int32_t)(thPracParam.score / 10);
@@ -2831,7 +2910,8 @@ namespace TH18 {
 
         auto* ability_manager = *(AbilityManager**)ABILTIY_MANAGER_PTR;
 
-        for (ThList<CardBase>* entry = &ability_manager->card_list_head; entry; entry = entry->next) {
+        for (ThList<CardBase>* entry = &ability_manager->card_list_head; entry;
+             entry = entry->next) {
             CardBase* card = entry->entry;
             if (!GameState_Assert(card != nullptr))
                 continue;
@@ -2935,7 +3015,8 @@ namespace TH18 {
         uint32_t cardAddType = 0;
         uint8_t cardIdArray[64] = {};
 
-        for (uint32_t* i = (uint32_t*)GetMemContent(ABILTIY_MANAGER_PTR, 0x1c); i; i = (uint32_t*)i[1]) {
+        for (uint32_t* i = (uint32_t*)GetMemContent(ABILTIY_MANAGER_PTR, 0x1c); i;
+             i = (uint32_t*)i[1]) {
             list = i;
             auto cardId = ((uint32_t**)list)[0][1];
             cardIdArray[cardId] += 1;
@@ -3010,7 +3091,8 @@ namespace TH18 {
         }
 
         THGuiSP::singleton().Update();
-        bool drawCursor = THAdvOptWnd::StaticUpdate() || THGuiPrac::singleton().IsOpen() || THGuiSP::singleton().IsOpen();
+        bool drawCursor = THAdvOptWnd::StaticUpdate() || THGuiPrac::singleton().IsOpen()
+            || THGuiSP::singleton().IsOpen();
         GameGuiEnd(drawCursor);
     }
     EHOOK_DY(th18_render, 0x401510)
@@ -3023,7 +3105,19 @@ namespace TH18 {
     static __declspec(noinline) void THGuiCreate()
     {
         // Init
-        GameGuiInit(IMPL_WIN32_DX9, 0x4ccdf8, 0x568c30, 0x472280, Gui::INGAGME_INPUT_GEN2, 0x4ca21c, 0x4ca218, 0, -2, *(float*)0x56aca0, 0.0f);
+        GameGuiInit(
+            IMPL_WIN32_DX9,
+            0x4ccdf8,
+            0x568c30,
+            0x472280,
+            Gui::INGAGME_INPUT_GEN2,
+            0x4ca21c,
+            0x4ca218,
+            0,
+            -2,
+            *(float*)0x56aca0,
+            0.0f
+        );
 
         // Gui components creation
         THGuiPrac::singleton();
@@ -3052,7 +3146,8 @@ namespace TH18 {
     {
         RECT rect;
         GetWindowRect(*(HWND*)0x568c30, &rect);
-        if (rect.right != GetSystemMetrics(SM_CXSCREEN) || rect.bottom != GetSystemMetrics(SM_CYSCREEN) || rect.left != 0 || rect.top != 0) {
+        if (rect.right != GetSystemMetrics(SM_CXSCREEN)
+            || rect.bottom != GetSystemMetrics(SM_CYSCREEN) || rect.left != 0 || rect.top != 0) {
             pCtx->Eip = 0x4722f2;
         }
     }

@@ -295,14 +295,22 @@ namespace TH128 {
                 break;
             case 2:
             case 3: // Mid boss & End boss
-                if (mSection(TH_WARP_SELECT[*mWarp], th_sections_cba[realStage][*mWarp - 2], th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
+                if (mSection(
+                        TH_WARP_SELECT[*mWarp],
+                        th_sections_cba[realStage][*mWarp - 2],
+                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]
+                    ))
                     *mPhase = 0;
                 if (SectionHasDlg(th_sections_cba[*mStage][*mWarp - 2][*mSection]))
                     mDlg();
                 break;
             case 4:
             case 5: // Non-spell & Spellcard
-                if (mSection(TH_WARP_SELECT[*mWarp], th_sections_cbt[realStage][*mWarp - 4], th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
+                if (mSection(
+                        TH_WARP_SELECT[*mWarp],
+                        th_sections_cbt[realStage][*mWarp - 4],
+                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]
+                    ))
                     *mPhase = 0;
                 if (SectionHasDlg(th_sections_cbt[*mStage][*mWarp - 4][*mSection]))
                     mDlg();
@@ -442,7 +450,8 @@ namespace TH128 {
             SetPos(10.0f, 10.0f);
             SetSize(0.0f, 0.0f);
             SetWndFlag(
-                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
+                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove
+                | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
                 | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0
             );
             OnLocaleChange();
@@ -512,14 +521,23 @@ namespace TH128 {
               new HookCtx(0x43d11b, "\x83\xc4\x10\x90\x90", 5),
               new HookCtx(0x432735, "\xe9\x9f\x00\x00\x00\x90", 6)}
         };
-        Gui::GuiHotKey mInfLives{TH_INFLIVES, "F2", VK_F2, {new HookCtx(0x43CDD9, "\x00\x00\x00\x00", 4)}};
+        Gui::GuiHotKey mInfLives{
+            TH_INFLIVES, "F2", VK_F2, {new HookCtx(0x43CDD9, "\x00\x00\x00\x00", 4)}
+        };
         Gui::GuiHotKey mInfBombs{
-            TH_INFBOMBS, "F3", VK_F3, {new HookCtx(0x43B7D7, "\x00\x00\x00\x00", 4), new HookCtx(0x43B90D, "\x00\x00\x00\x00", 4)}
+            TH_INFBOMBS,
+            "F3",
+            VK_F3,
+            {new HookCtx(0x43B7D7, "\x00\x00\x00\x00", 4),
+              new HookCtx(0x43B90D, "\x00\x00\x00\x00", 4)}
         };
         Gui::GuiHotKey mInfPower{TH_INFPOWER, "F4", VK_F4, {new HookCtx(0x41F429, "\x00", 1)}};
         Gui::GuiHotKey mTimeLock{TH_TIMELOCK, "F5", VK_F5, {new HookCtx(0x417307, "\x90", 1)}};
         Gui::GuiHotKey mAutoBomb{
-            TH_AUTOBOMB, "F6", VK_F6, {new HookCtx(0x43B8E8, "\xc6", 1), new HookCtx(0x43B8F1, "\x00", 1)}
+            TH_AUTOBOMB,
+            "F6",
+            VK_F6,
+            {new HookCtx(0x43B8E8, "\xc6", 1), new HookCtx(0x43B8F1, "\x00", 1)}
         };
 
     public:
@@ -567,7 +585,10 @@ namespace TH128 {
 
         THAdvOptWnd() noexcept
         {
-            SetWndFlag(ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
+            SetWndFlag(
+                ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse
+                | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove
+            );
             SetFade(0.8f, 0.8f);
             SetStyle(ImGuiStyleVar_WindowRounding, 0.0f);
             SetStyle(ImGuiStyleVar_WindowBorderSize, 0.0f);
@@ -648,7 +669,9 @@ namespace TH128 {
         ecl.SetPos(start);
         ecl << 0 << 0x0018000C << 0x02ff0000 << 0x00000000 << length << 0;
     }
-    void ECLJumpEx(ECLHelper& ecl, unsigned int start, unsigned int dest, int at_frame, int ecl_time = 0)
+    void ECLJumpEx(
+        ECLHelper& ecl, unsigned int start, unsigned int dest, int at_frame, int ecl_time = 0
+    )
     {
         ecl.SetPos(start);
         ecl << ecl_time << 0x0018000C << 0x02ff0000 << 0x00000000 << dest - start << at_frame;
@@ -658,7 +681,8 @@ namespace TH128 {
         ecl.SetPos(pos);
         if (dlg)
             ecl << 0 << 0x001401a2 << 0x01ff0000 << 0 << 0 << 0 << 0x001001a3 << 0x00ff0000 << 0;
-        ecl << 0 << 0x00300101 << 0x06ff0000 << 0 << 8 << 'ssoB' << 0 << 0xc3100000 << 0xc1800000 << 0x28 << 0x3e8 << 1;
+        ecl << 0 << 0x00300101 << 0x06ff0000 << 0 << 8 << 'ssoB' << 0 << 0xc3100000 << 0xc1800000
+            << 0x28 << 0x3e8 << 1;
         ecl << 0 << 0x001001a4 << 0x00ff0000 << 0;
         ecl << 0 << 0x001401a2 << 0x01ff0000 << 0 << 1;
         ecl << 0 << 0x001001a3 << 0x00ff0000 << 0;
@@ -671,25 +695,34 @@ namespace TH128 {
 
         if (dlg)
             ecl << 0 << 0x001401a2 << 0x01ff0000 << 0 << 0 << 0 << 0x001001a3 << 0x00ff0000 << 0;
-        ecl << 0 << 0x00300101 << 0x06ff0000 << 0 << 8 << 'ssoB' << 0x41 << 0xC3100000 << 0xC2000000 << 0x28 << 0x3e8 << 1;
+        ecl << 0 << 0x00300101 << 0x06ff0000 << 0 << 8 << 'ssoB' << 0x41 << 0xC3100000 << 0xC2000000
+            << 0x28 << 0x3e8 << 1;
         if (dlg)
             ecl << 1 << 0x001001a3 << 0x00ff0000 << 0;
-        ecl << 1 << 0x00300101 << 0x06ff0000 << 0 << 8 << 'ssoB' << 0x42 << 0xC3400000 << 0xC2000000 << 0x28 << 0x3e8 << 1;
-        ecl << 1 << 0x00300101 << 0x06ff0000 << 0 << 8 << 'ssoB' << 0x43 << 0x43400000 << 0xC2000000 << 0x28 << 0x3e8 << 1;
+        ecl << 1 << 0x00300101 << 0x06ff0000 << 0 << 8 << 'ssoB' << 0x42 << 0xC3400000 << 0xC2000000
+            << 0x28 << 0x3e8 << 1;
+        ecl << 1 << 0x00300101 << 0x06ff0000 << 0 << 8 << 'ssoB' << 0x43 << 0x43400000 << 0xC2000000
+            << 0x28 << 0x3e8 << 1;
 
         ecl << 1 << 0x001001a4 << 0x00ff0000 << 0;
         ecl << 61 << 0x001401a2 << 0x01ff0000 << 0 << 1;
         ecl << 61 << 0x001001a3 << 0x00ff0000 << 0;
         ecl << 61 << 0x0010000a << 0x00ff0000 << 0;
     }
-    void ECLMBoss(ECLHelper& ecl, uint8_t ordinal, unsigned int pos_414_cmd_1, unsigned int pos_414_cmd_2 = 0)
+    void ECLMBoss(
+        ECLHelper& ecl, uint8_t ordinal, unsigned int pos_414_cmd_1, unsigned int pos_414_cmd_2 = 0
+    )
     {
-        ecl << pair(pos_414_cmd_1, (int16_t)0x0) << pair(pos_414_cmd_1 + 0x34, 60) << pair(pos_414_cmd_1 + 0x60, (int16_t)0x19f) << pair(pos_414_cmd_1 + 0x70, 60)
+        ecl << pair(pos_414_cmd_1, (int16_t)0x0) << pair(pos_414_cmd_1 + 0x34, 60)
+            << pair(pos_414_cmd_1 + 0x60, (int16_t)0x19f) << pair(pos_414_cmd_1 + 0x70, 60)
             << pair(pos_414_cmd_1 + 0xa9, (uint8_t)(0x30 + ordinal));
         if (pos_414_cmd_2)
             ecl << pair(pos_414_cmd_2, (int16_t)0x0);
     }
-    void ECLBossCard(ECLHelper& ecl, unsigned int pos_11, unsigned int ordinal, unsigned int health, float health_mark = 0.0f)
+    void ECLBossCard(
+        ECLHelper& ecl, unsigned int pos_11, unsigned int ordinal, unsigned int health,
+        float health_mark = 0.0f
+    )
     {
         ecl.SetPos(pos_11);
         ecl << 0 << 0x0014019b << 0x01ff0000 << 0 << health;
@@ -702,22 +735,29 @@ namespace TH128 {
         else
             ecl << ordinal + 0x30;
     }
-    void ECL3BossCard(ECLHelper& ecl, unsigned int pos_boss1a, unsigned int pos_boss1b, unsigned int pos_boss1c, uint8_t ordinal, unsigned int health)
+    void ECL3BossCard(
+        ECLHelper& ecl, unsigned int pos_boss1a, unsigned int pos_boss1b, unsigned int pos_boss1c,
+        uint8_t ordinal, unsigned int health
+    )
     {
         ecl.SetPos(pos_boss1a);
         ecl << 0 << 0x0014019b << 0x01ff0000 << 0 << health;
-        ecl << 0 << 0x001c000b << 0x01ff0000 << 0 << 0xC << 'ssoB' << 'draC' << (uint8_t)(ordinal + 0x30) << (uint8_t)0x0;
+        ecl << 0 << 0x001c000b << 0x01ff0000 << 0 << 0xC << 'ssoB' << 'draC'
+            << (uint8_t)(ordinal + 0x30) << (uint8_t)0x0;
 
         ecl.SetPos(pos_boss1b);
-        ecl << 0 << 0x001c000b << 0x01ff0000 << 0 << 0xC << 'ssoB' << 'draC' << (uint8_t)(ordinal + 0x30) << 'B' << (uint8_t)0x0;
+        ecl << 0 << 0x001c000b << 0x01ff0000 << 0 << 0xC << 'ssoB' << 'draC'
+            << (uint8_t)(ordinal + 0x30) << 'B' << (uint8_t)0x0;
 
         ecl.SetPos(pos_boss1c);
-        ecl << 0 << 0x001c000b << 0x01ff0000 << 0 << 0xC << 'ssoB' << 'draC' << (uint8_t)(ordinal + 0x30) << 'C' << (uint8_t)0x0;
+        ecl << 0 << 0x001c000b << 0x01ff0000 << 0 << 0xC << 'ssoB' << 'draC'
+            << (uint8_t)(ordinal + 0x30) << 'C' << (uint8_t)0x0;
     }
     void ECLST3MBossCard(ECLHelper& ecl, unsigned int pos_414_cmd, unsigned int health)
     {
         // 0x2b50
-        ecl << pair(pos_414_cmd - 0x1c, (int16_t)0x0) << pair(pos_414_cmd, (int16_t)0x0) << pair(pos_414_cmd + 0x4c, (int16_t)0x19f) << pair(pos_414_cmd + 0x6c, 60);
+        ecl << pair(pos_414_cmd - 0x1c, (int16_t)0x0) << pair(pos_414_cmd, (int16_t)0x0)
+            << pair(pos_414_cmd + 0x4c, (int16_t)0x19f) << pair(pos_414_cmd + 0x6c, 60);
         ecl.SetPos(pos_414_cmd + 0xfc);
         ecl << 0 << 0x0014019b << 0x01ff0000 << 0 << health;
         ecl << 0 << 0x001c000b << 0x01ff0000 << 0 << 0xC << "MBossCard1" << (char)'\0';
@@ -2073,15 +2113,20 @@ namespace TH128 {
         bool is_practice;
         bool result;
 
-        el_switch = *(THOverlay::singleton().mElBgm) && !THGuiRep::singleton().mRepStatus && thPracParam.mode && thPracParam.section;
+        el_switch = *(THOverlay::singleton().mElBgm) && !THGuiRep::singleton().mRepStatus
+            && thPracParam.mode && thPracParam.section;
         if (thLock)
             el_switch = false;
         is_practice = (*((int32_t*)0x4b4d50) & 0x1);
         if (retn_addr == 0x434a69 && (call_addr == 0x424828 || call_addr == 0x42483c)) {
             thLock = true;
-            result = ElBgmTest<0x434935, 0x4268c7, 0x437003, 0x4371e8, 0x426bdd>(el_switch, is_practice, 0x434935, 2, 2, call_addr);
+            result = ElBgmTest<0x434935, 0x4268c7, 0x437003, 0x4371e8, 0x426bdd>(
+                el_switch, is_practice, 0x434935, 2, 2, call_addr
+            );
         } else {
-            result = ElBgmTest<0x434935, 0x4268c7, 0x437003, 0x4371e8, 0x426bdd>(el_switch, is_practice, retn_addr, bgm_cmd, bgm_id, call_addr);
+            result = ElBgmTest<0x434935, 0x4268c7, 0x437003, 0x4371e8, 0x426bdd>(
+                el_switch, is_practice, retn_addr, bgm_cmd, bgm_id, call_addr
+            );
         }
 
         if (result) {
@@ -2208,7 +2253,8 @@ namespace TH128 {
     EHOOK_DY(th128_disable_logo, 0x4204f6)
     {
         if (!thLock && thPracParam.mode == 1 && thPracParam.section) {
-            if (thPracParam.section <= 10000 || thPracParam.section >= 20000 || thPracParam.section % 100 != 1) {
+            if (thPracParam.section <= 10000 || thPracParam.section >= 20000
+                || thPracParam.section % 100 != 1) {
                 pCtx->Eip = 0x42063b;
             }
         }
@@ -2294,7 +2340,17 @@ namespace TH128 {
     static __declspec(noinline) void THGuiCreate()
     {
         // Init
-        GameGuiInit(IMPL_WIN32_DX9, 0x4d2e70, 0x4d3970, 0x454420, Gui::INGAGME_INPUT_GEN2, 0x4db004, 0x4db000, 0, -1);
+        GameGuiInit(
+            IMPL_WIN32_DX9,
+            0x4d2e70,
+            0x4d3970,
+            0x454420,
+            Gui::INGAGME_INPUT_GEN2,
+            0x4db004,
+            0x4db000,
+            0,
+            -1
+        );
 
         // Gui components creation
         THGuiPrac::singleton();

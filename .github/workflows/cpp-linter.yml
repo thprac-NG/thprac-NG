@@ -34,6 +34,7 @@ jobs:
           ignore: '.github|thprac/src/3rdParties'
           style: 'file'  # Use .clang-format config file. 
           tidy-checks: '-*'  # disable clang-tidy checks. 
+          version: '19'  # Use clang-format v19.
           step-summary: true  # Append summary to the Action pages
           format-review: true  # Use clang-format to review PRs
           files-changed-only: false  # Check all files

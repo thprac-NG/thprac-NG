@@ -480,7 +480,10 @@ namespace TH09 {
     public:
         THAdvOptWnd() noexcept
         {
-            SetWndFlag(ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
+            SetWndFlag(
+                ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse
+                | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove
+            );
             SetFade(0.8f, 0.8f);
             SetStyle(ImGuiStyleVar_WindowRounding, 0.0f);
             SetStyle(ImGuiStyleVar_WindowBorderSize, 0.0f);
@@ -622,7 +625,17 @@ namespace TH09 {
     }
     EHOOK_DY(th09_gui_reinit, 0x42e50f)
     {
-        GameGuiInit(IMPL_WIN32_DX8, 0x4b3108, 0x4b30b0, 0x42d3d0, Gui::INGAGME_INPUT_GEN2, 0x4acf3a, 0x4acf38, 0, -1);
+        GameGuiInit(
+            IMPL_WIN32_DX8,
+            0x4b3108,
+            0x4b30b0,
+            0x42d3d0,
+            Gui::INGAGME_INPUT_GEN2,
+            0x4acf3a,
+            0x4acf38,
+            0,
+            -1
+        );
     }
     HOOKSET_ENDDEF()
 
@@ -630,7 +643,17 @@ namespace TH09 {
     static __declspec(noinline) void THGuiCreate()
     {
         // Init
-        GameGuiInit(IMPL_WIN32_DX8, 0x4b3108, 0x4b30b0, 0x42d3d0, Gui::INGAGME_INPUT_GEN2, 0x4acf3a, 0x4acf38, 0, -1);
+        GameGuiInit(
+            IMPL_WIN32_DX8,
+            0x4b3108,
+            0x4b30b0,
+            0x42d3d0,
+            Gui::INGAGME_INPUT_GEN2,
+            0x4acf3a,
+            0x4acf38,
+            0,
+            -1
+        );
 
         // Gui components creation
         TH09Tools::singleton();

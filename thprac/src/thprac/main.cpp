@@ -37,7 +37,8 @@ void ApplyToProcById(DWORD pid)
 {
     auto hProc = OpenProcess(
         // PROCESS_SUSPEND_RESUME |
-        PROCESS_QUERY_INFORMATION | PROCESS_CREATE_THREAD | PROCESS_VM_OPERATION | PROCESS_VM_READ | PROCESS_VM_WRITE,
+        PROCESS_QUERY_INFORMATION | PROCESS_CREATE_THREAD | PROCESS_VM_OPERATION | PROCESS_VM_READ
+            | PROCESS_VM_WRITE,
         FALSE,
         pid
     );
@@ -150,7 +151,10 @@ bool doCmdLineStuff(PWSTR cmdLine)
     }
 }
 
-int WINAPI wWinMain([[maybe_unused]] HINSTANCE hInstance, [[maybe_unused]] HINSTANCE hPrevInstance, PWSTR pCmdLine, [[maybe_unused]] int nCmdShow)
+int WINAPI wWinMain(
+    [[maybe_unused]] HINSTANCE hInstance, [[maybe_unused]] HINSTANCE hPrevInstance, PWSTR pCmdLine,
+    [[maybe_unused]] int nCmdShow
+)
 {
     HookCtx::VEHInit();
     if (LauncherPreUpdate(pCmdLine)) {

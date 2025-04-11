@@ -109,7 +109,8 @@ namespace TH06 {
             SetPos(10.0f, 10.0f);
             SetSize(0.0f, 0.0f);
             SetWndFlag(
-                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
+                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove
+                | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
                 | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0
             );
             OnLocaleChange();
@@ -172,12 +173,20 @@ namespace TH06 {
 
         Gui::GuiHotKey mMenu{"ModMenuToggle", "BACKSPACE", VK_BACK};
         Gui::GuiHotKey mMuteki{
-            TH_MUTEKI, "F1", VK_F1, {new HookCtx(0x4277c2, "\x03", 1), new HookCtx(0x42779a, "\x83\xc4\x10\x90\x90", 5)}
+            TH_MUTEKI,
+            "F1",
+            VK_F1,
+            {new HookCtx(0x4277c2, "\x03", 1), new HookCtx(0x42779a, "\x83\xc4\x10\x90\x90", 5)}
         };
         Gui::GuiHotKey mInfLives{TH_INFLIVES, "F2", VK_F2, {new HookCtx(0x428DDC, "\x15", 1)}};
         Gui::GuiHotKey mInfBombs{TH_INFBOMBS, "F3", VK_F3, {new HookCtx(0x4289e3, "\x00", 1)}};
         Gui::GuiHotKey mInfPower{
-            TH_INFPOWER, "F4", VK_F4, {new HookCtx(0x41BBE2, "\x3E\xC6\x80", 3), new HookCtx(0x41BBE9, "\x80", 1), new HookCtx(0x428B7D, "\x00", 1)}
+            TH_INFPOWER,
+            "F4",
+            VK_F4,
+            {new HookCtx(0x41BBE2, "\x3E\xC6\x80", 3),
+              new HookCtx(0x41BBE9, "\x80", 1),
+              new HookCtx(0x428B7D, "\x00", 1)}
         };
         Gui::GuiHotKey mTimeLock{TH_TIMELOCK, "F5", VK_F5, {new HookCtx(0x412DD1, "\xeb", 1)}};
         Gui::GuiHotKey mAutoBomb{
@@ -428,14 +437,22 @@ namespace TH06 {
                 break;
             case 2:
             case 3: // Mid boss & End boss
-                if (mSection(TH_WARP_SELECT_FRAME[*mWarp], th_sections_cba[*mStage + st][*mWarp - 2], th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
+                if (mSection(
+                        TH_WARP_SELECT_FRAME[*mWarp],
+                        th_sections_cba[*mStage + st][*mWarp - 2],
+                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]
+                    ))
                     *mPhase = 0;
                 if (SectionHasDlg(th_sections_cba[*mStage][*mWarp - 2][*mSection]))
                     mDlg();
                 break;
             case 4:
             case 5: // Non-spell & Spellcard
-                if (mSection(TH_WARP_SELECT_FRAME[*mWarp], th_sections_cbt[*mStage + st][*mWarp - 4], th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]))
+                if (mSection(
+                        TH_WARP_SELECT_FRAME[*mWarp],
+                        th_sections_cbt[*mStage + st][*mWarp - 4],
+                        th_sections_str[::THPrac::Gui::LocaleGet()][mDiffculty]
+                    ))
                     *mPhase = 0;
                 if (SectionHasDlg(th_sections_cbt[*mStage][*mWarp - 4][*mSection]))
                     mDlg();
@@ -568,7 +585,9 @@ namespace TH06 {
                 auto oldBgmFlag = THBGMTest();
                 thRestartFlag = true;
                 THGuiPrac::singleton().State(5);
-                if (*(THOverlay::singleton().mElBgm) && !el_bgm_changed && oldMode == thPracParam.mode && oldStage == thPracParam.stage && oldBgmFlag == THBGMTest()) {
+                if (*(THOverlay::singleton().mElBgm) && !el_bgm_changed
+                    && oldMode == thPracParam.mode && oldStage == thPracParam.stage
+                    && oldBgmFlag == THBGMTest()) {
                     el_bgm_signal = true;
                 }
 
@@ -721,8 +740,11 @@ namespace TH06 {
         Gui::GuiButton mRestart{TH_RESTART, 130.0f, 25.0f};
         Gui::GuiButton mSettings{TH_TWEAK, 130.0f, 25.0f};
 
-        Gui::GuiNavFocus mNavFocus{TH_RESUME, TH_EXIT, TH_RESTART, TH_TWEAK, TH_STAGE, TH_MODE,  TH_WARP,  TH_MID_STAGE, TH_END_STAGE,  TH_NONSPELL, TH_SPELL,
-                                   TH_PHASE,  TH_LIFE, TH_BOMB,    TH_SCORE, TH_POWER, TH_GRAZE, TH_POINT, TH06_RANK,    TH06_RANKLOCK, TH06_FS};
+        Gui::GuiNavFocus mNavFocus{TH_RESUME, TH_EXIT,  TH_RESTART,   TH_TWEAK,     TH_STAGE,
+                                   TH_MODE,   TH_WARP,  TH_MID_STAGE, TH_END_STAGE, TH_NONSPELL,
+                                   TH_SPELL,  TH_PHASE, TH_LIFE,      TH_BOMB,      TH_SCORE,
+                                   TH_POWER,  TH_GRAZE, TH_POINT,     TH06_RANK,    TH06_RANKLOCK,
+                                   TH06_FS};
     };
     class THGuiRep : public Gui::GameGuiWnd {
         THGuiRep() noexcept
@@ -815,7 +837,10 @@ namespace TH06 {
 
         THAdvOptWnd() noexcept
         {
-            SetWndFlag(ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
+            SetWndFlag(
+                ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse
+                | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove
+            );
             SetFade(0.8f, 0.8f);
             SetStyle(ImGuiStyleVar_WindowRounding, 0.0f);
             SetStyle(ImGuiStyleVar_WindowBorderSize, 0.0f);
@@ -1006,11 +1031,13 @@ namespace TH06 {
             break;
         case THPrac::TH06::TH06_ST1_BOSS3:
             ECLWarp(0x149f);
-            ecl << pair{0x16a6, 0} << pair{0x16c6, 0} << pair{0x16e6, 0x50} << pair{0x16f2, 0x10} << pair{0x293a, 0} << pair{0x294a, 0} << pair{0x291e, (int16_t)0};
+            ecl << pair{0x16a6, 0} << pair{0x16c6, 0} << pair{0x16e6, 0x50} << pair{0x16f2, 0x10}
+                << pair{0x293a, 0} << pair{0x294a, 0} << pair{0x291e, (int16_t)0};
             break;
         case THPrac::TH06::TH06_ST1_BOSS4:
             ECLWarp(0x149f);
-            ecl << pair{0x16a6, 0} << pair{0x16c6, 0} << pair{0x16e6, 0x50} << pair{0x16f2, 0x10} << pair{0x293a, 0} << pair{0x294a, 0} << pair{0x291e, (int16_t)0};
+            ecl << pair{0x16a6, 0} << pair{0x16c6, 0} << pair{0x16e6, 0x50} << pair{0x16f2, 0x10}
+                << pair{0x293a, 0} << pair{0x294a, 0} << pair{0x291e, (int16_t)0};
             ECLSetTime(ecl, 0x294a, 0, 0);
             ECLStall(ecl, 0x295a);
             break;
@@ -1188,7 +1215,8 @@ namespace TH06 {
             ECLStall(ecl, 0x7b1c);
             ecl << pair{0x7b04, (int16_t)0x0200} << pair{0x7b14, (int16_t)0x0c00};
             ecl << pair{0x7bc8, (int16_t)0} << pair{0x7cf4, (int16_t)0} << pair{0x7d0c, (int16_t)0};
-            ecl << pair{0x7d18, 0x0} << pair{0x7d28, 0x0} << pair{0x7d48, 0x0} << pair{0x7d68, 0x0} << pair{0x7d88, 0x0} << pair{0x7da8, 0x0};
+            ecl << pair{0x7d18, 0x0} << pair{0x7d28, 0x0} << pair{0x7d48, 0x0} << pair{0x7d68, 0x0}
+                << pair{0x7d88, 0x0} << pair{0x7da8, 0x0};
             break;
         case THPrac::TH06::TH06_ST4_BOSS7:
             ECLWarp(0x29c7);
@@ -1202,7 +1230,8 @@ namespace TH06 {
             ecl << pair{0x7a74, (int16_t)41} << pair{0x7a94, (int16_t)41};
             ecl << pair{0x7a54, (int16_t)1700} << pair{0x7a64, (int16_t)1700};
             ecl << pair{0x7de4, (int16_t)0} << pair{0x7ed0, (int16_t)0} << pair{0x7ee8, (int16_t)0};
-            ecl << pair{0x7ef4, 0x0} << pair{0x7f04, 0x0} << pair{0x7f24, 0x0} << pair{0x7f44, 0x0} << pair{0x7f64, 0x0} << pair{0x7f84, 0x0};
+            ecl << pair{0x7ef4, 0x0} << pair{0x7f04, 0x0} << pair{0x7f24, 0x0} << pair{0x7f44, 0x0}
+                << pair{0x7f64, 0x0} << pair{0x7f84, 0x0};
             break;
         case THPrac::TH06::TH06_ST5_MID1:
             ECLWarp(0x0d2c);
@@ -2035,7 +2064,8 @@ namespace TH06 {
     }
     EHOOK_DY(th06_hamon_rage, 0x40e1c7)
     {
-        if (thPracParam.mode && thPracParam.stage == 6 && thPracParam.section == TH06_ST7_END_S10 && thPracParam.phase == 1) {
+        if (thPracParam.mode && thPracParam.stage == 6 && thPracParam.section == TH06_ST7_END_S10
+            && thPracParam.phase == 1) {
             pCtx->Eip = 0x40e1d8;
         }
     }
@@ -2051,7 +2081,10 @@ namespace TH06 {
         THGuiRep::singleton().Update();
         THOverlay::singleton().Update();
 
-        GameGuiEnd(THAdvOptWnd::StaticUpdate() || THGuiPrac::singleton().IsOpen() || THPauseMenu::singleton().IsOpen());
+        GameGuiEnd(
+            THAdvOptWnd::StaticUpdate() || THGuiPrac::singleton().IsOpen()
+            || THPauseMenu::singleton().IsOpen()
+        );
     }
     EHOOK_DY(th06_render, 0x41cb6d)
     {
@@ -2065,7 +2098,17 @@ namespace TH06 {
     static __declspec(noinline) void THGuiCreate()
     {
         // Init
-        GameGuiInit(IMPL_WIN32_DX8, 0x6c6d20, 0x6c6bd4, 0x420d40, Gui::INGAGME_INPUT_GEN1, 0x69d904, 0x69d908, 0x69d90c, -1);
+        GameGuiInit(
+            IMPL_WIN32_DX8,
+            0x6c6d20,
+            0x6c6bd4,
+            0x420d40,
+            Gui::INGAGME_INPUT_GEN1,
+            0x69d904,
+            0x69d908,
+            0x69d90c,
+            -1
+        );
 
         // Gui components creation
         THGuiPrac::singleton();

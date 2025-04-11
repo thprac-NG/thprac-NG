@@ -51,13 +51,27 @@ namespace Gui {
 
         // Upload texture to graphics system
         g_FontTexture = NULL;
-        if (g_pd3dDevice->CreateTexture(width, height, 1, D3DUSAGE_DYNAMIC, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &g_FontTexture, NULL) < 0)
+        if (g_pd3dDevice->CreateTexture(
+                width,
+                height,
+                1,
+                D3DUSAGE_DYNAMIC,
+                D3DFMT_A8R8G8B8,
+                D3DPOOL_DEFAULT,
+                &g_FontTexture,
+                NULL
+            )
+            < 0)
             return false;
         D3DLOCKED_RECT tex_locked_rect;
         if (g_FontTexture->LockRect(0, &tex_locked_rect, NULL, 0) != D3D_OK)
             return false;
         for (int y = 0; y < height; y++)
-            memcpy((unsigned char*)tex_locked_rect.pBits + tex_locked_rect.Pitch * y, pixels + (width * bytes_per_pixel) * y, (width * bytes_per_pixel));
+            memcpy(
+                (unsigned char*)tex_locked_rect.pBits + tex_locked_rect.Pitch * y,
+                pixels + (width * bytes_per_pixel) * y,
+                (width * bytes_per_pixel)
+            );
         g_FontTexture->UnlockRect(0);
 
         // Store our identifier
@@ -113,9 +127,41 @@ namespace Gui {
             float R = draw_data->DisplayPos.x + draw_data->DisplaySize.x + 0.5f;
             float T = draw_data->DisplayPos.y + 0.5f;
             float B = draw_data->DisplayPos.y + draw_data->DisplaySize.y + 0.5f;
-            D3DMATRIX mat_identity = {{{1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f}}};
+            D3DMATRIX mat_identity = {
+                {{1.0f,
+                  0.0f,
+                  0.0f,
+                  0.0f,
+                  0.0f,
+                  1.0f,
+                  0.0f,
+                  0.0f,
+                  0.0f,
+                  0.0f,
+                  1.0f,
+                  0.0f,
+                  0.0f,
+                  0.0f,
+                  0.0f,
+                  1.0f}}
+            };
             D3DMATRIX mat_projection = {
-                {{2.0f / (R - L), 0.0f, 0.0f, 0.0f, 0.0f, 2.0f / (T - B), 0.0f, 0.0f, 0.0f, 0.0f, 0.5f, 0.0f, (L + R) / (L - R), (T + B) / (B - T), 0.5f, 1.0f}}
+                {{2.0f / (R - L),
+                  0.0f,
+                  0.0f,
+                  0.0f,
+                  0.0f,
+                  2.0f / (T - B),
+                  0.0f,
+                  0.0f,
+                  0.0f,
+                  0.0f,
+                  0.5f,
+                  0.0f,
+                  (L + R) / (L - R),
+                  (T + B) / (B - T),
+                  0.5f,
+                  1.0f}}
             };
             g_pd3dDevice->SetTransform(D3DTS_WORLD, &mat_identity);
             g_pd3dDevice->SetTransform(D3DTS_VIEW, &mat_identity);
@@ -207,7 +253,12 @@ namespace Gui {
             }
             g_VertexBufferSize = draw_data->TotalVtxCount + 5000;
             if (g_pd3dDevice->CreateVertexBuffer(
-                    g_VertexBufferSize * sizeof(CUSTOMVERTEX), D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, D3DFVF_CUSTOMVERTEX, D3DPOOL_DEFAULT, &g_pVB, NULL
+                    g_VertexBufferSize * sizeof(CUSTOMVERTEX),
+                    D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY,
+                    D3DFVF_CUSTOMVERTEX,
+                    D3DPOOL_DEFAULT,
+                    &g_pVB,
+                    NULL
                 )
                 < 0)
                 return;
@@ -242,9 +293,21 @@ namespace Gui {
         //  ImDrawVert { ImVec2 pos; float z; ImU32 col; ImVec2 uv; }
         CUSTOMVERTEX* vtx_dst;
         ImDrawIdx* idx_dst;
-        if (g_pVB->Lock(0, (UINT)(draw_data->TotalVtxCount * sizeof(CUSTOMVERTEX)), (void**)&vtx_dst, D3DLOCK_DISCARD) < 0)
+        if (g_pVB->Lock(
+                0,
+                (UINT)(draw_data->TotalVtxCount * sizeof(CUSTOMVERTEX)),
+                (void**)&vtx_dst,
+                D3DLOCK_DISCARD
+            )
+            < 0)
             return;
-        if (g_pIB->Lock(0, (UINT)(draw_data->TotalIdxCount * sizeof(ImDrawIdx)), (void**)&idx_dst, D3DLOCK_DISCARD) < 0)
+        if (g_pIB->Lock(
+                0,
+                (UINT)(draw_data->TotalIdxCount * sizeof(ImDrawIdx)),
+                (void**)&idx_dst,
+                D3DLOCK_DISCARD
+            )
+            < 0)
             return;
         for (int n = 0; n < draw_data->CmdListsCount; n++) {
             const ImDrawList* cmd_list = draw_data->CmdLists[n];
@@ -289,12 +352,22 @@ namespace Gui {
                         pcmd->UserCallback(cmd_list, pcmd);
                 } else {
                     const RECT r = {
-                        (LONG)(pcmd->ClipRect.x - clip_off.x), (LONG)(pcmd->ClipRect.y - clip_off.y), (LONG)(pcmd->ClipRect.z - clip_off.x), (LONG)(pcmd->ClipRect.w - clip_off.y)
+                        (LONG)(pcmd->ClipRect.x - clip_off.x),
+                        (LONG)(pcmd->ClipRect.y - clip_off.y),
+                        (LONG)(pcmd->ClipRect.z - clip_off.x),
+                        (LONG)(pcmd->ClipRect.w - clip_off.y)
                     };
                     const LPDIRECT3DTEXTURE9 texture = (LPDIRECT3DTEXTURE9)pcmd->TextureId;
                     g_pd3dDevice->SetTexture(0, texture);
                     g_pd3dDevice->SetScissorRect(&r);
-                    g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, vtx_offset, 0, (UINT)cmd_list->VtxBuffer.Size, idx_offset, pcmd->ElemCount / 3);
+                    g_pd3dDevice->DrawIndexedPrimitive(
+                        D3DPT_TRIANGLELIST,
+                        vtx_offset,
+                        0,
+                        (UINT)cmd_list->VtxBuffer.Size,
+                        idx_offset,
+                        pcmd->ElemCount / 3
+                    );
                 }
                 idx_offset += pcmd->ElemCount;
             }
@@ -338,7 +411,9 @@ namespace Gui {
         typedef decltype(__ThImGui_DX9_Reset_HookFunc)* PReset;
 
         ImplDX9InvalidateDeviceObjects();
-        ImGui::GetIO().DisplaySize = {(float)param->BackBufferWidth, (float)param->BackBufferHeight};
+        ImGui::GetIO().DisplaySize = {
+            (float)param->BackBufferWidth, (float)param->BackBufferHeight
+        };
 
         return (*(PReset)__thimgui_dx9_reset_hook)(dev, param);
     }
@@ -346,7 +421,11 @@ namespace Gui {
     {
         if (!__thimgui_dx9_reset_hook) {
             MH_Initialize();
-            MH_CreateHook((void*)(*(int32_t*)(*(int32_t*)g_pd3dDevice + 0x40)), (void*)__ThImGui_DX9_Reset_HookFunc, &__thimgui_dx9_reset_hook);
+            MH_CreateHook(
+                (void*)(*(int32_t*)(*(int32_t*)g_pd3dDevice + 0x40)),
+                (void*)__ThImGui_DX9_Reset_HookFunc,
+                &__thimgui_dx9_reset_hook
+            );
             MH_EnableHook((void*)(*(int32_t*)(*(int32_t*)g_pd3dDevice + 0x40)));
             return true;
         }
