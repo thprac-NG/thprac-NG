@@ -3,10 +3,20 @@ name: cpp-linter
 on:
   pull_request:
     branches: [main, master, DONT-MERGE-format-test]
-    paths: ['thprac/src/thprac/**.c', 'thprac/src/thprac/**.cpp', 'thprac/src/thprac/**.h', 'thprac/src/thprac/**.hpp']
+    paths: ['thprac/src/thprac/**.c',
+            'thprac/src/thprac/**.cpp',
+            'thprac/src/thprac/**.h',
+            'thprac/src/thprac/**.hpp']
   push:
     branches: [main, master, DONT-MERGE-format-test]
-    paths: ['thprac/src/thprac/**.c', 'thprac/src/thprac/**.cpp', 'thprac/src/thprac/**.h', 'thprac/src/thprac/**.hpp']
+    paths: ['thprac/src/thprac/**.c',
+            'thprac/src/thprac/**.cpp',
+            'thprac/src/thprac/**.h',
+            'thprac/src/thprac/**.hpp']
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   cpp-linter:
