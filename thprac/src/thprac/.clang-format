@@ -1,128 +1,131 @@
-# Documentation: https://clang.llvm.org/docs/ClangFormatStyleOptions.html
 ---
-Language: Cpp
-BasedOnStyle: Webkit
-AlignAfterOpenBracket: BlockIndent
-AlignArrayOfStructures: Left
-# AlignConsecutiveAssignments:
-#   Enabled:         false
-#   AcrossEmptyLines: false
-#   AcrossComments:  false
-#   AlignCompound:   false
-#   PadOperators:    true
-# AlignConsecutiveBitFields:
-#   Enabled:         false
-#   AcrossEmptyLines: false
-#   AcrossComments:  false
-#   AlignCompound:   false
-#   PadOperators:    false
-# AlignConsecutiveDeclarations:
-#   Enabled:         false
-#   AcrossEmptyLines: false
-#   AcrossComments:  false
-#   AlignCompound:   false
-#   PadOperators:    false
-# AlignConsecutiveMacros:
-#   Enabled:         false
-#   AcrossEmptyLines: false
-#   AcrossComments:  false
-#   AlignCompound:   false
-#   PadOperators:    false
-AlignEscapedNewlines: Left
-# AlignOperands:   DontAlign
-# AlignTrailingComments:
-#   Kind:            Never
-#   OverEmptyLines:  0
-# AllowAllArgumentsOnNextLine: true
-# AllowAllParametersOfDeclarationOnNextLine: true
-# AllowShortBlocksOnASingleLine: Empty
-# AllowShortCaseLabelsOnASingleLine: false
-AllowShortEnumsOnASingleLine: false
-AllowShortFunctionsOnASingleLine: None
-# AllowShortIfStatementsOnASingleLine: Never
-# AllowShortLambdasOnASingleLine: All
-# AllowShortLoopsOnASingleLine: false
-# AlwaysBreakAfterReturnType: None
-# AlwaysBreakBeforeMultilineStrings: false
-AlwaysBreakTemplateDeclarations: Yes
-# AttributeMacros:
-#   - __capability
-BinPackArguments: false
-BinPackParameters: true
-BreakBeforeBraces: Custom
-BraceWrapping:
-    # AfterCaseLabel: false
-    # AfterClass: false
-    AfterControlStatement: Never
-    # AfterEnum: false
-    # AfterExternBlock: false
-    AfterFunction: true
-    # AfterNamespace: false
-    # AfterStruct: false
-    # AfterUnion: false
-    # BeforeCatch: false
-    # BeforeElse: false
-    # BeforeLambdaBody: false
-    # BeforeWhile: false
-    # IndentBraces: false
-    SplitEmptyFunction: false
-    # SplitEmptyRecord: true
-    # SplitEmptyNamespace: true
-# BreakAfterAttributes: Never
-BreakBeforeBinaryOperators: NonAssignment
-# BreakBeforeConceptDeclarations: Always
-BreakBeforeInlineASMColon: OnlyMultiline
-# BreakBeforeTernaryOperators: true
-# BreakConstructorInitializers: BeforeComma
-# BreakInheritanceList: BeforeColon
-# BreakStringLiterals: true
-ColumnLimit: 100 # TODO: Set this to something more reasonable - maybe 100?
-Cpp11BracedListStyle: true
-InsertNewlineAtEOF: true
-# SpaceAfterCStyleCast: false
-# SpaceAfterLogicalNot: false
-# SpaceAfterTemplateKeyword: true
-# SpaceAroundPointerQualifiers: Default
-# SpaceBeforeAssignmentOperators: true
-# SpaceBeforeCaseColon: false
-SpaceBeforeCpp11BracedList: false
-# SpaceBeforeCtorInitializerColon: true
-# SpaceBeforeInheritanceColon: true
-# SpaceBeforeParens: ControlStatements
-# # SpaceBeforeParensOptions:
-# #   AfterControlStatements: true
-# #   AfterForeachMacros: true
-# #   AfterFunctionDefinitionName: false
-# #   AfterFunctionDeclarationName: false
-# #   AfterIfMacros:   true
-# #   AfterOverloadedOperator: false
-# #   AfterRequiresInClause: false
-# #   AfterRequiresInExpression: false
-# #   BeforeNonEmptyParentheses: false
-# SpaceBeforeRangeBasedForLoopColon: true
-# SpaceBeforeSquareBrackets: false
-# SpaceInEmptyBlock: true
-# SpaceInEmptyParentheses: false
-# SpacesInAngles:  Never
-# SpacesInConditionalStatement: false
-# SpacesInCStyleCastParentheses: false
-# SpacesInLineCommentPrefix:
-#   Minimum:         1
-#   Maximum:         -1
-# SpacesInParentheses: false
-# SpacesInSquareBrackets: false
-PenaltyReturnTypeOnItsOwnLine: 1000000
-StatementMacros:
-    - ParseJson
-    - ParseJsonNoReset
-    - CreateJson
-    - ReturnJson
-    - ForceJsonValue
-    - GetJsonValue
-    - GetJsonValueEx
-    - GetJsonValueAlt
-    - AddJsonValue
-    - AddJsonValueEx
-TabWidth: 4
-UseTab: Never
----
+Language:        Cpp
+BasedOnStyle:  WebKit
+# # Documentation: https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+# ---
+# Language: Cpp
+# BasedOnStyle: Webkit
+# AlignAfterOpenBracket: BlockIndent
+# AlignArrayOfStructures: Left
+# # AlignConsecutiveAssignments:
+# #   Enabled:         false
+# #   AcrossEmptyLines: false
+# #   AcrossComments:  false
+# #   AlignCompound:   false
+# #   PadOperators:    true
+# # AlignConsecutiveBitFields:
+# #   Enabled:         false
+# #   AcrossEmptyLines: false
+# #   AcrossComments:  false
+# #   AlignCompound:   false
+# #   PadOperators:    false
+# # AlignConsecutiveDeclarations:
+# #   Enabled:         false
+# #   AcrossEmptyLines: false
+# #   AcrossComments:  false
+# #   AlignCompound:   false
+# #   PadOperators:    false
+# # AlignConsecutiveMacros:
+# #   Enabled:         false
+# #   AcrossEmptyLines: false
+# #   AcrossComments:  false
+# #   AlignCompound:   false
+# #   PadOperators:    false
+# AlignEscapedNewlines: Left
+# # AlignOperands:   DontAlign
+# # AlignTrailingComments:
+# #   Kind:            Never
+# #   OverEmptyLines:  0
+# # AllowAllArgumentsOnNextLine: true
+# # AllowAllParametersOfDeclarationOnNextLine: true
+# # AllowShortBlocksOnASingleLine: Empty
+# # AllowShortCaseLabelsOnASingleLine: false
+# AllowShortEnumsOnASingleLine: false
+# AllowShortFunctionsOnASingleLine: None
+# # AllowShortIfStatementsOnASingleLine: Never
+# # AllowShortLambdasOnASingleLine: All
+# # AllowShortLoopsOnASingleLine: false
+# # AlwaysBreakAfterReturnType: None
+# # AlwaysBreakBeforeMultilineStrings: false
+# AlwaysBreakTemplateDeclarations: Yes
+# # AttributeMacros:
+# #   - __capability
+# BinPackArguments: false
+# BinPackParameters: true
+# BreakBeforeBraces: Custom
+# BraceWrapping:
+#     # AfterCaseLabel: false
+#     # AfterClass: false
+#     AfterControlStatement: Never
+#     # AfterEnum: false
+#     # AfterExternBlock: false
+#     AfterFunction: true
+#     # AfterNamespace: false
+#     # AfterStruct: false
+#     # AfterUnion: false
+#     # BeforeCatch: false
+#     # BeforeElse: false
+#     # BeforeLambdaBody: false
+#     # BeforeWhile: false
+#     # IndentBraces: false
+#     SplitEmptyFunction: false
+#     # SplitEmptyRecord: true
+#     # SplitEmptyNamespace: true
+# # BreakAfterAttributes: Never
+# BreakBeforeBinaryOperators: NonAssignment
+# # BreakBeforeConceptDeclarations: Always
+# BreakBeforeInlineASMColon: OnlyMultiline
+# # BreakBeforeTernaryOperators: true
+# # BreakConstructorInitializers: BeforeComma
+# # BreakInheritanceList: BeforeColon
+# # BreakStringLiterals: true
+# ColumnLimit: 100 # TODO: Set this to something more reasonable - maybe 100?
+# Cpp11BracedListStyle: true
+# InsertNewlineAtEOF: true
+# # SpaceAfterCStyleCast: false
+# # SpaceAfterLogicalNot: false
+# # SpaceAfterTemplateKeyword: true
+# # SpaceAroundPointerQualifiers: Default
+# # SpaceBeforeAssignmentOperators: true
+# # SpaceBeforeCaseColon: false
+# SpaceBeforeCpp11BracedList: false
+# # SpaceBeforeCtorInitializerColon: true
+# # SpaceBeforeInheritanceColon: true
+# # SpaceBeforeParens: ControlStatements
+# # # SpaceBeforeParensOptions:
+# # #   AfterControlStatements: true
+# # #   AfterForeachMacros: true
+# # #   AfterFunctionDefinitionName: false
+# # #   AfterFunctionDeclarationName: false
+# # #   AfterIfMacros:   true
+# # #   AfterOverloadedOperator: false
+# # #   AfterRequiresInClause: false
+# # #   AfterRequiresInExpression: false
+# # #   BeforeNonEmptyParentheses: false
+# # SpaceBeforeRangeBasedForLoopColon: true
+# # SpaceBeforeSquareBrackets: false
+# # SpaceInEmptyBlock: true
+# # SpaceInEmptyParentheses: false
+# # SpacesInAngles:  Never
+# # SpacesInConditionalStatement: false
+# # SpacesInCStyleCastParentheses: false
+# # SpacesInLineCommentPrefix:
+# #   Minimum:         1
+# #   Maximum:         -1
+# # SpacesInParentheses: false
+# # SpacesInSquareBrackets: false
+# PenaltyReturnTypeOnItsOwnLine: 1000000
+# StatementMacros:
+#     - ParseJson
+#     - ParseJsonNoReset
+#     - CreateJson
+#     - ReturnJson
+#     - ForceJsonValue
+#     - GetJsonValue
+#     - GetJsonValueEx
+#     - GetJsonValueAlt
+#     - AddJsonValue
+#     - AddJsonValueEx
+# TabWidth: 4
+# UseTab: Never
+# ---
