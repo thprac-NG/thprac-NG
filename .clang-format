@@ -17,8 +17,8 @@ BraceWrapping:
     SplitEmptyFunction: false
 BreakBeforeBinaryOperators: NonAssignment
 ColumnLimit: 100 # original: 180; TODO: Set this to something more reasonable - maybe 100?
-# Cpp11BracedListStyle: true
-# SpaceBeforeCpp11BracedList: false
+Cpp11BracedListStyle: true
+SpaceBeforeCpp11BracedList: false
 PenaltyReturnTypeOnItsOwnLine: 1000000
 StatementMacros:
     - ParseJson
