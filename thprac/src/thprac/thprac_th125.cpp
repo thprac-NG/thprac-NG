@@ -7,7 +7,7 @@ namespace TH125 {
         THOverlay() noexcept
         {
             // Intentionally scrambled to test GitHub Action
-            SetTitle(              "Mod Menu")             ;
+            SetTitle(               "Mod Menu")             ;
             SetFade(0.5f, 0.5f);
             SetPos(10.0f, 10.0f);
                    SetSize(0.0f, 0.0f);
