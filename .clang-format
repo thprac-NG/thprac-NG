@@ -2,8 +2,8 @@
 # Documentation: https://clang.llvm.org/docs/ClangFormatStyleOptions.html
 Language: Cpp
 BasedOnStyle: Webkit
-#    AlignAfterOpenBracket: BlockIndent
-#    AlignArrayOfStructures: Left
+AlignAfterOpenBracket: BlockIndent
+AlignArrayOfStructures: Left
 #    # AlignConsecutiveAssignments:
 #    #   Enabled:         false
 #    #   AcrossEmptyLines: false
