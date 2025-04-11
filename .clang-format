@@ -4,125 +4,125 @@ Language: Cpp
 BasedOnStyle: Webkit
 AlignAfterOpenBracket: BlockIndent
 AlignArrayOfStructures: Left
-#    # AlignConsecutiveAssignments:
-#    #   Enabled:         false
-#    #   AcrossEmptyLines: false
-#    #   AcrossComments:  false
-#    #   AlignCompound:   false
-#    #   PadOperators:    true
-#    # AlignConsecutiveBitFields:
-#    #   Enabled:         false
-#    #   AcrossEmptyLines: false
-#    #   AcrossComments:  false
-#    #   AlignCompound:   false
-#    #   PadOperators:    false
-#    # AlignConsecutiveDeclarations:
-#    #   Enabled:         false
-#    #   AcrossEmptyLines: false
-#    #   AcrossComments:  false
-#    #   AlignCompound:   false
-#    #   PadOperators:    false
-#    # AlignConsecutiveMacros:
-#    #   Enabled:         false
-#    #   AcrossEmptyLines: false
-#    #   AcrossComments:  false
-#    #   AlignCompound:   false
-#    #   PadOperators:    false
+# AlignConsecutiveAssignments:
+#   Enabled:         false
+#   AcrossEmptyLines: false
+#   AcrossComments:  false
+#   AlignCompound:   false
+#   PadOperators:    true
+# AlignConsecutiveBitFields:
+#   Enabled:         false
+#   AcrossEmptyLines: false
+#   AcrossComments:  false
+#   AlignCompound:   false
+#   PadOperators:    false
+# AlignConsecutiveDeclarations:
+#   Enabled:         false
+#   AcrossEmptyLines: false
+#   AcrossComments:  false
+#   AlignCompound:   false
+#   PadOperators:    false
+# AlignConsecutiveMacros:
+#   Enabled:         false
+#   AcrossEmptyLines: false
+#   AcrossComments:  false
+#   AlignCompound:   false
+#   PadOperators:    false
 AlignEscapedNewlines: Left
-#    # AlignOperands:   DontAlign
-#    # AlignTrailingComments:
-#    #   Kind:            Never
-#    #   OverEmptyLines:  0
-#    # AllowAllArgumentsOnNextLine: true
-#    # AllowAllParametersOfDeclarationOnNextLine: true
-#    # AllowShortBlocksOnASingleLine: Empty
-#    # AllowShortCaseLabelsOnASingleLine: false
+# AlignOperands:   DontAlign
+# AlignTrailingComments:
+#   Kind:            Never
+#   OverEmptyLines:  0
+# AllowAllArgumentsOnNextLine: true
+# AllowAllParametersOfDeclarationOnNextLine: true
+# AllowShortBlocksOnASingleLine: Empty
+# AllowShortCaseLabelsOnASingleLine: false
 AllowShortEnumsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: None
-#    # AllowShortIfStatementsOnASingleLine: Never
-#    # AllowShortLambdasOnASingleLine: All
-#    # AllowShortLoopsOnASingleLine: false
-#    # AlwaysBreakAfterReturnType: None
-#    # AlwaysBreakBeforeMultilineStrings: false
+# AllowShortIfStatementsOnASingleLine: Never
+# AllowShortLambdasOnASingleLine: All
+# AllowShortLoopsOnASingleLine: false
+# AlwaysBreakAfterReturnType: None
+# AlwaysBreakBeforeMultilineStrings: false
 AlwaysBreakTemplateDeclarations: Yes
-#    # AttributeMacros:
-#    #   - __capability
+# AttributeMacros:
+#   - __capability
 BinPackArguments: false
 BinPackParameters: true
 BreakBeforeBraces: Custom
-#    BraceWrapping:
-#        # AfterCaseLabel: false
-#        # AfterClass: false
-#        AfterControlStatement: Never
-#        # AfterEnum: false
-#        # AfterExternBlock: false
-#        AfterFunction: true
-#        # AfterNamespace: false
-#        # AfterStruct: false
-#        # AfterUnion: false
-#        # BeforeCatch: false
-#        # BeforeElse: false
-#        # BeforeLambdaBody: false
-#        # BeforeWhile: false
-#        # IndentBraces: false
-#        SplitEmptyFunction: false
-#        # SplitEmptyRecord: true
-#        # SplitEmptyNamespace: true
-#    # BreakAfterAttributes: Never
+BraceWrapping:
+    # AfterCaseLabel: false
+    # AfterClass: false
+    AfterControlStatement: Never
+    # AfterEnum: false
+    # AfterExternBlock: false
+    AfterFunction: true
+    # AfterNamespace: false
+    # AfterStruct: false
+    # AfterUnion: false
+    # BeforeCatch: false
+    # BeforeElse: false
+    # BeforeLambdaBody: false
+    # BeforeWhile: false
+    # IndentBraces: false
+    SplitEmptyFunction: false
+    # SplitEmptyRecord: true
+    # SplitEmptyNamespace: true
+# BreakAfterAttributes: Never
 BreakBeforeBinaryOperators: NonAssignment
-#    # BreakBeforeConceptDeclarations: Always
-BreakBeforeInlineASMColon: OnlyMultiline
-#    # BreakBeforeTernaryOperators: true
-#    # BreakConstructorInitializers: BeforeComma
-#    # BreakInheritanceList: BeforeColon
-#    # BreakStringLiterals: true
-ColumnLimit: 100 # TODO: Set this to something more reasonable - maybe 100?
+# BreakBeforeConceptDeclarations: Always
+## BreakBeforeInlineASMColon: OnlyMultiline   # Not available in GitHub Action, since it only supports clang-format v14
+# BreakBeforeTernaryOperators: true
+# BreakConstructorInitializers: BeforeComma
+# BreakInheritanceList: BeforeColon
+# BreakStringLiterals: true
+ColumnLimit: 100 # original: 180; TODO: Set this to something more reasonable - maybe 100?
 Cpp11BracedListStyle: true
-InsertNewlineAtEOF: true
-#    # SpaceAfterCStyleCast: false
-#    # SpaceAfterLogicalNot: false
-#    # SpaceAfterTemplateKeyword: true
-#    # SpaceAroundPointerQualifiers: Default
-#    # SpaceBeforeAssignmentOperators: true
-#    # SpaceBeforeCaseColon: false
+# InsertNewlineAtEOF: true  # Not available in GitHub Action, since it only supports clang-format v14
+# SpaceAfterCStyleCast: false
+# SpaceAfterLogicalNot: false
+# SpaceAfterTemplateKeyword: true
+# SpaceAroundPointerQualifiers: Default
+# SpaceBeforeAssignmentOperators: true
+# SpaceBeforeCaseColon: false
 SpaceBeforeCpp11BracedList: false
-#    # SpaceBeforeCtorInitializerColon: true
-#    # SpaceBeforeInheritanceColon: true
-#    # SpaceBeforeParens: ControlStatements
-#    # # SpaceBeforeParensOptions:
-#    # #   AfterControlStatements: true
-#    # #   AfterForeachMacros: true
-#    # #   AfterFunctionDefinitionName: false
-#    # #   AfterFunctionDeclarationName: false
-#    # #   AfterIfMacros:   true
-#    # #   AfterOverloadedOperator: false
-#    # #   AfterRequiresInClause: false
-#    # #   AfterRequiresInExpression: false
-#    # #   BeforeNonEmptyParentheses: false
-#    # SpaceBeforeRangeBasedForLoopColon: true
-#    # SpaceBeforeSquareBrackets: false
-#    # SpaceInEmptyBlock: true
-#    # SpaceInEmptyParentheses: false
-#    # SpacesInAngles:  Never
-#    # SpacesInConditionalStatement: false
-#    # SpacesInCStyleCastParentheses: false
-#    # SpacesInLineCommentPrefix:
-#    #   Minimum:         1
-#    #   Maximum:         -1
-#    # SpacesInParentheses: false
-#    # SpacesInSquareBrackets: false
+# SpaceBeforeCtorInitializerColon: true
+# SpaceBeforeInheritanceColon: true
+# SpaceBeforeParens: ControlStatements
+# # SpaceBeforeParensOptions:
+# #   AfterControlStatements: true
+# #   AfterForeachMacros: true
+# #   AfterFunctionDefinitionName: false
+# #   AfterFunctionDeclarationName: false
+# #   AfterIfMacros:   true
+# #   AfterOverloadedOperator: false
+# #   AfterRequiresInClause: false
+# #   AfterRequiresInExpression: false
+# #   BeforeNonEmptyParentheses: false
+# SpaceBeforeRangeBasedForLoopColon: true
+# SpaceBeforeSquareBrackets: false
+# SpaceInEmptyBlock: true
+# SpaceInEmptyParentheses: false
+# SpacesInAngles:  Never
+# SpacesInConditionalStatement: false
+# SpacesInCStyleCastParentheses: false
+# SpacesInLineCommentPrefix:
+#   Minimum:         1
+#   Maximum:         -1
+# SpacesInParentheses: false
+# SpacesInSquareBrackets: false
 PenaltyReturnTypeOnItsOwnLine: 1000000
-#    StatementMacros:
-#        - ParseJson
-#        - ParseJsonNoReset
-#        - CreateJson
-#        - ReturnJson
-#        - ForceJsonValue
-#        - GetJsonValue
-#        - GetJsonValueEx
-#        - GetJsonValueAlt
-#        - AddJsonValue
-#        - AddJsonValueEx
+StatementMacros:
+    - ParseJson
+    - ParseJsonNoReset
+    - CreateJson
+    - ReturnJson
+    - ForceJsonValue
+    - GetJsonValue
+    - GetJsonValueEx
+    - GetJsonValueAlt
+    - AddJsonValue
+    - AddJsonValueEx
 TabWidth: 4
 UseTab: Never
-#    # ---
+---
