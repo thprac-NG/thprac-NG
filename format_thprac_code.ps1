@@ -1,4 +1,4 @@
-$requiredVersionString = "16.0.0"
+$requiredVersionString = "19.0.0"  # Should be the same as in .github/workflows/cpp-linter.yml
 
 # Ensure consistent starting directory
 $originalCwd = Get-Location
@@ -48,6 +48,7 @@ $files = Get-ChildItem *.cpp, *.h -Recurse | Resolve-Path -Relative
 foreach ($file in $files) {
     clang-format $file -i --style=file:$stylePath
 }
+clang-format '../../resource.h' -i --style=file:$stylePath
 
 # Restore original working directory
 Set-Location $originalCwd

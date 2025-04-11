@@ -6,20 +6,18 @@ namespace TH125 {
     class THOverlay : public Gui::GameGuiWnd {
         THOverlay() noexcept
         {
-            // Intentionally scrambled to test GitHub Action
-            SetTitle(                "Mod Menu")             ;
+            SetTitle("Mod Menu");
             SetFade(0.5f, 0.5f);
             SetPos(10.0f, 10.0f);
-                   SetSize(0.0f, 0.0f);
-            SetWndFlag
-            (
+            SetSize(0.0f, 0.0f);
+            SetWndFlag(
                 ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove
-                                  | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
+                | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings
                 | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | 0
             );
-            OnLocaleChange()     ;
+            OnLocaleChange();
         }
-        SINGLETON(THOverlay);        
+        SINGLETON(THOverlay);
 
     protected:
         virtual void OnLocaleChange() override
