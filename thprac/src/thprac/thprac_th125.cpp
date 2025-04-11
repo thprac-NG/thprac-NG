@@ -6,7 +6,7 @@ namespace TH125 {
     class THOverlay : public Gui::GameGuiWnd {
         THOverlay() noexcept
         {
-            SetTitle(         "Mod Menu")             ;
+            SetTitle(          "Mod Menu")             ;
             SetFade(0.5f, 0.5f);
             SetPos(10.0f, 10.0f);
                    SetSize(0.0f, 0.0f);
