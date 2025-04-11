@@ -1,5 +1,5 @@
-# Documentation: https://clang.llvm.org/docs/ClangFormatStyleOptions.html
 ---
+# Documentation: https://clang.llvm.org/docs/ClangFormatStyleOptions.html
 Language: Cpp
 BasedOnStyle: Webkit
 AlignAfterOpenBracket: BlockIndent
@@ -125,4 +125,5 @@ StatementMacros:
     - AddJsonValueEx
 TabWidth: 4
 UseTab: Never
----
+# ---
+
