@@ -1,0 +1,45 @@
+# Modified from https://cpp-linter.github.io/cpp-linter-action/examples/
+name: cpp-linter
+on:
+  pull_request:
+    branches: [main, master, DONT-MERGE-format-test]
+    paths: ['thprac/src/thprac/**.c',
+            'thprac/src/thprac/**.cpp',
+            'thprac/src/thprac/**.h',
+            'thprac/src/thprac/**.hpp']
+  push:
+    branches: [main, master, DONT-MERGE-format-test]
+    paths: ['thprac/src/thprac/**.c',
+            'thprac/src/thprac/**.cpp',
+            'thprac/src/thprac/**.h',
+            'thprac/src/thprac/**.hpp']
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  cpp-linter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # ... optionally setup build env to create a compilation database
+
+      - uses: cpp-linter/cpp-linter-action@v2
+        id: linter
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          ignore: '.github|thprac/src/3rdParties'
+          style: 'file'  # Use .clang-format config file. 
+          tidy-checks: '-*'  # disable clang-tidy checks. 
+          version: '19'  # Use clang-format v19.
+          step-summary: true  # Append summary to the Action pages
+          format-review: true  # Use clang-format to review PRs
+          files-changed-only: false  # Check all files
+          thread-comments: update  # Update the comment to prevent multiple notifications
+
+      - name: Fail fast?!
+        if: steps.linter.outputs.clang-format-checks-failed > 0
+        run: exit 1

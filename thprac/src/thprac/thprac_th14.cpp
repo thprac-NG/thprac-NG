@@ -513,7 +513,7 @@ namespace TH14 {
             {new HookCtx(0x44DEC4, "\xE9\x07\x31\x06\x00\x90\x90", 8),
               new HookCtx(
                  0x4b0fd0, "\xA1\x2C\xB5\x4D\x00\x83\xC0\x40\x8B\x00\x85\xC0\x0F\x84\xEF\xCE\xF9\xFF\xE9\xEA"
-              "\xCF\xF9\xFF\x90", 25
+                 "\xCF\xF9\xFF\x90", 25
              )}
         };
 

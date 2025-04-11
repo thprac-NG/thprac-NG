@@ -2131,7 +2131,7 @@ namespace TH185 {
             {new HookCtx(0x434c85, "\x66\x0f\x1f\x44\x00\x00", 6),
               new HookCtx(
                  0x436E38, "\x0f\x1f\x84\x00\x00\x00\x00\x00\x0f\x1f\x84\x00\x00\x00\x00\x00\x0f\x1f\x84\x00"
-              "\x00\x00\x00\x00", 24
+                 "\x00\x00\x00\x00", 24
              )}
         };
         Gui::GuiHotKey mZeroCD{TH18_ZERO_CD, "F5", VK_F5, {new HookCtx(0x462146, [](PCONTEXT pCtx) {
