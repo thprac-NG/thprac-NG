@@ -98,25 +98,15 @@ namespace Gui {
         g_pd3dDevice->SetRenderState(D3DRS_FOGENABLE, false);
         g_pd3dDevice->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_DISABLE);
 
+        // clang-format off
         // Setup world & view matrix
-        D3DMATRIX mat_identity = {
-            {{1.0f,
-              0.0f,
-              0.0f,
-              0.0f,
-              0.0f,
-              1.0f,
-              0.0f,
-              0.0f,
-              0.0f,
-              0.0f,
-              1.0f,
-              0.0f,
-              0.0f,
-              0.0f,
-              0.0f,
-              1.0f}}
-        };
+        D3DMATRIX mat_identity = {{{
+            1.0f, 0.0f, 0.0f, 0.0f,
+            0.0f, 1.0f, 0.0f, 0.0f,
+            0.0f, 0.0f, 1.0f, 0.0f,
+            0.0f, 0.0f, 0.0f, 1.0f
+        }}};
+        // clang-format on
         g_pd3dDevice->SetTransform(D3DTS_WORLD, &mat_identity);
         g_pd3dDevice->SetTransform(D3DTS_VIEW, &mat_identity);
     }
@@ -308,24 +298,14 @@ namespace Gui {
                     // Setup projection matrix
                     const float L = 0.5f + viewport.X, R = viewport.Width + 0.5f + viewport.X;
                     const float T = 0.5f + viewport.Y, B = viewport.Height + 0.5f + viewport.Y;
+                    // clang-format off
                     D3DMATRIX matProjection = {
-                        2.0f / (R - L),
-                        0.0f,
-                        0.0f,
-                        0.0f,
-                        0.0f,
-                        2.0f / (T - B),
-                        0.0f,
-                        0.0f,
-                        0.0f,
-                        0.0f,
-                        0.5f,
-                        0.0f,
-                        (L + R) / (L - R),
-                        (T + B) / (B - T),
-                        0.5f,
-                        1.0f,
+                        2.0f / (R - L),    0.0f,              0.0f, 0.0f,
+                        0.0f,              2.0f / (T - B),    0.0f, 0.0f,
+                        0.0f,              0.0f,              0.5f, 0.0f,
+                        (L + R) / (L - R), (T + B) / (B - T), 0.5f, 1.0f,
                     };
+                    // clang-format on
 
                     // Render
                     g_pd3dDevice->SetTexture(0, (LPDIRECT3DTEXTURE8)pcmd->TextureId);
