@@ -122,6 +122,7 @@
         "When enabled, launching thprac will always open the launcher even if there's a valid game available in the current directory.",
         "有効にすると、現在のディレクトリに有効なゲームが存在する場合でも、thpracを起動すると常にランチャーが開きます。"
       ],
+      "THPRAC_THEME": [ "主题:", "Theme: ", "テーマ:" ],
       "THPRAC_AFTER_LAUNCH": [ "启动游戏后:", "After launching game:", "ゲーム起動後:" ],
       "THPRAC_AFTER_LAUNCH_OPTION": [
         "最小化启动器\\0关闭启动器\\0什么也不做\\0\\0",
@@ -204,14 +205,21 @@
       ],
       "THPRAC_UPDATE_DIALOG_CHECKING": [ "检查更新中", "Checking for update", "更新を確認しています" ],
       "THPRAC_UPDATE_DIALOG_UPDATING": [ "正在更新thprac", "Updating thprac", "thpracを更新しています" ],
+      "THPRAC_ADVANCED_OPTION": [ "高级选项", "Advanced option", "高度なオプション" ],
+      "THPRAC_RENDER_ONLY_USED_GLYPHS": [ "只渲染用到的字形", "Render only used glyphs", "使用する文字だけを描画" ],
+      "THPRAC_RENDER_ONLY_USED_GLYPHS_DESC": [
+        "若游戏内的所有文字都无法正常显示（譬如显示为白色实心方框），请打开此选项。", 
+        "If all text in the game fails to display properly (e.g., appears as white solid squares), please enable this option.", 
+        "ゲーム内のすべての文字が正常に表示されない場合（白い四角で表示されるなど）、このオプションを有効にしてください。" 
+      ],
 
       "THPRAC_TOOLS": [ "工具", "Tools", "ツール" ],
       "THPRAC_TOOLS_APPLY_THPRAC": [ "应用thprac至正在运行的游戏", "Apply thprac to ongoing game", "実行中のゲームにthpracを適用します" ],
       "THPRAC_TOOLS_RND_GAME": [ "随机游戏", "Random game", "ランダムゲーム" ],
       "THPRAC_TOOLS_RND_PLAYER": [ "随机机体", "Random shot type", "ランダム機体" ],
-      "THPRAC_TOOLS_RND_GAME_PC98": [ "PC98", "PC98", "PC98" ],
+      "THPRAC_TOOLS_RND_GAME_PC98": [ "旧作", "PC98", "旧作" ],
       "THPRAC_TOOLS_ROLL": [ "ROLL!", "ROLL!", "ROLL!" ],
-      "THPRAC_TOOLS_ROLL_RESULT": [ "你随机到了：%s。（右键查看更多选项）", "You've rolled: %s. (Right click for more options)", "結果：％s。（右クリックで詳細オプションを表示）" ],
+      "THPRAC_TOOLS_ROLL_RESULT": [ "你随机到了：%s。（右键查看更多选项）", "You've rolled: %s. (Right click for more options)", "結果：%s。（右クリックで詳細オプションを表示）" ],
       "THPRAC_TOOLS_RND_PLAYER_GAME": [ "游戏", "Game", "ゲーム" ],
       "THPRAC_TOOLS_RND_TURNTO_PLAYER": [ "转至随机机体", "Turn to random shot type", "ランダム機体に移動" ],
       "THPRAC_TOOLS_RND_TURNTO_GAME": [ "转至游戏页面", "Turn to game page", "ゲームページに移動" ],
@@ -389,6 +397,167 @@
       "THPRAC_GAMES_LAUNCH_ERR": [ "启动游戏时发生了错误。", "An error occurred while starting the game.", "ゲームの開始中にエラーが発生しました。" ],
       "THPRAC_GAMES_MISSING": [ "少女神隐中...", "Girls are now missing...", "少女神隠中..." ],
       "THPRAC_GOTO_STEAM_PAGE": [ "前往Steam页面", "Go to Steam page", "Steamページに移動" ],
+
+      "THPRAC_GAMEROLL_EENY_MEENY": ["伊尼、米尼、迈尼、莫！", "Eeny, meeny, miny, moe!", "いーにー、みーにー、まいにー、もー！"],
+      "THPRAC_GAMEROLL_ROLL": ["抽一个！", "ROLL!", "ロール！"],
+      "THPRAC_GAMEROLL_ALCOSTG": ["黄昏酒场", "alcostg", "黄昏酒場"],
+      "THPRAC_GAMEROLL_TH01": ["灵异传", "th01", "靈異伝"],
+      "THPRAC_GAMEROLL_TH02": ["封魔录", "th02", "封魔録"],
+      "THPRAC_GAMEROLL_TH03": ["梦时空", "th03", "夢時空"],
+      "THPRAC_GAMEROLL_TH04": ["幻想乡", "th04", "幻想郷"],
+      "THPRAC_GAMEROLL_TH05": ["怪绮谈", "th05", "怪綺談"],
+      "THPRAC_GAMEROLL_TH06": ["红魔乡", "th06", "紅魔郷"],
+      "THPRAC_GAMEROLL_TH07": ["妖妖梦", "th07", "妖々夢"],
+      "THPRAC_GAMEROLL_TH075": ["萃梦想", "th075", "萃夢想"],
+      "THPRAC_GAMEROLL_TH08": ["永夜抄", "th08", "永夜抄"],
+      "THPRAC_GAMEROLL_TH09": ["花映冢", "th09", "花映塚"],
+      "THPRAC_GAMEROLL_TH095": ["文花帖", "th095", "文花帖"],
+      "THPRAC_GAMEROLL_TH10": ["风神录", "th10", "風神録"],
+      "THPRAC_GAMEROLL_TH105": ["绯想天", "th105", "緋想天"],
+      "THPRAC_GAMEROLL_TH11": ["地灵殿", "th11", "地霊殿"],
+      "THPRAC_GAMEROLL_TH12": ["星莲船", "th12", "星蓮船"],
+      "THPRAC_GAMEROLL_TH123": ["非想天则", "th123", "非想天則"],
+      "THPRAC_GAMEROLL_TH125": ["文花帖DS", "th125", "ダブルスポイラー"],
+      "THPRAC_GAMEROLL_TH128": ["妖精大战争", "th128", "妖精大戦争"],
+      "THPRAC_GAMEROLL_TH13": ["神灵庙", "th13", "神霊廟"],
+      "THPRAC_GAMEROLL_TH135": ["心绮楼", "th135", "心綺楼"],
+      "THPRAC_GAMEROLL_TH14": ["辉针城", "th14", "輝針城"],
+      "THPRAC_GAMEROLL_TH143": ["天邪鬼", "th143", "弾幕アマノジャク"],
+      "THPRAC_GAMEROLL_TH145": ["深秘录", "th145", "深秘録"],
+      "THPRAC_GAMEROLL_TH15": ["绀珠传", "th15", "紺珠伝"],
+      "THPRAC_GAMEROLL_TH155": ["凭依华", "th155", "憑依華"],
+      "THPRAC_GAMEROLL_TH16": ["天空璋", "th16", "天空璋"],
+      "THPRAC_GAMEROLL_TH165": ["秘封噩梦日记", "th165", "秘封ナイトメアダイアリー"],
+      "THPRAC_GAMEROLL_TH17": ["鬼形兽", "th17", "鬼形獣"],
+      "THPRAC_GAMEROLL_TH175": ["刚欲异闻", "th175", "剛欲異聞"],
+      "THPRAC_GAMEROLL_TH18": ["虹龙洞", "th18", "虹龍洞"],
+      "THPRAC_GAMEROLL_TH185": ["弹幕狂们的黑市", "th185", "バレットフィリア達の闇市場"],
+      "THPRAC_GAMEROLL_TH19": ["兽王园", "th19", "獣王園"],
+
+      "THPRAC_GAMEROLL_EMPTY_SHOTTYPES": ["", "", ""],
+      "THPRAC_GAMEROLL_TH02_SHOTTYPES": ["灵梦A\\0灵梦B\\0灵梦C\\0\\0", "Reimu A\\0Reimu B\\0Reimu C\\0\\0", "靈梦A\\0靈梦B\\0靈梦C\\0\\0"],
+      "THPRAC_GAMEROLL_TH03_SHOTTYPES": [
+        "灵梦\\0魅魔\\0魔理沙\\0爱莲\\0小兔姬\\0卡娜\\0理香子\\0千百合\\0梦美\\0\\0",
+        "Reimu\\0Mima\\0Marisa\\0Ellen\\0Kotohime\\0Kana\\0Rikako\\0Chiyuri\\0Yumemi\\0\\0",
+        "靈夢\\0魅魔\\0魔理沙\\0エレン\\0小兎姫\\0カナ\\0理香子\\0ちゆり\\0夢美\\0\\0"
+      ],
+      "THPRAC_GAMEROLL_TH04_SHOTTYPES": ["灵梦\\0魔理沙\\0\\0", "Reimu\\0Marisa\\0\\0", "靈夢\\0魔理沙\\0\\0"],
+      "THPRAC_GAMEROLL_TH05_SHOTTYPES": ["灵梦\\0魔理沙\\0魅魔\\0幽香\\0\\0", "Reimu\\0Marisa\\0Mima\\0Yuuka\\0\\0", "靈夢\\0魔理沙\\0魅魔\\0幽香\\0\\0"],
+      "THPRAC_GAMEROLL_TH06_SHOTTYPES": [
+        "灵梦A\\0灵梦B\\0魔理沙A\\0魔理沙B\\0\\0",
+        "Reimu A\\0Reimu B\\0Marisa A\\0Marisa B\\0\\0",
+        "霊夢A\\0霊夢B\\0魔理沙A\\0魔理沙B\\0\\0"
+      ],
+      "THPRAC_GAMEROLL_TH07_SHOTTYPES": [
+        "灵梦A\\0灵梦B\\0魔理沙A\\0魔理沙B\\0咲夜A\\0咲夜B\\0\\0",
+        "Reimu A\\0Reimu B\\0Marisa A\\0Marisa B\\0Sakuya A\\0Sakuya B\\0\\0",
+        "霊夢A\\0霊夢B\\0魔理沙A\\0魔理沙B\\0咲夜A\\0咲夜B\\0\\0"
+      ],
+      "THPRAC_GAMEROLL_TH075_SHOTTYPES": [
+        "灵梦\\0魔理沙\\0咲夜\\0爱丽丝\\0帕秋莉\\0妖梦\\0蕾米莉亚\\0幽幽子\\0紫\\0萃香\\0\\0",
+        "Reimu\\0Marisa\\0Sakuya\\0Alice\\0Patchouli\\0Youmu\\0Remilia\\0Yuyuko\\0Yukari\\0Suika\\0\\0",
+        "霊夢\\0魔理沙\\0咲夜\\0アリス\\0パチュリー\\0妖夢\\0レミリア\\0幽々子\\0紫\\0萃香\\0\\0"
+      ],
+      "THPRAC_GAMEROLL_TH08_SHOTTYPES": [
+        "结界组\\0咏唱组\\0红魔组\\0幽冥组\\0灵梦\\0紫\\0魔理沙\\0爱丽丝\\0咲夜\\0蕾米莉亚\\0妖梦\\0幽幽子\\0\\0",
+        "Reimu&Yukari\\0Marisa&Alice\\0Sakuya&Remilia\\0Youmu&Yuyuko\\0Reimu\\0Yukari\\0Marisa\\0Alice\\0Sakuya\\0Remilia\\0Youmu\\0Yuyuko\\0\\0",
+        "結界組\\0詠唱組\\0紅魔組\\0冥界組\\0霊夢\\0紫\\0魔理沙\\0アリス\\0咲夜\\0レミリア\\0妖夢\\0幽々子\\0\\0"
+      ],
+      "THPRAC_GAMEROLL_TH09_SHOTTYPES": [
+        "灵梦\\0魔理沙\\0咲夜\\0妖梦\\0铃仙\\0琪露诺\\0莉莉卡\\0梅露兰\\0露娜萨\\0米斯蒂娅\\0天为\\0文\\0梅蒂欣\\0幽香\\0小町\\0映姬\\0\\0",
+        "Reimu\\0Marisa\\0Sakuya\\0Youmu\\0Reisen\\0Cirno\\0Lyrica\\0Merlin\\0Lunasa\\0Mystia\\0Tewi\\0Aya\\0Medicine\\0Yuuka\\0Komachi\\0Eiki\\0\\0",
+        "霊夢\\0魔理沙\\0咲夜\\0妖夢\\0鈴仙\\0チルノ\\0リリカ\\0メルラン\\0ルナサ\\0ミスティア\\0てゐ\\0文\\0メディスン\\0幽香\\0小町\\0映姫\\0\\0"
+      ],
+      "THPRAC_GAMEROLL_TH10_SHOTTYPES": [
+        "灵梦A\\0灵梦B\\0灵梦C\\0魔理沙A\\0魔理沙B\\0魔理沙C\\0\\0",
+        "Reimu A\\0Reimu B\\0Reimu C\\0Marisa A\\0Marisa B\\0Marisa C\\0\\0",
+        "霊夢A\\0霊夢B\\0霊夢C\\0魔理沙A\\0魔理沙B\\0魔理沙C\\0\\0"
+      ],
+      "THPRAC_GAMEROLL_TH105_SHOTTYPES": [
+        "灵梦\\0魔理沙\\0咲夜\\0爱丽丝\\0帕秋莉\\0妖梦\\0蕾米莉亚\\0幽幽子\\0紫\\0萃香\\0铃仙\\0文\\0小町\\0衣玖\\0天子\\0\\0",
+        "Reimu\\0Marisa\\0Sakuya\\0Alice\\0Patchouli\\0Youmu\\0Remilia\\0Yuyuko\\0Yukari\\0Suika\\0Reisen\\0Aya\\0Komachi\\0Iku\\0Tenshi\\0\\0",
+        "霊夢\\0魔理沙\\0咲夜\\0アリス\\0パチュリー\\0妖夢\\0レミリア\\0幽々子\\0紫\\0萃香\\0美鈴\\0\\0"
+      ],
+      "THPRAC_GAMEROLL_TH11_SHOTTYPES": [
+        "灵梦A\\0灵梦B\\0灵梦C\\0魔理沙A\\0魔理沙B\\0魔理沙C\\0\\0",
+        "Reimu A\\0Reimu B\\0Reimu C\\0Marisa A\\0Marisa B\\0Marisa C\\0\\0",
+        "霊夢A\\0霊夢B\\0霊夢C\\0魔理沙A\\0魔理沙B\\0魔理沙C\\0\\0"
+      ],
+      "THPRAC_GAMEROLL_TH12_SHOTTYPES": [
+        "灵梦A\\0灵梦B\\0魔理沙A\\0魔理沙B\\0早苗A\\0早苗B\\0\\0",
+        "Reimu A\\0Reimu B\\0Marisa A\\0Marisa B\\0Sanae A\\0Sanae B\\0\\0",
+        "霊夢A\\0霊夢B\\0魔理沙A\\0魔理沙B\\0早苗A\\0早苗B\\0\\0"
+      ],
+      "THPRAC_GAMEROLL_TH123_SHOTTYPES": [
+        "早苗\\0琪露诺\\0美铃\\0\\0",
+        "Sanae\\0Cirno\\0Meiling\\0\\0",
+        "早苗\\0チルノ\\0美鈴\\0\\0"
+      ],
+      "THPRAC_GAMEROLL_TH125_SHOTTYPES": [
+        "文\\0果\\0\\0",
+        "Aya\\0Hatate\\0\\0",
+        "文\\0はたて\\0\\0"
+      ],
+      "THPRAC_GAMEROLL_TH13_SHOTTYPES": [
+        "灵梦\\0魔理沙\\0早苗\\0妖梦\\0\\0",
+        "Reimu\\0Marisa\\0Sanae\\0Youmu\\0\\0",
+        "霊梦\\0魔理沙\\0早苗\\0妖梦\\0\\0"
+      ],
+      "THPRAC_GAMEROLL_TH135_SHOTTYPES": [
+        "灵梦\\0魔理沙\\0一轮\\0白莲\\0布都\\0神子\\0荷取\\0恋\\0猯藏\\0心\\0\\0",
+        "Reimu\\0Marisa\\0Ichirin\\0Byakuren\\0Futo\\0Miko\\0Nitori\\0Koishi\\0Mamizou\\0Kokoro\\0\\0",
+        "霊梦\\0魔理沙\\0一輪\\0白蓮\\0布都\\0神子\\0にとり\\0こいし\\0マミゾウ\\0こころ\\0\\0"
+      ],
+      "THPRAC_GAMEROLL_TH14_SHOTTYPES": [
+        "灵梦A\\0灵梦B\\0魔理沙A\\0魔理沙B\\0咲夜A\\0咲夜B\\0\\0",
+        "Reimu A\\0Reimu B\\0Marisa A\\0Marisa B\\0Sakuya A\\0Sakuya B\\0\\0",
+        "霊夢A\\0霊夢B\\0魔理沙A\\0魔理沙B\\0咲夜A\\0咲夜B\\0\\0"
+      ],
+      "THPRAC_GAMEROLL_TH145_SHOTTYPES": [
+        "灵梦\\0魔理沙\\0华扇\\0一轮\\0白莲\\0布都\\0神子\\0猯藏\\0妹红\\0针妙丸\\0荷取\\0恋\\0心\\0堇子\\0铃仙\\0\\0",
+        "Reimu\\0Marisa\\0Kasen\\0Ichirin\\0Byakuren\\0Futo\\0Miko\\0Mamizou\\0Mokou\\0Shinmyoumaru\\0Nitori\\0Koishi\\0Kokoro\\0Sumireko\\0Reisen\\0\\0",
+        "霊梦\\0魔理沙\\0華扇\\0一輪\\0白蓮\\0布都\\0神子\\0マミゾウ\\0妹紅\\0針妙丸\\0にとり\\0こいし\\0こころ\\0菫子\\0鈴仙\\0\\0"
+      ],
+      "THPRAC_GAMEROLL_TH15_SHOTTYPES": [
+        "灵梦\\0魔理沙\\0早苗\\0铃仙\\0\\0",
+        "Reimu\\0Marisa\\0Sanae\\0Reisen\\0\\0",
+        "霊梦\\0魔理沙\\0早苗\\0鈴仙\\0\\0"
+      ],
+      "THPRAC_GAMEROLL_TH155_SHOTTYPES": [
+        "灵梦&华扇\\0魔理沙&恋\\0荷取&心\\0猯藏&妹红\\0神子&白莲\\0布都&一轮\\0铃仙&哆来咪\\0堇子&哆来咪\\0天子&针妙丸\\0紫&灵梦\\0女苑&紫苑\\0\\0",
+        "Reimu&Kasen\\0Marisa&Koishi\\0Nitori&Kokoro\\0Mamizou&Mokou\\0Miko&Byakuren\\0Futo&Ichirin\\0Reisen&Doremy\\0Sumireko&Doremy\\0Tenshi&Shinmyoumaru\\0Yukari&Reimu\\0Joon&Shion\\0\\0",
+        "霊夢&華扇\\0魔理沙&こいし\\0にとり&こころ\\0マミゾウ&妹紅\\0神子&白蓮\\0布都&一輪\\0鈴仙&ドレミー\\0菫子&ドレミー\\0紫&霊夢\\0女苑&紫苑\\0\\0"
+      ],
+      "THPRAC_GAMEROLL_TH16_SHOTTYPES": [
+        "灵梦（春）\\0灵梦（夏）\\0灵梦（秋）\\0灵梦（冬）\\0琪露诺（春）\\0琪露诺（夏）\\0琪露诺（秋）\\0琪露诺（冬）\\0文（春）\\0文（夏）\\0文（秋）\\0文（冬）\\0魔理沙（春）\\0魔理沙（夏）\\0魔理沙（秋）\\0魔理沙（冬）\\0\\0",
+        "Reimu (Spring)\\0Reimu (Summer)\\0Reimu (Autumn)\\0Reimu (Winter)\\0Cirno (Spring)\\0Cirno (Summer)\\0Cirno (Autumn)\\0Cirno (Winter)\\0Aya (Spring)\\Aya (Summer)\\Aya (Autumn)\\Aya (Winter)\\0Marisa (Spring)\\0Marisa (Summer)\\0Marisa (Autumn)\\0Marisa (Winter)\\0\\0",
+        "霊夢（春）\\0霊夢（夏）\\0霊夢（秋）\\0霊夢（冬）\\0チルノ（春）\\0チルノ（夏）\\0チルノ（秋）\\0チルノ（冬）\\0文（春）\\0文（夏）\\0文（秋）\\0文（冬）\\0魔理沙（春）\\0魔理沙（夏）\\0魔理沙（秋）\\0魔理沙（冬）\\0\\0"
+      ],
+      "THPRAC_GAMEROLL_TH17_SHOTTYPES": [
+        "灵梦+野狼灵\\0灵梦+水獭灵\\0灵梦+大鹫灵\\0魔理沙+野狼灵\\0魔理沙+水獭灵\\0魔理沙+大鹫灵\\0妖梦+野狼灵\\0妖梦+水獭灵\\0妖梦+大鹫灵\\0\\0",
+        "Reimu+Wolf\\0Reimu+Otter\\0Reimu+Eagle\\0Marisa+Wolf\\0Marisa+Otter\\0Marisa+Eagle\\0Youmu+Wolf\\0Youmu+Otter\\0Youmu+Eagle\\0\\0",
+        "霊夢+オオカミ\\0霊夢+カワウソ\\0霊夢+オオワシ\\0魔理沙+オオカミ\\0魔理沙+カワウソ\\0魔理沙+オオワシ\\0妖夢+オオカミ\\0妖夢+カワウソ\\0妖夢+オオワシ\\0\\0"
+      ],
+      "THPRAC_GAMEROLL_TH175_SHOTTYPES": [
+        "灵梦\\0魔理沙\\0神奈子\\0水蜜\\0女苑&紫苑\\0芙兰朵露\\0尤魔\\0\\0",
+        "Reimu\\0Marisa\\0Kanako\\0Minamitsu\\0Joon&Shion\\0Flandre\\0Yuuma\\0\\0",
+        "霊梦\\0魔理沙\\0神奈子\\0水蜜\\0女苑&紫苑\\0フランドール\\0尤魔\\0\\0"
+      ],
+      "THPRAC_GAMEROLL_TH18_SHOTTYPES": [
+        "灵梦\\0魔理沙\\0咲夜\\0早苗\\0\\0",
+        "Reimu\\0Marisa\\0Sakuya\\0Sanae\\0\\0",
+        "霊梦\\0魔理沙\\0咲夜\\0早苗\\0\\0"
+      ],
+      "THPRAC_GAMEROLL_TH19_SHOTTYPES": [
+        "灵梦\\0魔理沙\\0咲夜\\0蓝\\0阿吽\\0娜兹玲\\0清兰\\0燐\\0典\\0猯藏\\0八千慧\\0早鬼\\0尤魔\\0萃香\\0美天\\0慧之子\\0血枪\\0日狭美\\0残无\\0\\0",
+        "Reimu\\0Marisa\\0Sanae\\0Ran\\0Aunn\\0Nazrin\\0Seiran\\0Orin\\0Tsukasa\\0Mamizou\\0Yachie\\0Saki\\0Yuuma\\0Suika\\0Biten\\0Enoko\\0Chiyari\\0Hisami\\0Zanmu\\0\\0",
+        "霊梦\\0魔理沙\\0咲夜\\0藍\\0阿吽\\0ナズーリン\\0清蘭\\0燐\\0典\\0マミゾウ\\0八千慧\\0早鬼\\0尤魔\\0萃香\\0美天\\0慧ノ子\\0ちやり\\0日狭美\\0残無\\0\\0"
+      ],
+      "THPRAC_GAMEROLL_TH19_EASTER_EGG_SHOTTYPES": [
+        "灵梦\\0魔理沙\\0咲夜\\0蓝\\0阿吽\\0娜兹玲\\0清兰\\0燐\\0典\\0猯藏\\0八千慧\\0早鬼\\0尤魔\\0萃香\\0悟空\\0慧之子\\0血枪\\0日狭美\\0残无\\0\\0",
+        "Reimu\\0Marisa\\0Sanae\\0Ran\\0Aunn\\0Nazrin\\0Seiran\\0Orin\\0Tsukasa\\0Mamizou\\0Yachie\\0Saki\\0Yuuma\\0Suika\\0Goku\\0Enoko\\0Chiyari\\0Hisami\\0Zanmu\\0\\0",
+        "霊梦\\0魔理沙\\0咲夜\\0藍\\0阿吽\\0ナズーリン\\0清蘭\\0燐\\0典\\0マミゾウ\\0八千慧\\0早鬼\\0尤魔\\0萃香\\0悟空\\0慧ノ子\\0ちやり\\0日狭美\\0残無\\0\\0"
+      ],
 
       "THPRAC_UNHANDLED_EXCEPTION": [
         "遇到了未处理的异常，程序可能即将崩溃。\n当程序崩溃时，请通过在启动器中记述的任意联系方式将转储文件发送给我。\n此外，如有留下任何关于崩溃时情况的说明的话，我将不胜感激。\n转储文件储存在thprac的数据目录中。\n(打开启动器 - 设置 - 打开数据目录 - \"crashdump\"文件夹)",
@@ -589,7 +758,7 @@
       "TH_BULLET_RANK": [ "Rank", "Rank", "ランク" ],
       "TH_BULLET_RANKLOCK": [ "锁Rank", "Rank Lock", "ランクをロックする" ],
       "TH_DIFFICULTY": [ "难度", "Difficulty", "難易度" ],
-      "TH_REAL_BULLET_SIZE": [ "真實子彈圖形", "Real bullet sprites", "弾のリアルスプライト" ],
+      "TH_REAL_BULLET_SIZE": [ "真实子弹图形", "Real bullet sprites", "弾のリアルスプライト" ],
       "TH_SHOTS_TAKEN": [ "摄影回数", "Shots Taken", "撮影回数" ],
       "TH_SHOTS_TAKEN_ALT": [ "#__shots_taken", "#__shots_taken", "#__shots_taken" ],
       "TH_ORIGINAL": [ "原版练习", "Original", "オリジナル" ],
@@ -600,8 +769,8 @@
       "TH_ATTACK": [ "攻击", "Attack", "弾幕" ],
       "TH_PROGRESS": [ "进度", "Progress", "進行度" ],
       "TH_BOTH_NORMAL": [ "都正常", "Both Normal", "両方とも正常" ],
-      "TH_HECATIA_RAGE": [ "赫卡蒂亚之怒", "Hecatia Rage", "ヘカティアの怒り" ],
-      "TH_JUNKO_RAGE": [ "纯子愤怒", "Junko Rage", "純子怒り" ],
+      "TH_HECATIA_RAGE": [ "赫卡提亚之怒", "Hecatia Rage", "ヘカティアの怒り" ],
+      "TH_JUNKO_RAGE": [ "纯狐愤怒", "Junko Rage", "純狐怒り" ],
       "TH_BOTH_RAGE": [ "双方愤怒", "Both Rage", "両方の怒り" ],
       "TH_NONE": [ "无", "None", "なし" ],
       "TH_NONSPELL": [ "非符", "Non Spell", "通常" ],
@@ -700,7 +869,6 @@
 
       "TH_ABOUT_THPRAC": [ "关于thprac", "About thprac", "thpracのバージョン情報" ],
       "TH_ABOUT_VERSION": [ "thprac 版本 %s", "thprac version %s", "thprac ver.%s" ],
-      "TH_ABOUT_AUTHOR": [ "作者：Ack", "Author: Ack", "作者：Ack" ],
       "TH_ABOUT_WEBSITE": [ "网站：https://github.com/touhouworldcup/thprac", "Website: https://github.com/touhouworldcup/thprac", "ウェブサイト：https://github.com/touhouworldcup/thprac" ],
       "TH_ABOUT_THANKS": [ "特别感谢：\n%s", "Special thanks: \n%s", "スペシャルサンクス：\n%s" ],
       "TH_ABOUT_SHOW_LICENCE": [ "显示许可信息", "Show license info", "ライセンス情報を表示" ],
@@ -767,7 +935,8 @@
       "TH_DATANLY_RECORD": [ "记录 #%d: ", "Record #%d: ", "記録 #%d: " ],
       "TH_DATANLY_RECORD_DELETE": [ "删除##anly_%d", "Delete##anly_%d", "削除##anly_%d" ],
 
-      "TH_BULLETS": [ "子弹", "Bullets", "弾" ]
+      "TH_BULLETS": [ "子弹", "Bullets", "弾" ],
+      "TH_PERFORMANCE": [ "タースピード", "Performance", "速度" ]
     },
 
     "groups": {
@@ -1157,7 +1326,7 @@
         "bgm": 1,
         "spell": 1,
         "appearance": [ 6, 2, 6 ],
-        "!EN": [ "诅咒「Vlad Tepes的诅咒」", "Curse \"Curse of Vlad Țepeș\"", "呪詛「ブラド・ツェペシュの呪い」" ],
+        "!EN": [ "诅咒「Vlad Tepes的诅咒」", "Curse \"Curse of Vlad Tepes\"", "呪詛「ブラド・ツェペシュの呪い」" ],
         "!HL": [ "神术「吸血鬼幻想」", "Divine Art \"Vampire Illusion\"", "神術「吸血鬼幻想」" ]
       },
       "TH06_ST6_BOSS7": {
@@ -1897,7 +2066,7 @@
         "appearance": [ 5, 2, 6 ],
         "!EN": [ "天上剑「天人之五衰」", "Heaven Sword \"Five Signs of the Dying Deva\"", "天上剣「天人の五衰」" ],
         "!H": [ "天界剑「七魄忌讳」", "Deva Realm Sword \"Displeasure of the Seven Hakus\"", "天界剣「七魄忌諱」" ],
-        "!L": [ "天神剑「三魂七魄」", "Heaven God Sword \"Three Kons, Seven Hakus\"", "天神剣「叁魂七魄」" ]
+        "!L": [ "天神剑「三魂七魄」", "Heaven God Sword \"Three Kons, Seven Hakus\"", "天神剣「三魂七魄」" ]
       },
 
       "TH07_ST6_CHAOS": {
@@ -2314,7 +2483,7 @@
         "bgm": 1,
         "spell": 1,
         "appearance": [ 1, 2, 2 ],
-        "!ENHL": [ "灯符「萤光现象」", "Lamp Sign \"Firefly Phenomenon\"", "灯符「Firefly Phenomemon」" ]
+        "!ENHL": [ "灯符「萤光现象」", "Lamp Sign \"Firefly Phenomenon\"", "灯符「ファイヤフライフェノメノン」" ]
       },
       "TH08_ST1_BOSS3": {
         "bgm": 1,
@@ -2685,7 +2854,7 @@
         "bgm": 1,
         "spell": 1,
         "appearance": [ 7, 2, 4 ],
-        "!EN": [ "苏活「生命游戏 -Life Game-」", "Revival \"Seimei Yūgi -Life Game-\"", "蘇活「生命遊戯　-ライフゲーム-」" ],
+        "!EN": [ "苏活「生命游戏 -Life Game-」", "Revival \"Seimei Yugi -Life Game-\"", "蘇活「生命遊戯　-ライフゲーム-」" ],
         "!HL": [ "苏生「Rising Game」", "Resurrection \"Rising Game\"", "蘇生「ライジングゲーム」" ]
       },
       "TH08_ST6A_BOSS5": {
@@ -2871,7 +3040,7 @@
         "bgm": 1,
         "spell": 1,
         "appearance": [ 9, 2, 2 ],
-        "!X": [ "时效「月岩笠的诅咒」", "Limiting Edict \"Curse of Tsuki-no-Iwakasa\"", "时効「月のいはかさの呪い」" ]
+        "!X": [ "时效「月岩笠的诅咒」", "Limiting Edict \"Curse of Tsuki-no-Iwakasa\"", "時効「月のいはかさの呪い」" ]
       },
       "TH08_ST7_END_NS2": {
         "bgm": 1,
@@ -2907,7 +3076,7 @@
         "bgm": 1,
         "spell": 1,
         "appearance": [ 9, 2, 8 ],
-        "!X": [ "不死「徐福时空」", "Undying \"Xu Fu's Dimension\"", "不死「徐福时空」" ]
+        "!X": [ "不死「徐福时空」", "Undying \"Xu Fu's Dimension\"", "不死「徐福時空」" ]
       },
       "TH08_ST7_END_NS5": {
         "bgm": 1,
@@ -3016,7 +3185,7 @@
         "TH09_P2_FORMAT_INT": [ "P2: %d", "P2: %d", "P2: %d" ],
         "TH09_P1_FORMAT_FLOAT": [ "P1: %.3f", "P1: %.3f", "P1: %.3f" ],
         "TH09_P2_FORMAT_FLOAT": [ "P2: %.3f", "P2: %.3f", "P2: %.3f" ],
-        "TH09_TOOLS_TITLE": [ "花映塚工具", "TH09 Tools", "花映塚ツール" ],
+        "TH09_TOOLS_TITLE": [ "花映塚工具###_th09_tools", "TH09 Tools###_th09_tools", "花映塚ツール###_th09_tools" ],
         "TH09_STATS": [ "统计数据", "Stats", "ステータス" ],
         "TH09_STAT_B_FAIRY": [ "妖精: %d", "Fairy: %d", "妖精: %d" ],
         "TH09_STAT_B_RIVAL": [ "敌方: %d", "Rival: %d", "敵弾: %d" ],
@@ -3505,7 +3674,7 @@
       "ALCOSTG_BEER": [ "啤酒", "Beer", "ビール" ],
       "ALCOSTG_BEER_MAX": [ "啤酒上限", "Max Beer", "ビール最大値" ],
       "ALCOSTG_ORDER": [ "订单 #%d", "Order #%d", "注文 #%d" ],
-      "ALCOSTG_ORDER_MBOSS": [ "订单 #%d (中Boss）", "Order #%d (Mid Boss)", "注文 #%d (道中ボス)" ],
+      "ALCOSTG_ORDER_MBOSS": [ "订单 #%d (中Boss)", "Order #%d (Mid Boss)", "注文 #%d (道中ボス)" ],
       "ALCOSTG_FREE_MISS": [ "无偿Miss", "Costless Miss", "無償ミス" ],
       "ALCOSTG_FREE_BOMB": [ "无偿Bomb", "Costless Bomb", "無償ボム" ],
       "ALCOSTG_LOCK_TIME_BAR": [ "锁时 (酒场)", "Time Lock (Bar)", "酒場の時間は進みません" ],
@@ -3643,7 +3812,13 @@
     "namespace": "TH11",
 
     "glossary": {
-      "TH11_SIGNAL": [ "信号强度", "C. Gauge", "交信強度" ]
+      "TH11_SIGNAL": [ "信号强度", "C. Gauge", "交信強度" ],
+      "TH11_MARISAB_FORMATION_LABEL": [ "配置", "Formation", "配置" ],
+      "TH11_MARISAB_FIRE":  [ "火符", "Fire",  "火符" ],
+      "TH11_MARISAB_WATER": [ "水符", "Water", "水符" ],
+      "TH11_MARISAB_WOOD":  [ "木符", "Wood",  "木符" ],
+      "TH11_MARISAB_METAL": [ "金符", "Metal", "金符" ],
+      "TH11_MARISAB_EARTH": [ "土符", "Earth", "土符" ]
     },
 
     "sections": {
@@ -4068,7 +4243,7 @@
         "spell": 1,
         "appearance": [ 6, 2, 8 ],
         "!EN": [ "「地狱极乐熔毁」", "\"Hell & Heaven Meltdown\"", "「地獄極楽メルトダウン」" ],
-        "!HL": [ "「地狱的托卡马克装置」", "\"Hell's Tokamak\"", "「ヘルズトカマク」 " ]
+        "!HL": [ "「地狱的托卡马克装置」", "\"Hell's Tokamak\"", "「ヘルズトカマク」" ]
       },
       "TH11_ST6_BOSS9": {
         "bgm": 1,
@@ -4213,6 +4388,13 @@
         "TH_P3",
         "TH_P4",
         "TH_RAGE"
+      ],
+      "TH11_MARISAB_FORMATION": [
+          "TH11_MARISAB_FIRE",
+          "TH11_MARISAB_WATER",
+          "TH11_MARISAB_WOOD",
+          "TH11_MARISAB_METAL",
+          "TH11_MARISAB_EARTH"
       ]
     }
   },
@@ -4681,7 +4863,7 @@
         "bgm": 1,
         "spell": 1,
         "appearance": [ 7, 2, 16 ],
-        "!X": [ "真相不明「恐怖的虹色UFO袭来」", "Unidentified \"Rainbow UFO Invasion of Terror\"", "正体不明「恐怖の虹色ＵＦＯ襲来」" ]
+        "!X": [ "真相不明「恐怖的虹色UFO袭来」", "Unidentified \"Rainbow UFO Invasion of Terror\"", "正体不明「恐怖の虹色UFO襲来」" ]
       },
       "TH12_ST7_END_S9": {
         "bgm": 1,
@@ -4725,7 +4907,7 @@
       "TH128_START": [ "起点", "Start", "出発点" ],
       "TH128_START_A": [ "A (魔法之森)", "A (Forest of Magic)", "A (魔法の森)" ],
       "TH128_START_B": [ "B (雾之湖)", "B (Misty Lake)", "B (霧の湖)" ],
-      "TH128_START_C": [ "C (春之小径)", "C (Spring Path)", "C (魔法の森)" ],
+      "TH128_START_C": [ "C (春之小径)", "C (Spring Path)", "C (春の小径)" ],
       "TH128_START_EX": [ "Extra (夜樱怪道)", "Extra \n(Mysterious Night Cherry Blossom Path)", "Extra (夜桜怪道)" ],
       "TH128_PATH": [ "路径", "Route", "ルート" ],
       "TH128_PATHDESC_A1": [ "A1 (露娜 - 斯塔 - 桑尼)", "A1 (Luna - Star - Sunny)", "A1 (ルナ - スター - サニー)" ],
@@ -5630,7 +5812,7 @@
         "bgm": 1,
         "spell": 1,
         "appearance": [ 16, 2, 8 ],
-        "!X": [ "闭符「大坍缩」", "Closure Sign \"Big Crunch\"", "闭符「ビッグクランチ」" ]
+        "!X": [ "闭符「大坍缩」", "Closure Sign \"Big Crunch\"", "閉符「ビッグクランチ」" ]
       },
       "TH128_EX_END_NS5": {
         "bgm": 1,
@@ -5899,8 +6081,8 @@
         "bgm": 0,
         "spell": 1,
         "appearance": [ 4, 1, 2 ],
-        "!N": [ "邪符「养小鬼」", "Evil Sign \"Yǎng Xiǎoguǐ\"", "邪符「ヤンシャオグイ」" ],
-        "!HL": [ "邪符「孤魂野鬼」", "Evil Sign \"Gūhún Yěguǐ\"", "邪符「グーフンイエグイ」" ]
+        "!N": [ "邪符「养小鬼」", "Evil Sign \"Yang Xiaogui\"", "邪符「ヤンシャオグイ」" ],
+        "!HL": [ "邪符「孤魂野鬼」", "Evil Sign \"Guhun Yegui\"", "邪符「グーフンイエグイ」" ]
       },
       "TH13_ST4_BOSS1": {
         "bgm": 1,
@@ -5912,7 +6094,7 @@
         "bgm": 1,
         "spell": 1,
         "appearance": [ 4, 2, 2 ],
-        "!ENHL": [ "入魔「走火入魔」", "Demonify \"Zǒuhuǒ Rùmó\"", "入魔「ゾウフォルゥモォ」" ]
+        "!ENHL": [ "入魔「走火入魔」", "Demonify \"Zouhuo Rumo\"", "入魔「ゾウフォルゥモォ」" ]
       },
       "TH13_ST4_BOSS3": {
         "bgm": 1,
@@ -5924,8 +6106,8 @@
         "bgm": 1,
         "spell": 1,
         "appearance": [ 4, 2, 4 ],
-        "!EN": [ "降灵「死人童乩」", "Possession \"Corpse Tóngjī\"", "降霊「死人タンキー」" ],
-        "!HL": [ "通灵「通灵芳香」", "Spirit Link \"Tōnglíng Yoshika\"", "通霊「トンリン芳香」" ]
+        "!EN": [ "降灵「死人童乩」", "Possession \"Corpse Tongji\"", "降霊「死人タンキー」" ],
+        "!HL": [ "通灵「通灵芳香」", "Spirit Link \"Tongling Yoshika\"", "通霊「トンリン芳香」" ]
       },
       "TH13_ST4_BOSS5": {
         "bgm": 1,
@@ -6394,7 +6576,7 @@
         "spell": 1,
         "appearance": [ 3, 2, 4 ],
         "!EN": [ "咆哮「陌生的咆哮」", "Roar \"Strange Roar\"", "咆哮「ストレンジロア」" ],
-        "!HL": [ "咆哮「満月的远吠」", "Roar \"Full Moon Howling\"", "咆哮「満月の远吠え」" ]
+        "!HL": [ "咆哮「満月的远吠」", "Roar \"Full Moon Howling\"", "咆哮「満月の遠吠え」" ]
       },
       "TH14_ST3_BOSS5": {
         "bgm": 1,
@@ -6407,7 +6589,7 @@
         "spell": 1,
         "appearance": [ 3, 2, 6 ],
         "!EN": [ "狼符「星环猛扑」", "Wolf Sign \"Star Ring Pounce\"", "狼符「スターリングパウンス」" ],
-        "!HL": [ "天狼「高速猛扑」", "Sirius \"High-Speed Pounce\"", "天狼「ハイスピードバウンス」" ]
+        "!HL": [ "天狼「高速猛扑」", "Sirius \"High-Speed Pounce\"", "天狼「ハイスピードパウンス」" ]
       },
 
       "TH14_ST4_MID1": {
@@ -6818,8 +7000,8 @@
         "bgm": 1,
         "spell": 1,
         "appearance": [ 9, 2, 6 ],
-        "!EN": [ "筝曲「下克上送筝曲」", "Koto Music \"Social Upheaval Koto Music Complement\"", "筝曲「下克上送筝曲」" ],
-        "!HL": [ "筝曲「下克上安魂曲」", "Koto Music \"Social Upheaval Requiem\"", "筝曲「下克上レクイエム」" ]
+        "!EN": [ "筝曲「下克上送筝曲」", "Koto Music \"Social Upheaval Koto Music Complement\"", "箏曲「下克上送箏曲」" ],
+        "!HL": [ "筝曲「下克上安魂曲」", "Koto Music \"Social Upheaval Requiem\"", "箏曲「下克上レクイエム」" ]
       }
     },
 
@@ -7146,7 +7328,7 @@
         "bgm": 0,
         "spell": 0,
         "appearance": [ 6, 1, 1 ],
-        "!ENHL": [ "流星雨", "#th15_stars", "Stars" ]
+        "!ENHL": [ "流星雨", "Stars", "流星雨" ]
       },
       "TH15_ST6_BOSS1": {
         "bgm": 1,
@@ -7246,7 +7428,7 @@
         "bgm": 1,
         "spell": 1,
         "appearance": [ 7, 2, 2 ],
-        "!X": [ "异界「逢魔之刻」", "Otherworld \"Ōmagatoki\"", "異界「逢魔ガ刻」" ]
+        "!X": [ "异界「逢魔之刻」", "Otherworld \"Omagatoki\"", "異界「逢魔ガ刻」" ]
       },
       "TH15_ST7_END_NS2": {
         "bgm": 1,
@@ -7581,7 +7763,7 @@
         "bgm": 1,
         "spell": 1,
         "appearance": [ 5, 2, 3 ],
-        "!ENHL": [ "茗荷「忘却你的名字」", "Myōga Ginger \"Forget Your Name\"", "茗荷「フォゲットユアネーム」" ]
+        "!ENHL": [ "茗荷「忘却你的名字」", "Myoga Ginger \"Forget Your Name\"", "茗荷「フォゲットユアネーム」" ]
       },
       "TH16_ST5_BOSS3": {
         "bgm": 1,
@@ -7599,7 +7781,7 @@
         "bgm": 1,
         "spell": 1,
         "appearance": [ 5, 2, 6 ],
-        "!ENHL": [ "冥加「在你背后」", "Myōga Blessing \"Behind You\"", "冥加「ビハインドユー」" ]
+        "!ENHL": [ "冥加「在你背后」", "Myoga Blessing \"Behind You\"", "冥加「ビハインドユー」" ]
       },
       "TH16_ST5_BOSS5": {
         "bgm": 1,
@@ -7787,7 +7969,7 @@
         "bgm": 1,
         "spell": 1,
         "appearance": [ 7, 2, 10 ],
-        "!X": [ "秘仪「后户的狂言」", "Secret Ceremony \"Kyōgen of the Back Door\"", "秘儀「後戸の狂言」" ]
+        "!X": [ "秘仪「后户的狂言」", "Secret Ceremony \"Kyogen of the Back Door\"", "秘儀「後戸の狂言」" ]
       },
       "TH16_ST7_END_NS6": {
         "bgm": 1,
@@ -7867,18 +8049,28 @@
       "TH17_GOAST_WOLF": [ "狼", "Wolf", "オオカミ" ],
       "TH17_GOAST_OTTER": [ "獭", "Otter", "カワウソ" ],
       "TH17_GOAST_EAGLE": [ "鹰", "Eagle", "オオワシ" ],
-      "TH17_GOAST_WOLF_STATIC": [ "狼 (static)", "Wolf (static)", "オオカミ (static)" ],
-      "TH17_GOAST_OTTER_STATIC": [ "獭 (static)", "Otter (static)", "カワウソ (static)" ],
-      "TH17_GOAST_EAGLE_STATIC": [ "鹰 (static)", "Eagle (static)", "オオワシ (static)" ],
+      "TH17_GOAST_WOLF_STATIC": [ "狼（不变色）", "Wolf (static)", "オオカミ（色変わりしない）" ],
+      "TH17_GOAST_OTTER_STATIC": [ "獭（不变色）", "Otter (static)", "カワウソ（色変わりしない）" ],
+      "TH17_GOAST_EAGLE_STATIC": [ "鹰（不变色）", "Eagle (static)", "オオワシ（色変わりしない）" ],
       "TH17_GOAST_JELLYFISH": [ "水母", "Jellyfish", "クラゲ" ],
       "TH17_GOAST_COW": [ "牛", "Cow", "牛" ],
       "TH17_GOAST_CHICK": [ "小鸡", "Chick", "ひよこ" ],
       "TH17_GOAST_TURTLE": [ "龟", "Turtle", "亀" ],
       "TH17_GOAST_HANIWA": [ "埴轮", "Haniwa", "埴輪" ],
       "TH17_GOAST_HORSE": [ "埴轮（马）", "Haniwa (Horse)", "埴輪（馬）" ],
-      "TH17_GOAST_3CHICK": [ "3只小鸡", "3 Chicks", "三匹のひよこ" ],
+      "TH17_GOAST_3CHICK": [ "三只小鸡", "3 Chicks", "三匹のひよこ" ],
       "TH17_INF_ROARING": [ "无限咆哮", "Inf. Roaring", "無限のロアリング" ],
       "TH17_NO_GOAST": [ "无动物灵", "No Goast", "動物霊を落とさない" ],
+      "TH17_GOAST_ANGLE": [ "角度", "Angle", "角度" ],
+      "TH17_SPAWN_A_GOAST": [ "生成一只动物灵", "Spawn a Goast", "動物霊アイテムを生成する" ],
+      "TH17_FORCE_ANGLE": [ "角度固定", "Force Angle", "固定角度で生成する" ],
+      "TH17_RANDOM_ANGLE": [ "角度随机", "Random Angle", "ランダムな角度で生成する" ],
+      "TH17_ANGLE_PREVIEW": [ "--预览角度-->", "--angle-preview-->", "--プレビューのアングル-->"],
+      "TH17_FORCE_ANGLE_HELP": [
+        "动物灵在生成时或在墙上反弹时会试图远离彼此。这个选项会保证生成的动物灵总是朝指定的方向移动",
+        "Tokens will try to move away from each other both when spawning and when bouncing from a wall. This will ensure that a token will always go in the direction you specify",
+        "動物霊は生成時や壁で反射する際に互いに遠ざかろうとします。このオプションを有効にすると、生成された動物霊が常に指定された方向に移動するようになります"
+      ],
       "TH17_GOAST_BUGFIX": [
         "修复因在咆哮模式中退出/推把而导致replay爆炸的bug",
         "Fix the replay desync bug that occurs when you exit/retry the game while roaring mode is active",
@@ -8438,6 +8630,18 @@
         "This option needs to be enabled for the entire gaming session for it to work.",
         "このオプションを機能させるには、プレイ中に常にこのオプションを有効にする必要があります。 "
       ],
+      "TH18_EIRIN_EIKI_FIX": [ "修复「死秽回避之药」和「有钱能使鬼推磨」", "Fix \"Death Avoidance Elixir\" and \"Money is the Best Lawyer in Hell\"", "「死穢回避の薬」と「地獄の沙汰も金次第」の修正" ],
+      "TH18_EIRIN_EIKI_FIX_DESC": [
+        "启用时，购买这些卡片不再会导致切换关卡时可能出现的崩溃现象",
+        "When enabled, buying those cards no longer randomly crashes the game during the stage transition.",
+        "有効化すると、これらのカードを購入しても、ステージ移行時にたまに発生していたクラッシュが起こらなくなります。"
+      ],
+      "TH18_FUNC_CALL_FIX": [ "修复「妖怪们的盾构法」", "Fix \"Shield Method of the Youkai\"", "「妖怪達のシールドメソッド」の修正" ],
+      "TH18_FUNC_CALL_FIX_DESC": [
+        "启用时，「妖怪们的盾构法」不会再不时因为生成错子弹的位置而引发 rep 文件损坏。",
+        "When enabled, \"Shield Method of the Youkai\" will no longer randomly desync by spawning bullets in the wrong position.",
+        "有効化すると、「妖怪達のシールドメソッド」が弾の生成位置の誤りによるリプレイバグを引き起こすことはなくなります。"
+      ],
 
       "TH18_REPLAY_FIX": [ "Replay修复", "Replay fix", "リプレイ修復" ],
       "TH18_REPFIX_SHOW_INS": [ "显示说明##th18", "Show instruction##th18", "指示を表示##th18" ],
@@ -8569,8 +8773,8 @@
         "spell": 1,
         "appearance": [ 2, 2, 2 ],
         "!EN": [ "森符「木隐的技术」", "Forest Sign \"Tree-Veiling Technology\"", "森符「木隠れの技術」" ],
-        "!H": [ "森符「极·木隐的技术」", "Forest Sign \"Extreme Tree-Veiling Technology\"", "森符「極·木隠れの技術」" ],
-        "!L": [ "森符「真·木隐的技术」", "Forest Sign \"True Tree-Veiling Technology\"", "森符「真·木隠れの技術」" ]
+        "!H": [ "森符「极·木隐的技术」", "Forest Sign \"Extreme Tree-Veiling Technology\"", "森符「極・木隠れの技術」" ],
+        "!L": [ "森符「真·木隐的技术」", "Forest Sign \"True Tree-Veiling Technology\"", "森符「真・木隠れの技術」" ]
       },
       "TH18_ST2_BOSS3": {
         "bgm": 1,
@@ -8583,8 +8787,8 @@
         "spell": 1,
         "appearance": [ 2, 2, 4 ],
         "!EN": [ "森符「最深的森域」", "Forest Sign \"Innermost Forest Region\"", "森符「最奧の森域」" ],
-        "!H": [ "森符「极·最深的森域」", "Forest Sign \"Extreme Innermost Forest Region\"", "森符「極·最奧の森域」" ],
-        "!L": [ "森符「真·最深的森域」", "Forest Sign \"True Innermost Forest Region\"", "森符「真·最奧の森域」" ]
+        "!H": [ "森符「极·最深的森域」", "Forest Sign \"Extreme Innermost Forest Region\"", "森符「極・最奧の森域」" ],
+        "!L": [ "森符「真·最深的森域」", "Forest Sign \"True Innermost Forest Region\"", "森符「真・最奧の森域」" ]
       },
       "TH18_ST2_BOSS5": {
         "bgm": 1,
@@ -9091,7 +9295,185 @@
           "TH185_KUROKOMA_SAKI": ["骊驹早鬼", "Kurokoma Saki", "驪駒　早鬼"],
           "TH185_HIMEMUSHI_MOMOYO": ["姬虫百百世", "Himemushi Momoyo", "姫虫　百々世"],
           "TH185_YAMASHIRO_TAKANE": ["山城高岭", "Yamashiro Takane", "山城　たかね"],
-          "TH185_TENKYU_CHIMATA": ["天弓千亦", "Tenkyu Chimata", "天弓千亦"]
+          "TH185_TENKYU_CHIMATA": ["天弓千亦", "Tenkyu Chimata", "天弓千亦"],
+
+          "TH185_CARD_01": [ "无", "None", "なし" ],
+          "TH185_CARD_02": [ "空白卡牌", "Blank Card", "空白のカード" ],
+          "TH185_CARD_03": [ "财富流至门前来", "Money Comes and Goes on its Own", "勝手に天下の回り物" ],
+          "TH185_CARD_04": [ "财富流至门前来", "Money Comes and Goes on its Own", "勝手に天下の回り物" ],
+          "TH185_CARD_05": [ "生命卡牌", "Life Card", "命のカード" ],
+          "TH185_CARD_06": [ "铃瑚团子", "Ringo Brand Dumplings", "鈴瑚印の団子" ],
+          "TH185_CARD_07": [ "不死鸟之尾", "Phoenix's Tail", "不死鳥の尾" ],
+          "TH185_CARD_08": [ "阴阳玉", "Yin-Yang Orb", "陰陽玉" ],
+          "TH185_CARD_09": [ "阴阳玉（针）", "Yin-Yang Orb (Needle)", "陰陽玉（針）" ],
+          "TH185_CARD_10": [ "迷你八卦炉", "Mini-Hakkero", "ミニ八卦炉" ],
+          "TH185_CARD_11": [ "迷你八卦炉（导弹）", "Mini-Hakkero (Missile)", "ミニ八卦炉（ミサイル）" ],
+          "TH185_CARD_12": [ "Maid Knife(女仆飞刀)", "Maid Knife", "メイドナイフ" ],
+          "TH185_CARD_13": [ "Maid Knife（跳弹）", "Maid Knife (Ricochet)", "メイドナイフ（跳弾）" ],
+          "TH185_CARD_14": [ "平安归来蛙护身符", "Safe Return Amulet", "無事かえるお守り" ],
+          "TH185_CARD_15": [ "放入蛇蜕的护身符", "Shed Snakeskin Amulet", "蛇の抜け殻入りお守り" ],
+          "TH185_CARD_16": [ "半灵的一半", "Half of a Half-Ghost", "半霊の半分" ],
+          "TH185_CARD_17": [ "上海人偶", "Shanghai Doll", "上海人形" ],
+          "TH185_CARD_18": [ "Ice Fairy(冰之妖精)", "Ice Fairy", "アイスフェアリー" ],
+          "TH185_CARD_19": [ "背后之门", "Back Door", "背中の扉" ],
+          "TH185_CARD_20": [ "恼人的UFO", "Annoying UFO", "鬱陶しいUFO" ],
+          "TH185_CARD_21": [ "守财奴的教训", "Miser's Advice", "守銭奴の教訓" ],
+          "TH185_CARD_22": [ "向神山的贡品", "Offerings to the Mountain God", "神山への供物" ],
+          "TH185_CARD_23": [ "生命爆炸之药", "Life Explosion Elixir", "生命爆発の薬" ],
+          "TH185_CARD_24": [ "欺诈兔脚", "Fraudster Rabbit's Foot", "詐欺うさぎの足" ],
+          "TH185_CARD_25": [ "弱肉强食之理", "Law of the Survival of the Fittest", "弱肉強食の理" ],
+          "TH185_CARD_26": [ "法力经典", "Sutra of Dharmatic Power", "法力経典" ],
+          "TH185_CARD_27": [ "小石子帽子", "Pebble Hat", "小石ころ帽子" ],
+          "TH185_CARD_28": [ "爆裂赤蛙", "Bursting Red Frog", "はじける赤蛙" ],
+          "TH185_CARD_29": [ "疾风木屐", "Gale Geta", "疾風の下駄" ],
+          "TH185_CARD_30": [ "偶像防卫队", "Idol Defense Corps", "偶像防衛隊" ],
+          "TH185_CARD_31": [ "辉夜姬的秘密宝箱", "Princess Kaguya's Secret Stash", "かぐや姫の隠し箱" ],
+          "TH185_CARD_32": [ "可靠的弟子狸", "Reliable Tanuki Apprentice", "頼りになる弟子狸" ],
+          "TH185_CARD_33": [ "弹幕的亡灵", "Danmaku Ghost", "弾幕の亡霊" ],
+          "TH185_CARD_34": [ "鬼杰组长的恐吓", "Kiketsu Matriarch's Threat", "鬼傑組長の脅嚇" ],
+          "TH185_CARD_35": [ "有钱能使鬼推磨", "Money is the Best Lawyer in Hell", "地獄の沙汰も金次第" ],
+          "TH185_CARD_36": [ "肉体强化地藏", "Physical Enhancement Jizo", "肉体強化地蔵" ],
+          "TH185_CARD_37": [ "魔法使的基础魔法", "Magician's Basic Study", "魔法使いの基礎勉強" ],
+          "TH185_CARD_38": [ "擅长做生意的招财猫", "Manekineko with Good Business Skills", "商売上手な招き猫" ],
+          "TH185_CARD_39": [ "山童式购物术", "Yamawaro Shopping Technique", "山童的買い物術" ],
+          "TH185_CARD_40": [ "Dragon Khsier(龙之烟管)", "Dragon Pipe", "ドラゴンキセル" ],
+          "TH185_CARD_41": [ "画面的界线", "Screen Border", "画面の境界" ],
+          "TH185_CARD_42": [ "万宝槌", "Miracle Mallet", "打ち出の小槌" ],
+          "TH185_CARD_43": [ "忍耐的要石", "Keystone of Endurance", "忍耐の要石" ],
+          "TH185_CARD_44": [ "狂气之月", "Lunatic Moon", "狂気の月" ],
+          "TH185_CARD_45": [ "崇高的威光", "Esteemed Authority", "やんごとなき威光" ],
+          "TH185_CARD_46": [ "Vampire Fang(吸血鬼之牙)", "Vampire Fang", "ヴァンパイアファング" ],
+          "TH185_CARD_47": [ "地底的太阳", "Subterranean Sun", "地底の太陽" ],
+          "TH185_CARD_48": [ "道具的季节", "Item Season", "アイテムの季節" ],
+          "TH185_CARD_49": [ "重低音大太鼓", "Heavy Bass Drum", "重低音バスドラム" ],
+          "TH185_CARD_50": [ "Psychokinesis(超能念力)", "Psychokinesis", "サイコキネシス" ],
+          "TH185_CARD_51": [ "太古的勾玉", "Ancient Magatama", "太古の勾玉" ],
+          "TH185_CARD_52": [ "灵力的标本瓶", "Spirit Power Sample Bottle", "霊力の標本瓶" ],
+          "TH185_CARD_53": [ "大天狗的麦饭", "Great Tengu's Barley Rice", "大天狗の麦飯" ],
+          "TH185_CARD_54": [ "暴食的蜈蚣", "Gluttonous Centipede", "暴食のムカデ" ],
+          "TH185_CARD_55": [ "攻击性宝塔", "Offensive Jeweled Pagoda", "攻撃的な宝塔" ],
+          "TH185_CARD_56": [ "静谧的闪耀", "Peaceful Radiance", "静かなる輝き" ],
+          "TH185_CARD_57": [ "疯狂的寂静", "Maddening Stillness", "狂おしい静寂" ],
+          "TH185_CARD_58": [ "熙攘的无力感", "Lively Powerlessness", "賑やかな無力" ],
+          "TH185_CARD_59": [ "破坏的美学", "Aesthetics of Destruction", "破壊の美学" ],
+          "TH185_CARD_60": [ "龙脉", "The Dragon's Path", "龍の通り道" ],
+          "TH185_CARD_61": [ "关门放狛犬", "Ferocious Komainu", "けしかける狛犬" ],
+          "TH185_CARD_62": [ "难以抗拒的朱莉安娜羽扇", "Irresistible Feathered Fan", "抗いがたきジュリ扇" ],
+          "TH185_CARD_63": [ "烟熏的团扇", "Soot-covered Uchiwa", "煤けた団扇" ],
+          "TH185_CARD_64": [ "对造形神来说很简单的事", "No Problem for a Creator!", "クリエイターなら容易な事" ],
+          "TH185_CARD_65": [ "着陆之兔", "The Rabbit Has Landed", "舞い降りた兎" ],
+          "TH185_CARD_66": [ "想要去数的羊", "Sheep You Want to Count", "数えたくなる羊" ],
+          "TH185_CARD_67": [ "纯粹的自我肯定感", "Pristine Self-Confidence", "純粋な自己肯定感" ],
+          "TH185_CARD_68": [ "资本主义的困境", "Capitalist's Dilemma", "資本主義のジレンマ" ],
+          "TH185_CARD_69": [ "第一百次黑市", "Hundredth Black Market", "百回目のブラックマーケット" ],
+          "TH185_CARD_70": [ "生命的丰穰", "Bumper Crop of Life", "生命の豊穣" ],
+          "TH185_CARD_71": [ "刺激性的鱗粉", "Stimulating Scales", "刺激的な鱗粉" ],
+          "TH185_CARD_72": [ "山姥的菜刀", "Yamanba's Kitchen Knife", "山姥の包丁" ],
+          "TH185_CARD_73": [ "若鹭的鱼鳞", "Smelt's Scales", "わかさぎの鱗" ],
+          "TH185_CARD_74": [ "自由自在的飞头", "Freewheeling Severed Head", "自由気ままな生首" ],
+          "TH185_CARD_75": [ "湿润的巨蛇", "Drenched Giant Snake", "濡れた大蛇" ],
+          "TH185_CARD_76": [ "太过正直的路标", "Too-Honest Signpost", "正直すぎる道しるべ" ],
+          "TH185_CARD_77": [ "急渡三途路远甚", "Hasty Detour of the Three Crossings", "急がば三途の回り道" ],
+          "TH185_CARD_78": [ "任性的无脊椎动物", "Laid-Back Invertebrate", "気ままな無脊椎動物" ],
+          "TH185_CARD_79": [ "备用半灵", "Half-Ghost's Spare Part", "半霊のスペア" ],
+          "TH185_CARD_80": [ "闪避布", "Nimble Fabric", "ひらり布" ],
+          "TH185_CARD_81": [ "要石导弹", "Keystone Missile", "要石ミサイル" ],
+          "TH185_CARD_82": [ "点燃生命的火把", "Life-Burning Torch", "命を焚く松明" ],
+          "TH185_CARD_83": [ "不屈的简单头脑", "Indominable Meathead", "不屈の脳筋" ],
+          "TH185_CARD_84": [ "耍酒疯的伊吹瓢", "Drunkenly Whimsical Ibuki Gourd", "酔狂の伊吹瓢" ],
+          "TH185_CARD_85": [ "茶杯灵梦", "Teacup Reimu", "ゆのみ霊夢" ],
+          "TH185_CARD_86": [ "茶杯魔理沙", "Teacup Marisa", "ゆのみ魔理沙" ]
+      },
+
+      "groups": {
+        "TH185_CARD_LIST": [
+          "TH185_CARD_01",
+          "TH185_CARD_02",
+          "TH185_CARD_03",
+          "TH185_CARD_04",
+          "TH185_CARD_05",
+          "TH185_CARD_06",
+          "TH185_CARD_07",
+          "TH185_CARD_08",
+          "TH185_CARD_09",
+          "TH185_CARD_10",
+          "TH185_CARD_11",
+          "TH185_CARD_12",
+          "TH185_CARD_13",
+          "TH185_CARD_14",
+          "TH185_CARD_15",
+          "TH185_CARD_16",
+          "TH185_CARD_17",
+          "TH185_CARD_18",
+          "TH185_CARD_19",
+          "TH185_CARD_20",
+          "TH185_CARD_21",
+          "TH185_CARD_22",
+          "TH185_CARD_23",
+          "TH185_CARD_24",
+          "TH185_CARD_25",
+          "TH185_CARD_26",
+          "TH185_CARD_27",
+          "TH185_CARD_28",
+          "TH185_CARD_29",
+          "TH185_CARD_30",
+          "TH185_CARD_31",
+          "TH185_CARD_32",
+          "TH185_CARD_33",
+          "TH185_CARD_34",
+          "TH185_CARD_35",
+          "TH185_CARD_36",
+          "TH185_CARD_37",
+          "TH185_CARD_38",
+          "TH185_CARD_39",
+          "TH185_CARD_40",
+          "TH185_CARD_41",
+          "TH185_CARD_42",
+          "TH185_CARD_43",
+          "TH185_CARD_44",
+          "TH185_CARD_45",
+          "TH185_CARD_46",
+          "TH185_CARD_47",
+          "TH185_CARD_48",
+          "TH185_CARD_49",
+          "TH185_CARD_50",
+          "TH185_CARD_51",
+          "TH185_CARD_52",
+          "TH185_CARD_53",
+          "TH185_CARD_54",
+          "TH185_CARD_55",
+          "TH185_CARD_56",
+          "TH185_CARD_57",
+          "TH185_CARD_58",
+          "TH185_CARD_59",
+          "TH185_CARD_60",
+          "TH185_CARD_61",
+          "TH185_CARD_62",
+          "TH185_CARD_63",
+          "TH185_CARD_64",
+          "TH185_CARD_65",
+          "TH185_CARD_66",
+          "TH185_CARD_67",
+          "TH185_CARD_68",
+          "TH185_CARD_69",
+          "TH185_CARD_70",
+          "TH185_CARD_71",
+          "TH185_CARD_72",
+          "TH185_CARD_73",
+          "TH185_CARD_74",
+          "TH185_CARD_75",
+          "TH185_CARD_76",
+          "TH185_CARD_77",
+          "TH185_CARD_78",
+          "TH185_CARD_79",
+          "TH185_CARD_80",
+          "TH185_CARD_81",
+          "TH185_CARD_82",
+          "TH185_CARD_83",
+          "TH185_CARD_84",
+          "TH185_CARD_85",
+          "TH185_CARD_86"
+        ]
       }
   },
   "th19": {

@@ -1693,7 +1693,7 @@ private:
         ImGui::TextUnformatted(S(THPRAC_SETTING_LAUNCHER));
         ImGui::Separator();
         int theme_prev = mCfgTheme.Get();
-        if (mCfgTheme.Gui("Theme:", "Dark\0Light\0Classic\0Custom\0\0")) {
+        if (mCfgTheme.Gui(S(THPRAC_THEME), "Dark\0Light\0Classic\0Custom\0\0")) {
             int Sus = 0;
             if (mCfgTheme.Get() > 2) {
                 UpdateThemesList();
@@ -1747,6 +1747,12 @@ private:
             ImGui::TextUnformatted(th_glossary_str[mCfgLanguage.Get()][THPRAC_LANGUAGE_HINT]);
         }
         ImGui::NewLine();
+
+        ImGui::TextUnformatted(S(THPRAC_ADVANCED_OPTION));
+        ImGui::Separator();
+        mRenderOnlyUsedGlyphs.Gui(S(THPRAC_RENDER_ONLY_USED_GLYPHS), S(THPRAC_RENDER_ONLY_USED_GLYPHS_DESC));
+        ImGui::NewLine();
+
 
         ImGui::TextUnformatted(S(THPRAC_SETTING_UPDATE));
         ImGui::Separator();
@@ -1802,10 +1808,7 @@ private:
         if (ImGui::Button(S(TH_ABOUT_SHOW_LICENCE))) {
             mGuiUpdFunc = [&]() { GuiLicenceWnd(); };
         }
-        ImGui::NewLine();
-        ImGui::TextUnformatted(S(TH_ABOUT_AUTHOR));
         TextLink(S(TH_ABOUT_WEBSITE), L"https://github.com/touhouworldcup/thprac");
-        ImGui::NewLine();
         ImGui::Text(S(TH_ABOUT_THANKS), "You!");
     }
 
@@ -1825,6 +1828,7 @@ private:
     THCfgCombo mExistingGameAction { "existing_game_launch_action", 0, 3 };
     THCfgCheckbox mDontSearchOngoingGame { "dont_search_ongoing_game", false };
     THCfgCheckbox mAdminRights { "thprac_admin_rights", false };
+    THCfgCheckbox mRenderOnlyUsedGlyphs { "render_only_used_glyphs", false };
     THCfgCombo mCheckUpdateTiming { "check_update_timing", 0, 3 };
     THCfgCheckbox mUpdateWithoutConfirm { "update_without_confirmation", false };
     THCfgCombo mFilenameAfterUpdate { "filename_after_update", 0, 3 };

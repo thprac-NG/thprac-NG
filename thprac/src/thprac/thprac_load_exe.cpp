@@ -58,6 +58,26 @@ unsigned char INJECT_SHELLCODE[] = {
 
 static_assert(sizeof(INJECT_SHELLCODE) % 16 == 0);
 
+PIMAGE_NT_HEADERS GetNtHeader(HMODULE hMod)
+{
+    if (!hMod) {
+        return 0;
+    }
+    PIMAGE_DOS_HEADER pDosH = (PIMAGE_DOS_HEADER)hMod;
+    PIMAGE_NT_HEADERS pNTH = (PIMAGE_NT_HEADERS)((UINT_PTR)pDosH + pDosH->e_lfanew);
+    return pNTH;
+}
+
+void* GetNtDataDirectory(HMODULE hMod, BYTE directory)
+{
+    if (PIMAGE_NT_HEADERS pNTH = GetNtHeader(hMod)) {
+        if (UINT_PTR DirVA = pNTH->OptionalHeader.DataDirectory[directory].VirtualAddress) {
+            return (BYTE*)hMod + DirVA;
+        }
+    }
+    return NULL;
+}
+
 uintptr_t GetGameModuleBase(HANDLE hProc)
 {
     PROCESS_BASIC_INFORMATION pbi;
@@ -70,6 +90,63 @@ uintptr_t GetGameModuleBase(HANDLE hProc)
     ReadProcessMemory(hProc, based, &ret, sizeof(ret), &byteRet);
 
     return ret;
+}
+
+THGameSig* CheckOngoingGameByPID(DWORD pid, uintptr_t* base, HANDLE* pOutHandle)
+{
+    // Open the related process
+    auto hProc = OpenProcess(
+        // PROCESS_SUSPEND_RESUME |
+        PROCESS_QUERY_INFORMATION | PROCESS_CREATE_THREAD | PROCESS_VM_OPERATION | PROCESS_VM_READ | PROCESS_VM_WRITE,
+        FALSE,
+        pid);
+    if (!hProc)
+        return nullptr;
+
+    *base = GetGameModuleBase(hProc);
+    if (!*base) {
+        return nullptr;
+    }
+
+    // Check THPrac signature
+    DWORD sigAddr = 0;
+    DWORD sigCheck = 0;
+    DWORD bytesReadRPM;
+    ReadProcessMemory(hProc, (void*)(*base + 0x3c), &sigAddr, 4, &bytesReadRPM);
+    if (bytesReadRPM != 4 || !sigAddr) {
+        CloseHandle(hProc);
+        return nullptr;
+    }
+    ReadProcessMemory(hProc, (void*)(*base + sigAddr - 4), &sigCheck, 4, &bytesReadRPM);
+    if (bytesReadRPM != 4 || sigCheck) {
+        CloseHandle(hProc);
+        return nullptr;
+    }
+
+    ExeSig sig;
+    if (GetExeInfoEx((size_t)hProc, *base, sig)) {
+        for (auto& gameDef : gGameDefs) {
+            if (gameDef.catagory != CAT_MAIN && gameDef.catagory != CAT_SPINOFF_STG) {
+                continue;
+            }
+            if (gameDef.exeSig.textSize != sig.textSize || gameDef.exeSig.timeStamp != sig.timeStamp) {
+                continue;
+            }
+            if (pOutHandle) {
+                *pOutHandle = hProc;
+            } else {
+                CloseHandle(hProc);
+            }
+            return &gameDef;
+        }
+    }
+    // I should not have to do this...
+    if (pOutHandle) {
+        *pOutHandle = hProc;
+    } else {
+        CloseHandle(hProc);
+    }
+    return nullptr;
 }
 
 bool WriteTHPracSig(HANDLE hProc, uintptr_t base)
